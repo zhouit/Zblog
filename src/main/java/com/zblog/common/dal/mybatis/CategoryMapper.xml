@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zblog.common.dal.mapper.CategoryMapper">
+
+   <select id="list" resultType="MapContainer">  
+      select id, text, level,visible from view_category
+   </select>
+   
+   <select id="loadByName" parameterType="java.lang.String" resultType="Category">  
+      select id, name,leftv, rightv, visible from category where name = #{name}
+   </select>
+   
+   <insert id="insert" parameterType="Category">
+      insert into category(id,name,leftv,rightv,visible,createTime) 
+         values(#{id},#{name},#{leftv},#{rightv},#{visible},#{createTime})
+   </insert>
+   
+   <update id="addLeftv" parameterType="int">
+     update category set leftv=leftv+2 where leftv>#{rightv}
+   </update>
+   <update id="addRightv" parameterType="int">
+     update category set rightv=rightv+2 where rightv>=#{rightv}
+   </update>
+
+   <delete id="deleteById">
+	 delete from category where id = #{id}
+  </delete>
+	
+</mapper>

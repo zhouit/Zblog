@@ -1,0 +1,55 @@
+a,a:hover,a:focus{text-decoration: none;outline: medium none;}
+h1, h2, h3, h4, h5, h6,p{margin: 0;padding: 0;}
+
+.icon{padding-right: 0.75em;}
+#sidebar{overflow-x: hidden;padding: 20px;border-right: 1px solid #cccccc;}
+
+
+/****************** side-menu  **************/
+ul{list-style: none outside none;padding: 0;}
+.side-menu a{display: block;}
+.side-menu ul a:hover{background-color: #d2d2dd;}
+.side-menu ul a.last{border-bottom: 1px solid #c8c8cb;}
+.side-menu i.left, .side-menu i.right{display: inline-block;  line-height: 2.25em;padding-right: 0.75em;}
+.side-menu i.right{float: right;}
+.side-menu .nav-header{background: rgb(239, 239, 240);color: #444;
+    border-bottom: 1px solid #c8c8cb;border-left: medium none;
+    font-size: 1em;font-weight: normal;
+    line-height: 2.5em;height: 40px;
+    margin-bottom: 0;padding: 0.25em 0.25em 0.25em 1em;}
+/* .side-menu .sub-menu{display: none;} */
+.side-menu .sub-menu a{padding: 0.5em 1em; color: #222;line-height: 20px;}
+
+.header{margin-top: 20px;}
+.header small{font-size: 12px;margin-left: 10px;}
+
+
+.databox{background-color: #f5f5f5;float: left;height: 80px;width: 100%;border-radius: 4px;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);}
+.sybomol_red{background-color: #f16868;text-align: center;border-radius: 4px 0 0 4px;}
+.sybomol_terques{background-color: #6ccac9;text-align: center;border-radius: 4px 0 0 4px;}
+.sybomol_blue{background-color: #57c8f2;text-align: center;border-radius: 4px 0 0 4px;}
+.sybomol_yellow{background-color: #f8d347;text-align: center;border-radius: 4px 0 0 4px;}
+.sybomol{float: left;height: 100%;width: 45%;}
+.sybomol i{margin-top: 35px;}
+.value{color: #666;float: left;font-size: 35px;height: 100%;text-align: center;width: 55%;}
+.value p{font-size: 14px;}
+
+/***************  后台首页   **************/
+ul.ul-group li{padding: 5px 0;}
+
+
+/***************  post ***************/
+#post-table th.center,#post-table td.center{text-align: center;}
+
+/************  form  ****************/
+form.text-left label{font-weight: normal;text-align: left;padding-top: 7px;padding-left: 40px;}
+
+
+/**************** pager **********/
+#pager{float: right;padding-right: 15px;}
+#pager ul{margin: 0;}
+.page-info{line-height: 25px;padding-top: 5px;}
+
+.footer{position: absolute;bottom: 0;width: 100%;height: 60px;background-color: #f5f5f5;}
+.footer .text-muted{margin: 20px 0;}
+.footer > .container {padding-right: 15px;padding-left: 15px;}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zblog.common.dal.mapper.CommentMapper">
+   
+   <select id="loadById" parameterType="java.lang.String" resultType="Comment">  
+      select id, postid, parent, email, url, ip, agent, content, approved, creator, createTime from comment where id = #{id}
+   </select>
+   
+   <select id="list" parameterType="PageModel" resultType="MapContainer">  
+   </select>
+   
+   <insert id="insert" parameterType="Comment">
+      insert into comment(id,postid, parent, email, url, ip, agent,content,approved, creator, createTime) 
+         values(#{id},#{postid},#{parent},#{email},#{url},#{ip},#{agent},#{content},#{approved},#{creator},#{createTime})
+   </insert>
+
+   <delete id="deleteById">
+	 delete from comment where id = #{id}
+  </delete>
+	
+</mapper>

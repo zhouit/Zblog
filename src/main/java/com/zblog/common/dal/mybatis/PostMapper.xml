@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zblog.common.dal.mapper.PostMapper">
+   
+   <select id="loadById" parameterType="java.lang.String" resultType="Post">  
+      select id, title,excerpt, content, categoryid, ccount, rcount, creator, lastUpdate from post where id = #{id}
+   </select>
+   
+   <select id="list" parameterType="PageModel" resultType="MapContainer">  
+      select p.id, title,excerpt,c.name as category content,ccount, p.creator, p.lastUpdate
+          from post p left join category c in p.categoryid=c.id where p.type=#{query.type}
+   </select>
+   
+   <insert id="insert" parameterType="Post">
+      insert into post(id,title,excerpt,content,type,parent,categoryid,pstatus,cstatus,ccount,createTime,creator,lastUpdate) 
+         values(#{id},#{title},#{excerpt},#{content, jdbcType=CLOB},#{type},#{parent},#{categoryid},#{pstatus},#{cstatus},#{ccount},#{createTime},#{creator},#{lastUpdate})
+   </insert>
+
+   <delete id="deleteById">
+	 delete from post where id = #{id}
+  </delete>
+	
+</mapper>

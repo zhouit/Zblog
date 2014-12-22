@@ -1,0 +1,41 @@
+<div id="header">
+  <div id="menu" class="clearfix">
+    <ul>
+      <li><a href="${domain}/index.html">首页</a>
+        <ul>
+          <li><a href="${domain}/backend/login">登录</a></li>
+        </ul>
+      </li>
+<#--       <li><a href="${domain}/categorys/Java">Java</a>
+        <ul class="sub-menu">
+          <li><a href="${domain}/categorys/JavaSE">JavaSE</a></li>
+          <li><a href="${domain}/categorys/JavaEE">JavaEE</a></li>
+          <li><a href="${domain}/categorys/JavaFX">JavaFX</a></li>
+        </ul>
+      </li>
+      <li><a href="${domain}/categorys/DataBase">DataBase</a></li> -->
+      
+      <#list categorys as category>
+        <li><a href="${domain}/categorys/${category.text}">${category.text}</a>
+        <#if (category.nodes?exists && category.nodes?size>0) >
+         <ul class="sub-menu">
+          <#list category.nodes as subcategory >
+             <li><a href="${domain}/categorys/${subcategory.text}">${subcategory.text}</a></li>
+          </#list>
+          </ul>
+        </#if>
+        </li>
+      </#list> 
+      
+      <li><a href="${domain}/about/comment">本站留言</a></li>
+      <li><a href="${domain}/about/about">关于本站</a>
+        <ul>
+          <li><a href="${domain}/about/comment">关于博主</a></li>
+          <li><a href="${domain}/about/ads">广告合作</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <h1 id="logo"><a href="${domain}/">JavaTalk - zhouhaocheng.cn</a></h1>
+  <h2 id="tagline">赚够钱,背着画板去旅行</h2>
+</div>

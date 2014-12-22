@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <typeAliases>
+    <!-- 给实体Bean一个别名 -->
+    <typeAlias alias="MapContainer" type="com.zblog.common.plugin.MapContainer"/>
+    <typeAlias alias="PageModel" type="com.zblog.common.plugin.PageModel"/>
+    
+    <typeAlias alias="User" type="com.zblog.common.dal.entity.User"/>
+    <typeAlias alias="Category" type="com.zblog.common.dal.entity.Category"/>
+    <typeAlias alias="Post" type="com.zblog.common.dal.entity.Post"/>
+    <typeAlias alias="Link" type="com.zblog.common.dal.entity.Link"/>
+  </typeAliases>
+  <mappers>
+    <mapper resource="com/zblog/common/dal/mybatis/UserMapper.xml" />
+    <mapper resource="com/zblog/common/dal/mybatis/CategoryMapper.xml" />
+    <mapper resource="com/zblog/common/dal/mybatis/PostMapper.xml" />
+    <mapper resource="com/zblog/common/dal/mybatis/LinkMapper.xml" />
+  </mappers>
+</configuration>

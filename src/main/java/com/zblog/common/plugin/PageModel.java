@@ -1,0 +1,128 @@
+package com.zblog.common.plugin;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 
+ * @author zhou 数据库分页组件 在service层构造PageModel,添加查询参数insertQuery 在sql中不用写limit语句
+ * 
+ */
+public class PageModel{
+  private static final int PAGE_SIZE = 10;
+
+  private int pageIndex;
+  private int pageSize;
+  private long totalCount;
+
+  // 多表组合时使用
+  private List<MapContainer> content;
+  // 查询参数
+  private MapContainer query;
+  
+  //映射文件ID
+  private String statement;
+
+  public PageModel(int pageIndex){
+    this(pageIndex, PAGE_SIZE);
+  }
+
+  public PageModel(int pageIndex, int pageSize){
+    this.pageIndex = pageIndex;
+    this.pageSize = pageSize;
+    this.query = new MapContainer();
+    this.content = new ArrayList<MapContainer>();
+  }
+  
+  public int getPageIndex(){
+    return pageIndex;
+  }
+
+  public int getPageSize(){
+    return pageSize;
+  }
+
+  public int getTotalPage(){
+    int pages = (int) (totalCount / pageSize);
+    if(totalCount % pageSize != 0)
+      pages++;
+
+    return pages;
+  }
+
+  public long getTotalCount(){
+    return totalCount;
+  }
+
+  public void setTotalCount(long totalCount){
+    this.totalCount = totalCount;
+  }
+
+  public String getStatement(){
+    return statement;
+  }
+
+  public void setStatement(String statement){
+    this.statement = statement;
+  }
+
+  public List<MapContainer> getContent(){
+    return content;
+  }
+
+  public void setContent(List<MapContainer> content){
+    this.content = content;
+  }
+
+  public void addContent(MapContainer mc){
+    content.add(mc);
+  }
+
+  public PageModel insertQuery(String key, Object value){
+    query.put(key, value);
+    return this;
+  }
+
+  public PageModel insertQuerys(MapContainer map){
+    if(map != null)
+      query.putAll(map);
+
+    return this;
+  }
+
+  public MapContainer getQuery(){
+    return query;
+  }
+
+  public Object removeQuery(String key){
+    return query.remove(key);
+  }
+
+  /**
+   * 生成查询数量sql
+   * 
+   * @return
+   */
+  public String countSql(String sql){
+//    int index = query.getSql().indexOf(" from ");
+//    String sql = "select count(*) " + query.getSql().substring(index);
+//    index = sql.indexOf("order by");
+//    sql = index == -1 ? sql : sql.substring(0, index);
+//    /* 只要有group by就使用子查询 */
+//    if(sql.indexOf("group by") != -1){
+//      sql = "select count(*) from ( " + sql + " ) _temp_";
+//    }
+
+    return "select count(*) from ( " + sql + " ) _temp_";
+  }
+
+  /**
+   * 生成分页sql
+   * 
+   * @return
+   */
+  public String pageSql(String sql){
+    return sql + " limit " + (getPageIndex() - 1) * getPageSize() + "," + getPageSize();
+  }
+
+}
