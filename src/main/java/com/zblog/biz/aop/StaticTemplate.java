@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.zblog.common.plugin.ApplicationContextUtil;
 import com.zblog.common.plugin.MapContainer;
@@ -13,6 +14,7 @@ import com.zblog.service.CategoryService;
 import com.zblog.service.LinkService;
 import com.zblog.template.FreeMarkerUtils;
 
+@Component
 public class StaticTemplate{
   private static final Logger logger = LoggerFactory.getLogger(StaticTemplate.class);
 
@@ -39,7 +41,7 @@ public class StaticTemplate{
     LinkService linksService = ApplicationContextUtil.getBean(LinkService.class);
 
     MapContainer map = new MapContainer();
-    map.put("links", linksService);
+    map.put("links", linksService.list());
 
     FreeMarkerUtils.genHtml("/common/link.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
         + "/common/link.html"), map);

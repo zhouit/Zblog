@@ -9,13 +9,13 @@
    </select>
    
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
-      select p.id, title,excerpt,c.name as category content,ccount, p.creator, p.lastUpdate
-          from post p left join category c in p.categoryid=c.id where p.type=#{query.type}
+      select p.id, title,excerpt,c.name as category,ccount, p.creator, p.lastUpdate
+          from post p left join category c on p.categoryid=c.id where p.type=#{query.type}
    </select>
    
    <insert id="insert" parameterType="Post">
-      insert into post(id,title,excerpt,content,type,parent,categoryid,pstatus,cstatus,ccount,createTime,creator,lastUpdate) 
-         values(#{id},#{title},#{excerpt},#{content, jdbcType=CLOB},#{type},#{parent},#{categoryid},#{pstatus},#{cstatus},#{ccount},#{createTime},#{creator},#{lastUpdate})
+      insert into post(id,title,excerpt,content,type,parent,categoryid,pstatus,cstatus,ccount,rcount,createTime,creator,lastUpdate) 
+         values(#{id},#{title},#{excerpt},#{content, jdbcType=CLOB},#{type},#{parent},#{categoryid},#{pstatus},#{cstatus},#{ccount},#{rcount},#{createTime},#{creator},#{lastUpdate})
    </insert>
 
    <delete id="deleteById">

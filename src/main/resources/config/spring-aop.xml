@@ -10,14 +10,15 @@
                            http://www.springframework.org/schema/aop 
                            http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
    
-  <bean id="template" class="com.zblog.biz.aop.StaticTemplate" />
+  <context:component-scan base-package="com.zblog.biz" />
   <aop:config proxy-target-class="true">
-    <aop:aspect ref="template">
+    <aop:aspect ref="staticTemplate">
       <!-- 定义切点· -->
       <aop:pointcut id="p-category" expression="execution(* com.zblog.service.CategoryService.insert*(..)) || execution(* com.zblog.service.CategoryService.remove*(..))" />
       <aop:after method="staticHeader" pointcut-ref="p-category" />
       
-      <aop:pointcut id="p-link" expression="execution(* com.zblog.service.LinkService.insert*(..)) || execution(* com.zblog.service.LinkService.remove*(..))" />
+      <!-- 注意:中间的必须用and 不能用 && -->
+      <aop:pointcut expression="target(com.zblog.service.LinkService) and (execution(* insert*(..)) || execution(* remove*(..)))" id="p-link" />
       <aop:after method="staticLinks" pointcut-ref="p-link" />
     </aop:aspect>
   </aop:config>

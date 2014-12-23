@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zblog.common.dal.mapper.UploadMapper">
+   
+   <select id="loadById" parameterType="java.lang.String" resultType="Upload">  
+      select id,postid,name,path,token,createTime from upload where id = #{id}
+   </select>
+   
+   <select id="list" parameterType="PageModel" resultType="MapContainer">  
+      select m.id, p.title, m.name, m.path, m.createTime from upload m left join post p on m.postid=p.id
+   </select>
+   
+   <insert id="insert" parameterType="Upload">
+      insert into upload(id,name,path,token,createTime) 
+         values(#{id},#{name},#{path},#{token},#{createTime})
+   </insert>
+   
+   <update id="updatePostid">
+     update upload set postid=#{postid} where token=#{uploadToken}
+   </update>
+
+   <delete id="deleteById">
+	 delete from upload where id = #{id}
+  </delete>
+	
+</mapper>

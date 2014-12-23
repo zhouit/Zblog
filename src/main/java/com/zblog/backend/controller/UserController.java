@@ -33,7 +33,7 @@ public class UserController{
     user.setId(IdGenarater.uuid19());
     user.setCreateTime(new Date());
     user.setLastUpdate(new Date());
-    return new MapContainer("success", userService.add(user));
+    return new MapContainer("success", userService.insert(user));
   }
 
 }

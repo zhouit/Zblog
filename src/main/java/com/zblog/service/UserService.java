@@ -8,7 +8,7 @@ import com.zblog.common.dal.mapper.UserMapper;
 import com.zblog.common.plugin.PageModel;
 
 @Service
-public class UserService extends BaseSevice{
+public class UserService extends BaseService{
   @Autowired
   private UserMapper userMapper;
 

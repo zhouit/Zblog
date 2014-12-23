@@ -65,7 +65,6 @@
                </div>
              </div>
              <div class="panel-footer">
-               <input type="hidden" name="type" value="post" />
                <button type="button" class="btn btn-info btn-block" onclick="zblog.post.insert();">发布</button>
              </div>
            </div>

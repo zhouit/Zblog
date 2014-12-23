@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zblog.common.dal.mapper.BaseMapper;
-import com.zblog.common.dal.mapper.LinkMapper;
+import com.zblog.common.dal.mapper.UploadMapper;
 import com.zblog.common.plugin.PageModel;
 
 @Service
-public class LinkService extends BaseService{
+public class UploadService extends BaseService{
   @Autowired
-  private LinkMapper linkMapper;
+  private UploadMapper postmetaMapper;
   
   public PageModel list(int pageIndex,int pageSize){
     PageModel pageModel=new PageModel(pageIndex, pageSize);
@@ -21,7 +21,7 @@ public class LinkService extends BaseService{
 
   @Override
   protected BaseMapper getMapper(){
-    return linkMapper;
+    return postmetaMapper;
   }
 
 }

@@ -30,7 +30,7 @@ $(function(){
   
   zblog.category.remove=function(){
 	var select = $("#tree .node-selected").text();
-	if(!text) return ;
+	if(!select) return ;
 	 $.ajax({
 	   type:"DELETE",
 	   url:"categorys/"+select,

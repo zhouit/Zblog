@@ -37,9 +37,16 @@ ul{list-style: none outside none;padding: 0;}
 /***************  后台首页   **************/
 ul.ul-group li{padding: 5px 0;}
 
+.list-table{border-color: #dfdfdf;border-radius: 3px;border-style: solid;border-width: 1px;}
+.list-table thead th:first-of-type, .list-table thead th:last-of-type{ border-top-left-radius: 3px;}
+.list-table a,.list-table thead tr th{color:#21759b;}
+.list-table thead tr th{ font-weight: normal;border-bottom: 1px solid #ddd;background: linear-gradient(to top, #ececec, #f9f9f9) repeat scroll 0 0 #f1f1f1;}
+.list-table th.center,.list-table td.center{text-align: center;}
 
 /***************  post ***************/
-#post-table th.center,#post-table td.center{text-align: center;}
+#post-table tr:hover .row-action{display: block;}
+#post-table .row-action{padding: 2px 0 0;}
+#post-table .row-action a{font-size: 12px;}
 
 /************  form  ****************/
 form.text-left label{font-weight: normal;text-align: left;padding-top: 7px;padding-left: 40px;}

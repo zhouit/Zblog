@@ -17,41 +17,24 @@
       <div class="col-sm-9 col-md-10">
         <ol class="breadcrumb header">
           <li><span class="icon glyphicon glyphicon-home"></span>主菜单</li>
-          <li class="active">文章</li>
+          <li class="active">多媒体</li>
         </ol>
         <div class="panel panel-default">
-          <div class="panel-heading"><span class="icon glyphicon glyphicon-list"></span>文章列表</div>
+          <div class="panel-heading"><span class="icon glyphicon glyphicon-list"></span>媒体库</div>
           <div class="panel-body">
            <table id="post-table" class="table table-striped list-table">
                <thead><tr>
-                 <th>标题</th>
+                 <th style="width: 80px;">文件</th>
+                 <th style="width: 30%"></th>
                  <th>作者</th>
-                 <th>分类</th>
+                 <th>上传至</th>
                  <th>日期</th>
                  <th class="center">操作</th>
                </tr></thead>
               <tbody>
-               <tr>
-                 <td><strong>数据库表的行列转换</strong>
-                     <div class="row-action">
-                       <span class="edit"><a href="#">编辑</a>&nbsp;|&nbsp;</span>
-                       <span class="trash"><a href="#">移到回收站</a>&nbsp;|&nbsp;</span>
-                       <span class="view"><a href="#">查看</a></span>
-                     </div></td>
-                 <td>admin</td>
-                 <td>DataBase</td>
-                 <td>2014-11-24</td>
-                 <td class="center"><span class="icon glyphicon glyphicon-pencil"></span>
-                    <span class="glyphicon glyphicon-trash"></span></td>
-               </tr>
-               <c:forEach items="${page.content}" var="post">
-                 <tr><td><strong>${post.title}</strong>
-                     <div class="row-action">
-                       <span class="edit"><a href="#">编辑</a>&nbsp;|&nbsp;</span>
-                       <span class="trash"><a href="#">移到回收站</a>&nbsp;|&nbsp;</span>
-                       <span class="view"><a href="#">查看</a></span>
-                     </div></td><td>${post.creator}</td>
-                     <td>${post.category}</td><td><fmt:formatDate value="${post.lastUpdate}" pattern="yyyy-MM-dd" /></td>
+               <c:forEach items="${page.content}" var="upload">
+                 <tr><td><img src="${upload.path}" width="80" /></td><td>${upload.name}</td>
+                      <td>${upload.creator}</td><td>${upload.title}</td><td><fmt:formatDate value="${upload.createTime}" pattern="yyyy-MM-dd"/></td>
                      <td class="center"><span class="icon glyphicon glyphicon-pencil"></span>
                        <span class="glyphicon glyphicon-trash"></span></td></tr>
                </c:forEach>

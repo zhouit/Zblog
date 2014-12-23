@@ -18,31 +18,41 @@ import com.zblog.common.util.StringUtils;
 import com.zblog.common.util.constants.CategoryConstants;
 
 @Service
-public class CategoryService extends BaseSevice{
+public class CategoryService extends BaseService{
   @Autowired
   private CategoryMapper categoryMapper;
-  
+
   @Transactional
   public boolean insertChildren(Category category, String parentName){
     Category parent = loadByName(StringUtils.isBlank(parentName) ? CategoryConstants.ROOT : parentName);
     category.setLeftv(parent.getRightv());
     category.setRightv(parent.getRightv() + 1);
 
-    categoryMapper.addLeftv(parent.getRightv());
-    categoryMapper.addRightv(parent.getRightv());
-    add(category);
+    categoryMapper.updateTnsertLeftv(parent.getRightv());
+    categoryMapper.updateInsertRightv(parent.getRightv());
+    insert(category);
 
     return true;
   }
-  
+
   @Transactional
   public boolean insertAfter(Category category, Category sbling){
-    category.setLeftv(sbling.getRightv()+1);
+    category.setLeftv(sbling.getRightv() + 1);
     category.setRightv(sbling.getRightv() + 2);
-    
-    categoryMapper.addLeftv(sbling.getRightv());
-    categoryMapper.addRightv(sbling.getRightv());
-    add(category);
+
+    categoryMapper.updateTnsertLeftv(sbling.getRightv());
+    categoryMapper.updateInsertRightv(sbling.getRightv());
+    insert(category);
+
+    return true;
+  }
+
+  public boolean remove(String cname){
+    Category parent = loadByName(cname);
+    int length = parent.getRightv() - parent.getLeftv()+1;
+    categoryMapper.updateDeleteLeftv(parent.getLeftv(), length);
+    categoryMapper.updateDeleteRightv(parent.getRightv(), length);
+    categoryMapper.delete(parent.getLeftv(), parent.getRightv());
     
     return true;
   }
@@ -61,7 +71,7 @@ public class CategoryService extends BaseSevice{
     root.setName(CategoryConstants.ROOT);
     root.setRightv(2);
     root.setCreateTime(new Date());
-    add(root);
+    insert(root);
   }
 
   public Category loadByName(String name){

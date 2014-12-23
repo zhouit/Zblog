@@ -46,9 +46,9 @@
               <div class="panel-heading"><span class="icon glyphicon glyphicon-certificate"></span>系统信息</div>
               <div class="panel-body">
                 <ul class="list-unstyled ul-group">
-                  <li>操作系统: Windows 7</li>
-                  <li>Java环境: java7u67</li>
-                  <li>系统内存: 512M</li>
+                  <li>操作系统: ${osname}</li>
+                  <li>Java环境: Java ${javaVersion}</li>
+                  <li>系统内存: ${memory}M</li>
                 </ul>
               </div>
             </div>

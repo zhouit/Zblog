@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zblog.common.dal.entity.Post;
@@ -23,24 +24,25 @@ public class PostController{
   private CategoryService categoryService;
 
   @RequestMapping(method = RequestMethod.GET)
-  public String index(){
+  public String index(@RequestParam(value = "page", defaultValue = "1") int page, Model model){
+    model.addAttribute("page", postService.listPost(page, 15));
     return "backend/post/list";
   }
 
   @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
-  public Object insert(Post post, String txt){
+  public Object insert(Post post, String txt, String uploadToken){
     post.setId(postService.createId());
-    post.setCreateTime(new Date());
     post.setLastUpdate(new Date());
     post.setCreator("admin");
-    postService.add(post);
+    postService.insert(post, uploadToken);
     return new MapContainer("success", true);
   }
 
   @RequestMapping(value = "/edit", method = RequestMethod.GET)
   public String edit(Model model){
     model.addAttribute("categorys", categoryService.list());
+
     return "backend/post/edit";
   }
 

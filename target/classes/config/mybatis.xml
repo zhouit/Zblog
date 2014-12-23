@@ -10,12 +10,14 @@
     <typeAlias alias="User" type="com.zblog.common.dal.entity.User"/>
     <typeAlias alias="Category" type="com.zblog.common.dal.entity.Category"/>
     <typeAlias alias="Post" type="com.zblog.common.dal.entity.Post"/>
+    <typeAlias alias="Upload" type="com.zblog.common.dal.entity.Upload"/>
     <typeAlias alias="Link" type="com.zblog.common.dal.entity.Link"/>
   </typeAliases>
   <mappers>
     <mapper resource="com/zblog/common/dal/mybatis/UserMapper.xml" />
     <mapper resource="com/zblog/common/dal/mybatis/CategoryMapper.xml" />
     <mapper resource="com/zblog/common/dal/mybatis/PostMapper.xml" />
+    <mapper resource="com/zblog/common/dal/mybatis/UploadMapper.xml" />
     <mapper resource="com/zblog/common/dal/mybatis/LinkMapper.xml" />
   </mappers>
 </configuration>

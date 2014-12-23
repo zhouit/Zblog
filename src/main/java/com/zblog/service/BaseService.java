@@ -8,9 +8,9 @@ import com.zblog.common.dal.mapper.BaseMapper;
 import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.plugin.PageModel;
 
-public abstract class BaseSevice{
+public abstract class BaseService{
 
-  public <T extends BaseEntity> int add(T t){
+  public <T extends BaseEntity> int insert(T t){
     t.setCreateTime(new Date());
 
     return getMapper().insert(t);

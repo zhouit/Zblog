@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,9 +41,9 @@ public class CategoryController{
   }
 
   @ResponseBody
-  @RequestMapping(value = "/{categoryId}", method = RequestMethod.DELETE)
-  public Object remove(String categoryId){
-    categoryService.deleteById(categoryId);
+  @RequestMapping(value = "/{categoryName}", method = RequestMethod.DELETE)
+  public Object remove(@PathVariable String categoryName){
+    categoryService.remove(categoryName);
     return new MapContainer("success", true);
   }
 

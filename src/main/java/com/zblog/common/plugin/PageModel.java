@@ -20,9 +20,6 @@ public class PageModel{
   // 查询参数
   private MapContainer query;
   
-  //映射文件ID
-  private String statement;
-
   public PageModel(int pageIndex){
     this(pageIndex, PAGE_SIZE);
   }
@@ -56,14 +53,6 @@ public class PageModel{
 
   public void setTotalCount(long totalCount){
     this.totalCount = totalCount;
-  }
-
-  public String getStatement(){
-    return statement;
-  }
-
-  public void setStatement(String statement){
-    this.statement = statement;
   }
 
   public List<MapContainer> getContent(){
