@@ -72,6 +72,9 @@ body.custom-background{background-attachment: scroll;background-image: url("../i
 #post_mask{box-shadow:-1px 0px 3px 0px #888; position:absolute; top:0px; right:0%; width:86%; min-height:100%; background:#fff url(../img/right_bg.gif) repeat-y right top; z-index:2; }
 
 #left_col{float: left;margin: 230px -340px 0 0;width: 100%;z-index: 1000;}
+#archive_headline{float: right;position: relative;width: 86%;z-index: 3;}
+#archvie_headline h2{font-size: 14px;margin: 0 340px 0 0;padding: 45px 4%;}
+
 .post_wrap{clear: right;}
 .post{ float: right;position: relative;width: 86%;z-index: 3;}
 .post .title{display: block;font-size: 20px;font-weight: normal;line-height: 140%;margin: 0 0 0 -5px;

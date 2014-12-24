@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE Html>
 <html>
@@ -9,6 +10,9 @@
    <%@include file="common/header.html" %>
    <div id="content" class="clearfix">
      <div id="left_col">
+       <c:if test="${categoryName!=null}">
+         <div id="archvie_headline"><h2>'${categoryName}'目录归档</h2></div>
+       </c:if>
        <div class="post_wrap clearfix">
          <div class="post">
            <h3 class="title"><a href="posts/20141238">《C#并发编程经典实例》—— 超时</a></h3>

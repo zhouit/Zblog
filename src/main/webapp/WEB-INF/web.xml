@@ -42,7 +42,6 @@
     <listener-class>com.zblog.web.listener.ContextListener</listener-class>
   </listener>
 
-
   <servlet>
     <servlet-name>Zblog</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -79,7 +78,7 @@
 
   <!-- 设置Session时长:以分钟为单位;如果是零或负数,那么会话就永远不会超时。 -->
   <session-config>
-    <session-timeout>480</session-timeout>
+    <session-timeout>1</session-timeout>
   </session-config>
 
   <!-- 缺省首页 -->

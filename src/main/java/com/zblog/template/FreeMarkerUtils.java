@@ -9,7 +9,6 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.constants.Constants;
 
 import freemarker.cache.NullCacheStorage;
@@ -34,7 +33,7 @@ public class FreeMarkerUtils{
     }
   }
 
-  public static boolean genHtml(String name, File out, MapContainer param){
+  public static boolean genHtml(String name, File out, Object param){
     boolean result = true;
     OutputStreamWriter writer = null;
     try{

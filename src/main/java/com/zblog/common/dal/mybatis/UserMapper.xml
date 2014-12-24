@@ -8,6 +8,11 @@
       select id, nickName,realName, email, status, createTime, creator, lastUpdate from user where id = #{id}
    </select>
    
+   <select id="loadByNameAndPass" resultType="User">  
+      select id, nickName,realName, email, status, createTime, creator, lastUpdate 
+         from user where nickName = #{username} and password=md5(#{password}) 
+   </select>
+   
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
       select id, nickName,realName, email from user 
    </select>

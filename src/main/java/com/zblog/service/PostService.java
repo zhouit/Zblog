@@ -1,5 +1,7 @@
 package com.zblog.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +10,7 @@ import com.zblog.common.dal.entity.Post;
 import com.zblog.common.dal.mapper.BaseMapper;
 import com.zblog.common.dal.mapper.PostMapper;
 import com.zblog.common.dal.mapper.UploadMapper;
+import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.plugin.PageModel;
 import com.zblog.common.util.DateUtils;
 import com.zblog.common.util.constants.PostConstants;
@@ -23,6 +26,20 @@ public class PostService extends BaseService{
     PageModel page = new PageModel(pageIndex, pageSize);
     page.insertQuery("type", PostConstants.TYPE_POST);
     super.list(page);
+    return page;
+  }
+  
+  public List<MapContainer> listRecent(){
+    return postMapper.listRecent();
+  }
+  
+  public PageModel listByCategory(String categoryName,int pageIndex,int pageSize){
+    PageModel page = new PageModel(pageIndex, pageSize);
+    page.insertQuery("type", PostConstants.TYPE_POST);
+    page.insertQuery("categoryName", categoryName);
+    List<MapContainer> content=postMapper.listByCategory(page);
+    page.setContent(content);
+    
     return page;
   }
 

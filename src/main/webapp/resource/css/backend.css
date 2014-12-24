@@ -1,6 +1,15 @@
 a,a:hover,a:focus{text-decoration: none;outline: medium none;}
 h1, h2, h3, h4, h5, h6,p{margin: 0;padding: 0;}
 
+/**************  login  ************/
+
+#login h1{margin-bottom: 15px;}
+#login h1 img{margin-left: 15px;}
+#login #loginform{background-color:#fff;border: 1px solid #e5e5e5;
+    box-shadow: 0 4px 10px -1px rgba(200, 200, 200, 0.7);
+    font-weight: normal;margin-left: 8px;padding: 26px 24px 46px;}
+
+
 .icon{padding-right: 0.75em;}
 #sidebar{overflow-x: hidden;padding: 20px;border-right: 1px solid #cccccc;}
 

@@ -5,6 +5,7 @@ import com.zblog.common.util.constants.UserConstants;
 public class User extends BaseEntity{
   private String nickName;
   private String realName;
+  private String password;
   private String email;
   private String status = UserConstants.USER_STATUS_NORMAL;
   private String description;
@@ -23,6 +24,14 @@ public class User extends BaseEntity{
 
   public void setRealName(String realName){
     this.realName = realName;
+  }
+
+  public String getPassword(){
+    return password;
+  }
+
+  public void setPassword(String password){
+    this.password = password;
   }
 
   public String getEmail(){

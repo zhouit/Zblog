@@ -9,35 +9,8 @@
    <%@include file="common/header.html" %>
    <div id="content" class="clearfix">
      <div id="left_col">
-       <div id="bread_crumb">
-         <ul class="clearfix">
-           <li><a title="首页" href="http://www.zhc.com/">首页</a></li>
-           <li><a href="http://www.zhc.com/categorys/JavaSE">JavaSE</a></li>
-           <li class="last">${post.title}</li>
-         </ul>
-       </div>
-       <div class="post_wrap clearfix">
-         <div class="post">
-           <h3 class="title"><span>${post.title}</span></h3>
-           <div class="post_content">
-             ${post.content}
-          </div>
-         </div>
-         <div class="meta">
-           <ul>
-             <li class="post_date clearfix">
-              <span class="date">13</span><span class="month">Dec</span><span class="year">2014</span>
-             </li>
-             <li class="post_comment"> 41 人阅读</li>
-             <li class="post_author">
-               <a rel="author" title="由${post.creator}发布" href="../author/26793713/">${post.creator}</a>
-             </li>
-             <li class="post_comment">
-                <a title="${post.title}" href="#respond">发表评论</a>
-             </li>
-            </ul>
-         </div>
-       </div>
+       <jsp:include page="../../post/post-${post.id}.html" flush="false" />
+      <%--  <%@include file="../../../post/post-201412.html" %> --%>
        <div id="comments_wrapper">
          <div id="comment_header" class="clearfix">
            <span class="comments_right">评论 (${post.ccount})</span>
@@ -92,14 +65,7 @@
            </form>
          </div>
        </div>
-       <div class="side_widget clearfix">
-         <h3 class="headline">近期文章</h3>
-         <ul>
-           <li><a href="http://ifeve.com/timeout/">《C#并发编程经典实例》—— 超时</a></li>
-           <li><a href="http://ifeve.com/timeout/">《C#并发编程经典实例》—— 用限流和抽样抑制事件流</a></li>
-           <li><a href="http://ifeve.com/timeout/">《C#并发编程经典实例》—— 超时</a></li>
-         </ul>
-       </div>
+       <%@include file="common/recent.html" %>
        <%@include file="common/link.html" %>
      </div>
      <%@include file="common/footer.html" %>

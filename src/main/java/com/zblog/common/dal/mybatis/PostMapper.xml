@@ -13,6 +13,15 @@
           from post p left join category c on p.categoryid=c.id where p.type=#{query.type}
    </select>
    
+   <select id="listRecent" resultType="MapContainer">  
+      select p.id, title from post where type='post' order by createTime desc limit 10;
+   </select>
+   
+   <select id="listByCategory" parameterType="PageModel" resultType="MapContainer">  
+      select p.id, p.title, p.excerpt from post p inner join category c on p.categoryid=c.id 
+          where c.name=#{query.categoryName} and p.type=#{query.type} order by p.createTime;
+   </select>
+   
    <insert id="insert" parameterType="Post">
       insert into post(id,title,excerpt,content,type,parent,categoryid,pstatus,cstatus,ccount,rcount,createTime,creator,lastUpdate) 
          values(#{id},#{title},#{excerpt},#{content, jdbcType=CLOB},#{type},#{parent},#{categoryid},#{pstatus},#{cstatus},#{ccount},#{rcount},#{createTime},#{creator},#{lastUpdate})
