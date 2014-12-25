@@ -9,7 +9,7 @@
    </select>
    
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
-      select p.id, title,excerpt,c.name as category,ccount, p.creator, p.lastUpdate
+      select p.id, p.title, excerpt, c.name as category,ccount, p.creator, p.lastUpdate
           from post p left join category c on p.categoryid=c.id where p.type=#{query.type}
    </select>
    

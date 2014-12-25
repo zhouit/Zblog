@@ -12,6 +12,10 @@
       select m.id, p.title, m.name, m.path, m.createTime from upload m left join post p on m.postid=p.id
    </select>
    
+   <select id="listByPostid" parameterType="java.lang.String" resultType="MapContainer">  
+      select id, path from upload m where postid=#{postid}
+   </select>
+   
    <insert id="insert" parameterType="Upload">
       insert into upload(id,name,path,token,createTime) 
          values(#{id},#{name},#{path},#{token},#{createTime})
@@ -21,8 +25,12 @@
      update upload set postid=#{postid} where token=#{uploadToken}
    </update>
 
-   <delete id="deleteById">
+   <delete id="deleteById" parameterType="java.lang.String">
 	 delete from upload where id = #{id}
+  </delete>
+  
+   <delete id="deleteByPostid" parameterType="java.lang.String">
+	 delete from upload where postid = #{postid}
   </delete>
 	
 </mapper>

@@ -9,16 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zblog.biz.CategoryManager;
 import com.zblog.common.dal.entity.Category;
 import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.IdGenarater;
 import com.zblog.service.CategoryService;
 
-@Controller
+@Controller("bCategoryController")
 @RequestMapping("/backend/categorys")
 public class CategoryController{
   @Autowired
   private CategoryService categoryService;
+  @Autowired
+  private CategoryManager categoryManager;
 
   @RequestMapping(method = RequestMethod.GET)
   public String index(){
@@ -43,7 +46,7 @@ public class CategoryController{
   @ResponseBody
   @RequestMapping(value = "/{categoryName}", method = RequestMethod.DELETE)
   public Object remove(@PathVariable String categoryName){
-    categoryService.remove(categoryName);
+    categoryManager.remove(categoryName);
     return new MapContainer("success", true);
   }
 

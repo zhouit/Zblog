@@ -13,5 +13,7 @@ public class PostConstants{
   
   public static final String POST_PUBLISH = "publish";
   public static final String POST_TRASH = "trash";
+  
+  public static final String OPTION_POSTID_NAME = "POSTID_NAME";
 
 }

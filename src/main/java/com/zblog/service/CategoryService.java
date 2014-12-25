@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zblog.common.dal.entity.Category;
 import com.zblog.common.dal.mapper.BaseMapper;
 import com.zblog.common.dal.mapper.CategoryMapper;
+import com.zblog.common.dal.mapper.PostMapper;
 import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.plugin.TreeUtils;
 import com.zblog.common.util.IdGenarater;
@@ -21,6 +22,8 @@ import com.zblog.common.util.constants.CategoryConstants;
 public class CategoryService extends BaseService{
   @Autowired
   private CategoryMapper categoryMapper;
+  @Autowired
+  private PostMapper postMapper;
 
   @Transactional
   public boolean insertChildren(Category category, String parentName){
@@ -47,14 +50,20 @@ public class CategoryService extends BaseService{
     return true;
   }
 
-  public boolean remove(String cname){
-    Category parent = loadByName(cname);
-    int length = parent.getRightv() - parent.getLeftv()+1;
+  /**
+   * 此方法只被CategoryManager调用
+   * 
+   * @param categoryName
+   * @return
+   */
+  public String removeByName(String categoryName){
+    Category parent = loadByName(categoryName);
+    int length = parent.getRightv() - parent.getLeftv() + 1;
     categoryMapper.updateDeleteLeftv(parent.getLeftv(), length);
     categoryMapper.updateDeleteRightv(parent.getRightv(), length);
     categoryMapper.delete(parent.getLeftv(), parent.getRightv());
-    
-    return true;
+
+    return parent.getId();
   }
 
   public List<MapContainer> listAsTree(){

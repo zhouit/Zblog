@@ -16,8 +16,8 @@ import com.zblog.common.util.DateUtils;
 import com.zblog.common.util.FileUtils;
 import com.zblog.common.util.IdGenarater;
 import com.zblog.common.util.StringUtils;
+import com.zblog.common.util.constants.CategoryConstants;
 import com.zblog.common.util.constants.Constants;
-import com.zblog.common.util.constants.PostmetaConstants;
 import com.zblog.common.util.web.ServletRequestReader;
 import com.zblog.service.UploadService;
 
@@ -84,7 +84,7 @@ public class Ueditor{
   }
 
   public MapContainer uploadImage(ServletRequestReader reader){
-    String uploadToken = reader.getAsString(PostmetaConstants.UPLOAD_TOKEN);
+    String uploadToken = reader.getAsString(CategoryConstants.UPLOAD_TOKEN);
     if(StringUtils.isBlank(uploadToken))
       return new MapContainer("state", "非法请求");
 
@@ -108,7 +108,7 @@ public class Ueditor{
       postmeta.setCreateTime(new Date());
       postmeta.setName(file.getOriginalFilename());
       postmeta.setToken(uploadToken);
-      postmeta.setPath(Constants.DOMAIN + "/post/uploads/" + yearMonth + "/" + fileName);
+      postmeta.setPath("/post/uploads/" + yearMonth + "/" + fileName);
 
       postmetaService.insert(postmeta);
     }catch(Exception e){

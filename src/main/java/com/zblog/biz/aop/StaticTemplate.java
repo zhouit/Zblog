@@ -70,5 +70,12 @@ public class StaticTemplate{
         + "/common/recent.html"), param);
     logger.info("staticRecent");
   }
-  
+
+  public void removeStaticPost(String postid){
+    String path = "post/" + postid.substring(0, 4) + "/" + postid.substring(4, 6) + "/post-" + postid + ".html";
+    File postFile = new File(WebConstants.APPLICATION_PATH, path);
+    postFile.delete();
+    logger.info("removeStaticPost");
+  }
+
 }

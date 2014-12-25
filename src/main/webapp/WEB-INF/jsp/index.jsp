@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="page" uri="/WEB-INF/tld/pagination.tld" %>
 
 <!DOCTYPE Html>
 <html>
@@ -13,7 +14,32 @@
        <c:if test="${categoryName!=null}">
          <div id="archvie_headline"><h2>'${categoryName}'目录归档</h2></div>
        </c:if>
+       <c:forEach items="${page.content}" var="post">
        <div class="post_wrap clearfix">
+         <div class="post">
+           <h3 class="title"><a href="posts/20141238">${post.title}</a></h3>
+           <div class="post_content">
+             ${post.content}
+             <p><a class="more-link" href="http://www.zhc.com/posts/${post.id}">阅读全文</a></p>
+          </div>
+         </div>
+         <div class="meta">
+           <ul>
+             <li class="post_date clearfix">
+              <span class="date">13</span><span class="month">Dec</span><span class="year">2014</span>
+             </li>
+             <li class="post_comment"> 41 人阅读</li>
+             <li class="post_author">
+               <a rel="author" title="由${post.creator}发布" href="http://ifeve.com/author/26793713/">${post.creator}</a>
+             </li>
+             <li class="post_comment">
+                <a title="${post.title}的评论" href="http://www.zhc.com/posts/${post.id}/#respond">发表评论</a>
+             </li>
+            </ul>
+         </div>
+       </div>
+       </c:forEach>
+<!--        <div class="post_wrap clearfix">
          <div class="post">
            <h3 class="title"><a href="posts/20141238">《C#并发编程经典实例》—— 超时</a></h3>
            <div class="post_content">
@@ -65,15 +91,32 @@
              </li>
             </ul>
          </div>
-       </div>
+       </div> -->
        <div id="page_nav">
          <div class="clearfix page">
            <ul class="page-numbers">
-             <li><span class="current">1</span></li>
+<!--              <li><span class="current">1</span></li>
              <li><a href="#">2</a></li>
              <li><span class="dots">…</span></li>
               <li><a href="#">66</a></li>
-              <li><a href="#">>></a></li>
+              <li><a href="#">>></a></li> -->
+              <page:page model="${page}" pageUrl="." showPage="8">
+                <page:prev>
+                  <li><a href="${pageUrl}"><<</a></li>
+                </page:prev>
+                <page:currentLeft>
+                  <li><a href="${pageUrl}">${pageNumber}</a></li>
+                </page:currentLeft>
+                <page:current>
+                  <li><span class="current">${pageNumber}</span></li>
+                </page:current>
+                <page:currentRight>
+                  <li><a href="${pageUrl}">${pageNumber}</a></li>
+                </page:currentRight>
+                <page:next>
+                  <li><a href="${pageUrl}">>></a></li>
+                </page:next>
+              </page:page>
            </ul>
          </div>
        </div>

@@ -11,8 +11,8 @@
                            http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
    
   <context:annotation-config />
-  <import resource="spring-aop.xml"/>
   <import resource="spring-service.xml"/>
+  <import resource="spring-biz.xml"/>
   <!-- 从Srping配置文件中根据id读取Bean -->
   <bean class="com.zblog.common.plugin.ApplicationContextUtil" />
   

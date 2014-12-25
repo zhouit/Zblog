@@ -13,6 +13,7 @@
 	  <attribute>
 		<name>pageUrl</name>
 		<required>true</required>
+		<!-- rtexprvalue 是否允许表达式 不允许时${1+1}出错 -->  
 		<rtexprvalue>true</rtexprvalue>
 	  </attribute>
 	  <attribute>
