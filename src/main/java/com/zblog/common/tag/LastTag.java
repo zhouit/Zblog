@@ -5,24 +5,20 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import com.zblog.common.plugin.PageModel;
 
-public class LastTag extends TagSupport{
+public class LastTag extends AbstartTagSupport{
   private static final long serialVersionUID = 1L;
 
   @Override
   public int doStartTag() throws JspException{
-    PageModel model = (PageModel) pageContext.getRequest().getAttribute("model");
+    Pagination p = (Pagination) findAncestorWithClass(this, Pagination.class);
+    PageModel model = p.getModel();
+
     if(model.getPageIndex() > 1){
-      pageContext.setAttribute("page", model.getTotalPage());
+      setPageAttribute(model.getTotalPage());
       return TagSupport.EVAL_BODY_INCLUDE;
     }else{
       return TagSupport.SKIP_BODY;
     }
-  }
-  
-  @Override
-  public int doEndTag() throws JspException{
-    pageContext.removeAttribute("page");
-    return super.doEndTag();
   }
 
 }
