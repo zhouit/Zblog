@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.zblog.biz.PostManager;
 import com.zblog.common.plugin.MapContainer;
+import com.zblog.common.util.StringUtils;
 import com.zblog.common.util.constants.Constants;
 import com.zblog.common.util.constants.WebConstants;
 import com.zblog.service.PostService;
@@ -21,10 +23,16 @@ import com.zblog.web.form.BaseForm;
 public class IndexController{
   @Autowired
   private PostService postService;
+  @Autowired
+  private PostManager postManager;
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
-  public String index(@RequestParam(value = "page", defaultValue = "1") int page, Model model){
-    model.addAttribute("page", postService.listPost(page, 10));
+  public String index(@RequestParam(value = "page", defaultValue = "1") int page, String word, Model model){
+    if(!StringUtils.isBlank(word)){
+      model.addAttribute("page", postManager.search(word, page));
+    }else{
+      model.addAttribute("page", postService.listPost(page, 10));
+    }
     return "index";
   }
 
