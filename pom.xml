@@ -126,11 +126,11 @@
 	</dependency>
     
     <!-- freemarker -->
-	<dependency>
-	  <groupId>org.freemarker</groupId>
-	  <artifactId>freemarker</artifactId>
-	  <version>2.3.19</version>
-	</dependency>
+    <dependency>
+      <groupId>org.freemarker</groupId>
+      <artifactId>freemarker</artifactId>
+      <version>2.3.19</version>
+    </dependency>
     
     <!-- commons -->
     <dependency>
@@ -156,10 +156,10 @@
     </dependency>
     <!-- 加入slf4j依赖包 -->
 	<dependency>
-		<groupId>org.slf4j</groupId>
-		<artifactId>slf4j-log4j12</artifactId>
-		<version>1.7.5</version>
-	</dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.5</version>
+    </dependency>
     
     <!-- mysql -->
     <dependency>
@@ -178,17 +178,17 @@
     </dependency>
     
     <dependency>
-	   <groupId>org.aspectj</groupId>
-	   <artifactId>aspectjweaver</artifactId>
-	   <version>1.7.2</version>
-	</dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>1.7.2</version>
+    </dependency>
 
 	<!-- 加入fastjson依赖包 -->
-	<dependency>
-	  <groupId>com.alibaba</groupId>
-	  <artifactId>fastjson</artifactId>
-	  <version>1.1.31</version>
-	</dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.1.31</version>
+    </dependency>
 
   </dependencies>
   <build>
