@@ -4,7 +4,7 @@
 
 <mapper namespace="com.zblog.common.dal.mapper.LinkMapper">
    <select id="list" resultType="MapContainer">  
-      select id, name, url, visible,createTime from link
+      select id, name, url, visible,createTime from link order by createTime desc
    </select>
    
    <insert id="insert" parameterType="Link">

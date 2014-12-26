@@ -115,15 +115,15 @@
     
     <!-- mybatis -->
     <dependency>
-	  <groupId>org.mybatis</groupId>
-	  <artifactId>mybatis</artifactId>
-	  <version>3.2.5</version>
-	</dependency>
-	<dependency>
-	  <groupId>org.mybatis</groupId>
-	  <artifactId>mybatis-spring</artifactId>
-	  <version>1.2.0</version>
-	</dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>3.2.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>1.2.0</version>
+    </dependency>
     
     <!-- freemarker -->
     <dependency>
@@ -155,7 +155,7 @@
       <version>1.2.14</version>
     </dependency>
     <!-- 加入slf4j依赖包 -->
-	<dependency>
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.7.5</version>
@@ -183,7 +183,7 @@
       <version>1.7.2</version>
     </dependency>
 
-	<!-- 加入fastjson依赖包 -->
+    <!-- 加入fastjson依赖包 -->
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>

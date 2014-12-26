@@ -8,8 +8,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 import com.zblog.common.plugin.PageModel;
 
 public class Pagination extends TagSupport{
-
-  private static final long serialVersionUID = 5671160211412581926L;
+  private static final long serialVersionUID = 1L;
 
   private static final int SHOW_PAGE = 10;
   private static final int BOUNDARY_PAGE = 3;

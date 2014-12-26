@@ -30,13 +30,16 @@ public class LoginFilter extends OncePerRequestFilter{
     WebContext context = WebContextHolder.get();
     if(context != null)
       return;
-
+    
     try{
       context = getWebContext(request, response);
       String uri = request.getRequestURI();
       context.setRequestURI("".equals(uri) ? "/" : uri);
       // 保存上下文
       WebContextHolder.set(context);
+      
+      boolean ajax=isAjax(request);
+      if(!ajax) addGloableAttr(request);
 
       AuthenticationService service = ApplicationContextUtil.getBean(AuthenticationService.class);
       if(service.isAuthentication(uri, context.isLogon())){
@@ -44,7 +47,7 @@ public class LoginFilter extends OncePerRequestFilter{
         return;
       }
 
-      if(isAjax(request)){
+      if(ajax){
         response.setContentType("application/json");
         response.getWriter().write("{\"status\":\"403\"}");
       }else{
@@ -68,6 +71,15 @@ public class LoginFilter extends OncePerRequestFilter{
 
   private boolean isAjax(HttpServletRequest request){
     return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+  }
+  
+  private void addGloableAttr(HttpServletRequest request){
+    String result = request.getScheme() + "://" + request.getServerName();
+    if(request.getServerPort() != 80){
+      result += ":" + request.getServerPort();
+    }
+    result += request.getContextPath();
+    request.setAttribute("domain", result);
   }
 
   private WebContext getWebContext(HttpServletRequest request, HttpServletResponse response){

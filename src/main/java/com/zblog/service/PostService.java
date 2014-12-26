@@ -21,6 +21,8 @@ public class PostService extends BaseService{
     PageModel page = new PageModel(pageIndex, pageSize);
     page.insertQuery("type", PostConstants.TYPE_POST);
     super.list(page);
+    /* 由于分页标签会根据query产生,这里删除掉无用query,下同 */
+    page.removeQuery("type");
     return page;
   }
 
@@ -34,6 +36,7 @@ public class PostService extends BaseService{
     page.insertQuery("categoryName", categoryName);
     List<MapContainer> content = postMapper.listByCategory(page);
     page.setContent(content);
+    page.removeQuery("type");
 
     return page;
   }
@@ -42,6 +45,7 @@ public class PostService extends BaseService{
     PageModel page = new PageModel(pageIndex, pageSize);
     page.insertQuery("type", PostConstants.TYPE_POST);
     super.list(page);
+    page.removeQuery("type");
     return page;
   }
 

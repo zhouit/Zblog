@@ -30,7 +30,7 @@ import com.zblog.service.UploadService;
 @Component
 public class Ueditor{
   @Autowired
-  private UploadService postmetaService;
+  private UploadService uploadService;
 
   public MapContainer server(HttpServletRequest request){
     ServletRequestReader reader = new ServletRequestReader(request);
@@ -103,14 +103,14 @@ public class Ueditor{
       result.put("title", file.getOriginalFilename());
       result.put("url", Constants.DOMAIN + "/post/uploads/" + yearMonth + "/" + fileName);
 
-      Upload postmeta = new Upload();
-      postmeta.setId(IdGenarater.uuid19());
-      postmeta.setCreateTime(new Date());
-      postmeta.setName(file.getOriginalFilename());
-      postmeta.setToken(uploadToken);
-      postmeta.setPath("/post/uploads/" + yearMonth + "/" + fileName);
+      Upload upload = new Upload();
+      upload.setId(IdGenarater.uuid19());
+      upload.setCreateTime(new Date());
+      upload.setName(file.getOriginalFilename());
+      upload.setToken(uploadToken);
+      upload.setPath("/post/uploads/" + yearMonth + "/" + fileName);
 
-      postmetaService.insert(postmeta);
+      uploadService.insert(upload);
     }catch(Exception e){
       result.put("state", "文件上传失败");
     }
