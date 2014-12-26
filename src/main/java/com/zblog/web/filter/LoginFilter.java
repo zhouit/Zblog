@@ -54,7 +54,7 @@ public class LoginFilter extends OncePerRequestFilter{
         String encodeURL = UrlUtil.encode(uri
             + (StringUtils.isBlank(request.getQueryString()) ? "" : "?" + request.getQueryString()));
 
-        response.sendRedirect("/login?redirectURL=" + encodeURL);
+        response.sendRedirect("/backend/login?redirectURL=" + encodeURL);
       }
     }catch(Exception e){
       e.printStackTrace();
