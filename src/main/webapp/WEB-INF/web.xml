@@ -58,7 +58,7 @@
   </filter-mapping>
   <filter-mapping>
     <filter-name>loginFilter</filter-name>
-    <url-pattern>/*</url-pattern>
+    <servlet-name>Zblog</servlet-name>
   </filter-mapping>
 
   <servlet-mapping>

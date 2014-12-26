@@ -4,7 +4,7 @@
 <html>
  <head>
   <%@include file="../../common/bootstrap.html" %>
-  <link rel="stylesheet" href="http://www.zhc.com/resource/zdialog/alert.css" type='text/css'>
+  <link rel="stylesheet" href="${domain}/resource/zdialog/alert.css" type='text/css'>
  </head>
  <body style="margin-top: 50px;">
   <%@include file="../common/navbar.html" %>
@@ -55,8 +55,8 @@
      </div>
    </div>
   
-  <script type="text/javascript" src="http://www.zhc.com/resource/bootstrap-tree/bootstrap-treeview.min.js"></script>
-  <script type="text/javascript" src="http://www.zhc.com/resource/js/backend/category.js"></script>
-  <script type="text/javascript" src="http://www.zhc.com/resource/zdialog/alert.js"></script>
+  <script type="text/javascript" src="${domain}/resource/bootstrap-tree/bootstrap-treeview.min.js"></script>
+  <script type="text/javascript" src="${domain}/resource/js/backend/category.js"></script>
+  <script type="text/javascript" src="${domain}/resource/zdialog/alert.js"></script>
  </body>
 </html>

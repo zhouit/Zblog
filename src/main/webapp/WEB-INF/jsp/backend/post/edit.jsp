@@ -5,8 +5,8 @@
 <html>
  <head>
   <%@include file="../../common/bootstrap.html" %>
-  <script type="text/javascript" src="http://www.zhc.com/resource/ueditor-1.4.3/ueditor.config.js"></script>
-  <script type="text/javascript" src="http://www.zhc.com/resource/ueditor-1.4.3/ueditor.all.js"></script>
+  <script type="text/javascript" src="${domain}/resource/ueditor-1.4.3/ueditor.config.js"></script>
+  <script type="text/javascript" src="${domain}/resource/ueditor-1.4.3/ueditor.all.js"></script>
  </head>
  <body style="margin-top: 50px;">
   <%@include file="../common/navbar.html" %>
@@ -74,6 +74,6 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="http://www.zhc.com/resource/js/backend/edit.js"></script>
+  <script type="text/javascript" src="${domain}/resource/js/backend/edit.js"></script>
  </body>
 </html>

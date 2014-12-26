@@ -1,7 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib prefix="page" uri="/WEB-INF/tld/pagination.tld" %>
 
 <!DOCTYPE Html>
 <html>
@@ -24,7 +23,7 @@
           <div class="panel-heading"><span class="icon glyphicon glyphicon-list"></span>链接列表</div>
           <div class="panel-body">
            <table id="post-table" class="table table-striped list-table">
-               <thead><tr>
+              <thead><tr>
                  <th>名称</th>
                  <th>站点</th>
                  <th>可见性</th>
@@ -42,35 +41,16 @@
             </table>
             <div class="row-fulid">
               <div class="col-sm-6 col-md-6">
-                <div class="page-info">显示第 ${page.pageIndex} 至  ${page.totalPage}项记录，共 ${page.totalCount} 项</div>
+                <div class="page-info">第 ${page.pageIndex}页, 共 ${page.totalPage}页, ${page.totalCount} 项</div>
               </div>
               <div class="col-sm-6 col-md-6">
                 <div id="pager">
-                   <ul class="pagination">
-                     <page:page model="${page}" pageUrl="." showPage="8">
-                       <page:prev>
-                          <li><a href="${pageUrl}"><span aria-hidden="true">&laquo;</span></a></li>
-                       </page:prev>
-                       <page:currentLeft>
-                          <li><a href="${pageUrl}">${pageNumber}</a></li>
-                       </page:currentLeft>
-                       <page:current>
-                          <li><a href="#">${pageNumber}</a></li>
-                       </page:current>
-                       <page:currentRight>
-                          <li><a href="${pageUrl}">${pageNumber}</a></li>
-                       </page:currentRight>
-                       <page:next>
-                          <li><a href="${pageUrl}"><span aria-hidden="true">&raquo;</span></a></li>
-                       </</page:next>
-                     </page:page>
-                   </ul>
+                  <jsp:include page="../common/pagination.jsp" flush="false" />
+                </div>
               </div>
             </div>
-          </div>
          </div>
        </div>
-
       </div>
     </div>
   </div>

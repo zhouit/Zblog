@@ -73,7 +73,7 @@ body.custom-background{background-attachment: scroll;background-image: url("../i
 
 #left_col{float: left;margin: 230px -340px 0 0;width: 100%;z-index: 1000;}
 #archive_headline{float: right;position: relative;width: 86%;z-index: 3;}
-#archvie_headline h2{font-size: 14px;margin: 0 340px 0 0;padding: 45px 4%;}
+#archive_headline h2{font-size: 14px;margin: 0 340px 0 0;padding: 45px 4%;}
 
 .post_wrap{clear: right;}
 .post{ float: right;position: relative;width: 86%;z-index: 3;}

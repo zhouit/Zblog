@@ -12,7 +12,7 @@
    <div id="content" class="clearfix">
      <div id="left_col">
        <c:if test="${categoryName!=null}">
-         <div id="archvie_headline"><h2>'${categoryName}'目录归档</h2></div>
+         <div id="archive_headline"><h2>'<span style="color: #00a19e;">${categoryName}</span>'目录归档</h2></div>
        </c:if>
        <c:forEach items="${page.content}" var="post">
        <div class="post_wrap clearfix">
@@ -20,7 +20,7 @@
            <h3 class="title"><a href="posts/20141238">${post.title}</a></h3>
            <div class="post_content">
              ${post.content}
-             <p><a class="more-link" href="http://www.zhc.com/posts/${post.id}">阅读全文</a></p>
+             <p><a class="more-link" href="${domain}/posts/${post.id}">阅读全文</a></p>
           </div>
          </div>
          <div class="meta">
@@ -30,68 +30,15 @@
              </li>
              <li class="post_comment"> 41 人阅读</li>
              <li class="post_author">
-               <a rel="author" title="由${post.creator}发布" href="http://ifeve.com/author/26793713/">${post.creator}</a>
+               <a rel="author" title="由${post.creator}发布" href="${domain}/author/26793713/">${post.creator}</a>
              </li>
              <li class="post_comment">
-                <a title="${post.title}的评论" href="http://www.zhc.com/posts/${post.id}/#respond">发表评论</a>
+                <a title="${post.title}的评论" href="${domain}/posts/${post.id}/#respond">发表评论</a>
              </li>
             </ul>
          </div>
        </div>
        </c:forEach>
-<!--        <div class="post_wrap clearfix">
-         <div class="post">
-           <h3 class="title"><a href="posts/20141238">《C#并发编程经典实例》—— 超时</a></h3>
-           <div class="post_content">
-             <p><strong>问题</strong><br>
-                                       我们希望事件能在预定的时间内到达，即使事件不到达，也要确保程序能及时进行响应。<br>
-                                      通常此类事件是单一的异步操作（例如，等待 Web 服务请求的响应）。
-             </p>
-             <p><a class="more-link" href="http://ifeve.com/timeout/#more-17716">阅读全文</a></p>
-          </div>
-         </div>
-         <div class="meta">
-           <ul>
-             <li class="post_date clearfix">
-              <span class="date">13</span><span class="month">Dec</span><span class="year">2014</span>
-             </li>
-             <li class="post_comment"> 41 人阅读</li>
-             <li class="post_author">
-               <a rel="author" title="由郭蕾发布" href="http://ifeve.com/author/26793713/">郭蕾</a>
-             </li>
-             <li class="post_comment">
-                <a title="《《C#并发编程经典实例》—— 超时》上的评论" href="http://ifeve.com/timeout/#respond">发表评论</a>
-             </li>
-            </ul>
-         </div>
-       </div>
-       
-       <div class="post_wrap clearfix">
-         <div class="post">
-           <h3 class="title"><a href="posts/20141245">《C#并发编程经典实例》—— 超时</a></h3>
-           <div class="post_content">
-             <p><strong>问题</strong><br>
-                                       我们希望事件能在预定的时间内到达，即使事件不到达，也要确保程序能及时进行响应。<br>
-                                      通常此类事件是单一的异步操作（例如，等待 Web 服务请求的响应）。
-             </p>
-             <p><a class="more-link" href="http://ifeve.com/timeout/#more-17716">阅读全文</a></p>
-          </div>
-         </div>
-         <div class="meta">
-           <ul>
-             <li class="post_date clearfix">
-              <span class="date">13</span><span class="month">Dec</span><span class="year">2014</span>
-             </li>
-             <li class="post_comment"> 41 人阅读</li>
-             <li class="post_author">
-               <a rel="author" title="由郭蕾发布" href="http://ifeve.com/author/26793713/">郭蕾</a>
-             </li>
-             <li class="post_comment">
-                <a title="《《C#并发编程经典实例》—— 超时》上的评论" href="http://ifeve.com/timeout/#respond">发表评论</a>
-             </li>
-            </ul>
-         </div>
-       </div> -->
        <div id="page_nav">
          <div class="clearfix page">
            <ul class="page-numbers">

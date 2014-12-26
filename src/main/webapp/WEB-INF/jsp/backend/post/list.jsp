@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="page" uri="/WEB-INF/tld/pagination.tld" %>
 
 <!DOCTYPE Html>
 <html>
@@ -59,22 +60,14 @@
             </table>
             <div class="row-fulid">
               <div class="col-sm-6 col-md-6">
-                <div class="page-info">显示第 ${page.pageIndex} 至  ${page.totalPage}项记录，共 ${page.totalCount} 项</div>
+                <div class="page-info">第 ${page.pageIndex}页, 共 ${page.totalPage}页, ${page.totalCount} 项</div>
               </div>
               <div class="col-sm-6 col-md-6">
                 <div id="pager">
-                   <ul class="pagination">
-                     <li><a href="#"><span aria-hidden="true">&laquo;</span></a></li>
-                     <li><a href="#">1</a></li>
-                     <li><a href="#">2</a></li>
-                     <li><a href="#">3</a></li>
-                     <li><a href="#">4</a></li>
-                     <li><a href="#">5</a></li>
-                     <li><a href="#"><span aria-hidden="true">&raquo;</span></a></li>
-                   </ul>
+                 <jsp:include page="../common/pagination.jsp" flush="false" />
+                </div>
               </div>
             </div>
-          </div>
          </div>
        </div>
 
