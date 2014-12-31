@@ -2,8 +2,6 @@ if(typeof com=="undefined"){
   var zblog={};
 }
 
-zblog={};
-
 //增加命名空间  使用方法：zblog.register('bbb.ccc','admin.zhou');
 zblog.register =function(){
   var result={},temp;

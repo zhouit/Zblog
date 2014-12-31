@@ -45,6 +45,8 @@ a, a:visited {outline: medium none;text-decoration: none;}
 
 body.custom-background{background-attachment: scroll;background-image: url("../img/background.gif");background-position: left top;background-repeat: repeat;}
 
+.title a:hover, .side_widget a:hover{color: #009dc4;}
+
 
 /*************** header *********/
 #header{margin: 0 0 0 14%;width: 86%;z-index: 5}
@@ -76,15 +78,16 @@ body.custom-background{background-attachment: scroll;background-image: url("../i
 #archive_headline h2{font-size: 14px;margin: 0 340px 0 0;padding: 45px 4%;}
 
 .post_wrap{clear: right;}
-.post{ float: right;position: relative;width: 86%;z-index: 3;}
+.post{float: right;position: relative;width: 86%;z-index: 3;}
 .post .title{display: block;font-size: 20px;font-weight: normal;line-height: 140%;margin: 0 0 0 -5px;
     background-image:url("../img/title.gif");background-color: transparent;background-position:left 45px;background-attachment: scroll;background-repeat: no-repeat; }
 .post h1, .post h2, .post h3, .post h4, .post h5, .post h6{line-height: 160%;margin: 0 0 10px;}
 
 .post .title a ,.post .title span{color: #666;display: block;margin: 0 340px 0 5px;padding: 39px 4% 0;text-decoration: none;}
 .post .title a{border-top: 1px solid #ccc;}
-.post_content{background-color:#fff;margin: 0 340px 0 0;min-height: 50px;padding: 30px 4%;}
-.post_content p{line-height: 250%;margin: 0 0 1em;padding: 0;}
+.post_content{background-color:#fff;margin: 0 340px 0 0;min-height: 50px;padding: 25px 4%;}
+.post_content p{line-height: 2;margin:1em 0;padding: 0;}
+.post_content p.excerpt{text-indent: 1.5em;}
 /* read more link */
 .post a.more-link {background-color:#f2f2f2;border-radius: 3px;color: #666;display: inline-block;font-size: 12px;height: 35px;line-height: 35px;padding: 0 36px;position: relative;}
 .post a.more-link:hover {color:#fff;background-color:#009dc4;}

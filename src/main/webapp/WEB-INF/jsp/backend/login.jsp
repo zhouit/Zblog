@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE Html>
 <html>
@@ -8,12 +9,13 @@
  <body style="background-color: #fbfbfb;">
    <div id="login" style="width:300px;margin:0px auto;margin-top: 100px;">
      <h1><img title="Zblog" src="../../resource/img/zblog-logo.png" /></h1>
+     <c:if test="${msg!=null}"><p class="message">${msg}<br></p></c:if>
      <form id="loginform" method="post" action="login">
        <div class="form-group">
-          <input type="text" autocomplete="off" class="form-control" placeholder="用户名/邮箱" />
+          <input type="text" autocomplete="off" class="form-control" name="username" placeholder="用户名/邮箱" />
        </div>
        <div class="form-group">
-          <input type="password" autocomplete="off" class="form-control" placeholder="密码" />
+          <input type="password" autocomplete="off" class="form-control" name="pass" placeholder="密码" />
        </div>
        <div class="form-group">
           <input type="password" autocomplete="off" class="form-control" placeholder="验证码"

@@ -75,9 +75,9 @@
        <h3 class="headline">About</h3>
        <p>本站模仿自<a href="http://ifeve.com/">并发编程网</a></p>
         <div id="search_area">
-          <form method="get">
+          <form method="get" action="../">
              <div class="search_input">
-               <input type="text" autocomplete="off" name="s" placeholder="搜索一下" />
+               <input type="text" autocomplete="off" name="word" placeholder="搜索一下" />
              </div>
              <div class="search_button">
                 <input type="submit" value="Search" />

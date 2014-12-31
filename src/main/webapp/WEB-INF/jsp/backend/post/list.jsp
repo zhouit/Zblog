@@ -32,19 +32,6 @@
                  <th class="center">操作</th>
                </tr></thead>
               <tbody>
-               <tr>
-                 <td><strong>数据库表的行列转换</strong>
-                     <div class="row-action">
-                       <span class="edit"><a href="#">编辑</a>&nbsp;|&nbsp;</span>
-                       <span class="trash"><a href="#">移到回收站</a>&nbsp;|&nbsp;</span>
-                       <span class="view"><a href="#">查看</a></span>
-                     </div></td>
-                 <td>admin</td>
-                 <td>DataBase</td>
-                 <td>2014-11-24</td>
-                 <td class="center"><span class="icon glyphicon glyphicon-pencil"></span>
-                    <span class="glyphicon glyphicon-trash"></span></td>
-               </tr>
                <c:forEach items="${page.content}" var="post">
                  <tr><td><strong>${post.title}</strong>
                      <div class="row-action">
@@ -53,8 +40,8 @@
                        <span class="view"><a href="#">查看</a></span>
                      </div></td><td>${post.creator}</td>
                      <td>${post.category}</td><td><fmt:formatDate value="${post.lastUpdate}" pattern="yyyy-MM-dd" /></td>
-                     <td class="center"><span class="icon glyphicon glyphicon-pencil"></span>
-                       <span class="glyphicon glyphicon-trash"></span></td></tr>
+                     <td class="center"><span class="icon glyphicon glyphicon-pencil pointer"></span>
+                       <span class="glyphicon glyphicon-trash pointer" onclick="zblog.post.remove('${post.id}')"></span></td></tr>
                </c:forEach>
               </tbody>
             </table>
@@ -74,5 +61,6 @@
       </div>
     </div>
   </div>
+  <script type="text/javascript" src="${domain}/resource/js/backend/admin.post.js"></script>
  </body>
 </html>

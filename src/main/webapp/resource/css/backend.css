@@ -5,6 +5,9 @@ h1, h2, h3, h4, h5, h6,p{margin: 0;padding: 0;}
 
 #login h1{margin-bottom: 15px;}
 #login h1 img{margin-left: 15px;}
+#login .message{background-color: #ffffe0;border-color: #e6db55; margin: 0 0 16px 8px;padding: 12px;border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;}
 #login #loginform{background-color:#fff;border: 1px solid #e5e5e5;
     box-shadow: 0 4px 10px -1px rgba(200, 200, 200, 0.7);
     font-weight: normal;margin-left: 8px;padding: 26px 24px 46px;}
@@ -51,6 +54,7 @@ ul.ul-group li{padding: 5px 0;}
 .list-table a,.list-table thead tr th{color:#21759b;}
 .list-table thead tr th{ font-weight: normal;border-bottom: 1px solid #ddd;background: linear-gradient(to top, #ececec, #f9f9f9) repeat scroll 0 0 #f1f1f1;}
 .list-table th.center,.list-table td.center{text-align: center;}
+.list-table td span.pointer{cursor: pointer;}
 
 /***************  post ***************/
 #post-table tr:hover .row-action{display: block;}

@@ -56,7 +56,7 @@
    </div>
   
   <script type="text/javascript" src="${domain}/resource/bootstrap-tree/bootstrap-treeview.min.js"></script>
-  <script type="text/javascript" src="${domain}/resource/js/backend/category.js"></script>
+  <script type="text/javascript" src="${domain}/resource/js/backend/admin.category.js"></script>
   <script type="text/javascript" src="${domain}/resource/zdialog/alert.js"></script>
  </body>
 </html>

@@ -74,6 +74,6 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="${domain}/resource/js/backend/edit.js"></script>
+  <script type="text/javascript" src="${domain}/resource/js/backend/admin.post.js"></script>
  </body>
 </html>
