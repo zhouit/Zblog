@@ -15,7 +15,6 @@ import com.zblog.common.util.CookieUtil;
 import com.zblog.common.util.IpUtils;
 import com.zblog.common.util.StringUtils;
 import com.zblog.common.util.UrlUtil;
-import com.zblog.common.util.ValidateCodeGenerater;
 import com.zblog.common.util.constants.Constants;
 import com.zblog.common.util.web.WebContext;
 import com.zblog.common.util.web.WebContextHolder;
@@ -30,19 +29,20 @@ public class LoginFilter extends OncePerRequestFilter{
     WebContext context = WebContextHolder.get();
     if(context != null)
       return;
-    
+
     try{
       context = getWebContext(request, response);
       String uri = request.getRequestURI();
       context.setRequestURI("".equals(uri) ? "/" : uri);
       // 保存上下文
       WebContextHolder.set(context);
-      
-      boolean ajax=isAjax(request);
-      if(!ajax) addGloableAttr(request);
+
+      boolean ajax = isAjax(request);
+      if(!ajax)
+        addGloableAttr(request);
 
       AuthenticationService service = ApplicationContextUtil.getBean(AuthenticationService.class);
-      if(service.isAuthentication(uri, context.isLogon())){
+      if(service.isAuthentication(uri, context.getUser())){
         filterChain.doFilter(request, response);
         return;
       }
@@ -72,7 +72,7 @@ public class LoginFilter extends OncePerRequestFilter{
   private boolean isAjax(HttpServletRequest request){
     return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
   }
-  
+
   private void addGloableAttr(HttpServletRequest request){
     String result = request.getScheme() + "://" + request.getServerName();
     if(request.getServerPort() != 80){
@@ -88,50 +88,16 @@ public class LoginFilter extends OncePerRequestFilter{
 
     // 该处实现登录控制
     CookieUtil cookieUtil = new CookieUtil(request, response);
-    String sid = cookieUtil.getCookie(Constants.COOKIE_SESSION_ID);
-    if(StringUtils.isBlank(sid)){
-      cookieUtil.setCookie(Constants.COOKIE_SESSION_ID, ValidateCodeGenerater.generateSid(), 1000 * 24 * 3600);
-    }
-    context.setSid(sid);
-
     String cid = cookieUtil.getCookie(Constants.COOKIE_CONTEXT_ID);
 
-    ContextId contextId = new ContextId(cid);
-    if(!contextId.isValid()){
+    if(StringUtils.isBlank(cid) || !cid.matches("[0-9a-zA-Z]{19}"))
       return context;
-    }
 
     UserService userService = ApplicationContextUtil.getBean(UserService.class);
-    User user = userService.loadById(contextId.getUserId());
-    if(user != null){
-      context.setLogon(true);
-      context.setNickName(user.getNickName());
-      context.setUserId(user.getId());
-    }
+    User user = userService.loadById(cid);
+    context.setUser(user);
 
     return context;
-  }
-
-  public static class ContextId{
-    private String[] idSplits;
-
-    public ContextId(String cid){
-      if(!StringUtils.isBlank(cid))
-         idSplits = cid.split(":");
-    }
-
-    public String getUserId(){
-      return idSplits[0];
-    }
-
-    public String getloginId(){
-      return idSplits[1];
-    }
-
-    public boolean isValid(){
-      return idSplits != null && idSplits.length == 2;
-    }
-
   }
 
 }

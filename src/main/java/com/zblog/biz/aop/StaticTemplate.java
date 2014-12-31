@@ -6,10 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.zblog.common.dal.entity.Category;
 import com.zblog.common.dal.entity.Post;
 import com.zblog.common.plugin.ApplicationContextUtil;
 import com.zblog.common.plugin.MapContainer;
-import com.zblog.common.util.DateUtils;
 import com.zblog.common.util.constants.Constants;
 import com.zblog.common.util.constants.WebConstants;
 import com.zblog.service.CategoryService;
@@ -57,25 +57,33 @@ public class StaticTemplate{
    * @param post
    */
   public void staticPost(Post post){
-    File file = new File(WebConstants.APPLICATION_PATH, DateUtils.formatDate("yyyy/MM", post.getCreateTime()));
-    if(!file.exists())
-      file.mkdirs();
-    FreeMarkerUtils.genHtml("/post.html", new File(file, "post-" + post.getId() + ".html"), post);
+    CategoryService categoryService = ApplicationContextUtil.getBean(CategoryService.class);
+    Category category = categoryService.loadById(post.getCategoryid());
+    MapContainer param = new MapContainer("domain", Constants.DOMAIN).put("post", post).put("categoryName",
+        category.getName());
+    FreeMarkerUtils.genHtml("/post.html",
+        new File(WebConstants.APPLICATION_PATH, "post/post-" + post.getId() + ".html"), param);
     logger.info("staticPost");
+    
+    staticRecent();
+  }
 
+  public void removeStaticPost(String postid){
+    String path = "post/post-" + postid + ".html";
+    File postFile = new File(WebConstants.APPLICATION_PATH, path);
+    postFile.delete();
+    logger.info("removeStaticPost");
+    
+    staticRecent();
+  }
+
+  private void staticRecent(){
     PostService postService = ApplicationContextUtil.getBean(PostService.class);
     MapContainer param = new MapContainer("domain", Constants.DOMAIN);
     param.put("posts", postService.listRecent());
     FreeMarkerUtils.genHtml("/common/recent.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
         + "/common/recent.html"), param);
     logger.info("staticRecent");
-  }
-
-  public void removeStaticPost(String postid){
-    String path = "post/" + postid.substring(0, 4) + "/" + postid.substring(4, 6) + "/post-" + postid + ".html";
-    File postFile = new File(WebConstants.APPLICATION_PATH, path);
-    postFile.delete();
-    logger.info("removeStaticPost");
   }
 
 }

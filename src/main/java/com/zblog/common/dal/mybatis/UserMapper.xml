@@ -14,12 +14,12 @@
    </select>
    
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
-      select id, nickName,realName, email from user 
+      select id, nickName,realName, email, createTime from user 
    </select>
    
    <insert id="insert" parameterType="User">
-      insert into user(id,nickName,realName,email,status,description,createTime,creator,lastUpdate) 
-         values(#{id},#{nickName},#{#realName},#{email},#{status},#{description},#{createTime},#{creator},#{lastUpdate})
+      insert into user(id,nickName,realName,password,email,status,description,createTime,creator,lastUpdate) 
+         values(#{id},#{nickName},#{realName},#{password},#{email},#{status},#{description},#{createTime},#{creator},#{lastUpdate})
    </insert>
 
    <delete id="deleteById">

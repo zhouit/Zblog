@@ -5,11 +5,14 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zblog.common.dal.entity.Link;
+import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.IdGenarater;
 import com.zblog.service.LinkService;
 
@@ -33,6 +36,13 @@ public class LinkController{
     link.setVisible(true);
     linkService.insert(link);
     return "redirect:/backend/links";
+  }
+  
+  @ResponseBody
+  @RequestMapping(value="/{linkid}",method = RequestMethod.DELETE)
+  public Object remove(@PathVariable("linkid")String linkid){
+    linkService.deleteById(linkid);
+    return new MapContainer("success", true);
   }
 
   @RequestMapping(value = "/edit", method = RequestMethod.GET)

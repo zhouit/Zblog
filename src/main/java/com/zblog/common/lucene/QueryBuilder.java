@@ -48,6 +48,7 @@ public class QueryBuilder{
     this.analyzer = analyzer;
     must = new LinkedList<Term>();
     should = new LinkedList<Term>();
+    lighters = new ArrayList<String>();
   }
 
   public QueryBuilder addMust(String field, String value){
@@ -83,16 +84,13 @@ public class QueryBuilder{
    * @return
    */
   public QueryBuilder addLighter(String... fields){
-    if(lighters == null)
-      lighters = new ArrayList<String>();
     lighters.addAll(Arrays.asList(fields));
 
     return this;
   }
 
-  public String[] getHighlighter(){
-    String[] result = new String[lighters.size()];
-    return lighters.toArray(result);
+  public List<String> getHighlighter(){
+    return lighters;
   }
 
   public QueryBuilder sortBy(SortField field){
@@ -144,12 +142,13 @@ public class QueryBuilder{
       List<String> list = new ArrayList<String>();
       /* tokenStream的fieldName随意 */
       stream = analyzer.tokenStream("any", new StringReader(str));
+      CharTermAttribute cta = stream.addAttribute(CharTermAttribute.class);
       stream.reset();
-      CharTermAttribute cta = stream.getAttribute(CharTermAttribute.class);
       while(stream.incrementToken() && list.size() <= MAX_QUERY_TOKENS){
         list.add(cta.toString());
       }
 
+      stream.end();
       list = reSubset(list);
       String[] result = new String[list.size()];
       return list.toArray(result);

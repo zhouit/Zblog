@@ -34,11 +34,16 @@ public class BackendController{
   }
 
   @RequestMapping(value = "/login", method = RequestMethod.POST)
-  public String dashboard(String username, String pass, String code, HttpServletRequest request,
-      HttpServletResponse response){
+  public String dashboard(String username, String pass, HttpServletRequest request, HttpServletResponse response){
     User user = userService.login(username, pass);
+    if(user == null){
+      request.setAttribute("msg", "用户名密码错误");
+      return "backend/login";
+    }
+
     CookieUtil cookieUtil = new CookieUtil(request, response);
-    cookieUtil.setCookie(Constants.COOKIE_CONTEXT_ID, user.getId() + ":" + user.getId());
+    cookieUtil.setCookie(Constants.COOKIE_CONTEXT_ID, user.getId());
+    cookieUtil.setCookie(Constants.COOKIE_USER_NAME, username, 7 * 24 * 3600);
 
     return "redirect:/backend/index";
   }

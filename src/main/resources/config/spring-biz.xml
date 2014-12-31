@@ -12,20 +12,24 @@
    
   <context:component-scan base-package="com.zblog.biz" />
   <aop:config proxy-target-class="true">
+    <aop:pointcut expression="execution(* com.zblog.biz.PostManager.insertPost(..)) and args(post,..)" id="p-post-insert" />
+    <aop:pointcut expression="execution(* com.zblog.biz.PostManager.removePost(java.lang.String)) and args(postid)" id="p-post-remove" />
     <aop:aspect ref="staticTemplate">
       <!-- 定义切点· -->
       <aop:pointcut id="p-category" expression="execution(* com.zblog.service.CategoryService.insert*(..)) || execution(* com.zblog.service.CategoryService.remove*(..))" />
       <aop:after method="staticHeader" pointcut-ref="p-category" />
       
       <!-- 注意:中间的必须用and 不能用 && -->
-      <aop:pointcut expression="target(com.zblog.service.LinkService) and (execution(* insert*(..)) || execution(* remove*(..)))" id="p-link" />
+      <aop:pointcut expression="target(com.zblog.service.LinkService) and (execution(* insert*(..)) || execution(* delete*(..)))" id="p-link" />
       <aop:after method="staticLinks" pointcut-ref="p-link" />
       
-      <aop:pointcut expression="execution(* com.zblog.biz.PostManager.insertPost(..)) and args(post,..)" id="p-post-insert" />
       <aop:after method="staticPost" pointcut-ref="p-post-insert" arg-names="post" />
-      
-      <aop:pointcut expression="execution(* com.zblog.biz.PostManager.removePost(java.lang.String)) and args(postid)" id="p-post-remove" />
       <aop:after method="removeStaticPost" pointcut-ref="p-post-remove" arg-names="postid" />
+    </aop:aspect>
+    
+    <aop:aspect ref="postIndexManager">
+      <aop:after method="insert" pointcut-ref="p-post-insert" arg-names="post" />
+      <aop:after method="remove" pointcut-ref="p-post-remove" arg-names="postid" />
     </aop:aspect>
   </aop:config>
   

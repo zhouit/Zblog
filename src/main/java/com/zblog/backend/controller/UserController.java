@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,18 +23,29 @@ public class UserController{
   private UserService userService;
 
   @RequestMapping(method = RequestMethod.GET)
-  public String index(@RequestParam(value = "page", defaultValue = "1") int page,Model model){
-    model.addAttribute("users", userService.list(page, 15));
-    return "backend/users/list";
+  public String index(@RequestParam(value = "page", defaultValue = "1") int page, Model model){
+    model.addAttribute("page", userService.list(page, 15));
+    return "backend/user/list";
   }
-  
-  @ResponseBody
+
   @RequestMapping(method = RequestMethod.POST)
-  public Object insert(User user){
+  public String insert(User user){
     user.setId(IdGenarater.uuid19());
     user.setCreateTime(new Date());
     user.setLastUpdate(new Date());
-    return new MapContainer("success", userService.insert(user));
+    return "backend/user/list";
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/{userid}", method = RequestMethod.DELETE)
+  public Object remove(@PathVariable("userid") String userid){
+    userService.deleteById(userid);
+    return new MapContainer("success", true);
+  }
+  
+  @RequestMapping(value = "/edit", method = RequestMethod.GET)
+  public String edit(){
+    return "backend/user/edit";
   }
 
 }

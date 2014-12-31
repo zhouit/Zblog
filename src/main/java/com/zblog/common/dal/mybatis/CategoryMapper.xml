@@ -12,6 +12,10 @@
       select id, name,leftv, rightv, visible from category where name = #{name}
    </select>
    
+   <select id="loadById" parameterType="java.lang.String" resultType="Category">  
+      select id, name, visible from category where id = #{id}
+   </select>
+   
    <insert id="insert" parameterType="Category">
       insert into category(id,name,leftv,rightv,visible,createTime) 
          values(#{id},#{name},#{leftv},#{rightv},#{visible},#{createTime})

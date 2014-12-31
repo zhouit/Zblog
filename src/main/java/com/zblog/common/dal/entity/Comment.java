@@ -11,7 +11,7 @@ public class Comment extends BaseEntity{
   /* 内容 */
   private String content;
   /* 是否批准 */
-  private boolean approved;
+  private boolean approved = false;
   /* 评论者的userAgent */
   private String agent;
   /* 父评论ID */

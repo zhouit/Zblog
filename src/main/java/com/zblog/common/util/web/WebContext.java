@@ -1,13 +1,12 @@
 package com.zblog.common.util.web;
 
+import com.zblog.common.dal.entity.User;
+
 public class WebContext{
   private String sid;
   private int loginId;
-  private String userId;
-  private String userName;
-  private String nickName;
+  private User user;
   private String ip;
-  private boolean logon;
   private String requestURI;
   private String lastLoginTime;
 
@@ -27,30 +26,6 @@ public class WebContext{
     this.loginId = loginId;
   }
 
-  public String getUserId(){
-    return userId;
-  }
-
-  public void setUserId(String userId){
-    this.userId = userId;
-  }
-
-  public String getUserName(){
-    return userName;
-  }
-
-  public void setUserName(String userName){
-    this.userName = userName;
-  }
-
-  public String getNickName(){
-    return nickName;
-  }
-
-  public void setNickName(String nickName){
-    this.nickName = nickName;
-  }
-
   public String getIp(){
     return ip;
   }
@@ -59,12 +34,16 @@ public class WebContext{
     this.ip = ip;
   }
 
-  public boolean isLogon(){
-    return logon;
+  public User getUser(){
+    return user;
   }
 
-  public void setLogon(boolean logon){
-    this.logon = logon;
+  public void setUser(User user){
+    this.user = user;
+  }
+
+  public boolean isLogon(){
+    return user != null;
   }
 
   public String getRequestURI(){
@@ -82,5 +61,5 @@ public class WebContext{
   public void setLastLoginTime(String lastLoginTime){
     this.lastLoginTime = lastLoginTime;
   }
-  
+
 }

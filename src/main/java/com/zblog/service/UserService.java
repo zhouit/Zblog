@@ -14,7 +14,7 @@ public class UserService extends BaseService{
   private UserMapper userMapper;
 
   public PageModel list(int pageIndex, int pageSize){
-    PageModel page = new PageModel(pageSize, pageSize);
+    PageModel page = new PageModel(pageIndex, pageSize);
     super.list(page);
     return page;
   }
