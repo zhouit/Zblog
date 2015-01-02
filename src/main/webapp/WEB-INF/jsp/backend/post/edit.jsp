@@ -9,7 +9,7 @@
   <script type="text/javascript" src="${domain}/resource/ueditor-1.4.3/ueditor.all.js"></script>
  </head>
  <body style="margin-top: 50px;">
-  <%@include file="../common/navbar.html" %>
+  <jsp:include page="../common/navbar.jsp" flush="false" />
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-3 col-md-2" id="sidebar" style="padding: 0;">

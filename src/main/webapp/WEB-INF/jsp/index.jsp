@@ -1,7 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="page" uri="/WEB-INF/tld/pagination.tld" %>
-
 <!DOCTYPE Html>
 <html>
  <head>
@@ -72,7 +71,8 @@
      <div id="right_col">
       <div class="side_widget clearfix">
        <h3 class="headline">About</h3>
-       <p>本站模仿自<a href="http://ifeve.com/">并发编程网</a></p>
+       <p>You can show your site introduction by using Site Introduction Widget. 
+       You also can show Social Icon on upper part, and search form at bottom. </p>
         <div id="search_area" class="clearfix">
           <form method="get">
              <div class="search_input">

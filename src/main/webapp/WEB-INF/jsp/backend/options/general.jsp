@@ -6,7 +6,7 @@
   <%@include file="../../common/bootstrap.html" %>
  </head>
  <body style="margin-top: 50px;">
-  <%@include file="../common/navbar.html" %>
+  <jsp:include page="../common/navbar.jsp" flush="false" />
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-3 col-md-2" id="sidebar" style="padding: 0;">
@@ -52,7 +52,7 @@
                  <label class="col-sm-3">成员资格</label>
                  <div class="col-sm-6">
                    <div class="checkbox">
-                     <label style="padding-left: 20px;" ><input type="checkbox">任何人都可以注册</label>
+                     <label style="padding-left: 20px;" ><input type="checkbox" name="defaultReg">任何人都可以注册</label>
                    </div>
                  </div>
                </div>
