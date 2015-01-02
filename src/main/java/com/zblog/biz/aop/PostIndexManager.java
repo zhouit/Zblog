@@ -33,7 +33,7 @@ public class PostIndexManager{
   public PageModel search(String word, int pageIndex){
     PageModel result = new PageModel(pageIndex, 15);
     QueryBuilder builder = new QueryBuilder(SearchEnginer.postEnginer().getAnalyzer());
-    builder.addShould("title", word).addShould("content", word);
+    builder.addShould("title", word).addShould("excerpt", word);
     SearchEnginer.postEnginer().searchHighlight(builder, result);
 
     return result;
@@ -44,8 +44,8 @@ public class PostIndexManager{
     doc.add(new Field("id", post.getId() + "", LuceneUtils.directType()));
     doc.add(new Field("title", post.getTitle(), LuceneUtils.searchType()));
     /* 用jsoup剔除html标签和&nbsp;等内容 */
-    System.out.println(Jsoup.parse(post.getContent()).text());
-    doc.add(new Field("content", Jsoup.parse(post.getContent()).text(), LuceneUtils.searchType()));
+    doc.add(new Field("excerpt", Jsoup.parse(post.getContent()).text(), LuceneUtils.searchType()));
+    doc.add(new Field("creator", post.getCreator(), LuceneUtils.storeType()));
     doc.add(new Field("createTime", DateUtils.formatDate("yyyy-MM-dd", post.getCreateTime()), LuceneUtils.storeType()));
 
     return doc;

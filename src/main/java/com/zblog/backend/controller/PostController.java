@@ -17,6 +17,7 @@ import com.zblog.biz.PostManager;
 import com.zblog.common.dal.entity.Post;
 import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.plugin.PageModel;
+import com.zblog.common.util.constants.PostConstants;
 import com.zblog.service.CategoryService;
 import com.zblog.service.PostService;
 
@@ -45,7 +46,8 @@ public class PostController{
     post.setTitle(HtmlUtils.htmlEscape(post.getTitle().trim()));
     post.setContent(post.getContent());
     String cleanTxt = Jsoup.parse(post.getContent()).text();
-    post.setExcerpt(cleanTxt.length() > 350 ? cleanTxt.substring(0, 350) : cleanTxt);
+    post.setExcerpt(cleanTxt.length() > PostConstants.EXCERPT_LENGTH ? cleanTxt.substring(0,
+        PostConstants.EXCERPT_LENGTH) : cleanTxt);
     post.setCreator("admin");
     postManager.insertPost(post, uploadToken);
     return new MapContainer("success", true);

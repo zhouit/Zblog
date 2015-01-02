@@ -15,5 +15,8 @@ public class PostConstants{
   public static final String POST_TRASH = "trash";
   
   public static final String OPTION_POSTID_NAME = "POSTID_NAME";
+  
+  /*文章摘要长度 (此为post表中excerpt的varchar(350))*/
+  public static final int EXCERPT_LENGTH = 350;
 
 }
