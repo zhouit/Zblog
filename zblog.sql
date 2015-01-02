@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50534
 File Encoding         : 65001
 
-Date: 2014-12-26 19:35:37
+Date: 2014-12-31 22:42:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -84,9 +84,7 @@ CREATE TABLE `link` (
 -- ----------------------------
 -- Records of link
 -- ----------------------------
-INSERT INTO `link` VALUES ('cJd3NUupGKtsWeX2J8D', '百度一下', 'http://ww.baidu.com', null, '1', 'admin', '2014-12-23 21:13:14');
 INSERT INTO `link` VALUES ('Fm6UVHh2F6aYLuegsFy', 'JavaTalk', 'http://www.zhouhaocheng.cn', null, '1', 'admin', '2014-12-26 12:03:52');
-INSERT INTO `link` VALUES ('X6eZV6k74Ncs41KDcGE', 'Google', 'http://www.google.com', null, '1', 'admin', '2014-12-23 22:08:43');
 
 -- ----------------------------
 -- Table structure for `option`
@@ -110,7 +108,7 @@ DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
   `id` varchar(19) NOT NULL,
   `title` varchar(100) NOT NULL,
-  `excerpt` varchar(200) DEFAULT NULL,
+  `excerpt` varchar(350) DEFAULT NULL,
   `content` mediumtext NOT NULL,
   `type` enum('post','page') NOT NULL,
   `parent` varchar(19) DEFAULT NULL,
@@ -161,6 +159,7 @@ CREATE TABLE `user` (
   `id` varchar(19) NOT NULL,
   `nickName` varchar(25) NOT NULL,
   `realName` varchar(25) NOT NULL,
+  `password` varchar(32) NOT NULL,
   `email` varchar(30) NOT NULL,
   `status` varchar(10) NOT NULL,
   `description` varchar(100) DEFAULT NULL,
@@ -174,6 +173,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
+INSERT INTO `user` VALUES ('uHHi9gvg81UXn4PLlLE', 'admin', '东方上人', 'e10adc3949ba59abbe56e057f20f883e', 'manager@zblog.com', '', null, '2014-12-31 18:49:44', null, '2014-12-31 18:49:48');
 
 -- ----------------------------
 -- View structure for `view_category`
