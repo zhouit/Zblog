@@ -7,30 +7,30 @@
   <short-name>pag</short-name>
   <uri>/WEB-INF/tld/pagination.tld</uri>
   <tag>
-	<name>page</name>
-	<tag-class>com.zblog.common.tag.Pagination</tag-class>
-	<body-content>JSP</body-content>
-	  <attribute>
-		<name>pageUrl</name>
-		<required>true</required>
-		<!-- rtexprvalue 是否允许表达式 不允许时${1+1}出错 -->  
-		<rtexprvalue>true</rtexprvalue>
-	  </attribute>
-	  <attribute>
-		<name>model</name>
-		<required>true</required>
-		<rtexprvalue>true</rtexprvalue>
-	  </attribute>
-	  <attribute>
-		<name>showPage</name>
-		<required>false</required>
-		<rtexprvalue>true</rtexprvalue>
-	  </attribute>
-	  <attribute>
-		<name>boundary</name>
-		<required>false</required>
-		<rtexprvalue>true</rtexprvalue>
-	  </attribute>
+    <name>page</name>
+    <tag-class>com.zblog.common.tag.Pagination</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>pageUrl</name>
+      <required>true</required>
+      <!-- rtexprvalue 是否允许表达式 不允许时${1+1}出错 -->  
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>model</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>showPage</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>boundary</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
    </tag>
    <tag>
      <name>first</name>

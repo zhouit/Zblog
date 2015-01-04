@@ -32,6 +32,14 @@
     <mvc:view-controller path="/backend" view-name="/backend/login" />
    -->
    
+  <mvc:interceptors>
+    <mvc:interceptor>
+      <mvc:mapping path="/backend/**" />
+      <mvc:exclude-mapping path="/backend/login" />
+      <bean class="com.zblog.web.filter.CSRFInterceptor" />
+    </mvc:interceptor>
+  </mvc:interceptors>
+   
   <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
     <property name="contentNegotiationManager">
       <bean class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
