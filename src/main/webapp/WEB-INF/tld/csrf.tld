@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" version="2.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	                        http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
+  <tlib-version>1.0</tlib-version>
+  <short-name>csrf</short-name>
+  <uri>/WEB-INF/tld/csrf.tld</uri>
+  <tag>
+	<name>csrf</name>
+	<tag-class>com.zblog.common.tag.CSRFTagSupport</tag-class>
+	<body-content>empty</body-content>
+  </tag>
+</taglib>
