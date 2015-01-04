@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="csrf" uri="/WEB-INF/tld/csrf.tld" %>
 
 <!DOCTYPE Html>
 <html>
@@ -23,6 +24,7 @@
           <div class="panel-heading"><span class="icon glyphicon glyphicon-wrench"></span>内容</div>
           <div class="panel-body">
             <form action="." method="post" class="form-horizontal text-left" role="form">
+              <csrf:csrf/>
               <c:if test="${link!=null}">
                 <input type="hidden" name="_method" value="PUT" />
               </c:if>

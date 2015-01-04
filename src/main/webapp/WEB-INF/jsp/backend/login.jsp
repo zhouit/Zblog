@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="csrf" uri="/WEB-INF/tld/csrf.tld" %>
 
 <!DOCTYPE Html>
 <html>
@@ -12,10 +13,16 @@
      <c:if test="${msg!=null}"><p class="message">${msg}<br></p></c:if>
      <form id="loginform" method="post" action="login">
        <div class="form-group">
-          <input type="text" autocomplete="off" class="form-control" name="username" placeholder="用户名/邮箱" />
+         <div class="input-group">
+           <div class="input-group-addon"><i class="icon-user"></i></div>
+           <input type="text" autocomplete="off" class="form-control" name="username" placeholder="用户名/邮箱" />
+         </div>
        </div>
        <div class="form-group">
-          <input type="password" autocomplete="off" class="form-control" name="pass" placeholder="密码" />
+         <div class="input-group">
+           <div class="input-group-addon"><i class="icon-key"></i></div>
+           <input type="password" autocomplete="off" class="form-control" name="pass" placeholder="密码" />
+         </div>
        </div>
        <div class="form-group">
           <input type="password" autocomplete="off" class="form-control" placeholder="验证码"

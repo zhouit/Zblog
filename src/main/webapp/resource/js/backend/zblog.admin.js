@@ -15,3 +15,25 @@ zblog.register =function(){
   
   return result;
 }
+
+$(document).ajaxSend(function(event, xhr, settings){
+   function getCookie(name){
+     var cookieValue = null;
+     if(document.cookie && document.cookie != ''){
+        var cookies = document.cookie.split(';');
+        for(var i = 0; i < cookies.length; i++){
+           var cookie = jQuery.trim(cookies[i]);
+           if(cookie.substring(0, name.length + 1) == (name + '=')){
+             cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+             break;
+           }
+        }
+      }
+     return cookieValue;
+   }
+ 
+   if(!/^(GET|HEAD|OPTIONS|TRACE)$/.test(settings.type)){
+	 /* 此处token值可以放在cookie中 */
+     xhr.setRequestHeader("X-CSRFToken", $("#csrf-token").val());
+   }
+});

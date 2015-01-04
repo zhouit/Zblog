@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="csrf" uri="/WEB-INF/tld/csrf.tld" %>
 
 <!DOCTYPE Html>
 <html>
@@ -22,6 +23,7 @@
           <div class="panel-heading"><span class="icon glyphicon glyphicon-wrench"></span>撰写/阅读</div>
           <div class="panel-body">
             <form action="" method="post" class="form-horizontal text-left" role="form">
+              <csrf:csrf/>
               <input type="hidden" name="_method" value="PUT" />
               <div class="form-group">
                 <label class="col-sm-3" for="maxshow">博客页面至多显示(文章数/页)</label>

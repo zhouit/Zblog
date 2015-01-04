@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="csrf" uri="/WEB-INF/tld/csrf.tld" %>
 
 <!DOCTYPE Html>
 <html>
@@ -21,6 +22,7 @@
           <div class="panel-heading"><span class="icon glyphicon glyphicon-briefcase"></span>常规</div>
           <div class="panel-body">
             <form action="" method="post" class="form-horizontal text-left" role="form">
+              <csrf:csrf/>
               <input type="hidden" name="_method" value="PUT" />
               <div class="form-group">
                 <label class="col-sm-3" for="title">站点标题</label>
