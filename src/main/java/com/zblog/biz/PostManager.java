@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zblog.common.dal.entity.Post;
 import com.zblog.common.plugin.MapContainer;
+import com.zblog.common.util.StringUtils;
 import com.zblog.common.util.constants.WebConstants;
 import com.zblog.service.PostService;
 import com.zblog.service.UploadService;
@@ -28,7 +29,8 @@ public class PostManager{
    */
   @Transactional
   public void insertPost(Post post, String uploadToken){
-    uploadService.updatePostid(post.getId(), uploadToken);
+    if(!StringUtils.isBlank(uploadToken))
+      uploadService.updatePostid(post.getId(), uploadToken);
     postService.insert(post);
   }
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zblog.backend.form.validator.LinkFormValidator;
 import com.zblog.common.dal.entity.Link;
 import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.IdGenarater;
@@ -28,19 +29,25 @@ public class LinkController{
     return "backend/link/list";
   }
 
+  @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
-  public String insert(Link link){
+  public Object insert(Link link){
+    MapContainer form = LinkFormValidator.validate(link);
+    if(!form.isEmpty()){
+      return form.put("success", false);
+    }
+
     link.setLastUpdate(new Date());
     link.setCreator("admin");
     link.setId(IdGenarater.uuid19());
     link.setVisible(true);
     linkService.insert(link);
-    return "redirect:/backend/links";
+    return new MapContainer("success", true);
   }
-  
+
   @ResponseBody
-  @RequestMapping(value="/{linkid}",method = RequestMethod.DELETE)
-  public Object remove(@PathVariable("linkid")String linkid){
+  @RequestMapping(value = "/{linkid}", method = RequestMethod.DELETE)
+  public Object remove(@PathVariable("linkid") String linkid){
     linkService.deleteById(linkid);
     return new MapContainer("success", true);
   }

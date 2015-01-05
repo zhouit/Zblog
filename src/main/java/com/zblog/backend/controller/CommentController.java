@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zblog.common.plugin.MapContainer;
 
-@Controller("bCommentController")
+@Controller("adminCommentController")
 @RequestMapping("/backend/comments")
 public class CommentController{
 

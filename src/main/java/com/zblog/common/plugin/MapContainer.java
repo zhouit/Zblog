@@ -31,7 +31,7 @@ public class MapContainer extends LinkedHashMap<String, Object>{
     return this;
   }
 
-  public static MapContainer convert(Map<String, Object> map){
+  public static MapContainer convert(Map<String, ? extends Object> map){
     MapContainer container = new MapContainer();
     container.putAll(map);
     return container;

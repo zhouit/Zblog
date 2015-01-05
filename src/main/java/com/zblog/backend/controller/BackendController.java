@@ -9,7 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.zblog.backend.form.LoginForm;
+import com.zblog.backend.form.validator.LoginFormValidator;
 import com.zblog.common.dal.entity.User;
+import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.CookieUtil;
 import com.zblog.common.util.constants.Constants;
 import com.zblog.service.UserService;
@@ -34,8 +37,14 @@ public class BackendController{
   }
 
   @RequestMapping(value = "/login", method = RequestMethod.POST)
-  public String dashboard(String username, String pass, HttpServletRequest request, HttpServletResponse response){
-    User user = userService.login(username, pass);
+  public String dashboard(LoginForm form, HttpServletRequest request, HttpServletResponse response){
+    MapContainer result = LoginFormValidator.validateLogin(form);
+    if(!result.isEmpty()){
+      request.setAttribute("msg", result.get("msg"));
+      return "backend/login";
+    }
+
+    User user = userService.login(form.getUsername(), form.getPassword());
     if(user == null){
       request.setAttribute("msg", "用户名密码错误");
       return "backend/login";
@@ -43,7 +52,7 @@ public class BackendController{
 
     CookieUtil cookieUtil = new CookieUtil(request, response);
     cookieUtil.setCookie(Constants.COOKIE_CONTEXT_ID, user.getId());
-    cookieUtil.setCookie(Constants.COOKIE_USER_NAME, username, 7 * 24 * 3600);
+    cookieUtil.setCookie(Constants.COOKIE_USER_NAME, form.getUsername(), 7 * 24 * 3600);
 
     return "redirect:/backend/index";
   }

@@ -15,7 +15,7 @@ import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.IdGenarater;
 import com.zblog.service.CategoryService;
 
-@Controller("bCategoryController")
+@Controller("adminCategoryController")
 @RequestMapping("/backend/categorys")
 public class CategoryController{
   @Autowired

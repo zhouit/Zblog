@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zblog.biz.aop.PostIndexManager;
+import com.zblog.common.dal.entity.Option;
 import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.StringUtils;
 import com.zblog.common.util.constants.Constants;
 import com.zblog.common.util.constants.WebConstants;
 import com.zblog.service.PostService;
 import com.zblog.template.FreeMarkerUtils;
-import com.zblog.web.form.BaseForm;
 
 @Controller
 public class IndexController{
@@ -37,7 +37,7 @@ public class IndexController{
   }
 
   @RequestMapping("/init.json")
-  public void init(@ModelAttribute("form") BaseForm form){
+  public void init(@ModelAttribute Option option){
     MapContainer map = new MapContainer("keywords", "JavaEE - Zblog");
     map.put("description", "Spring MyBatis FreeMarker Lucene Bootstarp");
     map.put("title", "JavaTalk");

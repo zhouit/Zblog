@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
+import com.zblog.backend.form.validator.PostFormValidator;
 import com.zblog.biz.PostManager;
 import com.zblog.common.dal.entity.Post;
 import com.zblog.common.plugin.MapContainer;
@@ -21,7 +22,7 @@ import com.zblog.common.util.constants.PostConstants;
 import com.zblog.service.CategoryService;
 import com.zblog.service.PostService;
 
-@Controller(value = "bPostController")
+@Controller(value = "adminPostController")
 @RequestMapping("/backend/posts")
 public class PostController{
   @Autowired
@@ -41,16 +42,21 @@ public class PostController{
   @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
   public Object insert(Post post, String uploadToken){
+    MapContainer form = PostFormValidator.validatePublish(post);
+    if(!form.isEmpty()){
+      return form.put("success", false);
+    }
+
     post.setId(postService.createPostid());
     post.setLastUpdate(new Date());
-    
+
     /* 由于加入xss的过滤,html内容都被转义了,这里需呀unescape */
-    String content=HtmlUtils.htmlUnescape(post.getContent());
+    String content = HtmlUtils.htmlUnescape(post.getContent());
     post.setContent(JsoupUtils.filter(content));
     String cleanTxt = JsoupUtils.plainText(content);
     post.setExcerpt(cleanTxt.length() > PostConstants.EXCERPT_LENGTH ? cleanTxt.substring(0,
         PostConstants.EXCERPT_LENGTH) : cleanTxt);
-    
+
     post.setCreator("admin");
     postManager.insertPost(post, uploadToken);
     return new MapContainer("success", true);
