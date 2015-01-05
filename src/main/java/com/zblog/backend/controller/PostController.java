@@ -2,7 +2,6 @@ package com.zblog.backend.controller;
 
 import java.util.Date;
 
-import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +16,7 @@ import com.zblog.biz.PostManager;
 import com.zblog.common.dal.entity.Post;
 import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.plugin.PageModel;
+import com.zblog.common.util.JsoupUtils;
 import com.zblog.common.util.constants.PostConstants;
 import com.zblog.service.CategoryService;
 import com.zblog.service.PostService;
@@ -43,11 +43,14 @@ public class PostController{
   public Object insert(Post post, String uploadToken){
     post.setId(postService.createPostid());
     post.setLastUpdate(new Date());
-    post.setTitle(HtmlUtils.htmlEscape(post.getTitle().trim()));
-    post.setContent(post.getContent());
-    String cleanTxt = Jsoup.parse(post.getContent()).text();
+    
+    /* 由于加入xss的过滤,html内容都被转义了,这里需呀unescape */
+    String content=HtmlUtils.htmlUnescape(post.getContent());
+    post.setContent(JsoupUtils.filter(content));
+    String cleanTxt = JsoupUtils.plainText(content);
     post.setExcerpt(cleanTxt.length() > PostConstants.EXCERPT_LENGTH ? cleanTxt.substring(0,
         PostConstants.EXCERPT_LENGTH) : cleanTxt);
+    
     post.setCreator("admin");
     postManager.insertPost(post, uploadToken);
     return new MapContainer("success", true);

@@ -21,7 +21,7 @@ import com.zblog.common.util.web.WebContextHolder;
 import com.zblog.service.AuthenticationService;
 import com.zblog.service.UserService;
 
-public class LoginFilter extends OncePerRequestFilter{
+public class LoginXssFilter extends OncePerRequestFilter{
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -43,7 +43,7 @@ public class LoginFilter extends OncePerRequestFilter{
 
       AuthenticationService service = ApplicationContextUtil.getBean(AuthenticationService.class);
       if(service.isAuthentication(uri, context.getUser())){
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(new XssHttpServletRequestWrapper(request), response);
         return;
       }
 

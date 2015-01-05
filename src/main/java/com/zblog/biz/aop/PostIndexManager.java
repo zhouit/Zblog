@@ -3,7 +3,6 @@ package com.zblog.biz.aop;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.Term;
-import org.jsoup.Jsoup;
 import org.springframework.stereotype.Component;
 
 import com.zblog.common.dal.entity.Post;
@@ -12,6 +11,7 @@ import com.zblog.common.lucene.QueryBuilder;
 import com.zblog.common.lucene.SearchEnginer;
 import com.zblog.common.plugin.PageModel;
 import com.zblog.common.util.DateUtils;
+import com.zblog.common.util.JsoupUtils;
 
 /**
  * 文章Lucene索引管理器
@@ -43,8 +43,8 @@ public class PostIndexManager{
     Document doc = new Document();
     doc.add(new Field("id", post.getId() + "", LuceneUtils.directType()));
     doc.add(new Field("title", post.getTitle(), LuceneUtils.searchType()));
-    /* 用jsoup剔除html标签和&nbsp;等内容 */
-    doc.add(new Field("excerpt", Jsoup.parse(post.getContent()).text(), LuceneUtils.searchType()));
+    /* 用jsoup剔除html标签*/
+    doc.add(new Field("excerpt", JsoupUtils.plainText(post.getContent()), LuceneUtils.searchType()));
     doc.add(new Field("creator", post.getCreator(), LuceneUtils.storeType()));
     doc.add(new Field("createTime", DateUtils.formatDate("yyyy-MM-dd", post.getCreateTime()), LuceneUtils.storeType()));
 
