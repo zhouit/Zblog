@@ -13,7 +13,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-3 col-md-2" id="sidebar" style="padding: 0;">
-         <%@include file="../common/sidebar.html" %>
+        <jsp:include page="../common/sidebar.jsp" flush="false" />
       </div>
       <div class="col-sm-9 col-md-10">
         <ol class="breadcrumb header">
@@ -40,7 +40,7 @@
                        <span class="view"><a href="#">查看</a></span>
                      </div></td><td>${post.creator}</td>
                      <td>${post.category}</td><td><fmt:formatDate value="${post.lastUpdate}" pattern="yyyy-MM-dd" /></td>
-                     <td class="center"><span class="icon glyphicon glyphicon-pencil pointer"></span>
+                     <td class="center"><span class="icon glyphicon glyphicon-pencil pointer" onclick="zblog.post.edit('${post.id}')"></span>
                        <span class="glyphicon glyphicon-trash pointer" onclick="zblog.post.remove('${post.id}')"></span></td></tr>
                </c:forEach>
               </tbody>

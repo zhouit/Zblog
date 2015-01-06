@@ -34,6 +34,6 @@ $(document).ajaxSend(function(event, xhr, settings){
  
    if(!/^(GET|HEAD|OPTIONS|TRACE)$/.test(settings.type)){
 	 /* 此处token值可以放在cookie中 */
-     xhr.setRequestHeader("X-CSRFToken", $("#csrf-token").val());
+     xhr.setRequestHeader("CSRFToken", getCookie("x-csrf-token"));
    }
 });

@@ -12,7 +12,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-3 col-md-2" id="sidebar" style="padding: 0;">
-         <%@include file="../common/sidebar.html" %>
+        <jsp:include page="../common/sidebar.jsp" flush="false" />
       </div>
       <div class="col-sm-9 col-md-10">
         <ol class="breadcrumb header">
@@ -37,8 +37,8 @@
                  <tr><td>${user.nickName}</td><td>${user.realName}</td>
                       <td>${user.email}</td><td>${user.role}</td><td>${user.postCount}</td>
                       <td><fmt:formatDate value="${user.createTime}" pattern="yyyy-MM-dd"/></td>
-                     <td class="center"><span class="icon glyphicon glyphicon-pencil"></span>
-                       <span class="glyphicon glyphicon-trash pointer" onclick="zblog.user.remove('${upload.id}')"></span></td></tr>
+                     <td class="center"><span class="icon glyphicon glyphicon-pencil" onclick="zblog.user.edit('${user.id}')"></span>
+                       <span class="glyphicon glyphicon-trash pointer" onclick="zblog.user.remove('${user.id}')"></span></td></tr>
                </c:forEach>
               </tbody>
             </table>

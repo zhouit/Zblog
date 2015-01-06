@@ -13,7 +13,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-3 col-md-2" id="sidebar" style="padding: 0;">
-         <%@include file="../common/sidebar.html" %>
+        <jsp:include page="../common/sidebar.jsp" flush="false" />
       </div>
       <div class="col-sm-9 col-md-10">
         <ol class="breadcrumb header">
@@ -26,9 +26,10 @@
           <div class="panel panel-default">
             <div class="panel-heading"><span class="icon glyphicon glyphicon-edit"></span>标题/内容</div>
             <div class="panel-body">
-              <input type="text" id="title" class="form-control input-md" placeholder="输入标题"><br/>
+              <input type="hidden" id="postid" value="${postid}" />
+              <input type="text" id="title" class="form-control input-md" placeholder="输入标题" value="${post.title}"><br/>
               <!-- 必须要添加width:100% -->
-              <script id="container" style="width: 100%; height: 300px;" name="content" type="text/plain"></script>
+              <script id="container" style="width: 100%; height: 300px;" name="content" type="text/plain">${post.content}</script>
             </div>
            </div>
          </div>

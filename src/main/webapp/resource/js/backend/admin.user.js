@@ -14,3 +14,7 @@ zblog.post.remove=function(userid){
    }
  });
 }
+
+zblog.user.edit=function(userid){
+  window.location.href="users/edit?uid="+userid;
+}

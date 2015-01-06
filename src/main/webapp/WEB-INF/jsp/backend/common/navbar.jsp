@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fulid" style="padding-right: 15px;">
-    <div class="navbar-header"><a class="navbar-brand" href="#">JavaTalk</a></div>
+    <div class="navbar-header"><a class="navbar-brand" href="#">Zblog</a></div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li><a class="dropdown-toggle" data-toggle="dropdown" href="#">新建<span class="caret"/></a>
@@ -14,7 +14,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Dashboard</a></li>
-        <li><a class="dropdown-toggle" data-toggle="dropdown" href="#">你好,admin<span class="caret"></span></a>
+        <li><a class="dropdown-toggle" data-toggle="dropdown" href="#">你好,${cookie.un.value}<span class="caret"></span></a>
           <ul class="dropdown-menu">
              <li><a href="${domain}/backend/options">设置</a></li>
              <li><a href="${domain}/backend/users/my">编辑我的个人资料</a></li>

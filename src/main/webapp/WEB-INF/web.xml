@@ -41,6 +41,15 @@
     <filter-name>loginXssFilter</filter-name>
     <filter-class>com.zblog.web.filter.LoginXssFilter</filter-class>
   </filter>
+  <filter>
+    <filter-name>statelessCsrfFilter</filter-name>
+    <filter-class>com.zblog.web.filter.StatelessCsrfFilter</filter-class>
+    <init-param>
+      <param-name>exclude</param-name>
+      <!-- 基于java正则匹配 -->
+      <param-value>/resource/.*</param-value>
+    </init-param>
+  </filter>
   <!-- 隐藏的HttpMethod方法过滤器，表单提交中需要携带一个name=_method的隐藏域，value=put或者delete -->
   <filter>
     <filter-name>HiddenHttpMethodFilter</filter-name>
@@ -66,9 +75,19 @@
     <servlet-name>Zblog</servlet-name>
   </filter-mapping>
   <filter-mapping>
+    <filter-name>statelessCsrfFilter</filter-name>
+    <servlet-name>Zblog</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
      <filter-name>HiddenHttpMethodFilter</filter-name>
      <servlet-name>Zblog</servlet-name>
   </filter-mapping>
+  
+  <!-- 激活Tomcat的defaultServlet来处理静态文件 -->
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/resource/*</url-pattern>
+  </servlet-mapping>
 
   <servlet-mapping>
     <servlet-name>Zblog</servlet-name>

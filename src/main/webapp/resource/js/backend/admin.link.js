@@ -14,3 +14,7 @@ zblog.link.remove=function(linkid){
    }
  });
 }
+
+zblog.link.edit=function(linkid){
+  window.location.href="links/edit?lid="+linkid;
+}

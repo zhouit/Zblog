@@ -9,7 +9,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-3 col-md-2" id="sidebar" style="padding: 0;">
-         <%@include file="common/sidebar.html" %>
+        <jsp:include page="common/sidebar.jsp" flush="false" />
       </div>
       <div class="col-sm-9 col-md-10">
         <h3 class="page-header header">主菜单<small>Welcome to Zblog</small></h3>

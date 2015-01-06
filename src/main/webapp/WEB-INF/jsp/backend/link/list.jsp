@@ -12,7 +12,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-3 col-md-2" id="sidebar" style="padding: 0;">
-         <%@include file="../common/sidebar.html" %>
+         <jsp:include page="../common/sidebar.jsp" flush="false" />
       </div>
       <div class="col-sm-9 col-md-10">
         <ol class="breadcrumb header">
@@ -34,7 +34,7 @@
                <c:forEach items="${page.content}" var="link">
                  <tr><td>${link.name}</td><td><a target="_blank" href='${link.url}'>${link.url}</a></td>
                      <td>${link.visible?"是":"否"}</td><td><fmt:formatDate value="${link.createTime}" pattern="yyyy-MM-dd"/></td>
-                     <td class="center"><span class="icon glyphicon glyphicon-pencil pointer"></span>
+                     <td class="center"><span class="icon glyphicon glyphicon-pencil pointer" onclick="zblog.link.edit('${link.id}')"></span>
                        <span class="glyphicon glyphicon-trash pointer" onclick="zblog.link.remove('${link.id}')"></span></td></tr>
                </c:forEach>
               </tbody>

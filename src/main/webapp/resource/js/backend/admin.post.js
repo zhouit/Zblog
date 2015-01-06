@@ -52,3 +52,7 @@ zblog.post.remove=function(postid){
    }
  });
 }
+
+zblog.post.edit=function(postid){
+  window.location.href="posts/edit?pid="+postid;
+}
