@@ -28,29 +28,33 @@
                 <input type="hidden" name="_method" value="PUT" />
                 <input type="hidden" name="id" value="${user.id}" />
               </c:if>
-              <div class="form-group">
+              <div class="form-group ${nickName!=null?'has-error':''}">
                 <label class="col-sm-3" for="title">*用户名</label>
                 <div class="col-sm-6">
                   <input class="form-control" type="text" name="nickName" value="${user.nickName}" />
+                  <p class="help-block">${nickName}</p>
                 </div>
               </div>
-               <div class="form-group">
+               <div class="form-group ${email!=null?'has-error':''}">
                  <label class="col-sm-3" for="email">*电子邮件</label>
                  <div class="col-sm-6">
                    <input class="form-control" type="text" name="email" value="${user.email}" />
+                   <p class="help-block">${email}</p>
                  </div>
                </div>
-               <div class="form-group">
+               <div class="form-group ${realName!=null?'has-error':''}">
                  <label class="col-sm-3" for="realName">真实名称</label>
                  <div class="col-sm-6">
                     <input class="form-control" autocomplete="off" type="text" name="realName" value="${user.realName}" />
+                     <p class="help-block">${realName}</p>
                   </div>
                </div>
-               <div class="form-group">
-                 <label class="col-sm-3" for="email">*密码 </label>
+               <div class="form-group ${password!=null?'has-error':''}">
+                 <label class="col-sm-3" for="password">*密码 </label>
                  <div class="col-sm-6">
-                   <input class="form-control input-sm" type="password" name="pass" />
+                   <input class="form-control input-sm" type="password" name="password" />
                    <input style="margin-top: 5px;" class="form-control input-sm" type="password" name="repass" />
+                   <p class="help-block">${password!=null?password:'密码长度6-16'}</p>
                  </div>
                </div>
               <div class="form-group">

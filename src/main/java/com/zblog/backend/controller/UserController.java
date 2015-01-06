@@ -31,10 +31,10 @@ public class UserController{
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public String insert(User user, Model model){
-    MapContainer form = UserFormValidator.validateInsert(user);
+  public String insert(User user, String repass, Model model){
+    MapContainer form = UserFormValidator.validateInsert(user,repass);
     if(!form.isEmpty()){
-      model.addAttribute("msg", form.get("msg"));
+      model.addAllAttributes(form);
       return "backend/user/edit";
     }
 
@@ -47,14 +47,14 @@ public class UserController{
   }
 
   @RequestMapping(method = RequestMethod.PUT)
-  public String update(User user, Model model){
-    MapContainer form = UserFormValidator.validateInsert(user);
+  public String update(User user, String repass, Model model){
+    MapContainer form = UserFormValidator.validateUpdate(user, repass);
     if(!form.isEmpty()){
-      model.addAttribute("msg", form.get("msg"));
+      model.addAllAttributes(form);
       model.addAttribute("user", user);
       return "backend/user/edit";
     }
-    
+
     userService.update(user);
     return "backend/user/list";
   }

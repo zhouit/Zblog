@@ -1,6 +1,6 @@
 zblog.register("zblog.user");
 
-zblog.post.remove=function(userid){
+zblog.user.remove=function(userid){
  $.ajax({
    type:"DELETE",
    url:"users/"+userid,

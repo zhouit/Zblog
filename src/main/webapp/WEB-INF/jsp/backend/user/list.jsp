@@ -37,7 +37,7 @@
                  <tr><td>${user.nickName}</td><td>${user.realName}</td>
                       <td>${user.email}</td><td>${user.role}</td><td>${user.postCount}</td>
                       <td><fmt:formatDate value="${user.createTime}" pattern="yyyy-MM-dd"/></td>
-                     <td class="center"><span class="icon glyphicon glyphicon-pencil" onclick="zblog.user.edit('${user.id}')"></span>
+                     <td class="center"><span class="icon glyphicon glyphicon-pencil pointer" onclick="zblog.user.edit('${user.id}')"></span>
                        <span class="glyphicon glyphicon-trash pointer" onclick="zblog.user.remove('${user.id}')"></span></td></tr>
                </c:forEach>
               </tbody>

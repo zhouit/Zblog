@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.zblog.common.util.Base64Codec;
 import com.zblog.common.util.CookieUtil;
+import com.zblog.common.util.StringUtils;
 import com.zblog.common.util.constants.Constants;
 
 /**
@@ -37,6 +39,10 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
 
   private boolean isAjaxVerificationToken(HttpServletRequest request, String csrfToken){
     String headToken = request.getHeader(Constants.CRSF_TOKEN);
+    /* 此处要base64解码 */
+    if(!StringUtils.isBlank(headToken))
+      headToken = new String(Base64Codec.decode(headToken));
+
     return headToken != null && headToken.equals(csrfToken);
   }
 
@@ -59,22 +65,26 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
         return;
       }
     }
-    
+
     CookieUtil cookieUtil = new CookieUtil(request, response);
+    /* 页面值均为base64编码后的值 */
     String csrfToken = cookieUtil.getCookie(Constants.COOKIE_CRSF_TOKEN);
 
     if(METHODS.contains(request.getMethod())){
-      if(isAjax(request) && !isAjaxVerificationToken(request, csrfToken)){
+      boolean ajax = isAjax(request);
+      if(ajax && !isAjaxVerificationToken(request, csrfToken)){
         response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
         response.getWriter().write("{'status':'403','success':false,'msg':'非法请求,请刷新重试'}");
         return;
-      }else if(!isVerificationToken(request, csrfToken)){
+      }else if(!ajax && !isVerificationToken(request, csrfToken)){
         if(response.isCommitted())
           response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         return;
       }
     }
 
+    System.out.println("ddoo2");
     csrfToken = Long.toString(random.nextLong(), 36);
     cookieUtil.setCookie(Constants.COOKIE_CRSF_TOKEN, csrfToken, false, 1800);
     request.setAttribute(Constants.CRSF_TOKEN, csrfToken);
