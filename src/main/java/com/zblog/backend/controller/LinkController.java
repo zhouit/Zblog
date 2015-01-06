@@ -15,6 +15,7 @@ import com.zblog.backend.form.validator.LinkFormValidator;
 import com.zblog.common.dal.entity.Link;
 import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.IdGenarater;
+import com.zblog.common.util.StringUtils;
 import com.zblog.service.LinkService;
 
 @Controller
@@ -29,12 +30,12 @@ public class LinkController{
     return "backend/link/list";
   }
 
-  @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
-  public Object insert(Link link){
-    MapContainer form = LinkFormValidator.validate(link);
+  public String insert(Link link,Model model){
+    MapContainer form = LinkFormValidator.validateInsert(link);
     if(!form.isEmpty()){
-      return form.put("success", false);
+      model.addAttribute("msg", form.get("msg"));
+      return "backend/link/edit";
     }
 
     link.setLastUpdate(new Date());
@@ -42,7 +43,20 @@ public class LinkController{
     link.setId(IdGenarater.uuid19());
     link.setVisible(true);
     linkService.insert(link);
-    return new MapContainer("success", true);
+    return "backend/link/list";
+  }
+  
+  @RequestMapping(method = RequestMethod.PUT)
+  public String update(Link link,Model model){
+    MapContainer form = LinkFormValidator.validateUpdate(link);
+    if(!form.isEmpty()){
+      model.addAttribute("link", link);
+      model.addAttribute("msg", form.get("msg"));
+      return "backend/link/edit";
+    }
+
+    linkService.update(link);
+    return "backend/link/list";
   }
 
   @ResponseBody
@@ -53,7 +67,10 @@ public class LinkController{
   }
 
   @RequestMapping(value = "/edit", method = RequestMethod.GET)
-  public String edit(Model model){
+  public String edit(String lid, Model model){
+    if(!StringUtils.isBlank(lid))
+      model.addAttribute("link", linkService.loadById(lid));
+    
     return "backend/link/edit";
   }
 

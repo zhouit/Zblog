@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zblog.backend.form.validator.UserFormValidator;
 import com.zblog.common.dal.entity.User;
 import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.IdGenarater;
+import com.zblog.common.util.StringUtils;
 import com.zblog.service.UserService;
 
 @Controller
@@ -29,10 +31,31 @@ public class UserController{
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public String insert(User user){
+  public String insert(User user, Model model){
+    MapContainer form = UserFormValidator.validateInsert(user);
+    if(!form.isEmpty()){
+      model.addAttribute("msg", form.get("msg"));
+      return "backend/user/edit";
+    }
+
     user.setId(IdGenarater.uuid19());
     user.setCreateTime(new Date());
     user.setLastUpdate(new Date());
+
+    userService.insert(user);
+    return "backend/user/list";
+  }
+
+  @RequestMapping(method = RequestMethod.PUT)
+  public String update(User user, Model model){
+    MapContainer form = UserFormValidator.validateInsert(user);
+    if(!form.isEmpty()){
+      model.addAttribute("msg", form.get("msg"));
+      model.addAttribute("user", user);
+      return "backend/user/edit";
+    }
+    
+    userService.update(user);
     return "backend/user/list";
   }
 
@@ -42,9 +65,11 @@ public class UserController{
     userService.deleteById(userid);
     return new MapContainer("success", true);
   }
-  
+
   @RequestMapping(value = "/edit", method = RequestMethod.GET)
-  public String edit(){
+  public String edit(String uid, Model model){
+    if(!StringUtils.isBlank(uid))
+      model.addAttribute("user", userService.loadById(uid));
     return "backend/user/edit";
   }
 

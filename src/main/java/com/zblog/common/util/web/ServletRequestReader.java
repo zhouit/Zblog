@@ -100,7 +100,6 @@ public class ServletRequestReader{
   public Map<String, String> getQuerys(){
     Map<String,String> result = new HashMap<String, String>();
 
-    @SuppressWarnings("unchecked")
     Enumeration<String> params = (Enumeration<String>)request.getParameterNames();
     while(params.hasMoreElements()){
       String param = params.nextElement();

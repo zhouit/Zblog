@@ -25,5 +25,14 @@ public class PostFormValidator{
 
     return form;
   }
+  
+  public static MapContainer validateUpdate(Post post){
+    MapContainer form = validatePublish(post);
+    if(StringUtils.isBlank(post.getId())){
+      form.put("msg", "文章ID不合法");
+    }
+
+    return form;
+  }
 
 }

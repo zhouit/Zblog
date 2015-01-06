@@ -21,6 +21,11 @@ import com.zblog.common.util.web.WebContextHolder;
 import com.zblog.service.AuthenticationService;
 import com.zblog.service.UserService;
 
+/**
+ * 继承OncePerRequestFilter保证一次请求只过滤一次(以兼容不同的servlet container)
+ * @author zhou
+ *
+ */
 public class LoginXssFilter extends OncePerRequestFilter{
 
   @Override
@@ -49,7 +54,7 @@ public class LoginXssFilter extends OncePerRequestFilter{
 
       if(ajax){
         response.setContentType("application/json");
-        response.getWriter().write("{\"status\":\"403\"}");
+        response.getWriter().write("{'status':'403'}");
       }else{
         String encodeURL = UrlUtil.encode(uri
             + (StringUtils.isBlank(request.getQueryString()) ? "" : "?" + request.getQueryString()));
@@ -62,7 +67,7 @@ public class LoginXssFilter extends OncePerRequestFilter{
 
       if(isAjax(request)){
         response.setContentType("application/json");
-        response.getWriter().write("{\"status\":\"500\"}");
+        response.getWriter().write("{'status':'500'}");
       }
     }finally{
       WebContextHolder.remove();

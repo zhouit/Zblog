@@ -35,6 +35,19 @@ public class PostManager{
   }
 
   /**
+   * 更新文章,同时更新上传文件的postid
+   * 
+   * @param post
+   * @param uploadToken
+   */
+  @Transactional
+  public void updatePost(Post post, String uploadToken){
+    if(!StringUtils.isBlank(uploadToken))
+      uploadService.updatePostid(post.getId(), uploadToken);
+    postService.update(post);
+  }
+
+  /**
    * 删除文章,同时删除文章对应的上传记录,及其文件
    * 
    * @param postid

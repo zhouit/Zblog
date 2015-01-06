@@ -26,6 +26,11 @@
       insert into post(id,title,excerpt,content,type,parent,categoryid,pstatus,cstatus,ccount,rcount,createTime,creator,lastUpdate) 
          values(#{id},#{title},#{excerpt},#{content, jdbcType=CLOB},#{type},#{parent},#{categoryid},#{pstatus},#{cstatus},#{ccount},#{rcount},#{createTime},#{creator},#{lastUpdate})
    </insert>
+   
+   <update id="update" parameterType="Post">
+     update post set title=#{title},excerpt=#{excerpt}, content=#{content, jdbcType=CLOB}, categoryid=#{categoryid},lastUpdate=#{lastUpdate}
+     where id=#{id}
+   </update>
 
    <delete id="deleteById">
 	 delete from post where id = #{id}

@@ -10,7 +10,6 @@ import com.zblog.common.dal.entity.Category;
 import com.zblog.common.dal.entity.Post;
 import com.zblog.common.plugin.ApplicationContextUtil;
 import com.zblog.common.plugin.MapContainer;
-import com.zblog.common.util.constants.Constants;
 import com.zblog.common.util.constants.WebConstants;
 import com.zblog.service.CategoryService;
 import com.zblog.service.LinkService;
@@ -28,7 +27,7 @@ public class StaticTemplate{
     CategoryService categoryService = ApplicationContextUtil.getBean(CategoryService.class);
 
     MapContainer map = new MapContainer();
-    map.put("domain", Constants.DOMAIN);
+    map.put("domain", WebConstants.DOMAIN);
     map.put("categorys", categoryService.listAsTree());
 
     FreeMarkerUtils.genHtml("/common/header.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
@@ -59,12 +58,12 @@ public class StaticTemplate{
   public void staticPost(Post post){
     CategoryService categoryService = ApplicationContextUtil.getBean(CategoryService.class);
     Category category = categoryService.loadById(post.getCategoryid());
-    MapContainer param = new MapContainer("domain", Constants.DOMAIN).put("post", post).put("categoryName",
+    MapContainer param = new MapContainer("domain", WebConstants.DOMAIN).put("post", post).put("categoryName",
         category.getName());
     FreeMarkerUtils.genHtml("/post.html",
         new File(WebConstants.APPLICATION_PATH, "post/post-" + post.getId() + ".html"), param);
     logger.info("staticPost");
-    
+
     staticRecent();
   }
 
@@ -73,13 +72,13 @@ public class StaticTemplate{
     File postFile = new File(WebConstants.APPLICATION_PATH, path);
     postFile.delete();
     logger.info("removeStaticPost");
-    
+
     staticRecent();
   }
 
   private void staticRecent(){
     PostService postService = ApplicationContextUtil.getBean(PostService.class);
-    MapContainer param = new MapContainer("domain", Constants.DOMAIN);
+    MapContainer param = new MapContainer("domain", WebConstants.DOMAIN);
     param.put("posts", postService.listRecent());
     FreeMarkerUtils.genHtml("/common/recent.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
         + "/common/recent.html"), param);

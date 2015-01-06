@@ -45,29 +45,30 @@ public class CookieUtil{
   }
 
   public void setCookie(String name, String value){
-    setCookie(name, value, PATH);
+    setCookie(name, value, false);
   }
 
-  public void setCookie(String name, String value, String path){
-    setCookie(name, value, path, true);
+  public void setCookie(String name, String value, boolean httpOnly){
+    setCookie(name, value, PATH, httpOnly);
   }
 
-  public void setCookie(String name, String value, int expiry){
-    setCookie(name, value, PATH, expiry, true);
+  public void setCookie(String name, String value, String path, boolean httpOnly){
+    setCookie(name, value, path, httpOnly, -1);
   }
 
-  public void setCookie(String name, String value, String path, int expiry){
-    setCookie(name, value, path, expiry, true);
+  public void setCookie(String name, String value, boolean httpOnly, int expiry){
+    setCookie(name, value, PATH, httpOnly, expiry, true);
   }
 
-  public void setCookie(String name, String value, String path, boolean encode){
-    setCookie(name, value, path, -1, encode);
+  public void setCookie(String name, String value, String path, boolean httpOnly, int expiry){
+    setCookie(name, value, path, httpOnly, expiry, true);
   }
 
-  public void setCookie(String name, String value, String path, int expiry, boolean encode){
+  public void setCookie(String name, String value, String path, boolean httpOnly, int expiry, boolean encode){
     Cookie cookie = new Cookie(name, encode ? encode(value) : value);
     cookie.setPath(path);
     cookie.setMaxAge(expiry);
+    cookie.setHttpOnly(httpOnly);
     if(!StringUtils.isBlank(domain)){
       cookie.setDomain(domain);
     }
@@ -75,7 +76,7 @@ public class CookieUtil{
   }
 
   public void removeCokie(String name){
-    setCookie(name, null, 0);
+    setCookie(name, null, false, 0);
   }
 
   private String encode(String value){

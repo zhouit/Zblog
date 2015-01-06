@@ -1,29 +1,27 @@
 <div id="bread_crumb">
   <ul class="clearfix">
-    <li><a title="首页" href="${domain}">首页</a></li>
-    <li><a href="${domain}/categorys/${categoryName}">${categoryName}</a></li>
-    <li class="last">${post.title}</li>
+   <li><a title="首页" href="${domain}">首页</a></li>
+   <li><a href="${domain}/categorys/${categoryName}">${categoryName}</a></li>
+   <li class="last">${post.title}</li>
   </ul>
 </div>
 <div class="post_wrap clearfix">
   <div class="post">
-    <h3 class="title"><span>${post.title}</span></h3>
-    <div class="post_content">
-      ${post.content}
-   </div>
+   <h3 class="title"><span>${post.title}</span></h3>
+   <div class="post_content">${post.content}</div>
   </div>
   <div class="meta">
     <ul>
-      <li class="post_date clearfix">
+     <li class="post_date clearfix">
        <span class="date">${post.createTime?string("dd")}</span><span class="month">${post.createTime?string("MMM")}</span><span class="year">${post.createTime?string("yyyy")}</span>
-      </li>
-      <li class="post_comment"> 120 人阅读</li>
-      <li class="post_author">
-        <a rel="author" title="由${post.creator}发布" href="#">${post.creator}</a>
-      </li>
-      <li class="post_comment">
-         <a title="${post.title}" href="#respond">发表评论</a>
-      </li>
-     </ul>
+     </li>
+     <li class="post_comment"> 120 人阅读</li>
+     <li class="post_author">
+      <a rel="author" title="由${post.creator}发布" href="#">${post.creator}</a>
+     </li>
+     <li class="post_comment">
+       <a title="${post.title}" href="#respond">发表评论</a>
+     </li>
+    </ul>
   </div>
 </div>

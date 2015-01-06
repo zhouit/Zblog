@@ -18,6 +18,7 @@ import com.zblog.common.dal.entity.Post;
 import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.plugin.PageModel;
 import com.zblog.common.util.JsoupUtils;
+import com.zblog.common.util.StringUtils;
 import com.zblog.common.util.constants.PostConstants;
 import com.zblog.service.CategoryService;
 import com.zblog.service.PostService;
@@ -48,17 +49,35 @@ public class PostController{
     }
 
     post.setId(postService.createPostid());
+    post.setCreator("admin");
     post.setLastUpdate(new Date());
 
-    /* 由于加入xss的过滤,html内容都被转义了,这里需呀unescape */
+    /* 由于加入xss的过滤,html内容都被转义了,这里需要unescape */
     String content = HtmlUtils.htmlUnescape(post.getContent());
     post.setContent(JsoupUtils.filter(content));
     String cleanTxt = JsoupUtils.plainText(content);
     post.setExcerpt(cleanTxt.length() > PostConstants.EXCERPT_LENGTH ? cleanTxt.substring(0,
         PostConstants.EXCERPT_LENGTH) : cleanTxt);
 
-    post.setCreator("admin");
     postManager.insertPost(post, uploadToken);
+    return new MapContainer("success", true);
+  }
+  
+  @ResponseBody
+  @RequestMapping(method = RequestMethod.PUT)
+  public Object update(Post post, String uploadToken){
+    MapContainer form = PostFormValidator.validateUpdate(post);
+    if(!form.isEmpty()){
+      return form.put("success", false);
+    }
+    /* 由于加入xss的过滤,html内容都被转义了,这里需要unescape */
+    String content = HtmlUtils.htmlUnescape(post.getContent());
+    post.setContent(JsoupUtils.filter(content));
+    String cleanTxt = JsoupUtils.plainText(content);
+    post.setExcerpt(cleanTxt.length() > PostConstants.EXCERPT_LENGTH ? cleanTxt.substring(0,
+        PostConstants.EXCERPT_LENGTH) : cleanTxt);
+    
+    postManager.updatePost(post, uploadToken);
     return new MapContainer("success", true);
   }
 
@@ -70,7 +89,10 @@ public class PostController{
   }
 
   @RequestMapping(value = "/edit", method = RequestMethod.GET)
-  public String edit(Model model){
+  public String edit(String pid, Model model){
+    if(!StringUtils.isBlank(pid))
+      model.addAttribute("post", postService.loadById(pid));
+    
     model.addAttribute("categorys", categoryService.list());
     return "backend/post/edit";
   }

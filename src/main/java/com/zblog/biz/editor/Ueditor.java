@@ -17,7 +17,7 @@ import com.zblog.common.util.FileUtils;
 import com.zblog.common.util.IdGenarater;
 import com.zblog.common.util.StringUtils;
 import com.zblog.common.util.constants.CategoryConstants;
-import com.zblog.common.util.constants.Constants;
+import com.zblog.common.util.constants.WebConstants;
 import com.zblog.common.util.web.ServletRequestReader;
 import com.zblog.service.UploadService;
 
@@ -101,7 +101,7 @@ public class Ueditor{
       file.transferTo(new File(parent, fileName));
       result.put("original", file.getOriginalFilename());
       result.put("title", file.getOriginalFilename());
-      result.put("url", Constants.DOMAIN + "/post/uploads/" + yearMonth + "/" + fileName);
+      result.put("url", WebConstants.DOMAIN + "/post/uploads/" + yearMonth + "/" + fileName);
 
       Upload upload = new Upload();
       upload.setId(IdGenarater.uuid19());
