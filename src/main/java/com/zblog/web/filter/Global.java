@@ -1,0 +1,37 @@
+package com.zblog.web.filter;
+
+import java.util.Calendar;
+import java.util.Date;
+
+import com.zblog.common.util.constants.WebConstants;
+
+public class Global{
+  private String domain;
+
+  public Global(String domain){
+    this.domain = domain;
+  }
+
+  public String getTitle(){
+    return WebConstants.TITLE;
+  }
+
+  public String getSubtitle(){
+    return WebConstants.SUBTITLE;
+  }
+
+  public String getDescription(){
+    return WebConstants.DESCRIPTION;
+  }
+
+  public int getYear(){
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(new Date());
+    return calendar.get(Calendar.YEAR);
+  }
+  
+  public String getDomain(){
+    return domain;
+  }
+
+}
