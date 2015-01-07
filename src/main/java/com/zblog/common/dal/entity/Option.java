@@ -1,9 +1,17 @@
 package com.zblog.common.dal.entity;
 
-public class Option{
+public class Option extends BaseEntity{
   private String id;
   private String name;
   private String value;
+
+  public Option(){
+  }
+
+  public Option(String name, String value){
+    this.name = name;
+    this.value = value;
+  }
 
   public String getId(){
     return id;

@@ -1,14 +1,21 @@
 package com.zblog.common.util.web;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.zblog.common.dal.entity.User;
 
 public class WebContext{
   private String sid;
   private int loginId;
   private User user;
-  private String ip;
-  private String requestURI;
-  private String lastLoginTime;
+  private HttpServletRequest request;
+  private HttpServletResponse response;
+
+  public WebContext(HttpServletRequest request, HttpServletResponse response){
+    this.request = request;
+    this.response = response;
+  }
 
   public String getSid(){
     return sid;
@@ -26,14 +33,6 @@ public class WebContext{
     this.loginId = loginId;
   }
 
-  public String getIp(){
-    return ip;
-  }
-
-  public void setIp(String ip){
-    this.ip = ip;
-  }
-
   public User getUser(){
     return user;
   }
@@ -46,20 +45,12 @@ public class WebContext{
     return user != null;
   }
 
-  public String getRequestURI(){
-    return requestURI;
+  public HttpServletRequest getRequest(){
+    return request;
   }
 
-  public void setRequestURI(String requestURI){
-    this.requestURI = requestURI;
-  }
-
-  public String getLastLoginTime(){
-    return lastLoginTime;
-  }
-
-  public void setLastLoginTime(String lastLoginTime){
-    this.lastLoginTime = lastLoginTime;
+  public HttpServletResponse getResponse(){
+    return response;
   }
 
 }

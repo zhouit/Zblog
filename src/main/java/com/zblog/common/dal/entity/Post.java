@@ -4,23 +4,23 @@ import com.zblog.common.util.constants.PostConstants;
 
 public class Post extends BaseEntity{
   private String title;
-  /* 摘录 */
+  /* 摘录,当type为页面该项为null */
   private String excerpt;
   private String content;
   /* 文章类型（post/page等） */
   private String type = PostConstants.TYPE_POST;
-  /* 父文章ID，主要用于PAGE */
+  /* 父文章ID，主要用于PAGE,只支持两级 */
   private String parent;
-  /* 分类ID */
+  /* 分类ID,主要用于POST */
   private String categoryid;
   /* 文章状态 */
-  private String pstatus=PostConstants.POST_PUBLISH;
+  private String pstatus = PostConstants.POST_PUBLISH;
   /* 评论状态 */
   private String cstatus = PostConstants.COMMENT_CLOSE;
   /* 评论数 */
-  private int ccount=0;
+  private int ccount = 0;
   /* 阅读数 */
-  private int rcount=0;
+  private int rcount = 0;
 
   public String getTitle(){
     return title;

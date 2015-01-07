@@ -138,12 +138,16 @@ public class NumberUtils{
    * @return
    */
   public static int toInteger(String str){
-    int result = Integer.MIN_VALUE;
+    return toInteger(str, Integer.MIN_VALUE);
+  }
+  
+  public static int toInteger(String str,int defaults){
+    int result = defaults;
     try{
       result = Integer.parseInt(str);
     }catch(Exception e){
     }
-
+    
     return result;
   }
 

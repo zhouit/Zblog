@@ -10,10 +10,12 @@ public final class Constants{
   public static final String COOKIE_USER_NAME = "un";
 
   /**
-   * crsf表单提交token名称
+   * csrf表单提交token名称
    */
-  public static final String CRSF_TOKEN = "CSRFToken";
-  
-  public static final String COOKIE_CRSF_TOKEN = "x-csrf-token";
+  public static final String CSRF_TOKEN = "CSRFToken";
+  /**
+   * csrf的cookie名称
+   */
+  public static final String COOKIE_CSRF_TOKEN = "x-csrf-token";
 
 }

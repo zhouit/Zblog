@@ -47,7 +47,6 @@ public class PagePlugin implements Interceptor{
       PageModel model = (PageModel) param;
 
       String sql = boundSql.getSql();
-      logger.debug("page query-->" + sql);
       PreparedStatement ps = null;
       ResultSet rs = null;
       try{

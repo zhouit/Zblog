@@ -101,7 +101,7 @@ public class Ueditor{
       file.transferTo(new File(parent, fileName));
       result.put("original", file.getOriginalFilename());
       result.put("title", file.getOriginalFilename());
-      result.put("url", WebConstants.DOMAIN + "/post/uploads/" + yearMonth + "/" + fileName);
+      result.put("url", WebConstants.getDomain() + "/post/uploads/" + yearMonth + "/" + fileName);
 
       Upload upload = new Upload();
       upload.setId(IdGenarater.uuid19());

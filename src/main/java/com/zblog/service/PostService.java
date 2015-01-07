@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zblog.common.dal.entity.Post;
 import com.zblog.common.dal.mapper.BaseMapper;
 import com.zblog.common.dal.mapper.PostMapper;
 import com.zblog.common.plugin.MapContainer;
@@ -16,6 +17,16 @@ import com.zblog.common.util.constants.PostConstants;
 public class PostService extends BaseService{
   @Autowired
   private PostMapper postMapper;
+
+  /**
+   * 此方法会加载Post的content,loadById只会加载excerpt
+   * 
+   * @param postid
+   * @return
+   */
+  public Post loadEditById(String postid){
+    return postMapper.loadEditById(postid);
+  }
 
   public PageModel listPost(int pageIndex, int pageSize){
     PageModel page = new PageModel(pageIndex, pageSize);
@@ -49,8 +60,19 @@ public class PostService extends BaseService{
     return page;
   }
 
-  public void updateCategoty(String oldCategotyId, String newCategoryId){
-    postMapper.updateCategoty(oldCategotyId, newCategoryId);
+  /**
+   * 获取所有页面(只包含ID和title)
+   * 
+   * @param onlyParent
+   *          是否只取父类页面
+   * @return
+   */
+  public List<MapContainer> listPage(boolean onlyParent){
+    return postMapper.listPage(onlyParent);
+  }
+
+  public void updateCategory(String oldCategoryId, String newCategoryId){
+    postMapper.updateCategory(oldCategoryId, newCategoryId);
   }
 
   /**

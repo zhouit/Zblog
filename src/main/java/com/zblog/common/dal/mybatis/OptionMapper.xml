@@ -4,16 +4,12 @@
 
 <mapper namespace="com.zblog.common.dal.mapper.OptionMapper">
    
-   <select id="getOptionValue" parameterType="java.lang.String" resultType="Option">  
-      select value from option where name = #{name}
+   <select id="getOptionValue" resultType="java.lang.String">  
+      select value from options where name = #{name}
    </select>
    
-   <insert id="insert" parameterType="Option">
-      insert into option(id, name, value) values (#{id}, #{name}, #{value})
-   </insert>
-
    <update id="update" parameterType="Option">
-	 update option set value=#{value} where name=#{name}
+	 replace into options(id, name, value) values (#{id}, #{name}, #{value})
   </update>
 	
 </mapper>

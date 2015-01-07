@@ -2,9 +2,10 @@ package com.zblog.common.util;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class IpUtils{
-  
-  private IpUtils(){}
+class IpUtils{
+
+  private IpUtils(){
+  }
 
   /**
    * 获取客户端真实IP

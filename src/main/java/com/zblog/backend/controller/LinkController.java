@@ -16,6 +16,7 @@ import com.zblog.common.dal.entity.Link;
 import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.IdGenarater;
 import com.zblog.common.util.StringUtils;
+import com.zblog.common.util.web.WebContextHolder;
 import com.zblog.service.LinkService;
 
 @Controller
@@ -39,7 +40,7 @@ public class LinkController{
     }
 
     link.setLastUpdate(new Date());
-    link.setCreator("admin");
+    link.setCreator(WebContextHolder.get().getUser().getNickName());
     link.setId(IdGenarater.uuid19());
     link.setVisible(true);
     linkService.insert(link);

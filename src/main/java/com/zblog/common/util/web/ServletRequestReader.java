@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.zblog.common.util.ServletUtils;
+
 /**
  * Servlet参数提取工具
  * 
@@ -90,17 +92,21 @@ public class ServletRequestReader{
 
     return Boolean.parseBoolean(value.toString());
   }
-  
-  //获取基于虚拟路径的绝对路径
+
+  // 获取基于虚拟路径的绝对路径
   public String getRealPath(String path){
-    //注: request.getServletContext().getRealPath(path);在Servlet3.0规范下才定义的
+    // 注: request.getServletContext().getRealPath(path);在Servlet3.0规范下才定义的
     return request.getSession(true).getServletContext().getRealPath(path);
   }
-  
-  public Map<String, String> getQuerys(){
-    Map<String,String> result = new HashMap<String, String>();
 
-    Enumeration<String> params = (Enumeration<String>)request.getParameterNames();
+  public String getDomain(){
+    return ServletUtils.getDomain(request);
+  }
+
+  public Map<String, String> getQuerys(){
+    Map<String, String> result = new HashMap<String, String>();
+
+    Enumeration<String> params = (Enumeration<String>) request.getParameterNames();
     while(params.hasMoreElements()){
       String param = params.nextElement();
       String value = request.getParameter(param);
@@ -108,35 +114,37 @@ public class ServletRequestReader{
         result.put(param, value);
       }
     }
-    
+
     return result;
   }
-  
+
   /**
    * 获取上传文件名
+   * 
    * @param field
-   * @param containExt  是否包含后缀
+   * @param containExt
+   *          是否包含后缀
    * @return
    */
-  public String getUploadName(String field,boolean containExt){
-    String fileName=null;
+  public String getUploadName(String field, boolean containExt){
+    String fileName = null;
     if(request instanceof MultipartHttpServletRequest){
-      MultipartHttpServletRequest mhsr=(MultipartHttpServletRequest)request;
-      fileName=mhsr.getFile(field).getOriginalFilename();
+      MultipartHttpServletRequest mhsr = (MultipartHttpServletRequest) request;
+      fileName = mhsr.getFile(field).getOriginalFilename();
     }else{
-      fileName=request.getParameter(fileName);
+      fileName = request.getParameter(fileName);
     }
-    
-    if(fileName!=null&&!containExt){
-      int point=fileName.lastIndexOf(".");
-      fileName=fileName.substring(0,point);
+
+    if(fileName != null && !containExt){
+      int point = fileName.lastIndexOf(".");
+      fileName = fileName.substring(0, point);
     }
-    
+
     return fileName;
   }
-  
+
   public MultipartFile getFile(String field){
-    MultipartHttpServletRequest mphsr = (MultipartHttpServletRequest)request;
+    MultipartHttpServletRequest mphsr = (MultipartHttpServletRequest) request;
     return mphsr.getFile(field);
   }
 

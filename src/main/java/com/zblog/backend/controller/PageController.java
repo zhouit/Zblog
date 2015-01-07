@@ -21,24 +21,21 @@ import com.zblog.common.util.JsoupUtils;
 import com.zblog.common.util.StringUtils;
 import com.zblog.common.util.constants.PostConstants;
 import com.zblog.common.util.web.WebContextHolder;
-import com.zblog.service.CategoryService;
 import com.zblog.service.PostService;
 
-@Controller(value = "adminPostController")
-@RequestMapping("/backend/posts")
-public class PostController{
+@Controller(value = "adminPageController")
+@RequestMapping("/backend/pages")
+public class PageController{
   @Autowired
   private PostService postService;
   @Autowired
   private PostManager postManager;
-  @Autowired
-  private CategoryService categoryService;
 
   @RequestMapping(method = RequestMethod.GET)
   public String index(@RequestParam(value = "page", defaultValue = "1") int page, Model model){
-    PageModel pageModel = postService.listPost(page, 15);
+    PageModel pageModel = postService.listPage(page, 15);
     model.addAttribute("page", pageModel);
-    return "backend/post/list";
+    return "backend/page/list";
   }
 
   @ResponseBody
@@ -51,14 +48,12 @@ public class PostController{
 
     post.setId(postService.createPostid());
     post.setCreator(WebContextHolder.get().getUser().getNickName());
+    post.setType(PostConstants.TYPE_PAGE);
     post.setLastUpdate(new Date());
 
     /* 由于加入xss的过滤,html内容都被转义了,这里需要unescape */
     String content = HtmlUtils.htmlUnescape(post.getContent());
     post.setContent(JsoupUtils.filter(content));
-    String cleanTxt = JsoupUtils.plainText(content);
-    post.setExcerpt(cleanTxt.length() > PostConstants.EXCERPT_LENGTH ? cleanTxt.substring(0,
-        PostConstants.EXCERPT_LENGTH) : cleanTxt);
 
     postManager.insertPost(post, uploadToken);
     return new MapContainer("success", true);
@@ -74,9 +69,7 @@ public class PostController{
     /* 由于加入xss的过滤,html内容都被转义了,这里需要unescape */
     String content = HtmlUtils.htmlUnescape(post.getContent());
     post.setContent(JsoupUtils.filter(content));
-    String cleanTxt = JsoupUtils.plainText(content);
-    post.setExcerpt(cleanTxt.length() > PostConstants.EXCERPT_LENGTH ? cleanTxt.substring(0,
-        PostConstants.EXCERPT_LENGTH) : cleanTxt);
+    post.setType(PostConstants.TYPE_PAGE);
 
     postManager.updatePost(post, uploadToken);
     return new MapContainer("success", true);
@@ -85,17 +78,24 @@ public class PostController{
   @ResponseBody
   @RequestMapping(value = "/{postid}", method = RequestMethod.DELETE)
   public Object remove(@PathVariable("postid") String postid){
-    postManager.removePost(postid, PostConstants.TYPE_POST);
+    postManager.removePost(postid, PostConstants.TYPE_PAGE);
     return new MapContainer("success", true);
   }
 
   @RequestMapping(value = "/edit", method = RequestMethod.GET)
   public String edit(String pid, Model model){
-    if(!StringUtils.isBlank(pid))
-      model.addAttribute("post", postService.loadEditById(pid));
+    /* 是否可设置父页面 */
+    boolean showparent = true;
+    if(!StringUtils.isBlank(pid)){
+      Post page = postService.loadEditById(pid);
+      model.addAttribute("post", page);
+      showparent = !StringUtils.isBlank(page.getParent());
+    }
 
-    model.addAttribute("categorys", categoryService.list());
-    return "backend/post/edit";
+    if(showparent)
+      model.addAttribute("parent", postService.listPage(true));
+
+    return "backend/page/edit";
   }
 
 }

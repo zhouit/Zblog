@@ -5,12 +5,20 @@
 <mapper namespace="com.zblog.common.dal.mapper.PostMapper">
    
    <select id="loadById" parameterType="java.lang.String" resultType="Post">  
-      select id, title,excerpt, content, categoryid, ccount, rcount, creator, lastUpdate from post where id = #{id}
+      select id, title,excerpt, categoryid, ccount, rcount, creator, lastUpdate from post where id = #{id}
+   </select>
+   
+    <select id="loadEditById" parameterType="java.lang.String" resultType="Post">  
+      select id, title,content, categoryid, parent from post where id = #{id}
    </select>
    
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
       select p.id, p.title, excerpt, c.name as category,ccount, p.creator, p.lastUpdate
           from post p left join category c on p.categoryid=c.id where p.type=#{query.type}
+   </select>
+   
+   <select id="listPage" resultType="MapContainer" parameterType="boolean">  
+      select id, title from post where type='page' <if test="onlyParent"> and parent is null</if>
    </select>
    
    <select id="listRecent" resultType="MapContainer">  
@@ -28,8 +36,12 @@
    </insert>
    
    <update id="update" parameterType="Post">
-     update post set title=#{title},excerpt=#{excerpt}, content=#{content, jdbcType=CLOB}, categoryid=#{categoryid},lastUpdate=#{lastUpdate}
+     update post set title=#{title},excerpt=#{excerpt}, content=#{content, jdbcType=CLOB},parent=#{parent}, categoryid=#{categoryid},lastUpdate=#{lastUpdate}
      where id=#{id}
+   </update>
+   
+   <update id="updateCategory">
+     update post set categoryid=#{newCategoryId} where categoryid=#{oldCategoryId}
    </update>
 
    <delete id="deleteById">

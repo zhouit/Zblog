@@ -12,7 +12,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.zblog.common.dal.entity.User;
 import com.zblog.common.plugin.ApplicationContextUtil;
 import com.zblog.common.util.CookieUtil;
-import com.zblog.common.util.IpUtils;
 import com.zblog.common.util.StringUtils;
 import com.zblog.common.util.UrlUtil;
 import com.zblog.common.util.constants.Constants;
@@ -23,8 +22,9 @@ import com.zblog.service.UserService;
 
 /**
  * 继承OncePerRequestFilter保证一次请求只过滤一次(以兼容不同的servlet container)
+ * 
  * @author zhou
- *
+ * 
  */
 public class LoginXssFilter extends OncePerRequestFilter{
 
@@ -37,8 +37,6 @@ public class LoginXssFilter extends OncePerRequestFilter{
 
     try{
       context = getWebContext(request, response);
-      String uri = request.getRequestURI();
-      context.setRequestURI("".equals(uri) ? "/" : uri);
       // 保存上下文
       WebContextHolder.set(context);
 
@@ -46,6 +44,7 @@ public class LoginXssFilter extends OncePerRequestFilter{
       if(!ajax)
         addGloableAttr(request);
 
+      String uri = StringUtils.emptyDefault(request.getRequestURI(), "/");
       AuthenticationService service = ApplicationContextUtil.getBean(AuthenticationService.class);
       if(service.isAuthentication(uri, context.getUser())){
         filterChain.doFilter(new XssHttpServletRequestWrapper(request), response);
@@ -54,8 +53,8 @@ public class LoginXssFilter extends OncePerRequestFilter{
 
       if(ajax){
         response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{'status':'403'}");
+        response.setCharacterEncoding(Constants.ENCODING_UTF_8);
+        response.getWriter().write("{'status':'403','success':false,'msg':'没有权限'}");
       }else{
         String encodeURL = UrlUtil.encode(uri
             + (StringUtils.isBlank(request.getQueryString()) ? "" : "?" + request.getQueryString()));
@@ -68,7 +67,8 @@ public class LoginXssFilter extends OncePerRequestFilter{
 
       if(isAjax(request)){
         response.setContentType("application/json");
-        response.getWriter().write("{'status':'500'}");
+        response.setCharacterEncoding(Constants.ENCODING_UTF_8);
+        response.getWriter().write("{'status':'500','success':false,'msg':'操作失败,服务端出错'}");
       }
     }finally{
       WebContextHolder.remove();
@@ -85,12 +85,11 @@ public class LoginXssFilter extends OncePerRequestFilter{
       result += ":" + request.getServerPort();
     }
     result += request.getContextPath();
-    request.setAttribute("domain", result);
+    request.setAttribute("g", new Global(result));
   }
 
   private WebContext getWebContext(HttpServletRequest request, HttpServletResponse response){
-    WebContext context = new WebContext();
-    context.setIp(IpUtils.getIp(request));
+    WebContext context = new WebContext(request, response);
 
     // 该处实现登录控制
     CookieUtil cookieUtil = new CookieUtil(request, response);

@@ -1,3 +1,4 @@
+<#if post.type="post">
 <div id="bread_crumb">
   <ul class="clearfix">
    <li><a title="首页" href="${domain}">首页</a></li>
@@ -5,6 +6,7 @@
    <li class="last">${post.title}</li>
   </ul>
 </div>
+</#if>
 <div class="post_wrap clearfix">
   <div class="post">
    <h3 class="title"><span>${post.title}</span></h3>

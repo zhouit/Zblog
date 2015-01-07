@@ -11,6 +11,6 @@ public class CategoryConstants{
    */
   public static final String UPLOAD_TOKEN = "uploadToken";
   
-  public static final String OPTION_DEFAULT_CATEGORY_NAME = "DEFAULT_NAME";
+  public static final String OPTION_DEFAULT_CATEGORY_ID = "DEFAULT_NAME";
 
 }

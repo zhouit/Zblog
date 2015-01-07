@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zblog.common.dal.entity.Comment;
 import com.zblog.common.plugin.MapContainer;
-import com.zblog.common.util.IpUtils;
+import com.zblog.common.util.ServletUtils;
 
 @Controller
 @RequestMapping("/comments")
@@ -30,7 +30,7 @@ public class CommentController{
   @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
   public Object post(Comment comment, HttpServletRequest request){
-    comment.setIp(IpUtils.getIp(request));
+    comment.setIp(ServletUtils.getIp(request));
     comment.setAgent(request.getHeader("User-Agent"));
     /* 使用jsoup来对帖子内容进行过滤 */
     comment.setContent(Jsoup.clean(comment.getContent(), content_filter));
