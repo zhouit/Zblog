@@ -3,8 +3,8 @@
 <!DOCTYPE Html>
 <html>
  <head>
-  <%@include file="../../common/bootstrap.html" %>
-  <link rel="stylesheet" href="${domain}/resource/zdialog/alert.css" type='text/css'>
+  <jsp:include page="../common/bootstrap.jsp" flush="false" />
+  <link rel="stylesheet" href="${g.domain}/resource/zdialog/alert.css" type='text/css'>
  </head>
  <body style="margin-top: 50px;">
   <jsp:include page="../common/navbar.jsp" flush="false" />
@@ -55,8 +55,8 @@
      </div>
    </div>
   
-  <script type="text/javascript" src="${domain}/resource/bootstrap-tree/bootstrap-treeview.min.js"></script>
-  <script type="text/javascript" src="${domain}/resource/js/backend/admin.category.js"></script>
-  <script type="text/javascript" src="${domain}/resource/zdialog/alert.js"></script>
+  <script type="text/javascript" src="${g.domain}/resource/bootstrap-tree/bootstrap-treeview.min.js"></script>
+  <script type="text/javascript" src="${g.domain}/resource/js/backend/admin.category.js"></script>
+  <script type="text/javascript" src="${g.domain}/resource/zdialog/alert.js"></script>
  </body>
 </html>

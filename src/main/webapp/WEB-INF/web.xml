@@ -25,7 +25,7 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   <listener>
-    <listener-class>com.zblog.web.listener.ContextListener</listener-class>
+    <listener-class>com.zblog.web.listener.InitApplicationListener</listener-class>
   </listener>
   
   <!-- 字符编码过滤器 -->

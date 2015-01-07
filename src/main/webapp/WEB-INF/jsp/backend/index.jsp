@@ -2,7 +2,7 @@
 <!DOCTYPE Html>
 <html>
  <head>
-  <%@include file="../common/bootstrap.html" %>
+  <jsp:include page="common/bootstrap.jsp" flush="false" />
  </head>
  <body style="margin-top: 50px;">
   <jsp:include page="common/navbar.jsp" flush="false" />

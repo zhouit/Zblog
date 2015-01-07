@@ -18,16 +18,15 @@
       <div class="col-sm-9 col-md-10">
         <ol class="breadcrumb header">
           <li><span class="icon glyphicon glyphicon-home"></span>主菜单</li>
-          <li class="active">文章</li>
+          <li class="active">页面</li>
         </ol>
         <div class="panel panel-default">
-          <div class="panel-heading"><span class="icon glyphicon glyphicon-list"></span>文章列表</div>
+          <div class="panel-heading"><span class="icon glyphicon glyphicon-list"></span>所有页面</div>
           <div class="panel-body">
            <table id="post-table" class="table table-striped list-table">
                <thead><tr>
                  <th>标题</th>
                  <th>作者</th>
-                 <th>分类</th>
                  <th>日期</th>
                  <th class="center">操作</th>
                </tr></thead>
@@ -39,9 +38,9 @@
                        <span class="trash"><a href="#">移到回收站</a>&nbsp;|&nbsp;</span>
                        <span class="view"><a target="_blank" href="${g.domain}/pages/${post.id}">查看</a></span>
                      </div></td><td>${post.creator}</td>
-                     <td>${post.category}</td><td><fmt:formatDate value="${post.lastUpdate}" pattern="yyyy-MM-dd" /></td>
-                     <td class="center"><span class="icon glyphicon glyphicon-pencil pointer" onclick="zblog.post.edit('${post.id}')"></span>
-                       <span class="glyphicon glyphicon-trash pointer" onclick="zblog.post.remove('${post.id}')"></span></td></tr>
+                     <td><fmt:formatDate value="${post.lastUpdate}" pattern="yyyy-MM-dd" /></td>
+                     <td class="center"><span class="icon glyphicon glyphicon-pencil pointer" onclick="zblog.page.edit('${post.id}')"></span>
+                       <span class="glyphicon glyphicon-trash pointer" onclick="zblog.page.remove('${post.id}')"></span></td></tr>
                </c:forEach>
               </tbody>
             </table>
@@ -61,6 +60,6 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="${g.domain}/resource/js/backend/admin.post.js"></script>
+  <script type="text/javascript" src="${g.domain}/resource/js/backend/admin.page.js"></script>
  </body>
 </html>

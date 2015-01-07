@@ -1,9 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE Html>
 <html>
  <head>
-  <%@include file="../../common/bootstrap.html" %>
+  <jsp:include page="../common/bootstrap.jsp" flush="false" />
  </head>
  <body style="margin-top: 50px;">
   <jsp:include page="../common/navbar.jsp" flush="false" />
@@ -20,32 +20,36 @@
         <div class="panel panel-default">
           <div class="panel-heading"><span class="icon glyphicon glyphicon-briefcase"></span>常规</div>
           <div class="panel-body">
+            <c:if test="${success}">
+              <div class="alert alert-success" style="padding: 10px 15px;">修改成功</div>
+            </c:if>
             <form action="" method="post" class="form-horizontal text-left" role="form">
               <input type="hidden" name="CSRFToken" value="${CSRFToken}" />
-              <input type="hidden" name="_method" value="PUT" />
-              <div class="form-group">
-                <label class="col-sm-3" for="title">站点标题</label>
+              <div class="form-group ${title!=null?'has-error':''}">
+                <label class="col-sm-3" for="title">*站点标题</label>
                 <div class="col-sm-6">
-                  <input placeholder="站点标题" class="form-control" type="text" />
+                  <input placeholder="站点标题" name="title" class="form-control" type="text" value="${form.title}" />
+                  <p class="help-block">${title}</p>
                 </div>
               </div>
-               <div class="form-group">
-                 <label class="col-sm-3" for="subtitle">副标题</label>
+               <div class="form-group ${subtitle!=null?'has-error':''}">
+                 <label class="col-sm-3" for="subtitle">*副标题</label>
                  <div class="col-sm-6">
-                   <input placeholder="副标题" class="form-control" type="text">
-                   <p class="help-block">用简洁的文字描述本站点。</p>
+                   <input placeholder="副标题" name="subtitle" class="form-control" type="text" value="${form.subtitle}" />
+                   <p class="help-block">${subtitle!=null?subtitle:'用简洁的文字描述本站点。'}</p>
                  </div>
                </div>
-               <div class="form-group">
-                 <label class="col-sm-3" for="weburl">站点地址（URL）</label>
+               <div class="form-group ${weburl!=null?'has-error':''}">
+                 <label class="col-sm-3" for="weburl">*站点地址（URL）</label>
                  <div class="col-sm-6">
-                    <input placeholder="http://" class="form-control" type="text">
+                    <input placeholder="http://" name="weburl" class="form-control" type="text" value="${form.weburl}">
+                    <p class="help-block">${weburl}</p>
                   </div>
                </div>
                <div class="form-group">
                  <label class="col-sm-3" for="email">电子邮件地址 </label>
                  <div class="col-sm-6">
-                   <input class="form-control" type="text">
+                   <input class="form-control" type="text" name="email" />
                    <p class="help-block">这个电子邮件地址仅为了管理方便而索要，例如新注册用户通知。</p>
                  </div>
                </div>
@@ -53,14 +57,15 @@
                  <label class="col-sm-3">成员资格</label>
                  <div class="col-sm-6">
                    <div class="checkbox">
-                     <label style="padding-left: 20px;" ><input type="checkbox" name="defaultReg">任何人都可以注册</label>
+                     <label style="padding-left: 20px;" >
+                       <input type="checkbox" name="enableReg" readonly="readonly">任何人都可以注册</label>
                    </div>
                  </div>
                </div>
               <div class="form-group">
                 <label class="col-sm-3">新用户默认角色</label>
                 <div class="col-sm-6">
-                  <select class="form-control">
+                  <select class="form-control" name="defaultUserRole">
                    <option>订阅者</option><option>编辑</option>
                    <option>作者</option><option>投稿者</option>
                    <option>管理员</option>

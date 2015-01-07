@@ -1,19 +1,19 @@
-zblog.register("zblog.post");
+zblog.register("zblog.page");
 $(function(){
   if(!document.getElementById("container")) return ;
   
-  zblog.post.editor = UE.getEditor('container',{
+  zblog.page.editor = UE.getEditor('container',{
 	  autoHeightEnabled: true,
 	  autoFloatEnabled: true
   });
   
-  zblog.post.uploadToken=new Date().getTime()+"";
-  zblog.post.editor.ready(function(){
-	zblog.post.editor.execCommand('serverparam', {'uploadToken': zblog.post.uploadToken});
+  zblog.page.uploadToken=new Date().getTime()+"";
+  zblog.page.editor.ready(function(){
+	zblog.page.editor.execCommand('serverparam', {'uploadToken': zblog.page.uploadToken});
   });
 });
 
-zblog.post.insert=function(){
+zblog.page.insert=function(){
   var title=$.trim($("#title").val());
   if(title==""){
 	 $("#title").focus();
@@ -22,11 +22,10 @@ zblog.post.insert=function(){
 
   var postid=$("#postid").val();
   var data={title:title,
-	content:zblog.post.editor.getContent(),
-	categoryid:$("#category").val(),
-	uploadToken:zblog.post.uploadToken};
+	content:zblog.page.editor.getContent(),
+	parent:$("#parent").val(),
+	uploadToken:zblog.page.uploadToken};
   if(postid.length>0) data.id=postid;
-  
   $.ajax({
     type:postid.length>0?"PUT":"POST",
     url:".",
@@ -42,10 +41,10 @@ zblog.post.insert=function(){
   });
 }
 
-zblog.post.remove=function(postid){
+zblog.page.remove=function(postid){
  $.ajax({
    type:"DELETE",
-   url:"posts/"+postid,
+   url:"pages/"+postid,
    dateType:"json",
    success:function(data){
 	if(data&&data.success){
@@ -57,6 +56,6 @@ zblog.post.remove=function(postid){
  });
 }
 
-zblog.post.edit=function(postid){
-  window.location.href="posts/edit?pid="+postid;
+zblog.page.edit=function(postid){
+  window.location.href="pages/edit?pid="+postid;
 }

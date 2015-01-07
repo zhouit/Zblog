@@ -5,7 +5,7 @@
 <!DOCTYPE Html>
 <html>
  <head>
-  <%@include file="../../common/bootstrap.html" %>
+  <jsp:include page="../common/bootstrap.jsp" flush="false" />
  </head>
  <body style="margin-top: 50px;">
   <jsp:include page="../common/navbar.jsp" flush="false" />
@@ -58,6 +58,6 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="${domain}/resource/js/backend/admin.user.js"></script>
+  <script type="text/javascript" src="${g.domain}/resource/js/backend/admin.user.js"></script>
  </body>
 </html>

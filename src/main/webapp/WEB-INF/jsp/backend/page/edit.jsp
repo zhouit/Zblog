@@ -17,9 +17,9 @@
       </div>
       <div class="col-sm-9 col-md-10">
         <ol class="breadcrumb header">
-          <li><span class="icon glyphicon glyphicon-home"></span>主菜单</li>
-          <li>文章</li>
-          <li class="active">编辑文章</li>
+          <li><span class="icon glyphicon glyphicon-file"></span>主菜单</li>
+          <li>页面</li>
+          <li class="active">编辑页面</li>
         </ol>
        <div class="row">
          <div class="col-sm-9 .col-md-9">
@@ -38,16 +38,12 @@
              <div class="panel-heading">发布</div>
              <div class="panel-body">
                <div class="form-group">
-                 <label for="categoty">分类</label>
-                 <select class="form-control" id="category">
-                   <c:forEach items="${categorys}" var="category" begin="1">
-                     <option value="${category.id}">├─<c:if test="${category.level==3}">└─</c:if>${category.text}</option>
+                 <label for="categoty">父页面</label>
+                 <select class="form-control" id="parent">
+                   <option>(无父级)</option>
+                   <c:forEach items="${parents}" var="parent">
+                     <option value="${parent.id}">${parent.title}</option>
                    </c:forEach>
-<!--                    <option value="1">├─Java</option>
-                   <option value="2">├─└─JavaSE</option>
-                   <option value="3">├─└─JavaEE</option>
-                   <option value="4">├─└─JavaFX</option>
-                   <option value="5">├─DataBase</option> -->
                  </select>
                </div>
                <div class="form-group">
@@ -66,7 +62,7 @@
                </div>
              </div>
              <div class="panel-footer">
-               <button type="button" class="btn btn-info btn-block" onclick="zblog.post.insert();">发布</button>
+               <button type="button" class="btn btn-info btn-block" onclick="zblog.page.insert();">发布</button>
              </div>
            </div>
          </div>
@@ -75,6 +71,6 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="${g.domain}/resource/js/backend/admin.post.js"></script>
+  <script type="text/javascript" src="${g.domain}/resource/js/backend/admin.page.js"></script>
  </body>
 </html>

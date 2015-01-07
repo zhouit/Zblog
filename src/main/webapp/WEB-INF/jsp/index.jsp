@@ -4,7 +4,7 @@
 <!DOCTYPE Html>
 <html>
  <head>
-   <%@include file="common/head.html" %>
+   <jsp:include page="common/head.jsp" flush="false" />
  </head>
  <body class="custom-background">
    <%@include file="common/header.html" %>
@@ -19,7 +19,7 @@
            <h3 class="title"><a href="posts/${post.id}">${post.title}</a></h3>
            <div class="post_content">
              <p class="excerpt">${post.excerpt}...</p>
-             <p><a class="more-link" href="${domain}/posts/${post.id}">阅读全文</a></p>
+             <p><a class="more-link" href="${g.domain}/posts/${post.id}">阅读全文</a></p>
           </div>
          </div>
          <div class="meta">
@@ -32,7 +32,7 @@
                <a rel="author" title="由${post.creator}发布" href="${domain}/author/26793713/">${post.creator}</a>
              </li>
              <li class="post_comment">
-                <a title="${post.title}的评论" href="${domain}/posts/${post.id}/#respond">发表评论</a>
+                <a title="${post.title}的评论" href="${g.domain}/posts/${post.id}/#respond">发表评论</a>
              </li>
             </ul>
          </div>
@@ -87,7 +87,7 @@
        <%@include file="common/recent.html" %>
        <%@include file="common/link.html" %>
      </div>
-     <%@include file="common/footer.html" %>
+     <jsp:include page="common/footer.jsp" flush="false" />
    </div>
  </body>
 </html>

@@ -4,7 +4,7 @@
 <!DOCTYPE Html>
 <html>
  <head>
-  <%@include file="../common/bootstrap.html" %>
+  <jsp:include page="common/bootstrap.jsp" flush="false" />
  </head>
  <body style="background-color: #fbfbfb;">
    <div id="login" style="width:300px;margin:0px auto;margin-top: 100px;">

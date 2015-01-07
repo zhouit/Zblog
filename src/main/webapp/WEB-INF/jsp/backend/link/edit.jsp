@@ -4,7 +4,7 @@
 <!DOCTYPE Html>
 <html>
  <head>
-  <%@include file="../../common/bootstrap.html" %>
+  <jsp:include page="../common/bootstrap.jsp" flush="false" />
  </head>
  <body style="margin-top: 50px;">
   <jsp:include page="../common/navbar.jsp" flush="false" />
@@ -29,14 +29,14 @@
                 <input type="hidden" name="id" value="${link.id}" />
               </c:if>
               <div class="form-group">
-                <label class="col-sm-3" for="maxshow">站点名称</label>
+                <label class="col-sm-3" for="maxshow">*站点名称</label>
                 <div class="col-sm-6">
                   <input class="form-control" autocomplete="off" type="text" name="name" value="${link.name}" />
                   <p class="help-block">例如：好用的博客软件</p>
                 </div>
               </div>
                <div class="form-group">
-                 <label class="col-sm-3" for="defaultType">站点url</label>
+                 <label class="col-sm-3" for="defaultType">*站点url</label>
                  <div class="col-sm-6">
                     <input class="form-control" autocomplete="off" type="text" name="url" value="${link.url}" placeholder="http://" />
                     <p class="help-block">不要忘了 http://</p>

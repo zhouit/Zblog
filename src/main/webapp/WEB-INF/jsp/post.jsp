@@ -3,7 +3,7 @@
 <!DOCTYPE Html>
 <html>
  <head>
-   <%@include file="common/head.html" %>
+   <jsp:include page="common/head.jsp" flush="false" />
  </head>
  <body class="custom-background">
    <%@include file="common/header.html" %>
@@ -45,7 +45,7 @@
                  </li>
                </ol>
            </div>
-           <%@include file="common/comments_form.html" %>
+           <jsp:include page="common/comments_form.jsp" flush="false" />
          </div>
        </div>
      </div>
@@ -55,7 +55,7 @@
        <h3 class="headline">About</h3>
        <p>本站模仿自<a href="http://ifeve.com/">并发编程网</a></p>
         <div id="search_area">
-          <form method="get" action="${domain}" >
+          <form method="get" action="${g.domain}" >
              <div class="search_input">
                <input type="text" autocomplete="off" name="word" placeholder="搜索一下" />
              </div>
@@ -68,7 +68,7 @@
        <%@include file="common/recent.html" %>
        <%@include file="common/link.html" %>
      </div>
-     <%@include file="common/footer.html" %>
+     <jsp:include page="common/footer.jsp" flush="false" />
    </div>
  </body>
 </html>

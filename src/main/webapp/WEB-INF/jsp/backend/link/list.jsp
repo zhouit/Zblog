@@ -1,11 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE Html>
 <html>
  <head>
-  <%@include file="../../common/bootstrap.html" %>
+   <jsp:include page="../common/bootstrap.jsp" flush="false" />
  </head>
  <body style="margin-top: 50px;">
   <jsp:include page="../common/navbar.jsp" flush="false" />
@@ -54,6 +54,6 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="${domain}/resource/js/backend/admin.link.js"></script>
+  <script type="text/javascript" src="${g.domain}/resource/js/backend/admin.link.js"></script>
  </body>
 </html>

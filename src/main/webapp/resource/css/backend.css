@@ -63,7 +63,7 @@ ul.ul-group li{padding: 5px 0;}
 
 /************  form  ****************/
 form.text-left label{font-weight: normal;text-align: left;padding-top: 7px;padding-left: 40px;}
-
+form.text-left .help-block{margin-bottom: 0px;}
 
 /**************** pager **********/
 #pager{float: right;padding-right: 15px;}

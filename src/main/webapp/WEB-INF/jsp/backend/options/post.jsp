@@ -4,7 +4,7 @@
 <!DOCTYPE Html>
 <html>
  <head>
-  <%@include file="../../common/bootstrap.html" %>
+  <jsp:include page="../common/bootstrap.jsp" flush="false" />
  </head>
  <body style="margin-top: 50px;">
   <jsp:include page="../common/navbar.jsp" flush="false" />
@@ -21,13 +21,16 @@
         <div class="panel panel-default">
           <div class="panel-heading"><span class="icon glyphicon glyphicon-wrench"></span>撰写/阅读</div>
           <div class="panel-body">
+            <c:if test="${success}">
+              <div class="alert alert-success" style="padding: 10px 15px;">修改成功</div>
+            </c:if>
             <form action="" method="post" class="form-horizontal text-left" role="form">
               <input type="hidden" name="CSRFToken" value="${CSRFToken}" />
-              <input type="hidden" name="_method" value="PUT" />
-              <div class="form-group">
-                <label class="col-sm-3" for="maxshow">博客页面至多显示(文章数/页)</label>
+              <div class="form-group ${maxshow!=null?'has-error':''}">
+                <label class="col-sm-3" for="maxshow">*博客页面至多显示(文章数/页)</label>
                 <div class="col-sm-6">
-                  <input class="form-control" type="text" name="maxshow" value="10" />
+                  <input class="form-control" type="number" name="maxshow" value="${form.maxshow}" />
+                  <p class="help-block">${maxshow}</p>
                 </div>
               </div>
               <div class="form-group">
@@ -38,12 +41,12 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-sm-3" for="defaultType">默认文章分类目录</label>
+              <div class="form-group ${defaultCategory!=null?'has-error':''}">
+                <label class="col-sm-3" for="defaultType">*默认文章分类目录</label>
                 <div class="col-sm-6">
-                  <select class="form-control" name="defaultType">
+                  <select class="form-control" name="defaultCategory">
                    <c:forEach var="category" items="${categorys}" begin="1">
-                     <option value="${category.id}">├─<c:if test="${category.level==3}">└─</c:if>${category.text}</option>
+                     <option value="${category.id}"><c:if test="${category.level==3}">└─</c:if>${category.text}</option>
                    </c:forEach>
                  </select>
                 </div>
