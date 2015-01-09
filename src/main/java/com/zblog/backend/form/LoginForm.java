@@ -3,6 +3,7 @@ package com.zblog.backend.form;
 public class LoginForm{
   private String username;
   private String password;
+  private boolean remeber;
   private String redirectURL;
 
   public String getUsername(){
@@ -19,6 +20,14 @@ public class LoginForm{
 
   public void setPassword(String password){
     this.password = password;
+  }
+
+  public boolean isRemeber(){
+    return remeber;
+  }
+
+  public void setRemeber(boolean remeber){
+    this.remeber = remeber;
   }
 
   public String getRedirectURL(){

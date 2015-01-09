@@ -35,6 +35,6 @@ public interface PostMapper extends BaseMapper{
 
   List<MapContainer> listByCategory(PageModel model);
 
-  void updateCategory(@Param("oldCategoryId") String oldCategoryId, @Param("newCategoryId") String newCategoryId);
+  void updateCategory(@Param("oldCategoryIds") List<String> oldCategoryIds, @Param("newCategoryId") String newCategoryId);
 
 }

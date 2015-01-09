@@ -2,7 +2,6 @@ package com.zblog.backend.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,10 +47,6 @@ public class BackendController{
     return "redirect:/backend/login?msg=logout";
   }
 
-  @RequestMapping(value = "/rcode", method = RequestMethod.GET)
-  public void rcode(HttpSession session, HttpServletResponse response){
-  }
-
   @RequestMapping(value = "/login", method = RequestMethod.POST)
   public String dashboard(LoginForm form, HttpServletRequest request, HttpServletResponse response){
     MapContainer result = LoginFormValidator.validateLogin(form);
@@ -67,8 +62,12 @@ public class BackendController{
     }
 
     CookieUtil cookieUtil = new CookieUtil(request, response);
-    cookieUtil.setCookie(Constants.COOKIE_CONTEXT_ID, user.getId(), true);
     cookieUtil.setCookie(Constants.COOKIE_USER_NAME, form.getUsername(), false, 7 * 24 * 3600);
+    if(form.isRemeber()){
+      cookieUtil.setCookie(Constants.COOKIE_CONTEXT_ID, user.getId(), true, 7 * 24 * 3600);
+    }else{
+      cookieUtil.setCookie(Constants.COOKIE_CONTEXT_ID, user.getId(), true);
+    }
 
     return "redirect:" + StringUtils.emptyDefault(form.getRedirectURL(), "/backend/index");
   }

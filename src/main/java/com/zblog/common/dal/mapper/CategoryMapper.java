@@ -13,7 +13,15 @@ public interface CategoryMapper extends BaseMapper{
 
   Category loadByName(String name);
 
-  void updateTnsertLeftv(int rightv);
+  /**
+   * 获取指定分类的子分类
+   * 
+   * @param category
+   * @return
+   */
+  List<Category> loadChildren(Category category);
+
+  void updateInsertLeftv(int rightv);
 
   void updateInsertRightv(int rightv);
 

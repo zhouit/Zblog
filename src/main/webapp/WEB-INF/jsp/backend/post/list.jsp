@@ -39,7 +39,7 @@
                        <span class="trash"><a href="#">移到回收站</a>&nbsp;|&nbsp;</span>
                        <span class="view"><a target="_blank" href="${g.domain}/pages/${post.id}">查看</a></span>
                      </div></td><td>${post.creator}</td>
-                     <td>${post.category}</td><td><fmt:formatDate value="${post.lastUpdate}" pattern="yyyy-MM-dd" /></td>
+                     <td>${post.category}</td><td><fmt:formatDate value="${post.createTime}" pattern="yyyy-MM-dd" /></td>
                      <td class="center"><span class="icon glyphicon glyphicon-pencil pointer" onclick="zblog.post.edit('${post.id}')"></span>
                        <span class="glyphicon glyphicon-trash pointer" onclick="zblog.post.remove('${post.id}')"></span></td></tr>
                </c:forEach>

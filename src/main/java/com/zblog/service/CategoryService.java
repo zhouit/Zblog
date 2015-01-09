@@ -31,7 +31,7 @@ public class CategoryService extends BaseService{
     category.setLeftv(parent.getRightv());
     category.setRightv(parent.getRightv() + 1);
 
-    categoryMapper.updateTnsertLeftv(parent.getRightv());
+    categoryMapper.updateInsertLeftv(parent.getRightv());
     categoryMapper.updateInsertRightv(parent.getRightv());
     insert(category);
 
@@ -43,7 +43,7 @@ public class CategoryService extends BaseService{
     category.setLeftv(sbling.getRightv() + 1);
     category.setRightv(sbling.getRightv() + 2);
 
-    categoryMapper.updateTnsertLeftv(sbling.getRightv());
+    categoryMapper.updateInsertLeftv(sbling.getRightv());
     categoryMapper.updateInsertRightv(sbling.getRightv());
     insert(category);
 
@@ -53,17 +53,26 @@ public class CategoryService extends BaseService{
   /**
    * 此方法只被CategoryManager调用
    * 
-   * @param categoryName
+   * @param category
    * @return
    */
-  public String removeByName(String categoryName){
-    Category parent = loadByName(categoryName);
-    int length = parent.getRightv() - parent.getLeftv() + 1;
-    categoryMapper.updateDeleteLeftv(parent.getLeftv(), length);
-    categoryMapper.updateDeleteRightv(parent.getRightv(), length);
-    categoryMapper.delete(parent.getLeftv(), parent.getRightv());
-
-    return parent.getId();
+  @Transactional
+  public void remove(Category category){
+    int length = category.getRightv() - category.getLeftv() + 1;
+    /* 注意:delete须第一个执行,因为updateDeleteLeftv会有影响 */
+    categoryMapper.delete(category.getLeftv(), category.getRightv());
+    categoryMapper.updateDeleteLeftv(category.getLeftv(), length);
+    categoryMapper.updateDeleteRightv(category.getRightv(), length);
+  }
+  
+  /**
+   * 获取指定分类的子分类
+   * 
+   * @param category
+   * @return
+   */
+  public List<Category> loadChildren(Category category){
+    return categoryMapper.loadChildren(category);
   }
 
   public List<MapContainer> listAsTree(){

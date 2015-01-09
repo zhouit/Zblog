@@ -13,7 +13,7 @@
    </select>
    
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
-      select p.id, p.title, excerpt, c.name as category,ccount, p.creator, p.lastUpdate
+      select p.id, p.title, excerpt, c.name as category,ccount, p.creator, p.createTime
           from post p left join category c on p.categoryid=c.id where p.type=#{query.type}
    </select>
    
@@ -27,7 +27,7 @@
    </select>
    
    <select id="listByCategory" parameterType="PageModel" resultType="MapContainer">  
-      select p.id, p.title, p.excerpt from post p inner join category c on p.categoryid=c.id 
+      select p.id, p.title, p.excerpt, p.createTime from post p inner join category c on p.categoryid=c.id 
           where c.name=#{query.categoryName} and p.type=#{query.type} order by p.createTime
    </select>
    
@@ -42,7 +42,10 @@
    </update>
    
    <update id="updateCategory">
-     update post set categoryid=#{newCategoryId} where categoryid=#{oldCategoryId}
+     update post set categoryid=#{newCategoryId} where categoryid in 
+       <foreach collection="oldCategoryIds" item="item" open="(" separator="," close=")">
+        #{item}
+       </foreach>
    </update>
 
    <delete id="deleteById">

@@ -1,9 +1,13 @@
 package com.zblog.biz;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.zblog.common.dal.entity.Category;
 import com.zblog.common.util.constants.OptionConstants;
 import com.zblog.service.CategoryService;
 import com.zblog.service.OptionsService;
@@ -26,10 +30,17 @@ public class CategoryManager{
    */
   @Transactional
   public void remove(String cname){
-    String categoryId = categoryService.removeByName(cname);
+    Category category = categoryService.loadByName(cname);
+    List<Category> list = categoryService.loadChildren(category);
+    List<String> all = new ArrayList<>(list.size() + 1);
+    all.add(category.getId());
+    for(Category temp : list){
+      all.add(temp.getId());
+    }
 
-    postService.updateCategory(categoryId,
-        optionsService.getOptionValue(OptionConstants.DEFAULT_CATEGORY_ID));
+    /* 先更新post的categoryid，再删除category,外键约束 */
+    postService.updateCategory(all, optionsService.getOptionValue(OptionConstants.DEFAULT_CATEGORY_ID));
+    categoryService.remove(category);
   }
 
 }

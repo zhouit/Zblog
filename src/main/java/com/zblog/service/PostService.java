@@ -70,8 +70,8 @@ public class PostService extends BaseService{
     return postMapper.listPage(onlyParent);
   }
 
-  public void updateCategory(String oldCategoryId, String newCategoryId){
-    postMapper.updateCategory(oldCategoryId, newCategoryId);
+  public void updateCategory(List<String> oldCategoryIds, String newCategoryId){
+    postMapper.updateCategory(oldCategoryIds, newCategoryId);
   }
 
   @Override

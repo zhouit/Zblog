@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="page" uri="/WEB-INF/tld/pagination.tld" %>
 <!DOCTYPE Html>
 <html>
@@ -25,7 +26,9 @@
          <div class="meta">
            <ul>
              <li class="post_date clearfix">
-              <span class="date">13</span><span class="month">Dec</span><span class="year">2014</span>
+              <span class="date"><fmt:formatDate value="${post.createTime}" pattern="dd" /></span>
+              <span class="month"><fmt:formatDate value="${post.createTime}" pattern="MMM "/></span>
+              <span class="year"><fmt:formatDate value="${post.createTime}" pattern="yyyy" /></span>
              </li>
              <li class="post_comment"> 41 人阅读</li>
              <li class="post_author">
