@@ -6,7 +6,7 @@
  <head>
    <jsp:include page="common/head.jsp" flush="false" />
  </head>
- <body class="custom-background">
+ <body>
    <%@include file="common/header.html" %>
    <div id="content" class="clearfix">
      <div id="left_col">
@@ -16,7 +16,7 @@
        <c:forEach items="${page.content}" var="post">
        <div class="post_wrap clearfix">
          <div class="post">
-           <h3 class="title"><a href="posts/${post.id}">${post.title}</a></h3>
+           <h3 class="title"><a href="${g.domain}/posts/${post.id}">${post.title}</a></h3>
            <div class="post_content">
              <p class="excerpt">${post.excerpt}...</p>
              <p><a class="more-link" href="${g.domain}/posts/${post.id}">阅读全文</a></p>

@@ -1,3 +1,4 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <fieldset id="respond" class="comment_form_wrapper">
   <div id="cancel_comment_reply">
      <a href="#respond" rel="nofollow">点击这里取消回复。</a>

@@ -17,6 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.zblog.common.util.Base64Codec;
 import com.zblog.common.util.CookieUtil;
+import com.zblog.common.util.ServletUtils;
 import com.zblog.common.util.StringUtils;
 import com.zblog.common.util.constants.Constants;
 
@@ -46,9 +47,25 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
     return headToken != null && headToken.equals(csrfToken);
   }
 
+  /**
+   * 校验非ajax提交
+   * <p>
+   * 由于有可能为multipart提交所以须在该filter前做parseMultipart,否则request.getParameter会获取不到值
+   * </p>
+   * 
+   * @param request
+   * @param csrfToken
+   * @return
+   */
   private boolean isVerificationToken(HttpServletRequest request, String csrfToken){
     String paramToken = request.getParameter(Constants.CSRF_TOKEN);
-    return paramToken != null && paramToken.equals(csrfToken);
+
+    if(StringUtils.isBlank(paramToken))
+      return false;
+    
+    /* 当flash文件post上传时，可能crsf的为cookie中值,就需要base64解码*/
+    return paramToken.equals(csrfToken)
+        || (ServletUtils.isMultipartContent(request) && new String(Base64Codec.decode(paramToken)).equals(csrfToken));
   }
 
   private boolean isAjax(HttpServletRequest request){

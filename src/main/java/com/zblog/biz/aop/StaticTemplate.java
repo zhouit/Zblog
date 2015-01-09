@@ -18,6 +18,12 @@ import com.zblog.service.LinkService;
 import com.zblog.service.PostService;
 import com.zblog.template.FreeMarkerUtils;
 
+/**
+ * 静态化组件
+ * 
+ * @author zhou
+ * 
+ */
 @Component
 public class StaticTemplate{
   private static final Logger logger = LoggerFactory.getLogger(StaticTemplate.class);
@@ -100,7 +106,7 @@ public class StaticTemplate{
           + "/common/recent.html"), param);
       logger.info("staticRecent");
     }else{
-      staticLinks();
+      staticHeader();
     }
   }
 

@@ -3,6 +3,7 @@ package com.zblog.backend.form.validator;
 import com.zblog.common.dal.entity.Post;
 import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.StringUtils;
+import com.zblog.common.util.constants.PostConstants;
 
 public class PostFormValidator{
 
@@ -12,7 +13,7 @@ public class PostFormValidator{
       form.put("msg", "文章标题未填写");
     }else if(StringUtils.isBlank(post.getContent())){
       form.put("msg", "请填写文章内容");
-    }else if(StringUtils.isBlank(post.getCategoryid())){
+    }else if(PostConstants.TYPE_POST.equals(post.getType()) && StringUtils.isBlank(post.getCategoryid())){
       form.put("msg", "请选择文章分类");
     }
 

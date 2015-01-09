@@ -10,7 +10,6 @@ import com.zblog.common.dal.mapper.BaseMapper;
 import com.zblog.common.dal.mapper.PostMapper;
 import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.plugin.PageModel;
-import com.zblog.common.util.DateUtils;
 import com.zblog.common.util.constants.PostConstants;
 
 @Service
@@ -54,7 +53,7 @@ public class PostService extends BaseService{
 
   public PageModel listPage(int pageIndex, int pageSize){
     PageModel page = new PageModel(pageIndex, pageSize);
-    page.insertQuery("type", PostConstants.TYPE_POST);
+    page.insertQuery("type", PostConstants.TYPE_PAGE);
     super.list(page);
     page.removeQuery("type");
     return page;
@@ -73,15 +72,6 @@ public class PostService extends BaseService{
 
   public void updateCategory(String oldCategoryId, String newCategoryId){
     postMapper.updateCategory(oldCategoryId, newCategoryId);
-  }
-
-  /**
-   * 生成postid，生成规则yyyyMM+当年所长生的文章自增ID
-   * 
-   * @return
-   */
-  public String createPostid(){
-    return DateUtils.currentDate("yyyyMM");
   }
 
   @Override

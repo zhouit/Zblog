@@ -12,7 +12,7 @@ public class LoginFormValidator{
     if(StringUtils.isBlank(form.getUsername()) || !form.getUsername().matches(CommRegular.USERNAME)){
       result.put("msg", "请输入正确的用户名");
     }else if(StringUtils.isBlank(form.getPassword()) || !form.getPassword().matches(CommRegular.PASSWD)){
-      result.put("msg", "请输入格式正确的密码");
+      result.put("msg", "密码输入有误");
     }
 
     return result;

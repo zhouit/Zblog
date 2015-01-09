@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib prefix="z" uri="/WEB-INF/tld/function.tld" %>
 <!DOCTYPE Html>
 <html>
  <head>
@@ -10,12 +10,12 @@
    <div id="login" style="width:300px;margin:0px auto;margin-top: 100px;">
      <h1><img title="Zblog" src="../../resource/img/zblog-logo.png" /></h1>
      <c:if test="${msg!=null}"><p class="message">${msg}<br></p></c:if>
-     <form id="loginform" method="post" action="login">
+     <form id="loginform" method="post">
        <input type="hidden" name="CSRFToken" value="${CSRFToken}" />
        <div class="form-group">
          <div class="input-group">
            <div class="input-group-addon"><i class="icon-user"></i></div>
-           <input type="text" autocomplete="off" class="form-control" name="username" placeholder="用户名/邮箱" />
+           <input type="text" autocomplete="off" class="form-control" name="username" value="${z:cookieValue('un')}" placeholder="用户名/邮箱" />
          </div>
        </div>
        <div class="form-group">
@@ -26,11 +26,15 @@
        </div>
        <div class="form-group">
           <input type="password" autocomplete="off" class="form-control" placeholder="验证码"
-              style="display: inline-block;width: 63%;" />
-          <img alt="" src="http://www.zhouhaocheng.cn" />
+              style="display: inline-block;width: 50%;" />
+          <img alt="" src="http://www.baidu.com" />
        </div>
-       <button type="submit" class="btn btn-primary btn-block">登录</button>
+       <div class="checkbox">
+         <label><input type="checkbox" name="remeber" /> 记住我的登录信息</label>
+         <button type="submit" class="btn btn-primary" style="margin-left: 40px;">登录</button>
+       </div>
      </form>
+     <p><a href="${g.domain}" title="不知道自己在哪">← 回到${g.title}</a></p>
   </div>
   <footer class="footer">
      <div class="container">

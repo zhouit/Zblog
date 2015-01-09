@@ -16,6 +16,10 @@ public class OptionsService extends BaseService{
     return optionMapper.getOptionValue(name);
   }
 
+  public String getOptionValueForUpdate(String name){
+    return optionMapper.getOptionValueForUpdate(name);
+  }
+
   /**
    * 此处为MySQL的replace into, 注意这需要主键id一致
    * @param name

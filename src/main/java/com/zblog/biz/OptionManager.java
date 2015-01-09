@@ -9,6 +9,7 @@ import com.zblog.backend.form.PostOption;
 import com.zblog.common.util.NumberUtils;
 import com.zblog.common.util.StringUtils;
 import com.zblog.common.util.constants.OptionConstants;
+import com.zblog.common.util.constants.PostConstants;
 import com.zblog.common.util.constants.WebConstants;
 import com.zblog.service.OptionsService;
 
@@ -35,6 +36,21 @@ public class OptionManager{
   public void updatePostOption(PostOption form){
     optionsService.updateOptionValue("maxshow", form.getMaxshow() + "");
     optionsService.updateOptionValue(OptionConstants.DEFAULT_CATEGORY_ID, form.getDefaultCategory());
+  }
+
+  /**
+   * 获取下一篇文章ID,使用select for update 保证id自增
+   * 
+   * @return
+   */
+  @Transactional
+  public String getNextPostid(){
+    String currentid = optionsService.getOptionValueForUpdate(OptionConstants.POSTID);
+    int id = NumberUtils.toInteger(currentid, PostConstants.INIT_POST_ID);
+    id++;
+    optionsService.updateOptionValue(OptionConstants.POSTID, id + "");
+
+    return id + "";
   }
 
   /**

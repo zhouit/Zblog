@@ -35,7 +35,7 @@
                <c:forEach items="${page.content}" var="upload">
                  <tr><td><img src="${upload.path}" width="80" /></td><td>${upload.name}</td>
                       <td>${upload.creator}</td><td>${upload.title}</td><td><fmt:formatDate value="${upload.createTime}" pattern="yyyy-MM-dd"/></td>
-                     <td class="center"><span class="icon glyphicon glyphicon-pencil"></span>
+                     <td class="center">
                        <span class="glyphicon glyphicon-trash pointer" onclick="zblog.upload.remove('${upload.id}')"></span></td></tr>
                </c:forEach>
               </tbody>

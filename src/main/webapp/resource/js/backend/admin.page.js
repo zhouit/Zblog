@@ -26,6 +26,7 @@ zblog.page.insert=function(){
 	parent:$("#parent").val(),
 	uploadToken:zblog.page.uploadToken};
   if(postid.length>0) data.id=postid;
+  
   $.ajax({
     type:postid.length>0?"PUT":"POST",
     url:".",

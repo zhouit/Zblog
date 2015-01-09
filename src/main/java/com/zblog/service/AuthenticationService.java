@@ -9,7 +9,7 @@ public class AuthenticationService{
   /**
    * 以/backend开头,非/login结尾
    */
-  private static final String BACKEND_URL = "^/backend.*(?<!/login)$";
+  private static final String BACKEND_URL = "^/backend.*(?<!/login|/rcode)$";
 
   /**
    * user用户是否有访问uri权限

@@ -1,25 +1,17 @@
 package com.zblog.biz.editor;
 
-import java.io.File;
 import java.util.Arrays;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.zblog.common.dal.entity.Upload;
+import com.zblog.biz.UploadManager;
 import com.zblog.common.plugin.MapContainer;
-import com.zblog.common.util.DateUtils;
-import com.zblog.common.util.FileUtils;
-import com.zblog.common.util.IdGenarater;
 import com.zblog.common.util.StringUtils;
-import com.zblog.common.util.constants.CategoryConstants;
-import com.zblog.common.util.constants.WebConstants;
+import com.zblog.common.util.constants.PostConstants;
 import com.zblog.common.util.web.ServletRequestReader;
-import com.zblog.service.UploadService;
 
 /**
  * ueditor上传参数见:http://fex-team.github.io/ueditor/#dev-request_specification
@@ -30,7 +22,7 @@ import com.zblog.service.UploadService;
 @Component
 public class Ueditor{
   @Autowired
-  private UploadService uploadService;
+  private UploadManager uploadManager;
 
   public MapContainer server(HttpServletRequest request){
     ServletRequestReader reader = new ServletRequestReader(request);
@@ -84,38 +76,11 @@ public class Ueditor{
   }
 
   public MapContainer uploadImage(ServletRequestReader reader){
-    String uploadToken = reader.getAsString(CategoryConstants.UPLOAD_TOKEN);
+    String uploadToken = reader.getAsString(PostConstants.UPLOAD_TOKEN);
     if(StringUtils.isBlank(uploadToken))
       return new MapContainer("state", "非法请求");
 
-    MultipartFile file = reader.getFile("upfile");
-    MapContainer result = new MapContainer("state", "SUCCESS");
-    try{
-      String yearMonth = DateUtils.currentDate("yyyy/MM");
-      File parent = new File(reader.getRealPath("/post/uploads"), yearMonth);
-      if(!parent.exists())
-        parent.mkdirs();
-
-      String fileName = DateUtils.currentDate("yyyyMMddhhmmss") + "."
-          + FileUtils.getFileExt(file.getOriginalFilename());
-      file.transferTo(new File(parent, fileName));
-      result.put("original", file.getOriginalFilename());
-      result.put("title", file.getOriginalFilename());
-      result.put("url", WebConstants.getDomain() + "/post/uploads/" + yearMonth + "/" + fileName);
-
-      Upload upload = new Upload();
-      upload.setId(IdGenarater.uuid19());
-      upload.setCreateTime(new Date());
-      upload.setName(file.getOriginalFilename());
-      upload.setToken(uploadToken);
-      upload.setPath("/post/uploads/" + yearMonth + "/" + fileName);
-
-      uploadService.insert(upload);
-    }catch(Exception e){
-      result.put("state", "文件上传失败");
-    }
-
-    return result;
+    return uploadManager.insertUpload(reader, "upfile");
   }
 
 }

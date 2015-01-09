@@ -7,6 +7,20 @@ public class ServletUtils{
   private ServletUtils(){
   }
 
+  public static boolean isMultipartContent(HttpServletRequest request){
+    if(!"post".equals(request.getMethod().toLowerCase())){
+      return false;
+    }
+    String contentType = request.getContentType();
+    if(contentType == null){
+      return false;
+    }
+    if(contentType.toLowerCase().startsWith("multipart/")){
+      return true;
+    }
+    return false;
+  }
+
   public static String getDomain(HttpServletRequest request){
     String result = request.getScheme() + "://" + request.getServerName();
     if(request.getServerPort() != 80){

@@ -2,16 +2,12 @@ a,a:hover,a:focus{text-decoration: none;outline: medium none;}
 h1, h2, h3, h4, h5, h6,p{margin: 0;padding: 0;}
 
 /**************  login  ************/
-
 #login h1{margin-bottom: 15px;}
 #login h1 img{margin-left: 15px;}
-#login .message{background-color: #ffffe0;border-color: #e6db55; margin: 0 0 16px 8px;padding: 12px;border-radius: 3px;
-    border-style: solid;
-    border-width: 1px;}
-#login #loginform{background-color:#fff;border: 1px solid #e5e5e5;
-    box-shadow: 0 4px 10px -1px rgba(200, 200, 200, 0.7);
-    font-weight: normal;margin-left: 8px;padding: 26px 24px 46px;}
-
+#login p{margin: 0 0 16px 8px;padding: 12px;}
+#login .message{background-color: #ffffe0;border:1px solid #e6db55; border-radius: 3px;}
+#login #loginform{background-color:#fff;border: 1px solid #e5e5e5;font-weight: normal;margin-left: 8px;padding:24px;
+    box-shadow: 0 4px 10px -1px rgba(200, 200, 200, 0.7);}
 
 .icon{padding-right: 0.75em;}
 #sidebar{overflow-x: hidden;padding: 20px;border-right: 1px solid #cccccc;}
@@ -49,6 +45,7 @@ ul{list-style: none outside none;padding: 0;}
 /***************  后台首页   **************/
 ul.ul-group li{padding: 5px 0;}
 
+/**********  数据table表格 **************/
 .list-table{border-color: #dfdfdf;border-radius: 3px;border-style: solid;border-width: 1px;}
 .list-table thead th:first-of-type, .list-table thead th:last-of-type{ border-top-left-radius: 3px;}
 .list-table a,.list-table thead tr th{color:#21759b;}
@@ -64,6 +61,30 @@ ul.ul-group li{padding: 5px 0;}
 /************  form  ****************/
 form.text-left label{font-weight: normal;text-align: left;padding-top: 7px;padding-left: 40px;}
 form.text-left .help-block{margin-bottom: 0px;}
+
+/************ uploader文件上传 ***************/
+#uploader .tip{font-size: 12px;letter-spacing: 1px;color: #bbb;font-weight: bold;margin:0 0 12px 12px;}
+
+#uploader .upload-list{border: 3px dashed #e6e6e6;margin: 10px;padding: 15px;}
+.upload-item{border: 1px solid #dfdfdf;min-height: 36px;width: 100%;margin-top: -1px;}
+.upload-item img{margin: 2px;max-height: 32px;max-width: 40px;}
+.upload-item .upload-item-name{line-height: 36px;padding-left: 10px;display: inline-block;width: 15%;}
+.upload-item a{float: right;margin-right: 15px;line-height: 36px;}
+.upload-item .progress{display: inline-block;vertical-align: middle;width: 70%;margin:0 0 0 15px;}
+
+#uploader .placeholder{background-image:url("../img/upload.png");background-position:center 93px;background-color:transparent;background-repeat:no-repeat;
+    color: #cccccc;font-size: 18px;min-height: 350px;padding-top: 178px;text-align: center;}
+#uploader #status-bar{border-top: 1px solid #dadada;height: 63px;line-height: 63px;padding: 0 20px;position: relative;}
+#status-bar .info{color: #666666;display: inline-block;font-size: 14px;}
+#status-bar .btns{line-height: 40px;position: absolute;right: 20px;top: 10px;}
+#status-bar #append-picker{display: inline-block;float: left;}
+#status-bar #append-picker .webuploader-pick, #status-bar .uploadBtn{
+  background-color: #fff;color: #565656;cursor: pointer;
+  border: 1px solid #cfcfcf;border-radius: 3px;
+  display: inline-block;float: left;
+  font-size: 14px;margin-left: 10px;padding: 0 18px;}
+#status-bar .uploadBtn{background-color: #00b7ee;color: #fff;border-color: transparent;}
+
 
 /**************** pager **********/
 #pager{float: right;padding-right: 15px;}

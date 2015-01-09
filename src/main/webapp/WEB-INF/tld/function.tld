@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" version="2.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+                            http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
+  <description>zblog function utils</description>
+  <display-name>fns</display-name>
+  <tlib-version>1.0</tlib-version>
+  <short-name>function</short-name>
+  <uri>/WEB-INF/tld/function.tld</uri>
+  <function>
+    <name>cookieValue</name>
+    <function-class>com.zblog.common.tag.FunctionHelper</function-class>
+    <function-signature>
+      java.lang.String cookieValue(java.lang.String)
+    </function-signature>
+    <example>${z:cookieValue('name')}</example>
+  </function>
+</taglib>

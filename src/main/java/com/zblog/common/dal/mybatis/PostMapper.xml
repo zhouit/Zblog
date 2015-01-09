@@ -17,8 +17,9 @@
           from post p left join category c on p.categoryid=c.id where p.type=#{query.type}
    </select>
    
-   <select id="listPage" resultType="MapContainer" parameterType="boolean">  
-      select id, title from post where type='page' <if test="onlyParent"> and parent is null</if>
+   <select id="listPage" resultType="MapContainer" parameterType="boolean">
+      <!-- 必须使用_parameter 否则There is no getter for property named 'onlyParent' in 'class java.lang.Boolean'-->
+      select id, title,parent from post where type='page' <if test="_parameter"> and parent='Root'</if>
    </select>
    
    <select id="listRecent" resultType="MapContainer">  

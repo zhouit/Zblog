@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
 import com.zblog.backend.form.validator.PostFormValidator;
+import com.zblog.biz.OptionManager;
 import com.zblog.biz.PostManager;
 import com.zblog.common.dal.entity.Post;
 import com.zblog.common.plugin.MapContainer;
@@ -30,6 +31,8 @@ public class PageController{
   private PostService postService;
   @Autowired
   private PostManager postManager;
+  @Autowired
+  private OptionManager optionManager;
 
   @RequestMapping(method = RequestMethod.GET)
   public String index(@RequestParam(value = "page", defaultValue = "1") int page, Model model){
@@ -41,14 +44,14 @@ public class PageController{
   @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
   public Object insert(Post post, String uploadToken){
+    post.setType(PostConstants.TYPE_PAGE);
     MapContainer form = PostFormValidator.validatePublish(post);
     if(!form.isEmpty()){
       return form.put("success", false);
     }
 
-    post.setId(postService.createPostid());
+    post.setId(optionManager.getNextPostid());
     post.setCreator(WebContextHolder.get().getUser().getNickName());
-    post.setType(PostConstants.TYPE_PAGE);
     post.setLastUpdate(new Date());
 
     /* 由于加入xss的过滤,html内容都被转义了,这里需要unescape */
@@ -62,6 +65,7 @@ public class PageController{
   @ResponseBody
   @RequestMapping(method = RequestMethod.PUT)
   public Object update(Post post, String uploadToken){
+    post.setType(PostConstants.TYPE_PAGE);
     MapContainer form = PostFormValidator.validateUpdate(post);
     if(!form.isEmpty()){
       return form.put("success", false);
@@ -69,7 +73,6 @@ public class PageController{
     /* 由于加入xss的过滤,html内容都被转义了,这里需要unescape */
     String content = HtmlUtils.htmlUnescape(post.getContent());
     post.setContent(JsoupUtils.filter(content));
-    post.setType(PostConstants.TYPE_PAGE);
 
     postManager.updatePost(post, uploadToken);
     return new MapContainer("success", true);

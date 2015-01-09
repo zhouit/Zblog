@@ -38,7 +38,7 @@
       <li><a class="last" href="${g.domain}/backend/pages/edit">新建页面</a></li>
     </ul>
   </li>
-  <li><a class="nav-header" href="comments">
+  <li><a class="nav-header" href="${g.domain}/backend/comments">
       <i class="left glyphicon glyphicon-comment" aria-hidden="true"></i>评论</a></li>
   <li><a class="nav-header" href="#">
       <i class="left glyphicon glyphicon-link" aria-hidden="true"></i>链接

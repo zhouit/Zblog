@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
 import com.zblog.backend.form.validator.PostFormValidator;
+import com.zblog.biz.OptionManager;
 import com.zblog.biz.PostManager;
 import com.zblog.common.dal.entity.Post;
 import com.zblog.common.plugin.MapContainer;
@@ -32,6 +33,8 @@ public class PostController{
   @Autowired
   private PostManager postManager;
   @Autowired
+  private OptionManager optionManager;
+  @Autowired
   private CategoryService categoryService;
 
   @RequestMapping(method = RequestMethod.GET)
@@ -49,7 +52,7 @@ public class PostController{
       return form.put("success", false);
     }
 
-    post.setId(postService.createPostid());
+    post.setId(optionManager.getNextPostid());
     post.setCreator(WebContextHolder.get().getUser().getNickName());
     post.setLastUpdate(new Date());
 

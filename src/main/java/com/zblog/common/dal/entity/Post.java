@@ -10,7 +10,7 @@ public class Post extends BaseEntity{
   /* 文章类型（post/page等） */
   private String type = PostConstants.TYPE_POST;
   /* 父文章ID，主要用于PAGE,只支持两级 */
-  private String parent;
+  private String parent = PostConstants.DEFAULT_PARENT;
   /* 分类ID,主要用于POST */
   private String categoryid;
   /* 文章状态 */

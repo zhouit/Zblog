@@ -1,5 +1,11 @@
 package com.zblog.common.dal.entity;
 
+/**
+ * 站点选项,id和name为一致
+ * 
+ * @author zhou
+ * 
+ */
 public class Option extends BaseEntity{
   private String id;
   private String name;

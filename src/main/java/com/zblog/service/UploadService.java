@@ -21,7 +21,7 @@ public class UploadService extends BaseService{
 
     return pageModel;
   }
-  
+
   public List<MapContainer> listByPostid(String postid){
     return uploadMapper.listByPostid(postid);
   }
@@ -29,7 +29,7 @@ public class UploadService extends BaseService{
   public void updatePostid(String postid, String uploadToken){
     uploadMapper.updatePostid(postid, uploadToken);
   }
-  
+
   public void deleteByPostid(String postid){
     uploadMapper.deleteByPostid(postid);
   }

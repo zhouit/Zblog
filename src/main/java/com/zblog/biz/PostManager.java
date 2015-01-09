@@ -16,6 +16,7 @@ import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.StringUtils;
 import com.zblog.common.util.constants.PostConstants;
 import com.zblog.common.util.constants.WebConstants;
+import com.zblog.service.OptionsService;
 import com.zblog.service.PostService;
 import com.zblog.service.UploadService;
 
@@ -25,6 +26,8 @@ public class PostManager{
   private PostService postService;
   @Autowired
   private UploadService uploadService;
+  @Autowired
+  private OptionsService optionsService;
   @Autowired
   private StaticTemplate staticTemplate;
 
@@ -39,7 +42,7 @@ public class PostManager{
     if(!StringUtils.isBlank(uploadToken))
       uploadService.updatePostid(post.getId(), uploadToken);
     postService.insert(post);
-    
+
     staticTemplate.staticPost(post);
   }
 
@@ -54,7 +57,7 @@ public class PostManager{
     if(!StringUtils.isBlank(uploadToken))
       uploadService.updatePostid(post.getId(), uploadToken);
     postService.update(post);
-    
+
     staticTemplate.staticPost(post);
   }
 
@@ -67,16 +70,16 @@ public class PostManager{
    */
   @Transactional
   public void removePost(String postid, String postType){
+    uploadService.deleteByPostid(postid);
+    postService.deleteById(postid);
+
+    staticTemplate.removePost(postid, PostConstants.TYPE_POST.equals(postType));
+
     List<MapContainer> list = uploadService.listByPostid(postid);
     for(MapContainer mc : list){
       File file = new File(WebConstants.APPLICATION_PATH, mc.getAsString("path"));
       file.delete();
     }
-
-    uploadService.deleteByPostid(postid);
-    postService.deleteById(postid);
-
-    staticTemplate.removePost(postid, PostConstants.TYPE_POST.equals(postType));
   }
 
   public Collection<MapContainer> listPageAsTree(){
@@ -85,7 +88,7 @@ public class PostManager{
     Iterator<MapContainer> it = list.iterator();
     while(it.hasNext()){
       MapContainer page = it.next();
-      if(StringUtils.isBlank(page.getAsString("parent"))){
+      if(PostConstants.DEFAULT_PARENT.equals(page.getAsString("parent"))){
         tree.add(page);
         it.remove();
       }

@@ -8,10 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.util.WebUtils;
 
 import com.zblog.common.dal.entity.User;
 import com.zblog.common.plugin.ApplicationContextUtil;
 import com.zblog.common.util.CookieUtil;
+import com.zblog.common.util.ServletUtils;
 import com.zblog.common.util.StringUtils;
 import com.zblog.common.util.UrlUtil;
 import com.zblog.common.util.constants.Constants;
@@ -27,6 +30,15 @@ import com.zblog.service.UserService;
  * 
  */
 public class LoginXssFilter extends OncePerRequestFilter{
+  XssCommonsMultipartResolver multipartResolver;
+
+  @Override
+  protected void initFilterBean() throws ServletException{
+    multipartResolver = new XssCommonsMultipartResolver();
+    multipartResolver.setDefaultEncoding(Constants.ENCODING_UTF_8);
+    multipartResolver.setMaxUploadSize(4096000);
+    multipartResolver.setServletContext(getServletContext());
+  }
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -35,6 +47,7 @@ public class LoginXssFilter extends OncePerRequestFilter{
     if(context != null)
       return;
 
+    boolean multipartRequestParsed = false;
     try{
       context = getWebContext(request, response);
       // 保存上下文
@@ -47,7 +60,14 @@ public class LoginXssFilter extends OncePerRequestFilter{
       String uri = StringUtils.emptyDefault(request.getRequestURI(), "/");
       AuthenticationService service = ApplicationContextUtil.getBean(AuthenticationService.class);
       if(service.isAuthentication(uri, context.getUser())){
-        filterChain.doFilter(new XssHttpServletRequestWrapper(request), response);
+        HttpServletRequest req = new XssHttpServletRequestWrapper(request);
+        /* 使用multipart/form-data上传时,上面会获取不到值,转换即可 */
+        if(ServletUtils.isMultipartContent(req)){
+          req = multipartResolver.resolveMultipart(req);
+          multipartRequestParsed = true;
+        }
+
+        filterChain.doFilter(req, response);
         return;
       }
 
@@ -72,6 +92,9 @@ public class LoginXssFilter extends OncePerRequestFilter{
       }
     }finally{
       WebContextHolder.remove();
+      if(multipartRequestParsed){
+        multipartResolver.cleanupMultipart(WebUtils.getNativeRequest(request, MultipartHttpServletRequest.class));
+      }
     }
   }
 

@@ -2,6 +2,7 @@ package com.zblog.backend.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,18 +34,22 @@ public class BackendController{
   }
 
   @RequestMapping(value = "/login", method = RequestMethod.GET)
-  public String login(){
+  public String login(String msg, Model model){
+    if("logout".equals(msg))
+      model.addAttribute("msg", "您已登出。");
     return "backend/login";
   }
-  
+
   @RequestMapping(value = "/logout")
   public String logout(HttpServletRequest request, HttpServletResponse response){
-    CookieUtil cookieUtil=new CookieUtil(request, response);
+    CookieUtil cookieUtil = new CookieUtil(request, response);
     cookieUtil.removeCokie(Constants.COOKIE_CONTEXT_ID);
     cookieUtil.removeCokie(Constants.COOKIE_CSRF_TOKEN);
-    
-    request.setAttribute("msg", "你已退出登录");
-    return "backend/login";
+    return "redirect:/backend/login?msg=logout";
+  }
+
+  @RequestMapping(value = "/rcode", method = RequestMethod.GET)
+  public void rcode(HttpSession session, HttpServletResponse response){
   }
 
   @RequestMapping(value = "/login", method = RequestMethod.POST)

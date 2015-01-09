@@ -44,9 +44,9 @@ public class FreeMarkerUtils{
       writer = new OutputStreamWriter(new FileOutputStream(out), Constants.ENCODING_UTF_8);
       template.process(param, writer);
     }catch(Exception e){
-      e.printStackTrace();
       logger.error("genHtml error-->" + name + " -out " + out.getAbsolutePath() + " param-->" + param);
       result = false;
+      throw new FreeMarkerDataAccessException("genHtml error " + name, e);
     }finally{
       IOUtils.closeQuietly(writer);
     }

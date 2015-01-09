@@ -5,7 +5,11 @@
 <mapper namespace="com.zblog.common.dal.mapper.OptionMapper">
    
    <select id="getOptionValue" resultType="java.lang.String">  
-      select value from options where name = #{name}
+      select value from options where id = #{id}
+   </select>
+   
+   <select id="getOptionValueForUpdate" resultType="java.lang.String">  
+      select value from options where id = #{id} for update
    </select>
    
    <update id="update" parameterType="Option">

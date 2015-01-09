@@ -38,7 +38,7 @@
     <cache:caching cache="posts">
        <cache:cacheable method="loadById" key="#p0" />
        <cache:cache-put method="update" key="#p0" />
-       <cache:cacheable method="deleteById" key="#p0" />
+       <cache:cache-evict method="deleteById" key="#p0" />
     </cache:caching>
   </cache:advice>
 

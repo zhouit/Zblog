@@ -41,7 +41,7 @@ zblog.category.remove=function(){
 	   window.location.href="categorys";
 	 }else{
 	   alert("删除失败"); 
-		 }
-	 }
+	  }
+	}
   });
 }

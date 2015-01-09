@@ -31,6 +31,7 @@ public class EhCacheManager{
       MapContainer temp = new MapContainer("cache", cacheName);
       Ehcache cache = manager.getCacheManager().getEhcache(cacheName);
       Statistics gateway = cache.getStatistics();
+      /* 毫秒 */
       temp.put("averageGetTime", gateway.getAverageGetTime());
       temp.put("hitCount", gateway.getCacheHits());
       temp.put("missCount", gateway.getCacheMisses());

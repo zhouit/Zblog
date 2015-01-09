@@ -28,7 +28,7 @@
       </#list>
       
       <#list pages as page>
-        <li><a href="${domain}/pagess/${page.id}">${page.title}</a>
+        <li><a href="${domain}/pages/${page.id}">${page.title}</a>
         <#if (page.children?exists && page.children?size>0) >
          <ul class="sub-menu">
           <#list page.children as child >

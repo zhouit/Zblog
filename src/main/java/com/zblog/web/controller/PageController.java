@@ -16,6 +16,7 @@ public class PageController{
   
   @RequestMapping("/{pageid}")
   public String page(@PathVariable("pageid") String pageid, Model model){
+    System.out.println(postService.loadById(pageid).getId());
     model.addAttribute("post", postService.loadById(pageid));
     return "post";
   }

@@ -26,7 +26,7 @@
           <div class="panel panel-default">
             <div class="panel-heading"><span class="icon glyphicon glyphicon-edit"></span>标题/内容</div>
             <div class="panel-body">
-              <input type="hidden" id="postid" value="${postid}" />
+              <input type="hidden" id="postid" value="${post.id}" />
               <input type="text" id="title" class="form-control input-md" placeholder="输入标题" value="${post.title}"><br/>
               <!-- 必须要添加width:100% -->
               <script id="container" style="width: 100%; height: 300px;" name="content" type="text/plain">${post.content}</script>
@@ -40,7 +40,7 @@
                <div class="form-group">
                  <label for="categoty">父页面</label>
                  <select class="form-control" id="parent">
-                   <option>(无父级)</option>
+                   <option value="Root">(无父级)</option>
                    <c:forEach items="${parents}" var="parent">
                      <option value="${parent.id}">${parent.title}</option>
                    </c:forEach>
