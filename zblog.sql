@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50534
 File Encoding         : 65001
 
-Date: 2014-12-31 22:42:25
+Date: 2015-01-09 21:51:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,14 +32,7 @@ CREATE TABLE `category` (
 -- ----------------------------
 -- Records of category
 -- ----------------------------
-INSERT INTO `category` VALUES ('6BgjFcptA4LTcykDOOr', 'Java', '2', '7', '0', '2014-12-18 19:54:29');
-INSERT INTO `category` VALUES ('ek68IyItky4N5EbhNpD', 'JavaSE', '3', '4', '0', '2014-12-18 19:59:08');
-INSERT INTO `category` VALUES ('epWiU7EndsNA8Km25F3', 'Zson', '13', '14', '0', '2014-12-21 13:41:33');
-INSERT INTO `category` VALUES ('gme1NPxYY2xxDRXViQM', 'DataBase', '8', '9', '0', '2014-12-18 19:59:46');
-INSERT INTO `category` VALUES ('Mf2DuehP8rWqS8EzyXb', 'Root', '1', '16', '0', '2014-12-18 19:37:58');
-INSERT INTO `category` VALUES ('MxorvIDaq0nXU1VqTBH', 'JavaEE', '5', '6', '0', '2014-12-18 19:59:27');
-INSERT INTO `category` VALUES ('Own3wYZkZiePcxoPDwy', 'Zplayer', '11', '12', '0', '2014-12-21 13:35:38');
-INSERT INTO `category` VALUES ('xr6QqcdKWYWlEwhNHMY', '开源', '10', '15', '0', '2014-12-21 13:33:30');
+INSERT INTO `category` VALUES ('Mf2DuehP8rWqS8EzyXb', 'Root', '1', '2', '0', '2014-12-18 19:37:58');
 
 -- ----------------------------
 -- Table structure for `comment`
@@ -84,13 +77,13 @@ CREATE TABLE `link` (
 -- ----------------------------
 -- Records of link
 -- ----------------------------
-INSERT INTO `link` VALUES ('Fm6UVHh2F6aYLuegsFy', 'JavaTalk', 'http://www.zhouhaocheng.cn', null, '1', 'admin', '2014-12-26 12:03:52');
+INSERT INTO `link` VALUES ('6ChkuVe0kfLY8ZiDnqZ', 'JavaTalk', 'http://www.zhouhaocheng.cn', null, '1', 'admin', '2015-01-06 17:27:31');
 
 -- ----------------------------
--- Table structure for `option`
+-- Table structure for `options`
 -- ----------------------------
-DROP TABLE IF EXISTS `option`;
-CREATE TABLE `option` (
+DROP TABLE IF EXISTS `options`;
+CREATE TABLE `options` (
   `id` varchar(19) NOT NULL,
   `name` varchar(50) NOT NULL,
   `value` varchar(100) NOT NULL,
@@ -98,7 +91,7 @@ CREATE TABLE `option` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of option
+-- Records of options
 -- ----------------------------
 
 -- ----------------------------
@@ -140,7 +133,7 @@ CREATE TABLE `upload` (
   `postid` varchar(19) DEFAULT NULL,
   `name` varchar(80) NOT NULL,
   `path` varchar(100) NOT NULL,
-  `token` varchar(32) NOT NULL,
+  `token` varchar(32) DEFAULT NULL,
   `createTime` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_upload_post` (`postid`),
