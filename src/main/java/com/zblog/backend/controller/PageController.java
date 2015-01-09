@@ -92,7 +92,7 @@ public class PageController{
     if(!StringUtils.isBlank(pid)){
       Post page = postService.loadEditById(pid);
       model.addAttribute("post", page);
-      showparent = !StringUtils.isBlank(page.getParent());
+      showparent = PostConstants.DEFAULT_PARENT.equals(page.getParent());
     }
 
     if(showparent)

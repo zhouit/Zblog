@@ -2,30 +2,20 @@ package com.zblog.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.HtmlUtils;
 
 import com.zblog.common.dal.entity.Comment;
 import com.zblog.common.plugin.MapContainer;
+import com.zblog.common.util.JsoupUtils;
 import com.zblog.common.util.ServletUtils;
 
 @Controller
 @RequestMapping("/comments")
 public class CommentController{
-  private static Whitelist content_filter = Whitelist.relaxed();
-
-  static{
-    content_filter.addTags("embed", "object", "param", "span", "div");
-    content_filter.addAttributes(":all", "style", "class", "id", "name");
-    content_filter.addAttributes("object", "width", "height", "classid", "codebase");
-    content_filter.addAttributes("param", "name", "value");
-    content_filter.addAttributes("embed", "src", "quality", "width", "height", "allowFullScreen", "allowScriptAccess",
-        "flashvars", "name", "type", "pluginspage");
-  }
 
   @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
@@ -33,7 +23,8 @@ public class CommentController{
     comment.setIp(ServletUtils.getIp(request));
     comment.setAgent(request.getHeader("User-Agent"));
     /* 使用jsoup来对帖子内容进行过滤 */
-    comment.setContent(Jsoup.clean(comment.getContent(), content_filter));
+    String content = HtmlUtils.htmlUnescape(comment.getContent());
+    comment.setContent(JsoupUtils.relaxed(content));
     return new MapContainer("success", true);
   }
 
