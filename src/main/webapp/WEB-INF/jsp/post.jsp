@@ -5,7 +5,7 @@
  <head>
    <jsp:include page="common/head.jsp" flush="false" />
  </head>
- <body class="custom-background">
+ <body>
    <%@include file="common/header.html" %>
    <div id="content" class="clearfix">
      <div id="left_col">
@@ -53,9 +53,10 @@
      <div id="right_col">
       <div class="side_widget clearfix">
        <h3 class="headline">About</h3>
-       <p>本站模仿自<a href="http://ifeve.com/">并发编程网</a></p>
-        <div id="search_area">
-          <form method="get" action="${g.domain}" >
+       <p>You can show your site introduction by using Site Introduction Widget. 
+       You also can show Social Icon on upper part, and search form at bottom. </p>
+        <div id="search_area" class="clearfix">
+          <form method="get" action="${g.domain}">
              <div class="search_input">
                <input type="text" autocomplete="off" name="word" placeholder="搜索一下" />
              </div>

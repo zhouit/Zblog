@@ -15,7 +15,8 @@
     <aop:aspect ref="staticTemplate">
       <!-- 定义切点· -->
       <aop:pointcut id="p-category" expression="execution(* com.zblog.service.CategoryService.insert*(..)) || 
-          execution(* com.zblog.service.CategoryService.remove*(..))" />
+          execution(* com.zblog.biz.CategoryManager.remove(..)) || 
+          execution(* com.zblog.biz.OptionManager.updateGeneralOption(..))" />
       <aop:after method="staticHeader" pointcut-ref="p-category" />
       
       <!-- 注意:中间的必须用and 不能用 && -->

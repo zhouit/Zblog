@@ -77,7 +77,7 @@
        <p>You can show your site introduction by using Site Introduction Widget. 
        You also can show Social Icon on upper part, and search form at bottom. </p>
         <div id="search_area" class="clearfix">
-          <form method="get">
+          <form method="get" action="${g.domain}">
              <div class="search_input">
                <input type="text" autocomplete="off" name="word" placeholder="搜索一下" />
              </div>

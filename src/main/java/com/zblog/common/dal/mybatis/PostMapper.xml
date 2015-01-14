@@ -23,7 +23,7 @@
    </select>
    
    <select id="listRecent" resultType="MapContainer">  
-      select id, title from post where type='post' order by createTime desc limit 10
+      select id, title, rcount from post where type='post' order by createTime desc limit 10
    </select>
    
    <select id="listByCategory" parameterType="PageModel" resultType="MapContainer">  

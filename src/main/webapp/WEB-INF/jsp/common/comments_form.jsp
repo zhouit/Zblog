@@ -4,6 +4,7 @@
      <a href="#respond" rel="nofollow">点击这里取消回复。</a>
   </div>
   <form method="post" action="${g.domain}/comments">
+    <input type="hidden" id="postid" name="postid" value="${post.id}" />
     <div id="guest_info">
       <div id="guest_name">
        <label for="author"><span>昵称</span>( 必须 )</label>
@@ -23,6 +24,6 @@
      </div>
      <div id="submit_comment_wrapper">
        <input id="submit_comment" type="submit" value="发表评论" >
-     </div
+     </div>
   </form>
 </fieldset>

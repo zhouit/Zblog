@@ -56,11 +56,11 @@
             <div class="panel panel-default">
               <div class="panel-heading"><span class="icon glyphicon glyphicon-filter"></span>最近发表</div>
                 <div class="list-group">
-                  <a class="list-group-item">数据库表的行列转换 </a>
-                  <a class="list-group-item">Java粒子系统与全像素点验证码 </a>
-                  <a class="list-group-item">关于java程序加密 </a>
-                  <a class="list-group-item">centos的防火墙iptables配置 </a>
-                  <a class="list-group-item">为网站加入https访问机制 </a>
+                  <a class="list-group-item"><span class="badge">14</span>数据库表的行列转换 </a>
+                  <a class="list-group-item"><span class="badge">14</span>Java粒子系统与全像素点验证码 </a>
+                  <a class="list-group-item"><span class="badge">14</span>关于java程序加密 </a>
+                  <a class="list-group-item"><span class="badge">14</span>centos的防火墙iptables配置 </a>
+                  <a class="list-group-item"><span class="badge">14</span>为网站加入https访问机制 </a>
                 </div>
               </div>
           </div>

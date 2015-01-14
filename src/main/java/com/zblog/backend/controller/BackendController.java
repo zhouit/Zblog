@@ -16,6 +16,8 @@ import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.CookieUtil;
 import com.zblog.common.util.StringUtils;
 import com.zblog.common.util.constants.Constants;
+import com.zblog.service.CommentService;
+import com.zblog.service.PostService;
 import com.zblog.service.UserService;
 
 @Controller
@@ -23,12 +25,19 @@ import com.zblog.service.UserService;
 public class BackendController{
   @Autowired
   private UserService userService;
+  @Autowired
+  private PostService postService;
+  @Autowired
+  private CommentService commentService;
 
   @RequestMapping(value = "/index", method = RequestMethod.GET)
   public String index(Model model){
     model.addAttribute("osname", System.getProperty("os.name"));
     model.addAttribute("javaVersion", System.getProperty("java.version"));
     model.addAttribute("memory", Runtime.getRuntime().totalMemory() / 1024 / 1024);
+    
+    model.addAttribute("posts", postService.listRecent());
+    model.addAttribute("comments", commentService.listRecent());
     return "backend/index";
   }
 

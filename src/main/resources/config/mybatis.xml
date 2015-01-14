@@ -12,6 +12,7 @@
     <typeAlias alias="Post" type="com.zblog.common.dal.entity.Post"/>
     <typeAlias alias="Upload" type="com.zblog.common.dal.entity.Upload"/>
     <typeAlias alias="Link" type="com.zblog.common.dal.entity.Link"/>
+    <typeAlias alias="Comment" type="com.zblog.common.dal.entity.Comment"/>
     <typeAlias alias="Option" type="com.zblog.common.dal.entity.Option"/>
   </typeAliases>
   <mappers>
@@ -20,6 +21,7 @@
     <mapper resource="com/zblog/common/dal/mybatis/PostMapper.xml" />
     <mapper resource="com/zblog/common/dal/mybatis/UploadMapper.xml" />
     <mapper resource="com/zblog/common/dal/mybatis/LinkMapper.xml" />
+    <mapper resource="com/zblog/common/dal/mybatis/CommentMapper.xml" />
     <mapper resource="com/zblog/common/dal/mybatis/OptionMapper.xml" />
   </mappers>
 </configuration>

@@ -53,6 +53,11 @@ public class UploadManager{
     return result;
   }
 
+  /**
+   * 删除记录，同时删除文件
+   * 
+   * @param uploadid
+   */
   public void removeUpload(String uploadid){
     Upload upload = uploadService.loadById(uploadid);
     uploadService.deleteById(uploadid);

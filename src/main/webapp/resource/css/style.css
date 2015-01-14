@@ -62,13 +62,14 @@ a:hover{color: #009dc4;}
 #menu ul li{float:left; font-size:10px; position:relative; margin:0;}
 #menu ul ul li{float:none; height:auto; padding:0; margin:0; text-align:left; }
 
-#menu ul li a{font-size:10px; padding:0 20px; text-align:center; text-decoration:none; color:#888; display:block; height:35px; line-height:36px; overflow:hidden; }
-#menu ul ul li a{font-size:11px; background:#fff; border:1px solid #ccc; position:relative; padding:10px 20px 8px; width:180px; height:auto; line-height:180%; margin:0 0 -1px 0; text-align:left; }
-#menu ul li a:hover{ background:#eee; color:#333; }
+#menu ul li a{font-size:10px; padding:0 20px; text-align:center; color:#888; display:inline-block; height:35px; line-height:36px; overflow:hidden; }
+#menu ul ul li a{font-size:11px; background:#fff; border:1px solid #ccc;margin-bottom:-1px; padding:10px 20px 8px; 
+   display:block;position:relative;width:180px;height:auto; line-height:180%; text-align:left; }
+#menu ul li:hover > a ,#menu ul li li a:hover{background:#eee; color:#333;}
 #menu ul li:hover ul{display: block;}
 
 #content{min-height: 100%;position: absolute;top: 0;width: 100%;}
-#post_mask{box-shadow:-1px 0px 3px 0px #888; position:absolute; top:0px; right:0%; width:86%; min-height:100%; background:#fff url(../img/right_bg.gif) repeat-y right top; z-index:2; }
+#post_mask{box-shadow:-1px 0px 3px 0px #888; position:absolute; top:0; right:0; width:86%; height:100%; background:#fff url(../img/right_bg.gif) repeat-y right top; z-index:2;}
 
 #left_col{float: left;margin: 230px -340px 0 0;width: 100%;z-index: 1000;}
 #archive_headline{float: right;position: relative;width: 86%;z-index: 3;}
@@ -161,8 +162,7 @@ ul.comment-name-date li{padding: 0 0 5px;}
 #guest_info label{display:block; margin:0 0 5px 0; padding:0; font-size:11px; color:#888;}
 #guest_info span{color:#666; margin:0 10px 0 0; }
 
-#comment_textarea textarea{margin:15px 0 0; width:100%; height:120px; border:1px solid #ccc;
-                background:#fff; color:#666; font-size:11px; overflow:auto; }
+#comment_textarea textarea{margin-top:10px;width:100%; height:120px; border:1px solid #ccc;background:#fff; color:#666; font-size:11px; overflow:auto;resize:none; }
 #comment_textarea textarea:FOCUS{border: 1px solid #009dc4;}
 
 #submit_comment_wrapper{text-align:center; }
@@ -171,7 +171,7 @@ ul.comment-name-date li{padding: 0 0 5px;}
 
 
 /************* right ************/
-#right_col{font-size:11px; padding:267px 20px 100px 20px; width:300px; margin:0 0 0 0; float:right; position:relative; z-index:4;  }
+#right_col{font-size:11px; padding:267px 20px 100px 20px; width:300px; margin:0; float:right; position:relative; z-index:4;}
 /* list */
 #right_col li{margin:0 0 1em 0; line-height:160%; }
 #right_col li li{padding:0 0 0 1em; margin:5px 0; }
