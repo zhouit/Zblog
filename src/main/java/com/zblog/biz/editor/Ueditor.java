@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.zblog.biz.UploadManager;
+import com.zblog.common.dal.entity.Upload;
 import com.zblog.common.plugin.MapContainer;
-import com.zblog.common.util.StringUtils;
-import com.zblog.common.util.constants.PostConstants;
+import com.zblog.common.util.constants.WebConstants;
 import com.zblog.common.util.web.ServletRequestReader;
 
 /**
@@ -76,11 +76,17 @@ public class Ueditor{
   }
 
   public MapContainer uploadImage(ServletRequestReader reader){
-    String uploadToken = reader.getAsString(PostConstants.UPLOAD_TOKEN);
-    if(StringUtils.isBlank(uploadToken))
-      return new MapContainer("state", "非法请求");
+    Upload upload = uploadManager.insertUpload(reader, "upfile");
+    if(upload == null){
+      return new MapContainer("state", "文件上传失败");
+    }
 
-    return uploadManager.insertUpload(reader, "upfile");
+    MapContainer mc = new MapContainer("state", "SUCCESS");
+    mc.put("original", upload.getName());
+    mc.put("title", upload.getName());
+    mc.put("url", WebConstants.getDomain() + upload.getPath());
+
+    return mc;
   }
 
 }

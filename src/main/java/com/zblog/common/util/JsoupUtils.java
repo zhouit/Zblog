@@ -1,8 +1,13 @@
 package com.zblog.common.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jsoup.Jsoup;
 import org.jsoup.helper.StringUtil;
+import org.jsoup.nodes.Element;
 import org.jsoup.safety.Whitelist;
+import org.jsoup.select.Elements;
 
 /**
  * html文本处理工具
@@ -19,8 +24,8 @@ public class JsoupUtils{
     content_filter.addAttributes(":all", "style", "class", "id", "name", "on");
     content_filter.addAttributes("object", "width", "height", "classid", "codebase");
     content_filter.addAttributes("param", "name", "value");
-    content_filter.addAttributes("embed", "src", "quality", "width", "height", "allowFullScreen",
-        "allowScriptAccess", "flashvars", "name", "type", "pluginspage");
+    content_filter.addAttributes("embed", "src", "quality", "width", "height", "allowFullScreen", "allowScriptAccess",
+        "flashvars", "name", "type", "pluginspage");
   }
 
   /**
@@ -31,6 +36,24 @@ public class JsoupUtils{
    */
   public static String filter(String html){
     return StringUtil.isBlank(html) ? "" : Jsoup.clean(html, content_filter);
+  }
+
+  /**
+   * 获取当前html文本中所有图片src地址
+   * 
+   * @param html
+   * @return
+   */
+  public static List<String> getImages(String html){
+    Elements eles = Jsoup.parse(html).getElementsByTag("img");
+    List<String> result = new ArrayList<>(eles.size());
+    for(Element element : eles){
+      String src = element.attr("src");
+      if(!StringUtils.isBlank(src))
+        result.add(src);
+    }
+
+    return result;
   }
 
   /**

@@ -72,5 +72,10 @@ public class UserController{
       model.addAttribute("user", userService.loadById(uid));
     return "backend/user/edit";
   }
+  
+  @RequestMapping(value = "/my", method = RequestMethod.GET)
+  public String my(Model model){
+    return "backend/user/my";
+  }
 
 }

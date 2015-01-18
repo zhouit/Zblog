@@ -28,9 +28,4 @@ public class PostConstants{
    */
   public static final int INIT_POST_ID = 5;
 
-  /**
-   * 当添加文章时,防止用户上传没有用到的文件
-   */
-  public static final String UPLOAD_TOKEN = "uploadToken";
-
 }

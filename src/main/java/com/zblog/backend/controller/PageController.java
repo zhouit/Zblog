@@ -43,7 +43,7 @@ public class PageController{
 
   @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
-  public Object insert(Post post, String uploadToken){
+  public Object insert(Post post){
     post.setType(PostConstants.TYPE_PAGE);
     MapContainer form = PostFormValidator.validatePublish(post);
     if(!form.isEmpty()){
@@ -58,13 +58,13 @@ public class PageController{
     String content = HtmlUtils.htmlUnescape(post.getContent());
     post.setContent(JsoupUtils.filter(content));
 
-    postManager.insertPost(post, uploadToken);
+    postManager.insertPost(post);
     return new MapContainer("success", true);
   }
 
   @ResponseBody
   @RequestMapping(method = RequestMethod.PUT)
-  public Object update(Post post, String uploadToken){
+  public Object update(Post post){
     post.setType(PostConstants.TYPE_PAGE);
     MapContainer form = PostFormValidator.validateUpdate(post);
     if(!form.isEmpty()){
@@ -74,7 +74,7 @@ public class PageController{
     String content = HtmlUtils.htmlUnescape(post.getContent());
     post.setContent(JsoupUtils.filter(content));
 
-    postManager.updatePost(post, uploadToken);
+    postManager.updatePost(post);
     return new MapContainer("success", true);
   }
 

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zblog.biz.EhCacheManager;
+import com.zblog.common.lucene.SearchEnginer;
 
 @Controller
 @RequestMapping("/backend/monitor")
@@ -17,6 +18,12 @@ public class MonitorController{
   @RequestMapping("/ehcache")
   public Object ehcache(){
     return ehCacheManager.stats();
+  }
+  
+  @ResponseBody
+  @RequestMapping("/lucene")
+  public Object lucene(){
+    return SearchEnginer.postEnginer().docCount();
   }
 
 }

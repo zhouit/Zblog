@@ -7,9 +7,8 @@ $(function(){
 	  autoFloatEnabled: true
   });
   
-  zblog.post.uploadToken=new Date().getTime()+"";
   zblog.post.editor.ready(function(){
-	zblog.post.editor.execCommand('serverparam', {'uploadToken': zblog.post.uploadToken});
+	  zblog.post.editor.execCommand('serverparam', {'CSRFToken': zblog.getCookie("x-csrf-token")});
   });
 });
 
@@ -21,10 +20,7 @@ zblog.post.insert=function(){
   }
 
   var postid=$("#postid").val();
-  var data={title:title,
-	content:zblog.post.editor.getContent(),
-	categoryid:$("#category").val(),
-	uploadToken:zblog.post.uploadToken};
+  var data={title:title, content:zblog.post.editor.getContent(), categoryid:$("#category").val()};
   if(postid.length>0) data.id=postid;
   
   $.ajax({

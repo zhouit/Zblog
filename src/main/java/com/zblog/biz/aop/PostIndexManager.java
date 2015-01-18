@@ -3,6 +3,8 @@ package com.zblog.biz.aop;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.Term;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.zblog.common.dal.entity.Post;
@@ -22,6 +24,7 @@ import com.zblog.common.util.constants.PostConstants;
  */
 @Component
 public class PostIndexManager{
+  private static final Logger logger=LoggerFactory.getLogger(PostIndexManager.class);
 
   /**
    * 只有添加文章才插入Lucene索引
@@ -29,8 +32,10 @@ public class PostIndexManager{
    * @param post
    */
   public void insert(Post post){
-    if(PostConstants.TYPE_POST.equals(post.getType()))
+    if(PostConstants.TYPE_POST.equals(post.getType())){
+      logger.debug("add post index -->"+post.getTitle());
       SearchEnginer.postEnginer().insert(convert(post));
+    }
   }
 
   /**

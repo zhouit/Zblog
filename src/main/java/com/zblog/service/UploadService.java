@@ -26,8 +26,17 @@ public class UploadService extends BaseService{
     return uploadMapper.listByPostid(postid);
   }
 
-  public void updatePostid(String postid, String uploadToken){
-    uploadMapper.updatePostid(postid, uploadToken);
+  public void updatePostid(String postid, List<String> imgpaths){
+    uploadMapper.updatePostid(postid, imgpaths);
+  }
+
+  /**
+   * 将所有postid的记录置空,非删除记录
+   * 
+   * @param postid
+   */
+  public void setNullPostid(String postid){
+    uploadMapper.setNullPostid(postid);
   }
 
   public void deleteByPostid(String postid){

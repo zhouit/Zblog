@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zblog.biz.UploadManager;
 import com.zblog.biz.editor.Ueditor;
+import com.zblog.common.dal.entity.Upload;
 import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.web.ServletRequestReader;
 import com.zblog.service.UploadService;
@@ -36,8 +37,8 @@ public class UploadController{
   @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
   public Object insert(HttpServletRequest request){
-    uploadManager.insertUpload(new ServletRequestReader(request), "file");
-    return new MapContainer("success", true);
+    Upload upload = uploadManager.insertUpload(new ServletRequestReader(request), "file");
+    return new MapContainer("success", upload != null);
   }
 
   @RequestMapping(value = "/edit", method = RequestMethod.GET)

@@ -46,7 +46,7 @@ public class PostController{
 
   @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
-  public Object insert(Post post, String uploadToken){
+  public Object insert(Post post){
     MapContainer form = PostFormValidator.validatePublish(post);
     if(!form.isEmpty()){
       return form.put("success", false);
@@ -63,13 +63,13 @@ public class PostController{
     post.setExcerpt(cleanTxt.length() > PostConstants.EXCERPT_LENGTH ? cleanTxt.substring(0,
         PostConstants.EXCERPT_LENGTH) : cleanTxt);
 
-    postManager.insertPost(post, uploadToken);
+    postManager.insertPost(post);
     return new MapContainer("success", true);
   }
 
   @ResponseBody
   @RequestMapping(method = RequestMethod.PUT)
-  public Object update(Post post, String uploadToken){
+  public Object update(Post post){
     MapContainer form = PostFormValidator.validateUpdate(post);
     if(!form.isEmpty()){
       return form.put("success", false);
@@ -81,7 +81,7 @@ public class PostController{
     post.setExcerpt(cleanTxt.length() > PostConstants.EXCERPT_LENGTH ? cleanTxt.substring(0,
         PostConstants.EXCERPT_LENGTH) : cleanTxt);
 
-    postManager.updatePost(post, uploadToken);
+    postManager.updatePost(post);
     return new MapContainer("success", true);
   }
 

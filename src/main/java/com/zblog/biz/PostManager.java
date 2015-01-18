@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zblog.biz.aop.StaticTemplate;
 import com.zblog.common.dal.entity.Post;
 import com.zblog.common.plugin.MapContainer;
-import com.zblog.common.util.StringUtils;
+import com.zblog.common.util.JsoupUtils;
 import com.zblog.common.util.constants.PostConstants;
 import com.zblog.common.util.constants.WebConstants;
 import com.zblog.service.OptionsService;
@@ -35,27 +35,30 @@ public class PostManager{
    * 插入文章，同时更新上传文件的postid
    * 
    * @param post
-   * @param uploadToken
    */
   @Transactional
-  public void insertPost(Post post, String uploadToken){
-    if(!StringUtils.isBlank(uploadToken))
-      uploadService.updatePostid(post.getId(), uploadToken);
+  public void insertPost(Post post){
     postService.insert(post);
+    /* 查找当前html中所有图片链接 */
+    List<String> imgs = JsoupUtils.getImages(post.getContent());
+    if(!imgs.isEmpty()){
+      uploadService.updatePostid(post.getId(), extractImagepath(imgs));
+    }
 
     staticTemplate.staticPost(post);
   }
 
   /**
-   * 更新文章,同时更新上传文件的postid
+   * 更新文章,先重置以前文件对应的附件的postid,再更新文章对应的postid
    * 
    * @param post
-   * @param uploadToken
    */
   @Transactional
-  public void updatePost(Post post, String uploadToken){
-    if(!StringUtils.isBlank(uploadToken))
-      uploadService.updatePostid(post.getId(), uploadToken);
+  public void updatePost(Post post){
+    uploadService.setNullPostid(post.getId());
+    List<String> imgs = JsoupUtils.getImages(post.getContent());
+    if(!imgs.isEmpty())
+      uploadService.updatePostid(post.getId(), extractImagepath(imgs));
     postService.update(post);
 
     staticTemplate.staticPost(post);
@@ -70,12 +73,12 @@ public class PostManager{
    */
   @Transactional
   public void removePost(String postid, String postType){
+    List<MapContainer> list = uploadService.listByPostid(postid);
     uploadService.deleteByPostid(postid);
     postService.deleteById(postid);
 
     staticTemplate.removePost(postid, PostConstants.TYPE_POST.equals(postType));
 
-    List<MapContainer> list = uploadService.listByPostid(postid);
     for(MapContainer mc : list){
       File file = new File(WebConstants.APPLICATION_PATH, mc.getAsString("path"));
       file.delete();
@@ -108,6 +111,24 @@ public class PostManager{
     }
 
     return tree;
+  }
+
+  /**
+   * 去掉图片中src地址的http域名前缀
+   * 
+   * @param imgs
+   * @return
+   */
+  private static List<String> extractImagepath(List<String> imgs){
+    List<String> imgpaths = new ArrayList<>(imgs.size());
+    String domain = WebConstants.getDomain();
+    for(String imgUrl : imgs){
+      if(imgUrl.startsWith(domain)){
+        imgpaths.add(imgUrl.substring(domain.length()));
+      }
+    }
+
+    return imgpaths;
   }
 
 }

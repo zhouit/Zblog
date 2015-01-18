@@ -8,11 +8,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.zblog.common.dal.entity.Upload;
-import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.DateUtils;
 import com.zblog.common.util.FileUtils;
 import com.zblog.common.util.IdGenarater;
-import com.zblog.common.util.constants.PostConstants;
 import com.zblog.common.util.constants.WebConstants;
 import com.zblog.common.util.web.ServletRequestReader;
 import com.zblog.service.UploadService;
@@ -22,8 +20,15 @@ public class UploadManager{
   @Autowired
   private UploadService uploadService;
 
-  public MapContainer insertUpload(ServletRequestReader reader, String fileVal){
-    MapContainer result = new MapContainer("state", "SUCCESS");
+  /**
+   * 添加上传记录并存储文件
+   * 
+   * @param reader
+   * @param fileVal
+   * @return 当前上传对象
+   */
+  public Upload insertUpload(ServletRequestReader reader, String fileVal){
+    Upload upload = null;
     MultipartFile file = reader.getFile(fileVal);
     try{
       String year = DateUtils.currentDate("yyyy");
@@ -33,24 +38,20 @@ public class UploadManager{
 
       File savePath = determineFile(parent, file.getOriginalFilename());
       file.transferTo(savePath);
-      result.put("original", file.getOriginalFilename());
-      result.put("title", file.getOriginalFilename());
-      result.put("url", WebConstants.getDomain() + "/post/uploads/" + year + "/" + savePath.getName());
 
-      Upload upload = new Upload();
+      upload = new Upload();
       upload.setId(IdGenarater.uuid19());
       upload.setCreateTime(new Date());
       upload.setName(file.getOriginalFilename());
-      upload.setToken(reader.getAsString(PostConstants.UPLOAD_TOKEN));
       upload.setPath("/post/uploads/" + year + "/" + savePath.getName());
 
       uploadService.insert(upload);
     }catch(Exception e){
       e.printStackTrace();
-      result.put("state", "文件上传失败");
+      upload = null;
     }
 
-    return result;
+    return upload;
   }
 
   /**
@@ -65,7 +66,7 @@ public class UploadManager{
   }
 
   /**
-   * 生成文件存储文件名
+   * 生成文件存储名
    * 
    * @param parent
    * @param fileName

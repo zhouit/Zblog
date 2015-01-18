@@ -9,7 +9,7 @@
    </select>
    
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
-     select c.id, c.url, c.email, c.ip, c.content, c.creator, c.createTime, p.title 
+     select c.id, c.postid, c.url, c.email, c.ip, c.content, c.creator, c.approved, c.createTime, p.title 
        from comment c left join post p on c.postid=p.id
    </select>
    
@@ -22,6 +22,10 @@
       insert into comment(id,postid, parent, email, url, ip, agent,content,approved, creator, createTime) 
          values(#{id},#{postid},#{parent},#{email},#{url},#{ip},#{agent},#{content},#{approved},#{creator},#{createTime})
    </insert>
+   
+   <update id="approve">
+     update comment set approved=#{approved} where id=#{commentid}
+   </update>
 
    <delete id="deleteById">
 	 delete from comment where id = #{id}

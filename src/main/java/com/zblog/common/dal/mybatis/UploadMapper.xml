@@ -9,7 +9,8 @@
    </select>
    
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
-      select m.id, p.title, m.name, m.path, m.createTime from upload m left join post p on m.postid=p.id
+      select m.id,p.id as postid, p.title, p.type, m.name, m.path, m.createTime 
+      from upload m left join post p on m.postid=p.id
    </select>
    
    <select id="listByPostid" parameterType="java.lang.String" resultType="MapContainer">  
@@ -22,7 +23,14 @@
    </insert>
    
    <update id="updatePostid">
-     update upload set postid=#{postid} where token=#{uploadToken}
+     update upload set postid=#{postid} where path in 
+     <foreach collection="imgpaths" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+   </update>
+   
+   <update id="setNullPostid" parameterType="java.lang.String">
+     update upload set postid=null where postid=#{postid}
    </update>
 
    <delete id="deleteById" parameterType="java.lang.String">
