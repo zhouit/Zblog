@@ -24,7 +24,7 @@ import com.zblog.common.util.constants.PostConstants;
  */
 @Component
 public class PostIndexManager{
-  private static final Logger logger=LoggerFactory.getLogger(PostIndexManager.class);
+  private static final Logger logger = LoggerFactory.getLogger(PostIndexManager.class);
 
   /**
    * 只有添加文章才插入Lucene索引
@@ -33,7 +33,7 @@ public class PostIndexManager{
    */
   public void insert(Post post){
     if(PostConstants.TYPE_POST.equals(post.getType())){
-      logger.debug("add post index -->"+post.getTitle());
+      logger.debug("add post index -->" + post.getTitle());
       SearchEnginer.postEnginer().insert(convert(post));
     }
   }
@@ -48,7 +48,8 @@ public class PostIndexManager{
       SearchEnginer.postEnginer().update(new Term("id", post.getId()), convert(post));
   }
 
-  public void remove(String postid){
+  public void remove(String postid, String postType){
+    if(PostConstants.TYPE_POST.equals(postType))
     SearchEnginer.postEnginer().delete(new Term("id", postid));
   }
 

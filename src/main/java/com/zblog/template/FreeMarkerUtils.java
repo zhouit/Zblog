@@ -46,6 +46,8 @@ public class FreeMarkerUtils{
     }catch(Exception e){
       logger.error("genHtml error-->" + name + " -out " + out.getAbsolutePath() + " param-->" + param);
       result = false;
+      /* 静态化失败,则删除文件 */
+      out.delete();
       throw new FreeMarkerDataAccessException("genHtml error " + name, e);
     }finally{
       IOUtils.closeQuietly(writer);

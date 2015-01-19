@@ -4,15 +4,13 @@
  reset css
 ---------------------------------------------------------------------- */
 html, body, div, span, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+h1, h2, h3, h4, h5, h6, p, blockquote,
 a, address, big, cite, code, dfn, em, img,
 small, strike, strong,b, u, i, center,
-dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td{ margin:0; padding:0; border:0; outline:0; font-size:100%; vertical-align:baseline; }
 
 html { overflow-y: scroll; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
-ul, ol { list-style:none; }
 blockquote{ quotes:none; }
 blockquote:before, blockquote:after, q:before, q:after { content:''; content: none; }
 a:focus { outline:none; }
@@ -37,7 +35,7 @@ button::-moz-focus-inner, input::-moz-focus-inner { border:0; padding:0; }
 /* ----------------------------------------------------------------------
  basic setting
 ---------------------------------------------------------------------- */
-body{font-family:Arial,Helvetica,sans-serif; color:#666; line-height:1; min-width:1100px;font-size: 14px;
+body{font-family:Arial,Helvetica,sans-serif; color:#666;min-width:1100px;font-size: 14px;
    background-attachment: scroll;background-image: url("../img/background.gif");background-position: left top;background-repeat: repeat;}
 a{color:#333; }
 a, a:visited {outline: medium none;text-decoration: none;}
@@ -84,8 +82,8 @@ a:hover{color: #009dc4;}
 .post .title a ,.post .title span{display: block;margin: 0 340px 0 5px;padding: 39px 4% 0;text-decoration: none;}
 .post .title a{border-top: 1px solid #ccc;}
 .post_content{background-color:#fff;margin: 0 340px 0 0;min-height: 50px;padding: 25px 4%;}
-.post_content p{line-height: 2;margin:1em 0;padding: 0;}
-.post_content p.excerpt{text-indent: 1.5em;}
+.post_content p{margin:1em 0;line-height: 2;}
+.post_content p.excerpt{text-indent: 1.5em;padding: 0;}
 /* read more link */
 .post a.more-link{background-color:#f2f2f2;border-radius: 3px;color: #666;display: inline-block;font-size: 12px;height: 35px;line-height: 35px;padding: 0 36px;position: relative;}
 .post a.more-link:hover{color:#fff;background-color:#009dc4;}
@@ -93,14 +91,14 @@ a:hover{color: #009dc4;}
 /* bread crumb */
 #bread_crumb{position:relative; z-index:3; width:86%; float:right;background-color: #f5f5f5;}
 #bread_crumb ul{margin:0 340px 0 0; padding:13px 4% 11px; font-size:10px; }
-#bread_crumb ul li{float:left; display:inline; margin:0 10px 0 0; padding:0 15px 0 0; color:#777; background:url(../img/arrow2.gif) no-repeat right 5px; line-height:150%; }
+#bread_crumb ul li{float:left; display:inline; margin:0 10px 0 0; padding:0 15px 0 0; color:#777; background:url(../img/arrow2.gif) no-repeat right 3px; line-height:150%; }
 #bread_crumb ul li.last{ margin:0; padding:0; background:none; }
 #bread_crumb ul li a{color:#777; text-decoration:underline; }
 
 
 /* left side of post meta */
 .meta{width:14%; border-top:1px solid #aaa; float:left; text-align:right; min-height:2px; }
-.meta ul{margin:46px 16% 30px; }
+.meta ul{margin:46px 16% 30px; list-style: none;}
 .meta li{font-size:11px; margin:0 0 15px 0; color:#777; }
 .meta li a{color:#777; }
 .meta li a:hover{color:#333; }
@@ -171,6 +169,8 @@ ul.comment-name-date li{padding: 0 0 5px;}
 
 
 /************* right ************/
+#right_col ol,#right_col ul{list-style:none;margin: 0;padding: 0;}
+
 #right_col{font-size:11px; padding:267px 20px 100px 20px; width:300px; margin:0; float:right; position:relative; z-index:4;}
 /* list */
 #right_col li{margin:0 0 1em 0; line-height:160%; }

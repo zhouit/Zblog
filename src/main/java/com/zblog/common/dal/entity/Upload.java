@@ -13,8 +13,6 @@ public class Upload extends BaseEntity{
   private String name;
   /* 图片访问路径 */
   private String path;
-  /* 添加是图片token */
-  private String token;
 
   public String getPostid(){
     return postid;
@@ -38,14 +36,6 @@ public class Upload extends BaseEntity{
 
   public void setPath(String path){
     this.path = path;
-  }
-
-  public String getToken(){
-    return token;
-  }
-
-  public void setToken(String token){
-    this.token = token;
   }
 
 }

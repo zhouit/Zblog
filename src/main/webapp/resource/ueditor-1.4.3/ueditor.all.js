@@ -15109,7 +15109,7 @@ UE.plugins['list'] = function () {
     });
     //进入编辑器的li要套p标签
     me.addInputRule(function(root){
-        utils.each(root.getNodesByTagName('li'),function(li){
+/*        utils.each(root.getNodesByTagName('li'),function(li){
             var tmpP = UE.uNode.createElement('p');
             for(var i= 0,ci;ci=li.children[i];){
                 if(ci.type == 'text' || dtd.p[ci.tagName]){
@@ -15139,7 +15139,7 @@ UE.plugins['list'] = function () {
             if(lastChild && lastChild.type == 'text' && /^\s*$/.test(lastChild.data)){
                 p.removeChild(lastChild)
             }
-        });
+        });  */
         if(me.options.autoTransWordToList){
             var orderlisttype = {
                     'num1':/^\d+\)/,
@@ -15263,9 +15263,9 @@ UE.plugins['list'] = function () {
 
             var style = domUtils.getStyle(node, 'list-style-type');
             style && (node.style.cssText = 'list-style-type:' + style);
-            node.className = utils.trim(node.className.replace(/list-paddingleft-\w+/,'')) + ' list-paddingleft-' + type;
+            //node.className = utils.trim(node.className.replace(/list-paddingleft-\w+/,'')) + ' list-paddingleft-' + type;
             utils.each(domUtils.getElementsByTagName(node,'li'),function(li){
-                li.style.cssText && (li.style.cssText = '');
+             //   li.style.cssText && (li.style.cssText = '');
                 if(!li.firstChild){
                     domUtils.remove(li);
                     return;

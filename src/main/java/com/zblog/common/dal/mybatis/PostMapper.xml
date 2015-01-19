@@ -5,7 +5,7 @@
 <mapper namespace="com.zblog.common.dal.mapper.PostMapper">
    
    <select id="loadById" parameterType="java.lang.String" resultType="Post">  
-      select id, title,excerpt, categoryid, ccount, rcount, creator, lastUpdate from post where id = #{id}
+      select id, title,excerpt, categoryid, ccount, rcount, creator, createTime from post where id = #{id}
    </select>
    
     <select id="loadEditById" parameterType="java.lang.String" resultType="Post">  

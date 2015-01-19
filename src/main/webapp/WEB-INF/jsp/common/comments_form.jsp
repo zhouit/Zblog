@@ -5,6 +5,7 @@
   </div>
   <form method="post" action="${g.domain}/comments">
     <input type="hidden" id="postid" name="postid" value="${post.id}" />
+    <input type="hidden" name="CSRFToken" value="${CSRFToken}" />
     <div id="guest_info">
       <div id="guest_name">
        <label for="author"><span>昵称</span>( 必须 )</label>

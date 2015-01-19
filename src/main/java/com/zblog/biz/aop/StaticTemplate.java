@@ -77,6 +77,13 @@ public class StaticTemplate{
       param.put("categoryName", category.getName());
     }
 
+    /* 有可能为更新post,这就需要从数据库查询createTime,creator这些信息了 */
+    if(post.getCreateTime() == null){
+      Post old = postService.loadEditById(post.getId());
+      post.setCreateTime(old.getCreateTime());
+      post.setCreator(old.getCreator());
+    }
+
     FreeMarkerUtils.genHtml("/post.html",
         new File(WebConstants.APPLICATION_PATH, "post/post-" + post.getId() + ".html"), param);
     logger.info("staticPost");
@@ -84,13 +91,13 @@ public class StaticTemplate{
     staticRecentOrHeader(PostConstants.TYPE_POST.equals(post.getType()));
   }
 
-  public void removePost(String postid, boolean ispost){
+  public void removePost(String postid, String postType){
     String path = "post/post-" + postid + ".html";
     File postFile = new File(WebConstants.APPLICATION_PATH, path);
     postFile.delete();
     logger.info("removePost");
 
-    staticRecentOrHeader(ispost);
+    staticRecentOrHeader(PostConstants.TYPE_POST.equals(postType));
   }
 
   /**

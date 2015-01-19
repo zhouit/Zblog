@@ -13,6 +13,7 @@ import com.zblog.common.util.FileUtils;
 import com.zblog.common.util.IdGenarater;
 import com.zblog.common.util.constants.WebConstants;
 import com.zblog.common.util.web.ServletRequestReader;
+import com.zblog.common.util.web.WebContextHolder;
 import com.zblog.service.UploadService;
 
 @Component
@@ -42,6 +43,7 @@ public class UploadManager{
       upload = new Upload();
       upload.setId(IdGenarater.uuid19());
       upload.setCreateTime(new Date());
+      upload.setCreator(WebContextHolder.get().getUser().getNickName());
       upload.setName(file.getOriginalFilename());
       upload.setPath("/post/uploads/" + year + "/" + savePath.getName());
 

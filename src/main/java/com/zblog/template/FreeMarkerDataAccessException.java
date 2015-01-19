@@ -3,7 +3,9 @@ package com.zblog.template;
 import org.springframework.dao.DataAccessException;
 
 /**
- * 静态化在spring的事务中进行，此处继承spring的dao异常
+ * <p>
+ * freemarker静态化在spring的事务中进行，此处继承spring的dao异常
+ * </p>
  * 
  * @author zhou
  * 

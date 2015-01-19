@@ -3,6 +3,8 @@ $(function(){
   if(!document.getElementById("container")) return ;
   
   zblog.post.editor = UE.getEditor('container',{
+    /* 阻止div标签自动转换为p标签 */
+    allowDivTransToP: false,
 	  autoHeightEnabled: true,
 	  autoFloatEnabled: true
   });

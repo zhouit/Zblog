@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.zblog.biz.aop.StaticTemplate;
 import com.zblog.common.dal.entity.Post;
 import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.JsoupUtils;
@@ -28,8 +27,6 @@ public class PostManager{
   private UploadService uploadService;
   @Autowired
   private OptionsService optionsService;
-  @Autowired
-  private StaticTemplate staticTemplate;
 
   /**
    * 插入文章，同时更新上传文件的postid
@@ -44,8 +41,6 @@ public class PostManager{
     if(!imgs.isEmpty()){
       uploadService.updatePostid(post.getId(), extractImagepath(imgs));
     }
-
-    staticTemplate.staticPost(post);
   }
 
   /**
@@ -60,8 +55,6 @@ public class PostManager{
     if(!imgs.isEmpty())
       uploadService.updatePostid(post.getId(), extractImagepath(imgs));
     postService.update(post);
-
-    staticTemplate.staticPost(post);
   }
 
   /**
@@ -69,15 +62,13 @@ public class PostManager{
    * 
    * @param postid
    * @param postType
-   *          post类型(文章or页面)
+   *          post类型(文章or页面),注：此参数为给aop使用
    */
   @Transactional
   public void removePost(String postid, String postType){
     List<MapContainer> list = uploadService.listByPostid(postid);
     uploadService.deleteByPostid(postid);
     postService.deleteById(postid);
-
-    staticTemplate.removePost(postid, PostConstants.TYPE_POST.equals(postType));
 
     for(MapContainer mc : list){
       File file = new File(WebConstants.APPLICATION_PATH, mc.getAsString("path"));

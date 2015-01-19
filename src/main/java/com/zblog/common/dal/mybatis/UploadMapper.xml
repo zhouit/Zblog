@@ -5,12 +5,12 @@
 <mapper namespace="com.zblog.common.dal.mapper.UploadMapper">
    
    <select id="loadById" parameterType="java.lang.String" resultType="Upload">  
-      select id,postid,name,path,token,createTime from upload where id = #{id}
+      select id, postid, name, path, creator, createTime from upload where id = #{id}
    </select>
    
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
-      select m.id,p.id as postid, p.title, p.type, m.name, m.path, m.createTime 
-      from upload m left join post p on m.postid=p.id
+      select u.id, p.id as postid, p.title, p.type, u.name, u.path, u.createTime, u.creator
+      from upload u left join post p on u.postid=p.id
    </select>
    
    <select id="listByPostid" parameterType="java.lang.String" resultType="MapContainer">  
@@ -18,8 +18,8 @@
    </select>
    
    <insert id="insert" parameterType="Upload">
-      insert into upload(id,name,path,token,createTime) 
-         values(#{id},#{name},#{path},#{token},#{createTime})
+      insert into upload(id,name,path,creator,createTime) 
+         values(#{id},#{name},#{path},#{creator},#{createTime})
    </insert>
    
    <update id="updatePostid">

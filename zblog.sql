@@ -133,7 +133,7 @@ CREATE TABLE `upload` (
   `postid` varchar(19) DEFAULT NULL,
   `name` varchar(80) NOT NULL,
   `path` varchar(100) NOT NULL,
-  `token` varchar(32) DEFAULT NULL,
+  `creator` varchar(25) NOT NULL,
   `createTime` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_upload_post` (`postid`),

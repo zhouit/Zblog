@@ -1,0 +1,16 @@
+详见http://blog.csdn.net/wdw984/article/details/22375199
+
+这个是自动给li里面的内容增加一个p问题：
+  editor.all.js  15110行左右有如下代码：
+   me.addInputRule(function(root){
+        utils.each(root.getNodesByTagName('li'),function(li){
+            var tmpP = UE.uNode.createElement('p');
+注释掉  这个是自动给li里面的内容增加一个p。
+
+15266行代码
+  node.className = utils.trim(node.className.replace(/list-paddingleft-\w+/,'')) + ' list-paddingleft-' + type;
+注释掉  这个是自动给ul增加一个内置的样式。
+
+15268行代码
+  li.style.cssText && (li.style.cssText = '');
+ 注释掉，这个是自动去除粘贴进去的代码的li的style样式

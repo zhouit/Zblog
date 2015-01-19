@@ -2,7 +2,7 @@ package com.zblog.common.lucene;
 import org.springframework.dao.DataAccessException;
 
 /**
- * Lucene索引操作异常
+ * Lucene索引操作异常，此处继承spring的dao异常
  * 
  * @author zhou
  * 
