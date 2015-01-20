@@ -60,9 +60,9 @@
   </bean>
   
   <!-- 具有xss过滤的multipart解析器 -->
-<!--   <bean id="multipartResolver" class="com.zblog.web.filter.XssCommonsMultipartResolver">
+  <!-- <bean id="multipartResolver" class="com.zblog.web.filter.XssCommonsMultipartResolver">
     <property name="maxUploadSize" value="4096000" />
 	<property name="defaultEncoding" value="UTF-8" />
-  </bean> -->
+  </bean>   -->
 
 </beans>

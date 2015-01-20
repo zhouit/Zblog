@@ -21,6 +21,16 @@ public class ServletUtils{
     return false;
   }
 
+  /**
+   * 是否为ajax请求
+   * 
+   * @param request
+   * @return
+   */
+  public static boolean isAjax(HttpServletRequest request){
+    return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+  }
+
   public static String getDomain(HttpServletRequest request){
     String result = request.getScheme() + "://" + request.getServerName();
     if(request.getServerPort() != 80){

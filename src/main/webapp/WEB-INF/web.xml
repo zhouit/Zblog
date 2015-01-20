@@ -28,19 +28,20 @@
     <listener-class>com.zblog.web.listener.InitApplicationListener</listener-class>
   </listener>
   
-  <!-- 字符编码过滤器 -->
   <filter>
-    <filter-name>encodingFilter</filter-name>
-    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <filter-name>loginFilter</filter-name>
+    <filter-class>com.zblog.web.filter.LoginFilter</filter-class>
+  </filter>
+  <filter>
+    <filter-name>xssFilter</filter-name>
+    <filter-class>com.zblog.web.filter.XssFilter</filter-class>
+    <!-- 字符编码过滤 -->
     <init-param>
       <param-name>encoding</param-name>
       <param-value>UTF-8</param-value>
     </init-param>
   </filter>
-  <filter>
-    <filter-name>loginXssFilter</filter-name>
-    <filter-class>com.zblog.web.filter.LoginXssFilter</filter-class>
-  </filter>
+   <!-- 注意xssFilter需配置在csrfFilter之前 -->
   <filter>
     <filter-name>statelessCsrfFilter</filter-name>
     <filter-class>com.zblog.web.filter.StatelessCsrfFilter</filter-class>
@@ -67,12 +68,12 @@
   </servlet>
   
   <filter-mapping>
-    <filter-name>encodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
+    <filter-name>loginFilter</filter-name>
+    <servlet-name>Zblog</servlet-name>
   </filter-mapping>
   <filter-mapping>
-    <filter-name>loginXssFilter</filter-name>
-    <servlet-name>Zblog</servlet-name>
+    <filter-name>xssFilter</filter-name>
+    <url-pattern>/*</url-pattern>
   </filter-mapping>
   <filter-mapping>
     <filter-name>statelessCsrfFilter</filter-name>

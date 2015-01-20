@@ -16,9 +16,11 @@ import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.CookieUtil;
 import com.zblog.common.util.StringUtils;
 import com.zblog.common.util.constants.Constants;
+import com.zblog.common.util.web.WebContextHolder;
 import com.zblog.service.CommentService;
 import com.zblog.service.PostService;
 import com.zblog.service.UserService;
+import com.zblog.web.filter.CookieRemberManager;
 
 @Controller
 @RequestMapping("/backend")
@@ -43,6 +45,8 @@ public class BackendController{
 
   @RequestMapping(value = "/login", method = RequestMethod.GET)
   public String login(String msg, Model model){
+    if(WebContextHolder.get().isLogon()) return "redirect:/backend/index";
+    
     if("logout".equals(msg))
       model.addAttribute("msg", "您已登出。");
     return "backend/login";
@@ -50,8 +54,8 @@ public class BackendController{
 
   @RequestMapping(value = "/logout")
   public String logout(HttpServletRequest request, HttpServletResponse response){
+    CookieRemberManager.logout(request, response);
     CookieUtil cookieUtil = new CookieUtil(request, response);
-    cookieUtil.removeCokie(Constants.COOKIE_CONTEXT_ID);
     cookieUtil.removeCokie(Constants.COOKIE_CSRF_TOKEN);
     return "redirect:/backend/login?msg=logout";
   }
@@ -72,11 +76,7 @@ public class BackendController{
 
     CookieUtil cookieUtil = new CookieUtil(request, response);
     cookieUtil.setCookie(Constants.COOKIE_USER_NAME, form.getUsername(), false, 7 * 24 * 3600);
-    if(form.isRemeber()){
-      cookieUtil.setCookie(Constants.COOKIE_CONTEXT_ID, user.getId(), true, 7 * 24 * 3600);
-    }else{
-      cookieUtil.setCookie(Constants.COOKIE_CONTEXT_ID, user.getId(), true);
-    }
+    CookieRemberManager.loginSuccess(request, response, user.getId(), user.getPassword(), form.isRemeber());
 
     return "redirect:" + StringUtils.emptyDefault(form.getRedirectURL(), "/backend/index");
   }

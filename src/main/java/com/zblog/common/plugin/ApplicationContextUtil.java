@@ -4,6 +4,17 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+/**
+ * <p>
+ * 获取spring bean的工具类
+ * </p>
+ * <p>
+ * 注：spring-servlet.xml中的bean并不由ApplicationContext管理, 它由DispatcherServlet管理
+ * </p>
+ * 
+ * @author zhou
+ * 
+ */
 public class ApplicationContextUtil implements ApplicationContextAware{
   static ApplicationContext context;
 
@@ -11,7 +22,7 @@ public class ApplicationContextUtil implements ApplicationContextAware{
   public void setApplicationContext(ApplicationContext applicationContext) throws BeansException{
     context = applicationContext;
   }
-  
+
   /**
    * 根据提供的bean名称得到相应的类
    * 

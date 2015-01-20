@@ -62,8 +62,8 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
 
     if(StringUtils.isBlank(paramToken))
       return false;
-    
-    /* 当flash文件post上传时，可能crsf的为cookie中值,就需要base64解码*/
+
+    /* 当flash文件post上传时，可能crsf的为cookie中值,就需要base64解码 */
     return paramToken.equals(csrfToken)
         || (ServletUtils.isMultipartContent(request) && new String(Base64Codec.decode(paramToken)).equals(csrfToken));
   }
@@ -87,8 +87,8 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
     /* 页面值均为base64编码后的值 */
     String csrfToken = cookieUtil.getCookie(Constants.COOKIE_CSRF_TOKEN);
 
+    boolean ajax = isAjax(request);
     if(METHODS.contains(request.getMethod())){
-      boolean ajax = isAjax(request);
       if(ajax && !isAjaxVerificationToken(request, csrfToken)){
         response.setContentType("application/json");
         response.setCharacterEncoding(Constants.ENCODING_UTF_8);
@@ -101,9 +101,12 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
       }
     }
 
-    csrfToken = Long.toString(random.nextLong(), 36);
-    cookieUtil.setCookie(Constants.COOKIE_CSRF_TOKEN, csrfToken, false, 1800);
-    request.setAttribute(Constants.CSRF_TOKEN, csrfToken);
+    /* 如果不是ajax请求，就不用更新csrftoken */
+    if(!ajax){
+      csrfToken = Long.toString(random.nextLong(), 36);
+      cookieUtil.setCookie(Constants.COOKIE_CSRF_TOKEN, csrfToken, false);
+      request.setAttribute(Constants.CSRF_TOKEN, csrfToken);
+    }
 
     filterChain.doFilter(request, response);
   }
