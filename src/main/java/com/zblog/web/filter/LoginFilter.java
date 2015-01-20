@@ -41,12 +41,11 @@ public class LoginFilter extends OncePerRequestFilter{
 
       boolean ajax = ServletUtils.isAjax(request);
       if(!ajax)
-        addGloableAttr(request);
+        request.setAttribute("g", new Global(ServletUtils.getDomain(request)));
 
       String uri = StringUtils.emptyDefault(request.getRequestURI(), "/");
       AuthenticationService service = ApplicationContextUtil.getBean(AuthenticationService.class);
       if(service.isAuthentication(uri, context.getUser())){
-
         filterChain.doFilter(request, response);
         return;
       }
@@ -72,15 +71,6 @@ public class LoginFilter extends OncePerRequestFilter{
     }finally{
       WebContextHolder.remove();
     }
-  }
-
-  private void addGloableAttr(HttpServletRequest request){
-    String result = request.getScheme() + "://" + request.getServerName();
-    if(request.getServerPort() != 80){
-      result += ":" + request.getServerPort();
-    }
-    result += request.getContextPath();
-    request.setAttribute("g", new Global(result));
   }
 
 }

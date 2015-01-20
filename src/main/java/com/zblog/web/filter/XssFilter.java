@@ -37,8 +37,6 @@ public class XssFilter extends OncePerRequestFilter{
     multipartResolver = resolver;
   }
 
-
-
   public void setEncoding(String encoding){
     this.encoding = encoding;
   }

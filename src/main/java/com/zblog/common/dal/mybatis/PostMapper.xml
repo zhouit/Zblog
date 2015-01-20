@@ -13,7 +13,7 @@
    </select>
    
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
-      select p.id, p.title, excerpt, c.name as category,ccount, p.creator, p.createTime
+      select p.id, p.title, excerpt, c.name as category, p.rcount, p.ccount, p.creator, p.createTime
           from post p left join category c on p.categoryid=c.id where p.type=#{query.type}
    </select>
    

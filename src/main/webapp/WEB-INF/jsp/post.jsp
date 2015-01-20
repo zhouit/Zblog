@@ -20,7 +20,7 @@
              <ol class="commentlist">
                <li class="comment even_comment">
                  <div class="comment-meta">
-                   <img class="avatar" width="35" height="35" src="#">
+                   <img class="avatar" width="35" height="35" src="../resource/img/avatar.png">
                    <ul class="comment-name-date">
                      <li class="comment-name">
                        <a class="url" rel="external nofollow" href="#"> 天天备忘录 </a>
@@ -33,7 +33,7 @@
                  
                <li class="comment odd_comment">
                  <div class="comment-meta">
-                   <img class="avatar" width="35" height="35" src="#">
+                   <img class="avatar" width="35" height="35" src="../resource/img/avatar.png">
                    <ul class="comment-name-date">
                      <li class="comment-name">
                        <a class="url" rel="external nofollow" href="#"> 天天备忘录 </a>

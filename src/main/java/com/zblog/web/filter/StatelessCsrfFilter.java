@@ -68,10 +68,6 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
         || (ServletUtils.isMultipartContent(request) && new String(Base64Codec.decode(paramToken)).equals(csrfToken));
   }
 
-  private boolean isAjax(HttpServletRequest request){
-    return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
-  }
-
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException{
@@ -87,7 +83,7 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
     /* 页面值均为base64编码后的值 */
     String csrfToken = cookieUtil.getCookie(Constants.COOKIE_CSRF_TOKEN);
 
-    boolean ajax = isAjax(request);
+    boolean ajax = ServletUtils.isAjax(request);
     if(METHODS.contains(request.getMethod())){
       if(ajax && !isAjaxVerificationToken(request, csrfToken)){
         response.setContentType("application/json");
@@ -106,6 +102,7 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
       csrfToken = Long.toString(random.nextLong(), 36);
       cookieUtil.setCookie(Constants.COOKIE_CSRF_TOKEN, csrfToken, false);
       request.setAttribute(Constants.CSRF_TOKEN, csrfToken);
+      System.out.println("gen token-->"+csrfToken+" - "+request.getRequestURI());
     }
 
     filterChain.doFilter(request, response);

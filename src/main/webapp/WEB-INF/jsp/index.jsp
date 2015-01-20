@@ -30,7 +30,7 @@
               <span class="month"><fmt:formatDate value="${post.createTime}" pattern="MMM "/></span>
               <span class="year"><fmt:formatDate value="${post.createTime}" pattern="yyyy" /></span>
              </li>
-             <li class="post_comment"> 41 人阅读</li>
+             <li class="post_comment"> ${post.rcount}人阅读</li>
              <li class="post_author">
                <a rel="author" title="由${post.creator}发布" href="${domain}/author/26793713/">${post.creator}</a>
              </li>
