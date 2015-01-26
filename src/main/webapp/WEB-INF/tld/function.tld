@@ -16,4 +16,16 @@
     </function-signature>
     <example>${z:cookieValue('name')}</example>
   </function>
+  <function>
+    <name>substring</name>
+    <function-class>com.zblog.common.tag.FunctionHelper</function-class>
+    <function-signature>java.lang.String substring(java.lang.String, int)</function-signature>
+    <example>${z:substring('http://github.com',7)}</example>
+  </function>
+  <function>
+    <name>fileExt</name>
+    <function-class>com.zblog.common.tag.FunctionHelper</function-class>
+    <function-signature>java.lang.String fileExt(java.lang.String)</function-signature>
+    <example>${z:fileExt('some.png')}</example>
+  </function>
 </taglib>

@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<%@ taglib prefix="z" uri="/WEB-INF/tld/function.tld" %>
 <!DOCTYPE Html>
 <html>
  <head>
@@ -22,7 +22,7 @@
         <div class="panel panel-default">
           <div class="panel-heading"><span class="icon glyphicon glyphicon-list"></span>媒体库</div>
           <div class="panel-body">
-           <table id="post-table" class="table table-striped list-table">
+           <table id="upload-table" class="table table-striped list-table">
                <thead><tr>
                  <th style="width: 80px;">文件</th>
                  <th style="width: 30%"></th>
@@ -33,11 +33,16 @@
                </tr></thead>
               <tbody>
                <c:forEach items="${page.content}" var="upload">
-                 <tr><td><img src="${upload.path}" width="80" /></td><td>${upload.name}</td>
-                      <td>${upload.creator}</td><td><a href='${g.domain}/posts/${upload.postid}' target="_blank">${upload.title}</a></td>
-                      <td><fmt:formatDate value="${upload.createTime}" pattern="yyyy-MM-dd"/></td>
+                 <tr><td><img src="${upload.path}" width="80" height="50" /></td>
+                     <td class="filename"><strong>${upload.name}</strong><p class="fileformat">${z:fileExt(upload.name)}</p>
+                        <div class="row-action">
+                          <span><a href="javascript:zblog.upload.remove('${upload.id}');">永久删除</a>&nbsp;|&nbsp;</span>
+                          <span><a href="#">查看</a></span>
+                        </div></td>
+                     <td>${upload.creator}</td><td><a href='${g.domain}/posts/${upload.postid}' target="_blank">${upload.title}</a></td>
+                     <td><fmt:formatDate value="${upload.createTime}" pattern="yyyy-MM-dd"/></td>
                      <td class="center">
-                       <span class="glyphicon glyphicon-trash pointer" onclick="zblog.upload.remove('${upload.id}')"></span></td></tr>
+                       <span class="glyphicon glyphicon-trash pointer" onclick="zblog.upload.remove('${upload.id}');"></span></td></tr>
                </c:forEach>
               </tbody>
             </table>

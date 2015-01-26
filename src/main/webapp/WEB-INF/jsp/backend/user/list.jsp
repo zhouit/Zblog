@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<%@ taglib prefix="z" uri="/WEB-INF/tld/function.tld" %>
 <!DOCTYPE Html>
 <html>
  <head>
@@ -35,10 +35,13 @@
               <tbody>
                <c:forEach items="${page.content}" var="user">
                  <tr><td>${user.nickName}</td><td>${user.realName}</td>
-                      <td>${user.email}</td><td>${user.role}</td><td>${user.postCount}</td>
+                      <td><a href="mailto:${user.email}">${user.email}</a></td><td>${user.role}</td><td>${user.postCount}</td>
                       <td><fmt:formatDate value="${user.createTime}" pattern="yyyy-MM-dd"/></td>
                      <td class="center"><span class="icon glyphicon glyphicon-pencil pointer" onclick="zblog.user.edit('${user.id}')"></span>
-                       <span class="glyphicon glyphicon-trash pointer" onclick="zblog.user.remove('${user.id}')"></span></td></tr>
+                       <c:if test="${z:cookieValue('un')!=user.nickName}">
+                         <span class="glyphicon glyphicon-trash pointer" onclick="zblog.user.remove('${user.id}')"></span>
+                       </c:if>
+                     </td></tr>
                </c:forEach>
               </tbody>
             </table>

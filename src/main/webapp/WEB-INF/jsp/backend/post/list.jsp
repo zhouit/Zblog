@@ -25,21 +25,24 @@
           <div class="panel-body">
            <table id="post-table" class="table table-striped list-table">
                <thead><tr>
-                 <th>标题</th>
+                 <th style="width: 35%;">标题</th>
                  <th>作者</th>
                  <th>分类</th>
                  <th>日期</th>
+                 <th>Views</th>
                  <th class="center">操作</th>
                </tr></thead>
               <tbody>
                <c:forEach items="${page.content}" var="post">
-                 <tr><td><strong>${post.title}</strong>
+                 <tr><td><strong><a target="_blank" href="../../posts/${post.id}">${post.title}</a></strong>
                      <div class="row-action">
-                       <span class="edit"><a href="#">编辑</a>&nbsp;|&nbsp;</span>
-                       <span class="trash"><a href="#">移到回收站</a>&nbsp;|&nbsp;</span>
-                       <span class="view"><a target="_blank" href="${g.domain}/pages/${post.id}">查看</a></span>
+                       <span><a href="#">编辑</a>&nbsp;|&nbsp;</span>
+                       <span><a href="#">快速编辑</a>&nbsp;|&nbsp;</span>
+                       <span><a href="#">移到回收站</a>&nbsp;|&nbsp;</span>
+                       <span><a target="_blank" href="${g.domain}/pages/${post.id}">查看</a></span>
                      </div></td><td>${post.creator}</td>
                      <td>${post.category}</td><td><fmt:formatDate value="${post.createTime}" pattern="yyyy-MM-dd" /></td>
+                     <td>${post.rcount} views</td>
                      <td class="center"><span class="icon glyphicon glyphicon-pencil pointer" onclick="zblog.post.edit('${post.id}')"></span>
                        <span class="glyphicon glyphicon-trash pointer" onclick="zblog.post.remove('${post.id}')"></span></td></tr>
                </c:forEach>

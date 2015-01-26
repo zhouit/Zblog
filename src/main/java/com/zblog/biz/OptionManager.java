@@ -35,7 +35,10 @@ public class OptionManager{
   @Transactional
   public void updatePostOption(PostOption form){
     optionsService.updateOptionValue("maxshow", form.getMaxshow() + "");
+    optionsService.updateOptionValue(OptionConstants.ALLOW_COMMENT, form.isAllowComment() + "");
     optionsService.updateOptionValue(OptionConstants.DEFAULT_CATEGORY_ID, form.getDefaultCategory());
+    
+    WebConstants.allowComment(form.isAllowComment()+"");
   }
 
   /**
@@ -74,8 +77,9 @@ public class OptionManager{
   public PostOption getPostOption(){
     PostOption option = new PostOption();
     option.setMaxshow(NumberUtils.toInteger(optionsService.getOptionValue("maxshow"), 10));
+    option.setAllowComment(Boolean.parseBoolean(optionsService.getOptionValue(OptionConstants.ALLOW_COMMENT)));
     option.setDefaultCategory(optionsService.getOptionValue(OptionConstants.DEFAULT_CATEGORY_ID));
-
+ 
     return option;
   }
 

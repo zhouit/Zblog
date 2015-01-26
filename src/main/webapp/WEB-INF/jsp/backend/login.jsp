@@ -24,11 +24,11 @@
            <input type="password" autocomplete="off" class="form-control" name="password" placeholder="密码" />
          </div>
        </div>
-       <div class="form-group">
+     <!--   <div class="form-group">
           <input type="password" autocomplete="off" class="form-control" placeholder="验证码"
               style="display: inline-block;width: 50%;" />
-          <img alt="" src="http://www.baidu.com" />
-       </div>
+          <img alt="" />
+       </div> -->
        <div class="checkbox">
          <label><input type="checkbox" name="remeber" /> 记住我的登录信息</label>
          <button type="submit" class="btn btn-primary" style="margin-left: 40px;">登录</button>

@@ -1,6 +1,7 @@
 package com.zblog.common.util;
 
 import java.util.Collection;
+import java.util.Map;
 
 public class CollectionUtils{
 
@@ -9,6 +10,10 @@ public class CollectionUtils{
 
   public static boolean isEmpty(Collection<?> collect){
     return collect == null || collect.isEmpty();
+  }
+
+  public static boolean isEmpty(Map<?, ?> map){
+    return (map == null) || map.isEmpty();
   }
 
 }

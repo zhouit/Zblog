@@ -18,13 +18,18 @@
        from comment c left join post p on c.postid=p.id order by c.createTime desc limit 10
    </select>
    
+   <select id="listByPost" resultType="MapContainer" parameterType="String">
+     select id, content, creator, url, parent, createTime from comment c 
+     where postid=#{postid} and approved order by c.createTime desc
+   </select>
+   
    <insert id="insert" parameterType="Comment">
       insert into comment(id,postid, parent, email, url, ip, agent,content,approved, creator, createTime) 
          values(#{id},#{postid},#{parent},#{email},#{url},#{ip},#{agent},#{content},#{approved},#{creator},#{createTime})
    </insert>
    
    <update id="approve">
-     update comment set approved=#{approved} where id=#{commentid}
+     update comment set approved=not(approved) where id=#{commentid}
    </update>
 
    <delete id="deleteById">

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.zblog.biz.aop.PostIndexManager;
 import com.zblog.common.dal.entity.Option;
 import com.zblog.common.util.StringUtils;
+import com.zblog.common.util.constants.WebConstants;
 import com.zblog.service.PostService;
 
 @Controller
@@ -24,6 +25,7 @@ public class IndexController{
   public String index(@RequestParam(value = "page", defaultValue = "1") int page, String word, Model model){
     if(!StringUtils.isBlank(word)){
       model.addAttribute("page", postIndexManager.search(word, page));
+      model.addAttribute(WebConstants.PRE_TITLE_KEY, word);
     }else{
       model.addAttribute("page", postService.listPost(page, 10));
     }

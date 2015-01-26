@@ -21,6 +21,14 @@
       insert into user(id,nickName,realName,password,email,status,description,createTime,creator,lastUpdate) 
          values(#{id},#{nickName},#{realName},#{password},#{email},#{status},#{description},#{createTime},#{creator},#{lastUpdate})
    </insert>
+   
+   <update id="update" parameterType="User">
+     update user set realName=#{realName},email=#{email},description=#{description}
+     <if test="password!=null and password!=''">
+       ,password=md5(#{password})
+     </if>
+     where id=#{id}
+   </update>
 
    <delete id="deleteById">
 	 delete from user where id = #{id}

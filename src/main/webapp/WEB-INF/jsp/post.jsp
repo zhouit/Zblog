@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE Html>
 <html>
  <head>
@@ -17,35 +19,32 @@
          </div>
          <div id="comments">
            <div id="comment_area">
-             <ol class="commentlist">
-               <li class="comment even_comment">
+            <ol class="commentlist">
+            <c:choose>
+              <c:when test="${comments==null || fn:length(comments)==0}">
+                <li class="comment"><div class="comment-content"><p>暂无评论</p></div></li>
+              </c:when>
+              <c:otherwise>
+                <c:forEach items="${comments}" var="comment" varStatus="status">
+                 <li class="comment ${status.index%2==0?'even_comment':'odd_comment'}" id="comment-${comment.id}">
                  <div class="comment-meta">
-                   <img class="avatar" width="35" height="35" src="../resource/img/avatar.png">
+                   <img class="avatar" width="35" height="35" src="../../resource/img/avatar.png" />
                    <ul class="comment-name-date">
                      <li class="comment-name">
-                       <a class="url" rel="external nofollow" href="#"> 天天备忘录 </a>
+                       <a class="url" target="_blank" href="${comment.url}">${comment.creator}</a>
                      </li>
-                     <li class="comment-date">2013/01/21 11:20下午</li>
+                     <li class="comment-date"><fmt:formatDate value="${comment.createTime}" pattern="yyyy/MM/dd hh:mma"/></li>
                     </ul>
+                    <div class="comment-reply"><a href=''>回复</a></div>
                    </div>
-                   <div class="comment-content"><p>学习了很多东西！</p></div>
+                   <div class="comment-content"><p>${comment.content}</p></div>
                  </li>
-                 
-               <li class="comment odd_comment">
-                 <div class="comment-meta">
-                   <img class="avatar" width="35" height="35" src="../resource/img/avatar.png">
-                   <ul class="comment-name-date">
-                     <li class="comment-name">
-                       <a class="url" rel="external nofollow" href="#"> 天天备忘录 </a>
-                     </li>
-                     <li class="comment-date">2013/01/21 11:20下午</li>
-                    </ul>
-                   </div>
-                   <div class="comment-content"><p>学习了很多东西！</p></div>
-                 </li>
-               </ol>
+                </c:forEach>
+              </c:otherwise>
+             </c:choose>
+            </ol>
            </div>
-           <jsp:include page="common/comments_form.jsp" flush="false" />
+          <jsp:include page="common/comments_form.jsp" flush="false" />
          </div>
        </div>
      </div>

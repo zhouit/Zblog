@@ -7,6 +7,7 @@ public class User extends BaseEntity{
   private String realName;
   private String password;
   private String email;
+  /* 用户账号状态 */
   private String status = UserConstants.USER_STATUS_NORMAL;
   private String description;
 

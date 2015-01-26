@@ -37,7 +37,7 @@
                 <label class="col-sm-3">评论设置</label>
                 <div class="col-sm-6">
                   <div class="checkbox">
-                    <label style="padding-left: 20px;" ><input type="checkbox" name="defaultComment" />允许他人在新文章上发表评论 </label>
+                    <label style="padding-left: 20px;" ><input type="checkbox" name="allowComment" ${form.allowComment?'checked':''}/>允许他人在新文章上发表评论 </label>
                   </div>
                 </div>
               </div>

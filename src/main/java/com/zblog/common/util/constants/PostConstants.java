@@ -10,7 +10,7 @@ public class PostConstants{
   /* 文章评论状态 */
   public static final String COMMENT_POST = "open";
   public static final String COMMENT_CLOSE = "close";
-
+  /*文章状态,发布、回收站*/
   public static final String POST_PUBLISH = "publish";
   public static final String POST_TRASH = "trash";
 
@@ -18,7 +18,6 @@ public class PostConstants{
    * 默认文章的parent
    */
   public static final String DEFAULT_PARENT = "Root";
-  public static final String OPTION_POSTID_NAME = "POSTID_NAME";
 
   /* 文章摘要长度 (此为post表中excerpt的varchar(350)) */
   public static final int EXCERPT_LENGTH = 350;

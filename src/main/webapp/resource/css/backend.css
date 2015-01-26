@@ -46,21 +46,25 @@ ul{list-style: none outside none;padding: 0;}
 ul.ul-group li{padding: 5px 0;}
 
 /**********  数据table表格 **************/
-.list-table{border-color: #dfdfdf;border-radius: 3px;border-style: solid;border-width: 1px;}
+.list-table{border-color: #dfdfdf;border-radius: 3px;border-style: solid;border-width: 1px;font-size: 12px;}
 .list-table thead th:first-of-type, .list-table thead th:last-of-type{ border-top-left-radius: 3px;}
 .list-table a,.list-table thead tr th{color:#21759b;}
 .list-table thead tr th{ font-weight: normal;border-bottom: 1px solid #ddd;background: linear-gradient(to top, #ececec, #f9f9f9) repeat scroll 0 0 #f1f1f1;}
 .list-table th.center,.list-table td.center{text-align: center;}
 .list-table td span.pointer{cursor: pointer;}
 
-/***************  post ***************/
-#post-table tr:hover .row-action{display: block;}
-#post-table .row-action{padding: 2px 0 0;}
-#post-table .row-action a{font-size: 12px;}
+/***************  row-action ***************/
+.list-table tr:hover .row-action{visibility: visible;}
+.list-table .row-action{padding: 2px 0 0;visibility: hidden;}
+
+#upload-table .filename{padding:4px 7px 2px;}
+#upload-table .fileformat{margin: 2px 0 9px 0;}
 
 /************  form  ****************/
 form.text-left label{font-weight: normal;text-align: left;padding-top: 7px;padding-left: 40px;}
 form.text-left .help-block{margin-bottom: 0px;}
+
+img.avatar{float: left;margin-right: 10px;margin-top: 1px;}
 
 /************ uploader文件上传 ***************/
 #uploader .tip{font-size: 12px;letter-spacing: 1px;color: #bbb;font-weight: bold;margin:0 0 12px 12px;}

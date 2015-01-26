@@ -48,7 +48,7 @@ CREATE TABLE `comment` (
   `agent` varchar(80) NOT NULL,
   `ip` varchar(15) NOT NULL,
   `content` varchar(200) NOT NULL,
-  `approved` tinyint(4) NOT NULL DEFAULT '0',
+  `approved` tinyint(1) NOT NULL DEFAULT '0',
   `createTime` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_comment_post` (`postid`),

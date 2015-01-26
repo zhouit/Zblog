@@ -3,12 +3,12 @@ package com.zblog.web.listener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.zblog.backend.form.GeneralOption;
-import com.zblog.biz.OptionManager;
 import com.zblog.common.plugin.ApplicationContextUtil;
 import com.zblog.common.util.constants.CategoryConstants;
+import com.zblog.common.util.constants.OptionConstants;
 import com.zblog.common.util.constants.WebConstants;
 import com.zblog.service.CategoryService;
+import com.zblog.service.OptionsService;
 
 public class InitApplicationListener implements ServletContextListener{
   @Override
@@ -23,10 +23,10 @@ public class InitApplicationListener implements ServletContextListener{
       categoryService.init();
     }
 
-    OptionManager optionManager = ApplicationContextUtil.getBean(OptionManager.class);
-    GeneralOption option = optionManager.getGeneralOption();
-    if(option != null)
-      WebConstants.init(option.getTitle(), option.getSubtitle());
+    OptionsService optionsService = ApplicationContextUtil.getBean(OptionsService.class);
+    WebConstants.init(optionsService.getOptionValue(OptionConstants.TITLE),
+        optionsService.getOptionValue(OptionConstants.SUBTITLE));
+    WebConstants.allowComment(optionsService.getOptionValue(OptionConstants.ALLOW_COMMENT));
   }
 
   @Override

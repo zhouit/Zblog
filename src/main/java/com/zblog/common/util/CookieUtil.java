@@ -1,21 +1,27 @@
 package com.zblog.common.util;
 
+import java.lang.reflect.Method;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.util.ReflectionUtils;
+
 public class CookieUtil{
-  private HttpServletRequest request;
-
-  private HttpServletResponse response;
-
-  private String domain;
-
+  private static Method setHttpOnlyMethod;
   private static final String PATH = "/";
 
+  private HttpServletRequest request;
+  private HttpServletResponse response;
+  private String domain;
+
+  static{
+    setHttpOnlyMethod = ReflectionUtils.findMethod(Cookie.class, "setHttpOnly", boolean.class);
+  }
+
   public CookieUtil(final HttpServletRequest request, final HttpServletResponse response){
-    this.request = request;
-    this.response = response;
+    this(request, response, null);
   }
 
   public CookieUtil(final HttpServletRequest request, final HttpServletResponse response, final String domain){
@@ -68,7 +74,11 @@ public class CookieUtil{
     Cookie cookie = new Cookie(name, encode ? encode(value) : value);
     cookie.setPath(path);
     cookie.setMaxAge(expiry);
-    cookie.setHttpOnly(httpOnly);
+    /* 在javaee6以上,tomcat7以上支持Cookie.setHttpOnly方法,这里向下兼容 */
+    if(setHttpOnlyMethod != null && httpOnly){
+      ReflectionUtils.invokeMethod(setHttpOnlyMethod, cookie, Boolean.TRUE);
+    }
+    
     if(!StringUtils.isBlank(domain)){
       cookie.setDomain(domain);
     }

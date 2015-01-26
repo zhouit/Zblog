@@ -30,8 +30,12 @@ public class CommentService extends BaseService{
     return commentMapper.listRecent();
   }
 
-  public void approve(String commentid, boolean approved){
-    commentMapper.approve(commentid, approved);
+  public List<MapContainer> listByPost(String postid){
+     return commentMapper.listByPost(postid);
+  }
+
+  public void approve(String commentid){
+    commentMapper.approve(commentid);
   }
 
   @Override

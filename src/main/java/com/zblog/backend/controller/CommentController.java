@@ -40,8 +40,8 @@ public class CommentController{
    */
   @ResponseBody
   @RequestMapping(value = "/{commentid}", method = RequestMethod.PUT)
-  public Object approve(@PathVariable("commentid") String commentid, boolean approve){
-    commentService.approve(commentid, approve);
+  public Object approve(@PathVariable("commentid") String commentid){
+    commentService.approve(commentid);
     return new MapContainer("success", true);
   }
 

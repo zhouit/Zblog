@@ -163,6 +163,8 @@ a:hover{color: #009dc4;}
 
 /************ comment-meta *************/
 .comment-meta{height:56px; position:relative; }
+.comment-meta .comment-reply{position: absolute;right: 0px;top:7px;display: none;}
+li.comment:hover .comment-reply{display: block;}
 .avatar{border:1px solid #ccc; background:#fff; width:37px; height:37px; padding:2px; display:inline; float:left; margin:0 10px 0 0; }
 ul.comment-name-date{padding:6px 0 0 0; float:left;}
 ul.comment-name-date li{padding: 0 0 5px;}

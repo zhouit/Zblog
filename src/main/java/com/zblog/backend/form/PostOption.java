@@ -12,6 +12,10 @@ public class PostOption{
    */
   private int maxshow;
   /**
+   * 允许文章评论
+   */
+  private boolean allowComment;
+  /**
    * 默认文章分类
    */
   private String defaultCategory;
@@ -22,6 +26,14 @@ public class PostOption{
 
   public void setMaxshow(int maxshow){
     this.maxshow = maxshow;
+  }
+
+  public boolean isAllowComment(){
+    return allowComment;
+  }
+
+  public void setAllowComment(boolean allowComment){
+    this.allowComment= allowComment;
   }
 
   public String getDefaultCategory(){

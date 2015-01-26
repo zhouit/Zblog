@@ -24,7 +24,7 @@ public class CommRegular{
    * </ul>
    */
   public static final String COMPLEX_PASSWD = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,16}$";
-  
+
   public static final String PASSWD = "^\\S{6,16}$";
 
   /**
@@ -36,5 +36,10 @@ public class CommRegular{
    * 邮箱正则
    */
   public static final String EMAIL = "^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
+
+  /**
+   * http域名正则,暂不支持ip
+   */
+  public static final String DOMAIN = "^https?://[a-zA-Z0-9\\._-]+(:\\d{2,4})?/?$";
 
 }

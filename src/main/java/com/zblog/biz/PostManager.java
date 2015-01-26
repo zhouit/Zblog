@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zblog.common.dal.entity.Post;
 import com.zblog.common.plugin.MapContainer;
+import com.zblog.common.util.CollectionUtils;
 import com.zblog.common.util.JsoupUtils;
 import com.zblog.common.util.constants.PostConstants;
 import com.zblog.common.util.constants.WebConstants;
@@ -37,9 +38,9 @@ public class PostManager{
   public void insertPost(Post post){
     postService.insert(post);
     /* 查找当前html中所有图片链接 */
-    List<String> imgs = JsoupUtils.getImages(post.getContent());
-    if(!imgs.isEmpty()){
-      uploadService.updatePostid(post.getId(), extractImagepath(imgs));
+    List<String> imgs = extractImagepath(JsoupUtils.getImages(post.getContent()));
+    if(!CollectionUtils.isEmpty(imgs)){
+      uploadService.updatePostid(post.getId(), imgs);
     }
   }
 
@@ -51,9 +52,10 @@ public class PostManager{
   @Transactional
   public void updatePost(Post post){
     uploadService.setNullPostid(post.getId());
-    List<String> imgs = JsoupUtils.getImages(post.getContent());
-    if(!imgs.isEmpty())
-      uploadService.updatePostid(post.getId(), extractImagepath(imgs));
+    List<String> imgs = extractImagepath(JsoupUtils.getImages(post.getContent()));
+    if(CollectionUtils.isEmpty(imgs))
+      uploadService.updatePostid(post.getId(), imgs);
+
     postService.update(post);
   }
 

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.zblog.common.util.constants.WebConstants;
 import com.zblog.service.PostService;
 
 @Controller
@@ -21,6 +22,7 @@ public class CategoryController{
       @RequestParam(value = "page", defaultValue = "1") int page, Model model){
     model.addAttribute("page", postService.listByCategory(categoryName, page, 12));
     model.addAttribute("categoryName", categoryName);
+    model.addAttribute(WebConstants.PRE_TITLE_KEY, categoryName);
     return "index";
   }
 

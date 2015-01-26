@@ -27,6 +27,7 @@ public class OptionFormValidator{
     if(option.getMaxshow() < 1){
       form.put("maxshow", "格式错误");
     }
+    
     if(StringUtils.isBlank(option.getDefaultCategory())){
       form.put("defaultCategory", "默认分类格式错误");
     }

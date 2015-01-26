@@ -43,7 +43,7 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
     /* 此处要base64解码 */
     if(!StringUtils.isBlank(headToken))
       headToken = new String(Base64Codec.decode(headToken));
-
+    
     return headToken != null && headToken.equals(csrfToken);
   }
 
@@ -102,7 +102,6 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
       csrfToken = Long.toString(random.nextLong(), 36);
       cookieUtil.setCookie(Constants.COOKIE_CSRF_TOKEN, csrfToken, false);
       request.setAttribute(Constants.CSRF_TOKEN, csrfToken);
-      System.out.println("gen token-->"+csrfToken+" - "+request.getRequestURI());
     }
 
     filterChain.doFilter(request, response);

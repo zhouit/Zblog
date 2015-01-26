@@ -2,14 +2,19 @@ package com.zblog.common.dal.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.zblog.common.plugin.MapContainer;
 
 public interface CommentMapper extends BaseMapper{
 
   List<MapContainer> listRecent();
 
-  void approve(@Param("commentid") String commentid, @Param("approved") boolean approved);
+  List<MapContainer> listByPost(String postid);
+
+  /**
+   * 如果commentid对应评论是拒绝就批准，是批准就拒绝
+   * 
+   * @param commentid
+   */
+  void approve(String commentid);
 
 }

@@ -24,12 +24,16 @@ public class Global{
     return WebConstants.DESCRIPTION;
   }
 
+  public boolean isAllowComment(){
+    return WebConstants.ALLOW_COMMENT;
+  }
+
   public int getYear(){
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(new Date());
     return calendar.get(Calendar.YEAR);
   }
-  
+
   public String getDomain(){
     return domain;
   }

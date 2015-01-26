@@ -27,9 +27,9 @@
   
   <cache:advice id="userAdvisor" cache-manager="cacheManager">
     <cache:caching cache="users">
+      <!-- cache-put是每次都会执行该方法，并将执行结果以键值对的形式存入指定的缓存中 -->
       <cache:cacheable method="loadById" key="#p0" />
-      <!-- 是每次都会执行该方法，并将执行结果以键值对的形式存入指定的缓存中 -->
-      <cache:cache-put method="update" key="#p0" />
+      <cache:cache-evict method="update" key="#p0.id" />
       <cache:cache-evict method="deleteById" key="#p0" />
     </cache:caching>
   </cache:advice>
@@ -37,9 +37,9 @@
   <cache:advice id="postAdvisor" cache-manager="cacheManager">
     <cache:caching cache="posts">
        <cache:cacheable method="loadById" key="#p0" />
-       <cache:cache-put method="update" key="#p0" />
+       <cache:cache-evict method="update" key="#p0.id" />
        <cache:cache-evict method="deleteById" key="#p0" />
     </cache:caching>
   </cache:advice>
-
+  
 </beans>

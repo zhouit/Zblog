@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE Html>
 <html>
  <head>
@@ -52,27 +54,29 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-6 col-md-6" style="float: right;">
+          <div class="col-sm-6 col-md-6">
             <div class="panel panel-default">
               <div class="panel-heading"><span class="icon glyphicon glyphicon-filter"></span>最近发表</div>
                 <div class="list-group">
-                  <a class="list-group-item"><span class="badge">14</span>数据库表的行列转换 </a>
-                  <a class="list-group-item"><span class="badge">14</span>Java粒子系统与全像素点验证码 </a>
-                  <a class="list-group-item"><span class="badge">14</span>关于java程序加密 </a>
-                  <a class="list-group-item"><span class="badge">14</span>centos的防火墙iptables配置 </a>
-                  <a class="list-group-item"><span class="badge">14</span>为网站加入https访问机制 </a>
+                  <c:forEach items="${posts}" var="post">
+                    <a class="list-group-item" href="../posts/${post.id}" target="_blank">
+                       <span class="badge">${post.rcount}</span>
+                       <h4 class="list-group-item-heading">${post.title}</h4>
+                       <p><fmt:formatDate value="${post.createTime}" pattern="YYYY-MM-dd" /></p>
+                    </a>
+                  </c:forEach>
                 </div>
               </div>
           </div>
+        </div>
+        <div class="row">
           <div class="col-sm-6 col-md-6">
             <div class="panel panel-default">
               <div class="panel-heading"><span class="icon glyphicon glyphicon-comment"></span>近期留言</div>
                 <div class="list-group">
-                  <a class="list-group-item">数据库表的行列转换 </a>
-                  <a class="list-group-item">Java粒子系统与全像素点验证码 </a>
-                  <a class="list-group-item">关于java程序加密 </a>
-                  <a class="list-group-item">centos的防火墙iptables配置 </a>
-                  <a class="list-group-item">为网站加入https访问机制 </a>
+                <c:forEach items="${comments}" var="comment">
+                  <a class="list-group-item">${comment.content}</a>
+                </c:forEach>
                 </div>
               </div>
           </div>

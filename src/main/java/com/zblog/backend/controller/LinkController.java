@@ -44,7 +44,7 @@ public class LinkController{
     link.setId(IdGenarater.uuid19());
     link.setVisible(true);
     linkService.insert(link);
-    return "backend/link/list";
+    return "redirect:/backend/links";
   }
   
   @RequestMapping(method = RequestMethod.PUT)
@@ -57,7 +57,7 @@ public class LinkController{
     }
 
     linkService.update(link);
-    return "backend/link/list";
+    return "redirect:/backend/links";
   }
 
   @ResponseBody

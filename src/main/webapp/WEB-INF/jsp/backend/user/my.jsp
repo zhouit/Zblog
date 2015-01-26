@@ -26,26 +26,25 @@
               <input type="hidden" name="CSRFToken" value="${CSRFToken}" />
               <c:if test="${user!=null}">
                 <input type="hidden" name="_method" value="PUT" />
-                <input type="hidden" name="id" value="${user.id}" />
+                <input type="hidden" name="id" value="${my.id}" />
               </c:if>
-              <div class="form-group ${nickName!=null?'has-error':''}">
+              <div class="form-group">
                 <label class="col-sm-3" for="title">*用户名</label>
                 <div class="col-sm-6">
-                  <input class="form-control" type="text" name="nickName" value="${user.nickName}" />
-                  <p class="help-block">${nickName}</p>
+                  <input class="form-control" type="text"  value="${my.nickName}" readonly="readonly"  />
                 </div>
               </div>
                <div class="form-group ${email!=null?'has-error':''}">
                  <label class="col-sm-3" for="email">*电子邮件</label>
                  <div class="col-sm-6">
-                   <input class="form-control" type="text" name="email" value="${user.email}" />
+                   <input class="form-control" type="text" name="email" value="${my.email}" />
                    <p class="help-block">${email}</p>
                  </div>
                </div>
                <div class="form-group ${realName!=null?'has-error':''}">
                  <label class="col-sm-3" for="realName">真实名称</label>
                  <div class="col-sm-6">
-                    <input class="form-control" autocomplete="off" type="text" name="realName" value="${user.realName}" />
+                    <input class="form-control" autocomplete="off" type="text" name="realName" value="${my.realName}" />
                      <p class="help-block">${realName}</p>
                   </div>
                </div>
@@ -53,13 +52,14 @@
                  <label class="col-sm-3" for="password">*密码 </label>
                  <div class="col-sm-6">
                    <input class="form-control input-sm" type="password" name="password" />
+                   <p class="help-block">如果您想修改您的密码，请在此输入新密码。不然请留空</p>
                    <input style="margin-top: 5px;" class="form-control input-sm" type="password" name="repass" />
                    <p class="help-block">${password!=null?password:'密码长度6-16'}</p>
                  </div>
                </div>
               <div class="form-group" style="padding-top: 20px;">
                 <div class="col-sm-offset-3 col-sm-2">
-                  <button type="submit" class="btn btn-primary btn-block">添加新用户</button>
+                  <button type="submit" class="btn btn-primary btn-block">更新用户</button>
                 </div>
               </div>
             </form>

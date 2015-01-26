@@ -16,6 +16,7 @@ import com.zblog.common.dal.entity.User;
 import com.zblog.common.plugin.MapContainer;
 import com.zblog.common.util.IdGenarater;
 import com.zblog.common.util.StringUtils;
+import com.zblog.common.util.web.WebContextHolder;
 import com.zblog.service.UserService;
 
 @Controller
@@ -32,7 +33,7 @@ public class UserController{
 
   @RequestMapping(method = RequestMethod.POST)
   public String insert(User user, String repass, Model model){
-    MapContainer form = UserFormValidator.validateInsert(user,repass);
+    MapContainer form = UserFormValidator.validateInsert(user, repass);
     if(!form.isEmpty()){
       model.addAllAttributes(form);
       return "backend/user/edit";
@@ -43,7 +44,7 @@ public class UserController{
     user.setLastUpdate(new Date());
 
     userService.insert(user);
-    return "backend/user/list";
+    return "redirect:/backend/users";
   }
 
   @RequestMapping(method = RequestMethod.PUT)
@@ -56,7 +57,7 @@ public class UserController{
     }
 
     userService.update(user);
-    return "backend/user/list";
+    return "redirect:/backend/users";
   }
 
   @ResponseBody
@@ -72,9 +73,10 @@ public class UserController{
       model.addAttribute("user", userService.loadById(uid));
     return "backend/user/edit";
   }
-  
+
   @RequestMapping(value = "/my", method = RequestMethod.GET)
   public String my(Model model){
+    model.addAttribute("my", WebContextHolder.get().getUser());
     return "backend/user/my";
   }
 
