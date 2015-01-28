@@ -19,7 +19,7 @@
    </select>
    
    <select id="listByPost" resultType="MapContainer" parameterType="String">
-     select id, content, creator, url, parent, createTime from comment c 
+     select id, content, creator, url, approved, parent, createTime from comment c 
      where postid=#{postid} and approved order by c.createTime desc
    </select>
    

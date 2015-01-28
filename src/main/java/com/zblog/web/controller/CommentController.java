@@ -44,7 +44,7 @@ public class CommentController{
     comment.setAgent(request.getHeader("User-Agent"));
     /* 使用jsoup来对帖子内容进行过滤 */
     String content = HtmlUtils.htmlUnescape(comment.getContent());
-    comment.setContent(JsoupUtils.relaxed(content));
+    comment.setContent(JsoupUtils.simpleText(content));
     commentService.insert(comment);
     return new MapContainer("success", true);
   }

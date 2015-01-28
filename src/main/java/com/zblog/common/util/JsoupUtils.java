@@ -62,8 +62,8 @@ public class JsoupUtils{
    * @param html
    * @return
    */
-  public static String relaxed(String html){
-    return Jsoup.clean(html, Whitelist.relaxed());
+  public static String simpleText(String html){
+    return Jsoup.clean(html, Whitelist.simpleText());
   }
 
   /**

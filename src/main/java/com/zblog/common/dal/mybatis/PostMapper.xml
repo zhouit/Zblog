@@ -27,8 +27,8 @@
    </select>
    
    <select id="listByCategory" parameterType="PageModel" resultType="MapContainer">  
-      select p.id, p.title, p.excerpt, p.createTime from post p inner join category c on p.categoryid=c.id 
-          where c.name=#{query.categoryName} and p.type=#{query.type} order by p.createTime
+      select p.id, p.title, p.excerpt, p.creator, p.createTime from post p inner join category c on p.categoryid=c.id 
+          where c.name=#{query.categoryName} and p.type=#{query.type} order by p.createTime desc
    </select>
    
    <insert id="insert" parameterType="Post">

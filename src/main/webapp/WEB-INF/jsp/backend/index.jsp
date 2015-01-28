@@ -54,7 +54,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-6 col-md-6">
+          <div class="col-sm-6 col-md-6" style="float: right;">
             <div class="panel panel-default">
               <div class="panel-heading"><span class="icon glyphicon glyphicon-filter"></span>最近发表</div>
                 <div class="list-group">
@@ -68,8 +68,6 @@
                 </div>
               </div>
           </div>
-        </div>
-        <div class="row">
           <div class="col-sm-6 col-md-6">
             <div class="panel panel-default">
               <div class="panel-heading"><span class="icon glyphicon glyphicon-comment"></span>近期留言</div>
