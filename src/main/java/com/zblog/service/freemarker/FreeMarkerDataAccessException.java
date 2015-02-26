@@ -1,4 +1,4 @@
-package com.zblog.template;
+package com.zblog.service.freemarker;
 
 import org.springframework.dao.DataAccessException;
 

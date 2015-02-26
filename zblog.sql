@@ -155,6 +155,7 @@ CREATE TABLE `user` (
   `password` varchar(32) NOT NULL,
   `email` varchar(30) NOT NULL,
   `status` varchar(10) NOT NULL,
+  `role` enum('admin','editor','contributor') NOT NULL,
   `description` varchar(100) DEFAULT NULL,
   `createTime` datetime NOT NULL,
   `creator` varchar(15) DEFAULT NULL,
@@ -166,7 +167,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('uHHi9gvg81UXn4PLlLE', 'admin', '东方上人', 'e10adc3949ba59abbe56e057f20f883e', 'manager@zblog.com', '', null, '2014-12-31 18:49:44', null, '2014-12-31 18:49:48');
+INSERT INTO `user` VALUES ('uHHi9gvg81UXn4PLlLE', 'admin', '东方上人', 'e10adc3949ba59abbe56e057f20f883e', 'manager@zblog.com', 'N', 'admin', null, '2014-12-31 18:49:44', null, '2014-12-31 18:49:48');
 
 -- ----------------------------
 -- View structure for `view_category`

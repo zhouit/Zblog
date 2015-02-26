@@ -1,5 +1,6 @@
 package com.zblog.backend.controller;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import com.zblog.service.CategoryService;
 
 @Controller
 @RequestMapping("/backend/options")
+@RequiresRoles("admin")
 public class OptionsController{
   @Autowired
   private CategoryService categoryService;

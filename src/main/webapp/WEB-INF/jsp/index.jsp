@@ -27,7 +27,7 @@
            <ul>
              <li class="post_date clearfix">
               <span class="date"><fmt:formatDate value="${post.createTime}" pattern="dd" /></span>
-              <span class="month"><fmt:formatDate value="${post.createTime}" pattern="MMM "/></span>
+              <span class="month"><fmt:formatDate value="${post.createTime}" pattern="MMM"/></span>
               <span class="year"><fmt:formatDate value="${post.createTime}" pattern="yyyy" /></span>
              </li>
              <li class="post_comment"> ${post.rcount}人阅读</li>

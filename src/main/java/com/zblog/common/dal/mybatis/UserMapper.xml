@@ -5,25 +5,25 @@
 <mapper namespace="com.zblog.common.dal.mapper.UserMapper">
    
    <select id="loadById" parameterType="java.lang.String" resultType="User">  
-      select id, nickName,realName, email, status, createTime, creator, lastUpdate from user where id = #{id}
+      select id, nickName, realName, password, email, role, status, createTime, creator, lastUpdate from user where id = #{id}
    </select>
    
    <select id="loadByNameAndPass" resultType="User">  
-      select id, nickName,realName, email, status, createTime, creator, lastUpdate 
+      select id, nickName, realName, password, email, role, status, createTime, creator, lastUpdate 
          from user where nickName = #{username} and password=md5(#{password}) 
    </select>
    
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
-      select id, nickName,realName, email, createTime from user 
+      select id, nickName, realName, role, email, createTime from user 
    </select>
    
    <insert id="insert" parameterType="User">
-      insert into user(id,nickName,realName,password,email,status,description,createTime,creator,lastUpdate) 
-         values(#{id},#{nickName},#{realName},#{password},#{email},#{status},#{description},#{createTime},#{creator},#{lastUpdate})
+      insert into user(id,nickName,realName,password,email,role,status,description,createTime,creator,lastUpdate) 
+         values(#{id},#{nickName},#{realName},#{password},#{email},#{role},#{status},#{description},#{createTime},#{creator},#{lastUpdate})
    </insert>
    
    <update id="update" parameterType="User">
-     update user set realName=#{realName},email=#{email},description=#{description}
+     update user set realName=#{realName},role=#{role},email=#{email},description=#{description}
      <if test="password!=null and password!=''">
        ,password=md5(#{password})
      </if>

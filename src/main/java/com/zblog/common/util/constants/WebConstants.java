@@ -31,6 +31,11 @@ public class WebConstants{
 
   public static String APPLICATION_PATH;
   public static final String PREFIX = "/WEB-INF/jsp/";
+  
+  /**
+   * 以/backend开头,非/login结尾
+   */
+  static final String BACKEND_URL = "^/backend.*(?<!/login|/rcode)$";
 
   public static String getDomain(){
     WebContext context = WebContextHolder.get();

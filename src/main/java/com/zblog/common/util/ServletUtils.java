@@ -1,6 +1,9 @@
 package com.zblog.common.util;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class ServletUtils{
 
@@ -39,6 +42,14 @@ public class ServletUtils{
     result += request.getContextPath();
 
     return result;
+  }
+
+  public static void sendRedirect(HttpServletResponse response, String url){
+    try{
+      response.sendRedirect(url);
+    }catch(IOException e){
+      e.printStackTrace();
+    }
   }
 
   public static String getIp(HttpServletRequest request){

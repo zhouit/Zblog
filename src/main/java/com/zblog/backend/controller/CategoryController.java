@@ -2,6 +2,8 @@ package com.zblog.backend.controller;
 
 import java.util.Date;
 
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import com.zblog.service.CategoryService;
 
 @Controller("adminCategoryController")
 @RequestMapping("/backend/categorys")
+@RequiresRoles(value = { "admin", "editor" }, logical = Logical.OR)
 public class CategoryController{
   @Autowired
   private CategoryService categoryService;

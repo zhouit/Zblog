@@ -24,7 +24,7 @@
   
   <context:component-scan base-package="com.zblog.web.controller" />
   <context:component-scan base-package="com.zblog.backend.controller" />
-    
+  
   <mvc:resources mapping="/resource/**" location="/resource/" />
   <mvc:resources mapping="/post/**" location="/post/" />
   
@@ -39,7 +39,7 @@
         <property name="mediaTypes">
           <map>
              <entry key="html" value="text/html"/>
-        <entry key="json" value="application/json"/>
+             <entry key="json" value="application/json"/>
           </map>
         </property>
       </bean>
@@ -64,5 +64,7 @@
     <property name="maxUploadSize" value="4096000" />
 	<property name="defaultEncoding" value="UTF-8" />
   </bean>   -->
+  
+  <import resource="spring-shiro.xml" />
 
 </beans>

@@ -35,7 +35,7 @@
                         ${comment.creator}</strong><br/>
                         <a href="${comment.url}">${z:substring(comment.url, 7)}</a><br/>
                         <a href="mailto:${comment.email}">${comment.email}</a></br/>
-                        <a href="javascript:void();">${comment.ip}</a></td>
+                        <a href="javascript:void(0);">${comment.ip}</a></td>
                       <td><div>提交于<a href="${g.domain}/posts/${comment.postid}/#comment-${comment.id}">
                             <fmt:formatDate value="${comment.createTime}" pattern="yyyy-MM-dd ahh:mm"/></a></div>
                           <p style="margin: 7px 0;">${comment.content}</p>

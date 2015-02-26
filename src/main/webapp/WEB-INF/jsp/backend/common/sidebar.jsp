@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>  
 
 <ul class="side-menu">
   <li><a class="nav-header" href="#">
@@ -10,7 +11,8 @@
       <li><a class="last" href="${g.domain}/backend/options/post">撰写/阅读</a></li>
     </ul>
    </li>
-  <li><a class="nav-header" href="#">
+   <shiro:hasAnyRoles name="admin,editor">
+   <li><a class="nav-header" href="#">
         <i class="left glyphicon glyphicon-send" aria-hidden="true"></i>文章
         <i class="right glyphicon glyphicon-chevron-up" aria-hidden="true"></i>
         </a>
@@ -29,6 +31,9 @@
       <li><a class="last" href="${g.domain}/backend/uploads/edit">添加</a></li>
     </ul>
   </li>
+  </shiro:hasAnyRoles>
+  
+  <shiro:hasRole name="admin">
   <li><a class="nav-header" href="#">
         <i class="icon glyphicon glyphicon-file" aria-hidden="true"></i>页面
         <i class="right glyphicon glyphicon-chevron-up" aria-hidden="true"></i>
@@ -48,16 +53,24 @@
       <li><a class="last" href="${g.domain}/backend/links">全部链接</a></li>
     </ul>
   </li>
-  <li><a class="nav-header" href="#">
-      <i class="left glyphicon glyphicon-user" aria-hidden="true"></i>用户
-      <i class="right glyphicon glyphicon-chevron-up" aria-hidden="true"></i></a>
-    <ul class="sub-menu">
-      <li><a href="${g.domain}/backend/users">所有用户</a></li>
-      <li><a href="${g.domain}/backend/users/edit">添加用户</a></li>
-      <li><a class="last" href="${g.domain}/backend/users/my">我的个人资料</a></li>
-    </ul>
-  </li>
-  <li><a class="nav-header" href="#">
+  </shiro:hasRole>
+  
+  <shiro:authenticated>
+    <li><a class="nav-header" href="#">
+       <i class="left glyphicon glyphicon-user" aria-hidden="true"></i>用户
+       <i class="right glyphicon glyphicon-chevron-up" aria-hidden="true"></i></a>
+       <ul class="sub-menu">
+        <shiro:hasRole name="admin">
+          <li><a href="${g.domain}/backend/users">所有用户</a></li>
+          <li><a href="${g.domain}/backend/users/edit">添加用户</a></li>
+        </shiro:hasRole>
+        <li><a class="last" href="${g.domain}/backend/users/my">我的个人资料</a></li>
+      </ul>
+    </li>
+  </shiro:authenticated>
+  
+  <shiro:hasRole name="admin">
+   <li><a class="nav-header" href="#">
     <i class="left glyphicon glyphicon-wrench" aria-hidden="true"></i>工具
     <i class="right glyphicon glyphicon-chevron-up" aria-hidden="true"></i></a>
     <ul class="sub-menu">
@@ -65,6 +78,7 @@
       <li><a href="${g.domain}/backend/options/import">导入</a></li>
       <li><a class="last" href="${g.domain}/backend/options/output">导出</a></li>
     </ul>
-  </li>
+   </li>
+  </shiro:hasRole>
 </ul>
 <script type="text/javascript" src="${g.domain}/resource/js/backend/sidebar.js"></script>

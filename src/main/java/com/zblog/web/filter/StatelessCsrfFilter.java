@@ -13,6 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.zblog.common.util.Base64Codec;
@@ -31,6 +33,7 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
   private List<String> excludes = new ArrayList<>();
   static List<String> METHODS = Arrays.asList("POST", "DELETE", "PUT", "PATCH");
   private Random random = new SecureRandom();
+  private PathMatcher matcher = new AntPathMatcher();
 
   @Override
   protected void initFilterBean() throws ServletException{
@@ -43,7 +46,7 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
     /* 此处要base64解码 */
     if(!StringUtils.isBlank(headToken))
       headToken = new String(Base64Codec.decode(headToken));
-    
+
     return headToken != null && headToken.equals(csrfToken);
   }
 
@@ -73,7 +76,7 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
       throws ServletException, IOException{
     String url = request.getRequestURI();
     for(String match : excludes){
-      if(url.matches(match)){
+      if(matcher.match(match, url)){
         filterChain.doFilter(request, response);
         return;
       }

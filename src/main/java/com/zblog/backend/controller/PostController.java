@@ -2,6 +2,8 @@ package com.zblog.backend.controller;
 
 import java.util.Date;
 
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,7 @@ import com.zblog.service.PostService;
 
 @Controller(value = "adminPostController")
 @RequestMapping("/backend/posts")
+@RequiresRoles(value = { "admin", "editor" }, logical = Logical.OR)
 public class PostController{
   @Autowired
   private PostService postService;

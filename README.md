@@ -12,12 +12,14 @@ a java blog
 * Ioc容器 Spring
 * Web框架 SpringMVC
 * Orm框架 MyBatis
-* 搜索框架 Lucene
+* 安全权限 Shiro
+* 搜索工具 Lucene
 * 缓存 Ehcache
 * 静态化 FreeMarker
-* 其它 Jsoup(xss过滤)、fastjson
+* 视图模板 Jsp/Jstl
+* 其它 Jsoup(xss过滤)、fastjson、IKAnalyzer
 
-#### 前段
+#### 前端
 * jquery js框架
 * bootstrap 界面
 * ueditor 编辑器

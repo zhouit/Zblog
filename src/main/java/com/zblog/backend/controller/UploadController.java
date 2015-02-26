@@ -2,6 +2,8 @@ package com.zblog.backend.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,7 @@ import com.zblog.service.UploadService;
 
 @Controller
 @RequestMapping("/backend/uploads")
+@RequiresRoles(value = { "admin", "editor" }, logical = Logical.OR)
 public class UploadController{
   @Autowired
   private Ueditor ueditor;

@@ -16,7 +16,7 @@ import com.zblog.common.util.constants.WebConstants;
 import com.zblog.service.CategoryService;
 import com.zblog.service.LinkService;
 import com.zblog.service.PostService;
-import com.zblog.template.FreeMarkerUtils;
+import com.zblog.service.freemarker.FreeMarkerUtils;
 
 /**
  * 静态化组件

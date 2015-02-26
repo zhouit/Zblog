@@ -1,4 +1,4 @@
-package com.zblog.template;
+package com.zblog.service.freemarker;
 
 import java.io.File;
 import java.io.FileOutputStream;

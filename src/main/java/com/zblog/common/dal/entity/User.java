@@ -9,6 +9,7 @@ public class User extends BaseEntity{
   private String email;
   /* 用户账号状态 */
   private String status = UserConstants.USER_STATUS_NORMAL;
+  private String role = UserConstants.USER_ROLE_CONTRIBUTOR;
   private String description;
 
   public String getNickName(){
@@ -51,6 +52,14 @@ public class User extends BaseEntity{
     this.status = status;
   }
 
+  public String getRole(){
+    return role;
+  }
+
+  public void setRole(String role){
+    this.role = role;
+  }
+
   public String getDescription(){
     return description;
   }
@@ -58,5 +67,5 @@ public class User extends BaseEntity{
   public void setDescription(String description){
     this.description = description;
   }
-  
+
 }

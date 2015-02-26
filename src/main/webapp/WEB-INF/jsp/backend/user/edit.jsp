@@ -61,10 +61,10 @@
               <div class="form-group">
                 <label class="col-sm-3">角色</label>
                 <div class="col-sm-6">
-                  <select class="form-control">
-                   <option>订阅者</option><option>编辑</option>
-                   <option>作者</option><option>投稿者</option>
-                   <option>管理员</option>
+                  <select class="form-control" name="role">
+                   <option value="contributor" ${user.role=='contributor'?'selected':''}>投稿者</option>
+                   <option value="editor" ${user.role=='editor'?'selected':''}>编辑</option>
+                   <option value="admin" ${user.role=='admin'?'selected':''}>管理员</option>
                   </select>
                 </div>
               </div>

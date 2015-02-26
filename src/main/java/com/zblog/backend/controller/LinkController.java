@@ -2,6 +2,7 @@ package com.zblog.backend.controller;
 
 import java.util.Date;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import com.zblog.service.LinkService;
 
 @Controller
 @RequestMapping("/backend/links")
+@RequiresRoles("admin")
 public class LinkController{
   @Autowired
   private LinkService linkService;
@@ -32,7 +34,7 @@ public class LinkController{
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public String insert(Link link,Model model){
+  public String insert(Link link, Model model){
     MapContainer form = LinkFormValidator.validateInsert(link);
     if(!form.isEmpty()){
       model.addAttribute("msg", form.get("msg"));
@@ -46,9 +48,9 @@ public class LinkController{
     linkService.insert(link);
     return "redirect:/backend/links";
   }
-  
+
   @RequestMapping(method = RequestMethod.PUT)
-  public String update(Link link,Model model){
+  public String update(Link link, Model model){
     MapContainer form = LinkFormValidator.validateUpdate(link);
     if(!form.isEmpty()){
       model.addAttribute("link", link);
@@ -71,7 +73,7 @@ public class LinkController{
   public String edit(String lid, Model model){
     if(!StringUtils.isBlank(lid))
       model.addAttribute("link", linkService.loadById(lid));
-    
+
     return "backend/link/edit";
   }
 

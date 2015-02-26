@@ -2,6 +2,8 @@ package com.zblog.backend.controller;
 
 import java.util.Date;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,17 +23,20 @@ import com.zblog.service.UserService;
 
 @Controller
 @RequestMapping("/backend/users")
+@RequiresAuthentication
 public class UserController{
   @Autowired
   private UserService userService;
 
   @RequestMapping(method = RequestMethod.GET)
+  @RequiresRoles("admin")
   public String index(@RequestParam(value = "page", defaultValue = "1") int page, Model model){
     model.addAttribute("page", userService.list(page, 15));
     return "backend/user/list";
   }
 
   @RequestMapping(method = RequestMethod.POST)
+  @RequiresRoles("admin")
   public String insert(User user, String repass, Model model){
     MapContainer form = UserFormValidator.validateInsert(user, repass);
     if(!form.isEmpty()){
@@ -62,6 +67,7 @@ public class UserController{
 
   @ResponseBody
   @RequestMapping(value = "/{userid}", method = RequestMethod.DELETE)
+  @RequiresRoles("admin")
   public Object remove(@PathVariable("userid") String userid){
     userService.deleteById(userid);
     return new MapContainer("success", true);
