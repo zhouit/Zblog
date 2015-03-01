@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.zblog.common.dal.entity.Upload;
-import com.zblog.common.util.DateUtils;
-import com.zblog.common.util.FileUtils;
-import com.zblog.common.util.IdGenarater;
-import com.zblog.common.util.constants.WebConstants;
-import com.zblog.common.util.web.ServletRequestReader;
-import com.zblog.common.util.web.WebContextHolder;
+import com.zblog.core.dal.entity.Upload;
+import com.zblog.core.util.DateUtils;
+import com.zblog.core.util.FileUtils;
+import com.zblog.core.util.IdGenarater;
+import com.zblog.core.util.constants.WebConstants;
+import com.zblog.core.util.web.ServletRequestReader;
+import com.zblog.core.util.web.WebContextHolder;
 import com.zblog.service.UploadService;
 
 @Component

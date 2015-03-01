@@ -3,10 +3,10 @@ package com.zblog.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zblog.common.dal.entity.User;
-import com.zblog.common.dal.mapper.BaseMapper;
-import com.zblog.common.dal.mapper.UserMapper;
-import com.zblog.common.plugin.PageModel;
+import com.zblog.core.dal.entity.User;
+import com.zblog.core.dal.mapper.BaseMapper;
+import com.zblog.core.dal.mapper.UserMapper;
+import com.zblog.core.plugin.PageModel;
 
 @Service
 public class UserService extends BaseService{

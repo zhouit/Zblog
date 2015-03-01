@@ -9,7 +9,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.zblog.common.util.constants.Constants;
+import com.zblog.core.util.constants.Constants;
 
 import freemarker.cache.NullCacheStorage;
 import freemarker.template.Configuration;

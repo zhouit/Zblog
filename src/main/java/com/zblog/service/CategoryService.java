@@ -8,15 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.zblog.common.dal.entity.Category;
-import com.zblog.common.dal.mapper.BaseMapper;
-import com.zblog.common.dal.mapper.CategoryMapper;
-import com.zblog.common.dal.mapper.PostMapper;
-import com.zblog.common.plugin.MapContainer;
-import com.zblog.common.plugin.TreeUtils;
-import com.zblog.common.util.IdGenarater;
-import com.zblog.common.util.StringUtils;
-import com.zblog.common.util.constants.CategoryConstants;
+import com.zblog.core.dal.entity.Category;
+import com.zblog.core.dal.mapper.BaseMapper;
+import com.zblog.core.dal.mapper.CategoryMapper;
+import com.zblog.core.dal.mapper.PostMapper;
+import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.TreeUtils;
+import com.zblog.core.util.IdGenarater;
+import com.zblog.core.util.StringUtils;
+import com.zblog.core.util.constants.CategoryConstants;
 
 @Service
 public class CategoryService extends BaseService{

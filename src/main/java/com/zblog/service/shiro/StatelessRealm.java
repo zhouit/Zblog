@@ -16,8 +16,8 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
-import com.zblog.common.dal.entity.User;
-import com.zblog.common.plugin.ApplicationContextUtil;
+import com.zblog.core.dal.entity.User;
+import com.zblog.core.plugin.ApplicationContextUtil;
 import com.zblog.service.UserService;
 
 /**
@@ -80,7 +80,7 @@ public class StatelessRealm extends AuthorizingRealm{
       throw new UnknownAccountException();// 没找到帐号
     }
     /*
-     * 可使用setCredentialsMatcher设置shiro的密码验证，让shiro用我自己的验证(
+     * 可使用setCredentialsMatcher设置shiro的密码验证，让shiro用自己的验证(
      * 默认使用CredentialsMatcher进行密码匹配)
      */
     SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getId(), user.getPassword(),

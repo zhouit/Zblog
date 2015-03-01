@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zblog.common.dal.entity.Post;
-import com.zblog.common.dal.mapper.BaseMapper;
-import com.zblog.common.dal.mapper.PostMapper;
-import com.zblog.common.plugin.MapContainer;
-import com.zblog.common.plugin.PageModel;
-import com.zblog.common.util.constants.PostConstants;
+import com.zblog.core.dal.entity.Post;
+import com.zblog.core.dal.mapper.BaseMapper;
+import com.zblog.core.dal.mapper.PostMapper;
+import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.PageModel;
+import com.zblog.core.util.constants.PostConstants;
 
 @Service
 public class PostService extends BaseService{

@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.stereotype.Component;
 
-import com.zblog.common.plugin.MapContainer;
+import com.zblog.core.plugin.MapContainer;
 
 @Component
 public class EhCacheManager{

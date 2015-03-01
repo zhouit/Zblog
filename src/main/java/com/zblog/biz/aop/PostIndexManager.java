@@ -7,14 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.zblog.common.dal.entity.Post;
-import com.zblog.common.lucene.LuceneUtils;
-import com.zblog.common.lucene.QueryBuilder;
-import com.zblog.common.lucene.SearchEnginer;
-import com.zblog.common.plugin.PageModel;
-import com.zblog.common.util.DateUtils;
-import com.zblog.common.util.JsoupUtils;
-import com.zblog.common.util.constants.PostConstants;
+import com.zblog.core.dal.entity.Post;
+import com.zblog.core.lucene.LuceneUtils;
+import com.zblog.core.lucene.QueryBuilder;
+import com.zblog.core.lucene.SearchEnginer;
+import com.zblog.core.plugin.PageModel;
+import com.zblog.core.util.DateUtils;
+import com.zblog.core.util.JsoupUtils;
+import com.zblog.core.util.constants.PostConstants;
 
 /**
  * 文章Lucene索引管理器

@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.zblog.biz.PostManager;
-import com.zblog.common.dal.entity.Category;
-import com.zblog.common.dal.entity.Post;
-import com.zblog.common.plugin.MapContainer;
-import com.zblog.common.util.constants.PostConstants;
-import com.zblog.common.util.constants.WebConstants;
+import com.zblog.core.dal.entity.Category;
+import com.zblog.core.dal.entity.Post;
+import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.util.constants.PostConstants;
+import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.CategoryService;
 import com.zblog.service.LinkService;
 import com.zblog.service.PostService;

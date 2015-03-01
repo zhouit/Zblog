@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zblog.common.dal.mapper.BaseMapper;
-import com.zblog.common.dal.mapper.CommentMapper;
-import com.zblog.common.plugin.MapContainer;
-import com.zblog.common.plugin.PageModel;
+import com.zblog.core.dal.mapper.BaseMapper;
+import com.zblog.core.dal.mapper.CommentMapper;
+import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.PageModel;
 
 @Service
 public class CommentService extends BaseService{

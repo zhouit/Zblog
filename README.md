@@ -21,7 +21,7 @@ a java blog
 
 #### 前端
 * jquery js框架
-* bootstrap 界面
+* bootstrap 后台界面
 * ueditor 编辑器
 * webuploader 文件上传
 * font-wesome 字体/图标

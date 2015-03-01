@@ -22,8 +22,8 @@
 	</mvc:message-converters>
   </mvc:annotation-driven>
   
-  <context:component-scan base-package="com.zblog.web.controller" />
-  <context:component-scan base-package="com.zblog.backend.controller" />
+  <context:component-scan base-package="com.zblog.web.front.controller" />
+  <context:component-scan base-package="com.zblog.web.backend.controller" />
   
   <mvc:resources mapping="/resource/**" location="/resource/" />
   <mvc:resources mapping="/post/**" location="/post/" />

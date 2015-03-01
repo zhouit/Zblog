@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.zblog.common.dal.entity.Post;
-import com.zblog.common.plugin.MapContainer;
-import com.zblog.common.util.CollectionUtils;
-import com.zblog.common.util.JsoupUtils;
-import com.zblog.common.util.constants.PostConstants;
-import com.zblog.common.util.constants.WebConstants;
+import com.zblog.core.dal.entity.Post;
+import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.util.CollectionUtils;
+import com.zblog.core.util.JsoupUtils;
+import com.zblog.core.util.constants.PostConstants;
+import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.OptionsService;
 import com.zblog.service.PostService;
 import com.zblog.service.UploadService;

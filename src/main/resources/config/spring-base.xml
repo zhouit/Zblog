@@ -15,7 +15,7 @@
   <import resource="spring-cache.xml" />
   <import resource="spring-biz.xml" />
   <!-- 从Srping配置文件中根据id读取Bean -->
-  <bean class="com.zblog.common.plugin.ApplicationContextUtil" />
+  <bean class="com.zblog.core.plugin.ApplicationContextUtil" />
   
   <context:property-placeholder location="classpath:jdbc.properties" />
   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -33,12 +33,12 @@
 	 <property name="dataSource" ref="dataSource" />
 	 <property name="configLocation" value="classpath:config/mybatis.xml" />
 	 <property name="plugins">
-	   <bean class="com.zblog.common.plugin.PagePlugin" />
+	   <bean class="com.zblog.core.plugin.PagePlugin" />
 	 </property>
   </bean>
   
   <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-	<property name="basePackage" value="com.zblog.common.dal.mapper" />
+	<property name="basePackage" value="com.zblog.core.dal.mapper" />
 	<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
   </bean>
   

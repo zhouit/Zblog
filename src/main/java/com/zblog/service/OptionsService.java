@@ -3,9 +3,9 @@ package com.zblog.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zblog.common.dal.entity.Option;
-import com.zblog.common.dal.mapper.BaseMapper;
-import com.zblog.common.dal.mapper.OptionMapper;
+import com.zblog.core.dal.entity.Option;
+import com.zblog.core.dal.mapper.BaseMapper;
+import com.zblog.core.dal.mapper.OptionMapper;
 
 @Service
 public class OptionsService extends BaseService{

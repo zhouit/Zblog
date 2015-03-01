@@ -3,9 +3,9 @@ package com.zblog.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zblog.common.dal.mapper.BaseMapper;
-import com.zblog.common.dal.mapper.LinkMapper;
-import com.zblog.common.plugin.PageModel;
+import com.zblog.core.dal.mapper.BaseMapper;
+import com.zblog.core.dal.mapper.LinkMapper;
+import com.zblog.core.plugin.PageModel;
 
 @Service
 public class LinkService extends BaseService{

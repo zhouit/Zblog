@@ -25,16 +25,16 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   <listener>
-    <listener-class>com.zblog.web.listener.InitApplicationListener</listener-class>
+    <listener-class>com.zblog.core.listener.InitApplicationListener</listener-class>
   </listener>
   
   <filter>
     <filter-name>loginFilter</filter-name>
-    <filter-class>com.zblog.web.filter.LoginFilter</filter-class>
+    <filter-class>com.zblog.core.filter.LoginFilter</filter-class>
   </filter>
   <filter>
     <filter-name>xssFilter</filter-name>
-    <filter-class>com.zblog.web.filter.XssFilter</filter-class>
+    <filter-class>com.zblog.core.filter.XssFilter</filter-class>
     <!-- 字符编码过滤 -->
     <init-param>
       <param-name>encoding</param-name>
@@ -44,7 +44,7 @@
    <!-- 注意xssFilter需配置在csrfFilter之前 -->
   <filter>
     <filter-name>statelessCsrfFilter</filter-name>
-    <filter-class>com.zblog.web.filter.StatelessCsrfFilter</filter-class>
+    <filter-class>com.zblog.core.filter.StatelessCsrfFilter</filter-class>
     <init-param>
       <param-name>exclude</param-name>
       <!-- 基于ant风格的url匹配 -->

@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.zblog.backend.form.GeneralOption;
-import com.zblog.backend.form.PostOption;
-import com.zblog.common.util.NumberUtils;
-import com.zblog.common.util.StringUtils;
-import com.zblog.common.util.constants.OptionConstants;
-import com.zblog.common.util.constants.PostConstants;
-import com.zblog.common.util.constants.WebConstants;
+import com.zblog.core.util.NumberUtils;
+import com.zblog.core.util.StringUtils;
+import com.zblog.core.util.constants.OptionConstants;
+import com.zblog.core.util.constants.PostConstants;
+import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.OptionsService;
+import com.zblog.web.backend.form.GeneralOption;
+import com.zblog.web.backend.form.PostOption;
 
 @Component
 public class OptionManager{

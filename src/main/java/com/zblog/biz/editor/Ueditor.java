@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.zblog.biz.UploadManager;
-import com.zblog.common.dal.entity.Upload;
-import com.zblog.common.plugin.MapContainer;
-import com.zblog.common.util.constants.WebConstants;
-import com.zblog.common.util.web.ServletRequestReader;
+import com.zblog.core.dal.entity.Upload;
+import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.util.constants.WebConstants;
+import com.zblog.core.util.web.ServletRequestReader;
 
 /**
  * ueditor上传参数见:http://fex-team.github.io/ueditor/#dev-request_specification
