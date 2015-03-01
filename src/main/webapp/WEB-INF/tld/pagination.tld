@@ -8,7 +8,7 @@
   <uri>/WEB-INF/tld/pagination.tld</uri>
   <tag>
     <name>page</name>
-    <tag-class>com.zblog.common.tag.Pagination</tag-class>
+    <tag-class>com.zblog.core.tag.Pagination</tag-class>
     <body-content>JSP</body-content>
     <attribute>
       <name>pageUrl</name>
@@ -34,37 +34,37 @@
    </tag>
    <tag>
      <name>first</name>
-     <tag-class>com.zblog.common.tag.FirstTag</tag-class>
+     <tag-class>com.zblog.core.tag.FirstTag</tag-class>
      <body-content>JSP</body-content>
    </tag>
    <tag>
      <name>prev</name>
-     <tag-class>com.zblog.common.tag.PrevTag</tag-class>
+     <tag-class>com.zblog.core.tag.PrevTag</tag-class>
      <body-content>JSP</body-content>
    </tag>
    <tag>
      <name>currentLeft</name>
-     <tag-class>com.zblog.common.tag.CurrentLeftTag</tag-class>
+     <tag-class>com.zblog.core.tag.CurrentLeftTag</tag-class>
      <body-content>JSP</body-content>
    </tag>
    <tag>
      <name>current</name>
-     <tag-class>com.zblog.common.tag.CurrentTag</tag-class>
+     <tag-class>com.zblog.core.tag.CurrentTag</tag-class>
      <body-content>JSP</body-content>
    </tag>
    <tag>
      <name>currentRight</name>
-     <tag-class>com.zblog.common.tag.CurrentRightTag</tag-class>
+     <tag-class>com.zblog.core.tag.CurrentRightTag</tag-class>
      <body-content>JSP</body-content>
    </tag>
    <tag>
      <name>next</name>
-     <tag-class>com.zblog.common.tag.NextTag</tag-class>
+     <tag-class>com.zblog.core.tag.NextTag</tag-class>
      <body-content>JSP</body-content>
    </tag>
    <tag>
      <name>last</name>
-     <tag-class>com.zblog.common.tag.LastTag</tag-class>
+     <tag-class>com.zblog.core.tag.LastTag</tag-class>
      <body-content>JSP</body-content>
    </tag>
 </taglib>
