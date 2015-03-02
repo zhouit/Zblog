@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
       "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.zblog.common.dal.mapper.UploadMapper">
+<mapper namespace="com.zblog.core.dal.mapper.UploadMapper">
    
    <select id="loadById" parameterType="java.lang.String" resultType="Upload">  
       select id, postid, name, path, creator, createTime from upload where id = #{id}

@@ -45,6 +45,11 @@ ul{list-style: none outside none;padding: 0;}
 /***************  后台首页   **************/
 ul.ul-group li{padding: 5px 0;}
 
+ul.table-nav{float: left;font-size: 12px;font-family: sans-serif;}
+ul.table-nav li{ float: left;display: inline-block;}
+ul.table-nav li a{line-height: 2;padding: 0.2em;}
+ul.table-nav li a.active{color: #000;font-weight: bold;}
+
 /**********  数据table表格 **************/
 .list-table{border-color: #dfdfdf;border-radius: 3px;border-style: solid;border-width: 1px;font-size: 12px;}
 .list-table thead th:first-of-type, .list-table thead th:last-of-type{ border-top-left-radius: 3px;}

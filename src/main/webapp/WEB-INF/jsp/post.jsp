@@ -30,14 +30,16 @@
                  <div class="comment-meta">
                    <img class="avatar" width="35" height="35" src="../../resource/img/avatar.png" />
                    <ul class="comment-name-date">
-                     <li class="comment-name">
-                       <a class="url" target="_blank" href="${comment.url}">${comment.creator}</a>
-                     </li>
+                     <li class="comment-name"><a class="url" target="_blank" href="${comment.url}">${comment.creator}</a></li>
                      <li class="comment-date"><fmt:formatDate value="${comment.createTime}" pattern="yyyy/MM/dd hh:mma"/></li>
                     </ul>
-                    <div class="comment-reply"><a href=''>回复</a></div>
+                    <div class="comment-reply"><a href='#respond'>回复</a></div>
                    </div>
-                   <div class="comment-content"><p>${comment.content}</p></div>
+                   <div class="comment-content">
+                   <c:if test="${comment.status=='wait'}">
+                    你的评论正在等待审核。。。
+                   </c:if>
+                   <p>${comment.content}</p></div>
                  </li>
                 </c:forEach>
               </c:otherwise>

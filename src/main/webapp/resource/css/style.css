@@ -172,7 +172,7 @@ ul.comment-name-date li{padding: 0 0 5px;}
 
 /*********** comment-content ***********/
 .comment-content{padding:0; clear:both; margin:0; }
-.comment-content p{line-height: 250%;margin: 0 0 1em; }
+.comment-content p{line-height: 250%;}
 * html .comment-content{padding:5px 0 0 0; }
 .comment-content a, .comment-content a:visited{text-decoration:underline; }
 

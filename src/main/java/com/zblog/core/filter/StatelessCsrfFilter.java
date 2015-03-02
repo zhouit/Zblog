@@ -38,7 +38,10 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
   @Override
   protected void initFilterBean() throws ServletException{
     FilterConfig config = getFilterConfig();
-    excludes.add(config.getInitParameter("exclude"));
+    String paths=config.getInitParameter("exclude");
+    if(!StringUtils.isBlank(paths)){
+      excludes.addAll(Arrays.asList(paths.split(",")));
+    }
   }
 
   private boolean isAjaxVerificationToken(HttpServletRequest request, String csrfToken){

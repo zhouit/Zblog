@@ -15,12 +15,13 @@ zblog.comment.remove=function(commentid){
  });
 }
 
-zblog.comment.approve=function(commentid){
+zblog.comment.approve=function(commentid,state){
   console.info(event.target);
   $.ajax({
     type:"PUT",
     url:"comments/"+commentid,
     dateType:"json",
+    data:{'state':state}
     success:function(data){
      if(data&&data.success){
        window.location.href=".";

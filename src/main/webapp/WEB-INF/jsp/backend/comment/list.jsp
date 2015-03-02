@@ -22,6 +22,12 @@
         <div class="panel panel-default">
           <div class="panel-heading"><span class="icon glyphicon glyphicon-list"></span>留言列表</div>
           <div class="panel-body">
+            <ul class="table-nav">
+              <li><a class="${type=='all'?'active':''}" href="?type=all">全部</a> | </li>
+              <li><a class="${type=='wait'?'active':''}" href="?type=wait">待审</a> | </li>
+              <li><a class="${type=='approve'?'active':''}" href="?type=approve">获准</a> | </li>
+              <li><a class="${type=='trash'?'active':''}" href="?type=trash">垃圾评论</a></li>
+            </ul>
            <table id="post-table" class="table table-striped list-table">
                <thead><tr>
                  <th style="width: 20%;">作者</th>
@@ -35,14 +41,32 @@
                         ${comment.creator}</strong><br/>
                         <a href="${comment.url}">${z:substring(comment.url, 7)}</a><br/>
                         <a href="mailto:${comment.email}">${comment.email}</a></br/>
-                        <a href="javascript:void(0);">${comment.ip}</a></td>
+                        <a href="#">${comment.ip}</a></td>
                       <td><div>提交于<a href="${g.domain}/posts/${comment.postid}/#comment-${comment.id}">
                             <fmt:formatDate value="${comment.createTime}" pattern="yyyy-MM-dd ahh:mm"/></a></div>
                           <p style="margin: 7px 0;">${comment.content}</p>
                           <div class="row-action">
-                             <span class="edit"><a href="javascript:zblog.comment.approve('${comment.id}');">${comment.approved?'驳回':'批准'}</a>&nbsp;|&nbsp;</span>
-                             <span class="edit"><a href="#">垃圾评论</a>&nbsp;|&nbsp;</span>
-                             <span class="trash"><a href="#">移动到回收站</a></span></div>
+                            <c:if test="${type=='all'}">
+                             <span><a href="#" onclick="zblog.comment.approve('${comment.id}'，${comment.status=='wait'?'approve':'wait'});">${comment.status=='wait'?'批准':'驳回'}</a>&nbsp;|&nbsp;</span>
+                             <span><a href="#" onclick="zblog.comment.approve('${comment.id}','reject');">垃圾评论</a>&nbsp;|&nbsp;</span>
+                             <span><a href="#" onclick="zblog.comment.approve('${comment.id}','trash');">移动到回收站</a></span> 
+                            </c:if>
+                            <c:if test="${type=='wait'}">
+                             <span><a href="#" onclick="zblog.comment.approve('${comment.id}','approve');">批准</a>&nbsp;|&nbsp;</span>
+                             <span><a href="#" onclick="zblog.comment.approve('${comment.id}','wait');">驳回</a>&nbsp;|&nbsp;</span>
+                             <span><a href="#" onclick="zblog.comment.approve('${comment.id}','reject');">垃圾评论</a>&nbsp;|&nbsp;</span>
+                             <span><a href="#" onclick="zblog.comment.approve('${comment.id}','trash');">移动到回收站</a></span> 
+                            </c:if>
+                            <c:if test="${type=='approve'}">
+                             <span><a href="#" onclick="zblog.comment.approve('${comment.id}','wait');">驳回</a>&nbsp;|&nbsp;</span>
+                             <span><a href="#" onclick="zblog.comment.approve('${comment.id}','reject');">垃圾评论</a>&nbsp;|&nbsp;</span>
+                             <span><a href="#" onclick="zblog.comment.approve('${comment.id}','trash');">移动到回收站</a></span> 
+                            </c:if>
+                            <c:if test="${type=='reject'}">
+                             <span><a href="#" onclick="zblog.comment.approve('${comment.id}','approve');">批准</a>&nbsp;|&nbsp;</span>
+                             <span><a href="#" onclick="zblog.comment.approve('${comment.id}','wait');">还原</a>&nbsp;|&nbsp;</span>
+                            </c:if>
+                          </div>
                       </td>
                       <td><a href="${g.domain}/posts/${comment.postid}" target="_blank">${comment.title}</a><br /></td>
                       <td class="center"><span class="glyphicon glyphicon-trash pointer" onclick="zblog.comment.remove('${comment.id}')"></span></td>

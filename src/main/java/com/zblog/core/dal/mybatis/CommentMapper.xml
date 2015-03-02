@@ -2,15 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
       "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.zblog.common.dal.mapper.CommentMapper">
+<mapper namespace="com.zblog.core.dal.mapper.CommentMapper">
    
    <select id="loadById" parameterType="java.lang.String" resultType="Comment">  
-      select id, postid, parent, email, url, ip, agent, content, approved, creator, createTime from comment where id = #{id}
+      select id, postid, parent, email, url, ip, agent, content, status, creator, createTime from comment where id = #{id}
    </select>
    
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
-     select c.id, c.postid, c.url, c.email, c.ip, c.content, c.creator, c.approved, c.createTime, p.title 
-       from comment c left join post p on c.postid=p.id
+     select c.id, c.postid, c.url, c.email, c.ip, c.content, c.creator, c.status, c.createTime, p.title 
+       from comment c left join post p on c.postid=p.id 
+       where c.status in <foreach collection="query.status" open="(" close=")" item="item" separator=",">#{item}</foreach>
    </select>
    
    <select id="listRecent" resultType="MapContainer">  
@@ -18,18 +19,19 @@
        from comment c left join post p on c.postid=p.id order by c.createTime desc limit 10
    </select>
    
-   <select id="listByPost" resultType="MapContainer" parameterType="String">
-     select id, content, creator, url, approved, parent, createTime from comment c 
-     where postid=#{postid} and approved order by c.createTime desc
+   <select id="listByPost" resultType="MapContainer">
+     select id, content, creator, url, status, parent, createTime from comment c 
+     where postid=#{postid} and (status='approve' <if test="creator!=null and creator!=''"> or creator=#{creator} </if>) 
+     order by c.createTime desc
    </select>
    
    <insert id="insert" parameterType="Comment">
-      insert into comment(id,postid, parent, email, url, ip, agent,content,approved, creator, createTime) 
-         values(#{id},#{postid},#{parent},#{email},#{url},#{ip},#{agent},#{content},#{approved},#{creator},#{createTime})
+      insert into comment(id,postid, parent, email, url, ip, agent,content, creator, createTime) 
+         values(#{id},#{postid},#{parent},#{email},#{url},#{ip},#{agent},#{content},#{creator},#{createTime})
    </insert>
    
-   <update id="approve">
-     update comment set approved=not(approved) where id=#{commentid}
+   <update id="setStutas">
+     update comment set status=#{status} where id=#{commentid}
    </update>
 
    <delete id="deleteById">

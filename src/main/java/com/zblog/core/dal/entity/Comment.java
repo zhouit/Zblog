@@ -1,5 +1,7 @@
 package com.zblog.core.dal.entity;
 
+import com.zblog.core.util.constants.CommentConstants;
+
 public class Comment extends BaseEntity{
   private String postid;
   /* 评论者邮箱 */
@@ -10,8 +12,8 @@ public class Comment extends BaseEntity{
   private String ip;
   /* 内容 */
   private String content;
-  /* 是否批准 */
-  private boolean approved = false;
+  /* 评论状态 */
+  private String stutas = CommentConstants.TYPE_WAIT;
   /* 评论者的userAgent */
   private String agent;
   /* 父评论ID */
@@ -58,11 +60,15 @@ public class Comment extends BaseEntity{
   }
 
   public boolean isApproved(){
-    return approved;
+    return stutas .equals(CommentConstants.TYPE_APPROVE);
   }
 
-  public void setApproved(boolean approved){
-    this.approved = approved;
+  public String getStutas(){
+    return stutas;
+  }
+
+  public void setStutas(String stutas){
+    this.stutas = stutas;
   }
 
   public String getAgent(){

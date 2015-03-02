@@ -30,6 +30,12 @@ public class CookieUtil{
     this.domain = domain;
   }
 
+  /**
+   * 获取cookie值，默认base64解码
+   * 
+   * @param name
+   * @return
+   */
   public String getCookie(String name){
     return getCookie(name, true);
   }
@@ -78,7 +84,7 @@ public class CookieUtil{
     if(setHttpOnlyMethod != null && httpOnly){
       ReflectionUtils.invokeMethod(setHttpOnlyMethod, cookie, Boolean.TRUE);
     }
-    
+
     if(!StringUtils.isBlank(domain)){
       cookie.setDomain(domain);
     }
