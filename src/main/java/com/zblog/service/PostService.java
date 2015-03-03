@@ -26,11 +26,11 @@ public class PostService extends BaseService{
   public Post loadEditById(String postid){
     return postMapper.loadEditById(postid);
   }
-  
+
   public Post getNextPost(String postid){
     return postMapper.getNextPost(postid);
   }
-  
+
   public Post getPrevPost(String postid){
     return postMapper.getPrevPost(postid);
   }
@@ -46,6 +46,10 @@ public class PostService extends BaseService{
 
   public List<MapContainer> listRecent(){
     return postMapper.listRecent();
+  }
+
+  public List<MapContainer> listRss(){
+    return postMapper.listRss();
   }
 
   public PageModel listByCategory(String categoryName, int pageIndex, int pageSize){

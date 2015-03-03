@@ -48,6 +48,8 @@ public interface PostMapper extends BaseMapper{
    * @return
    */
   List<MapContainer> listRecent();
+  
+  List<MapContainer> listRss();
 
   List<MapContainer> listByCategory(PageModel model);
 

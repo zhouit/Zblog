@@ -18,8 +18,11 @@
      </div>
      <div id="post_mask"></div>
      <div id="right_col">
-      <div class="side_widget clearfix">
+      <div id="introduction_widget" class="side_widget clearfix">
        <h3 class="headline">About</h3>
+       <ul id="social_link">
+         <li class="rss_button"><a target="_blank" href="${g.domain}/feed">rss</a></li>
+       </ul>
        <p>You can show your site introduction by using Site Introduction Widget. 
        You also can show Social Icon on upper part, and search form at bottom. </p>
         <div id="search_area" class="clearfix">

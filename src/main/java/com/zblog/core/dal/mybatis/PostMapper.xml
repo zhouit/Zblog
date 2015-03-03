@@ -32,6 +32,12 @@
       select id, title,parent from post where type='page' <if test="_parameter"> and parent='Root'</if>
    </select>
    
+   <select id="listRss" resultType="MapContainer">  
+      select p.id, p.title, excerpt, c.name as category, p.creator, p.createTime
+        from post p left join category c on p.categoryid=c.id 
+        where p.type='post' order by p.createTime desc limit 10
+   </select>
+   
    <select id="listRecent" resultType="MapContainer">  
       select id, title, rcount, createTime from post where type='post' order by createTime desc limit 10
    </select>
