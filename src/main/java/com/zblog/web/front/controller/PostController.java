@@ -31,8 +31,12 @@ public class PostController{
       model.addAttribute("post", post);
       model.addAttribute("comments",
           commentService.listByPost(id, new CookieUtil(request, null).getCookie("comment_author")));
+      /* 上一篇，下一篇 */
+      model.addAttribute("next", postService.getNextPost(id));
+      model.addAttribute("prev", postService.getPrevPost(id));
     }
-    return "post";
+
+    return post != null ? "post" : "404";
   }
 
 }

@@ -10,9 +10,9 @@ public class LinkFormValidator{
   public static MapContainer validateInsert(Link link){
     MapContainer form = new MapContainer();
     if(StringUtils.isBlank(link.getName())){
-      form.put("msg", "需填写链接名称");
+      form.put("name", "需填写链接名称");
     }else if(StringUtils.isBlank(link.getUrl()) || !link.getUrl().matches(CommRegular.DOMAIN)){
-      form.put("msg", "链接格式不正确");
+      form.put("url", "链接格式不正确");
     }
 
     return form;

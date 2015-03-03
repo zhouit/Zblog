@@ -28,18 +28,18 @@
                 <input type="hidden" name="_method" value="PUT" />
                 <input type="hidden" name="id" value="${link.id}" />
               </c:if>
-              <div class="form-group">
+              <div class="form-group ${name!=null?'has-error':''}">
                 <label class="col-sm-3" for="maxshow">*站点名称</label>
                 <div class="col-sm-6">
                   <input class="form-control" autocomplete="off" type="text" name="name" value="${link.name}" />
-                  <p class="help-block">例如：好用的博客软件</p>
+                  <p class="help-block">${name!=null?name:'例如：好用的博客软件'}</p>
                 </div>
               </div>
-               <div class="form-group">
+               <div class="form-group ${url!=null?'has-error':''}">
                  <label class="col-sm-3" for="defaultType">*站点url</label>
                  <div class="col-sm-6">
                     <input class="form-control" autocomplete="off" type="text" name="url" value="${link.url}" placeholder="http://" />
-                    <p class="help-block">不要忘了 http://</p>
+                    <p class="help-block">${url!=null?url:'不要忘了http://'}</p>
                  </div>
                </div>
                <div class="form-group">

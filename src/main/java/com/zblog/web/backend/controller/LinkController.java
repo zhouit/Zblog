@@ -37,7 +37,7 @@ public class LinkController{
   public String insert(Link link, Model model){
     MapContainer form = LinkFormValidator.validateInsert(link);
     if(!form.isEmpty()){
-      model.addAttribute("msg", form.get("msg"));
+      model.addAllAttributes(form);
       return "backend/link/edit";
     }
 

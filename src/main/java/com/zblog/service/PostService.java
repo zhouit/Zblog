@@ -26,6 +26,14 @@ public class PostService extends BaseService{
   public Post loadEditById(String postid){
     return postMapper.loadEditById(postid);
   }
+  
+  public Post getNextPost(String postid){
+    return postMapper.getNextPost(postid);
+  }
+  
+  public Post getPrevPost(String postid){
+    return postMapper.getPrevPost(postid);
+  }
 
   public PageModel listPost(int pageIndex, int pageSize){
     PageModel page = new PageModel(pageIndex, pageSize);

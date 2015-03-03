@@ -71,11 +71,14 @@
           <div class="col-sm-6 col-md-6">
             <div class="panel panel-default">
               <div class="panel-heading"><span class="icon glyphicon glyphicon-comment"></span>近期留言</div>
-                <div class="list-group">
+                <ul class="list-group">
                 <c:forEach items="${comments}" var="comment">
-                  <a class="list-group-item">${comment.content}</a>
+                  <li class="list-group-item">
+                    <span class="badge"><fmt:formatDate value="${comment.createTime}" pattern="YYYY-MM-dd" /></span>
+                    ${comment.content}
+                  </li>
                 </c:forEach>
-                </div>
+                </ul>
               </div>
           </div>
         </div>

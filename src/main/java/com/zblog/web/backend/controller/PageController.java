@@ -98,7 +98,7 @@ public class PageController{
     }
 
     if(showparent)
-      model.addAttribute("parent", postService.listPage(true));
+      model.addAttribute("parents", postService.listPage(true));
 
     return "backend/page/edit";
   }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.HtmlUtils;
 
 import com.zblog.core.dal.entity.Comment;
-import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.IdGenarater;
 import com.zblog.core.util.JsoupUtils;
@@ -34,9 +33,7 @@ public class CommentController{
       comment.setEmail(cookieUtil.getCookie("comment_author_email", false));
     }
 
-    MapContainer result = CommentValidator.validate(comment);
-    if(!result.isEmpty()){
-      result.put("success", false);
+    if(!CommentValidator.validate(comment).isEmpty()){
       return "redirect:/posts/"+comment.getPostid();
     }
 

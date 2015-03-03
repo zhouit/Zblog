@@ -36,10 +36,11 @@
                     <div class="comment-reply"><a href='#respond'>回复</a></div>
                    </div>
                    <div class="comment-content">
-                   <c:if test="${comment.status=='wait'}">
-                    你的评论正在等待审核。。。
-                   </c:if>
-                   <p>${comment.content}</p></div>
+                     <c:if test="${comment.status=='wait'}">
+                      你的评论正在等待审核。。。
+                    </c:if>
+                     <p>${comment.content}</p>
+                   </div>
                  </li>
                 </c:forEach>
               </c:otherwise>
@@ -47,6 +48,12 @@
             </ol>
            </div>
           <jsp:include page="common/comments_form.jsp" flush="false" />
+         </div>
+       </div>
+       <div id="previous_next_post">
+         <div class="clearfix">
+           <c:if test="${prev!=null}"><p id="prev_post"><a href="${prev.id}">${prev.title}</a></p></c:if>
+           <c:if test="${next!=null}"><p id="next_post"><a href="${next.id}">${next.title}</a></p></c:if>
          </div>
        </div>
      </div>

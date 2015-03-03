@@ -41,6 +41,13 @@ public class CommentService extends BaseService{
     return commentMapper.listRecent();
   }
 
+  /**
+   * 根据postid获取被批准的评论和指定creator的评论
+   * 
+   * @param postid
+   * @param creator
+   * @return
+   */
   public List<MapContainer> listByPost(String postid, String creator){
     return commentMapper.listByPost(postid, creator);
   }

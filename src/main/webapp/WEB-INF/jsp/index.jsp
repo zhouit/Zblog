@@ -20,7 +20,7 @@
            <h3 class="title"><a href="${g.domain}/posts/${post.id}">${post.title}</a></h3>
            <div class="post_content">
              <p class="excerpt">${post.excerpt}...</p>
-             <p><a class="more-link" href="${g.domain}/posts/${post.id}">阅读全文</a></p>
+             <p><a class="more_link" href="${g.domain}/posts/${post.id}">阅读全文</a></p>
           </div>
          </div>
          <div class="meta">

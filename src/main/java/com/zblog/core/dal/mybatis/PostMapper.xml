@@ -12,6 +12,16 @@
       select id, title,content, categoryid, parent from post where id = #{id}
    </select>
    
+   <select id="getNextPost" parameterType="java.lang.String" resultType="Post">
+     select id,title from post where type='post' and createTime > 
+       (select createTime from post where id=#{postid}) limit 1
+   </select>
+   
+   <select id="getPrevPost" parameterType="java.lang.String" resultType="Post">
+     select id,title from post where type='post' and createTime &lt; 
+         (select createTime from post where id=#{postid}) order by createTime desc limit 1
+   </select>
+   
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
       select p.id, p.title, excerpt, c.name as category, p.rcount, p.ccount, p.creator, p.createTime
           from post p left join category c on p.categoryid=c.id where p.type=#{query.type} order by p.createTime desc

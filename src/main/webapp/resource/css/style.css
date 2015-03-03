@@ -1,10 +1,18 @@
-/*** theme from http://www.mono-lab.net/demo4/  ******/
+/*
+Theme Name:FLAT
+Theme URI:http://www.mono-lab.net/demo/flat/
+Description:This theme supports widget, threaded-comments, theme-options,and translation is ready. Also including page-navigation and multi level dropdown menu.You can see live demo including more information here http://www.mono-lab.net/demo/flat/
+Author:mono-lab
+Author URI:http://www.mono-lab.net/
+Version:4.3.4
+*/
+
 
 /* ----------------------------------------------------------------------
  reset css
 ---------------------------------------------------------------------- */
 html{overflow-y: scroll; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
-a img { border:none; }
+a,img { border:none; }
 a, a:visited { text-decoration:none; outline:none; }
 a:hover{text-decoration:underline; }
 p{margin:0 0 1em 0; padding:0; line-height:200%; }
@@ -82,10 +90,15 @@ a:hover{color: #009dc4;}
 .post_content{background-color:#fff;margin: 0 340px 0 0;min-height: 50px;padding: 25px 4%;}
 .post_content p.excerpt{text-indent: 1.5em;}
 /* read more link */
-.post a.more-link{background-color:#f2f2f2;border-radius: 3px;color: #666;display: inline-block;font-size: 12px;height: 35px;line-height: 35px;padding: 0 36px;position: relative;}
-.post a.more-link:hover{color:#fff;background-color:#009dc4;}   
+.post a.more_link{background-color:#f2f2f2;border-radius: 3px;color: #666;display: inline-block;font-size: 12px;height: 35px;line-height: 35px;padding: 0 36px;position: relative;}
+.post a.more_link:hover{color:#fff;background-color:#009dc4;}   
+.post p.back{text-align: center;}
 
 
+#archive_headline h2,
+.post .title a, .post .title span, .post_content, .page,
+#comment_header, #comments{border-right: 1px solid #ccc;}
+#right_col{border-left: 1px solid #ccc;margin-left: -1px;}
 
 /* --- Preset for post style --------------------------- */
 
@@ -118,7 +131,7 @@ a:hover{color: #009dc4;}
 #bread_crumb ul{margin:0 340px 0 0; padding:13px 4% 11px; font-size:10px; }
 #bread_crumb ul li{float:left; display:inline; margin:0 10px 0 0; padding:0 15px 0 0; color:#777; background:url(../img/arrow2.gif) no-repeat right 3px; line-height:150%; }
 #bread_crumb ul li.last{ margin:0; padding:0; background:none; }
-#bread_crumb ul li a{color:#777; text-decoration:underline; }
+#bread_crumb ul li a{color:#777;}
 
 
 /******** left side of post meta ***********/
@@ -153,7 +166,7 @@ a:hover{color: #009dc4;}
 #comments_wrapper a{color: #888;text-decoration: underline;}
 #comment_header{border-bottom: 1px solid #ccc;font-size: 11px;margin: 0 340px 0 0;min-width: 200px;padding: 0 4%;position: relative;}
 #comment_header span.comments_right{float:right; position:relative; bottom:-1px; padding:5px 10px; background:#fff;border:1px solid #ccc;border-bottom-width: 0;}
-#comments{margin: 0 340px 0 0;padding: 20px 4% 0;}
+#comments{margin: 0 340px 0 0;padding: 20px 4% 15px 4%;}
 
 #comment_area{margin:15px 0 20px; padding:0 0 5px 0;}
 .commentlist{list-style-type:none; margin:0; padding:0; }
@@ -178,7 +191,7 @@ ul.comment-name-date li{padding: 0 0 5px;}
 
 
 /************  comment-form ************/
-.comment_form_wrapper{background: #fff;border: 1px solid #ccc;border-radius: 4px;box-shadow: 0 0 2px 1px #ddd;margin: 0 0 15px;padding: 15px;font-size: 12px;}
+.comment_form_wrapper{background: #fff;border: 1px solid #ccc;border-radius: 4px;box-shadow: 0 0 2px 1px #ddd;padding: 15px;font-size: 12px;}
 #cancel_comment_reply{background:url(../img/arrow2.gif) no-repeat left center; margin:0 0 1em 0; padding:0 0 0 11px; }
 #guest_info{padding:0; width:100%; }
 #guest_info div{margin:0 0 12px 0; text-align:left; }
@@ -195,10 +208,18 @@ ul.comment-name-date li{padding: 0 0 5px;}
 #submit_comment:hover{color:#fff;background: #009dc4; }
 
 
+#previous_next_post{float: right;position: relative;width: 86%;z-index: 3;}
+#previous_next_post div{margin: 0 340px 0 0;padding: 30px 4%;border-right: 1px solid #ccc;border-top: 1px solid #ccc;}
+#prev_post, #next_post{line-height: 140%;width: 49%;margin: 0;font-size: 12px;}
+#prev_post{float: left;}
+#prev_post a{background: url("../img/left_arrow.png") no-repeat scroll left top;display: block;padding: 11px 0 11px 45px;}
+#next_post{float: right;text-align: right;}
+#next_post a{background: url("../img/right_arrow.png") no-repeat scroll right top;display: block;padding: 11px 45px 11px 0;;}
+
 /************* right ************/
 #right_col ol,#right_col ul{margin: 0;}
 
-#right_col{font-size:11px; padding:267px 20px 100px 20px; width:300px; margin:0; float:right; position:relative; z-index:4;}
+#right_col{font-size:11px; padding:267px 20px 100px 20px; width:300px;float:right; position:relative; z-index:4;}
 /* list */
 #right_col li{margin:0 0 1em 0; line-height:160%; }
 #right_col li li{padding:0 0 0 1em; margin:5px 0; }

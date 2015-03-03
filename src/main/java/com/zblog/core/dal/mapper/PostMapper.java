@@ -19,6 +19,22 @@ public interface PostMapper extends BaseMapper{
   Post loadEditById(String postid);
 
   /**
+   * 获取制定post的下一篇
+   * 
+   * @param postid
+   * @return
+   */
+  Post getPrevPost(String postid);
+
+  /**
+   * 获取指定post的上一篇
+   * 
+   * @param postid
+   * @return
+   */
+  Post getNextPost(String postid);
+
+  /**
    * 获取页面(只包含ID和title)
    * 
    * @param onlyParent
