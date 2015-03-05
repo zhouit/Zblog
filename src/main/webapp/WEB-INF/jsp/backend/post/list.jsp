@@ -40,7 +40,7 @@
                        <span><a href="#">快速编辑</a>&nbsp;|&nbsp;</span>
                        <span><a href="#">移到回收站</a>&nbsp;|&nbsp;</span>
                        <span><a target="_blank" href="${g.domain}/pages/${post.id}">查看</a></span>
-                     </div></td><td>${post.creator}</td>
+                     </div></td><td>${post.nickName}</td>
                      <td>${post.category}</td><td><fmt:formatDate value="${post.createTime}" pattern="yyyy-MM-dd" /></td>
                      <td>${post.rcount} views</td>
                      <td class="center"><span class="icon glyphicon glyphicon-pencil pointer" onclick="zblog.post.edit('${post.id}')"></span>

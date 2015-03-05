@@ -1,8 +1,11 @@
 package com.zblog.biz;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Date;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,9 +14,11 @@ import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.util.DateUtils;
 import com.zblog.core.util.FileUtils;
 import com.zblog.core.util.IdGenarater;
+import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.constants.WebConstants;
 import com.zblog.core.util.web.ServletRequestReader;
-import com.zblog.core.util.web.WebContextHolder;
+import com.zblog.core.util.web.WebContext;
+import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.UploadService;
 
 @Component
@@ -42,8 +47,7 @@ public class UploadManager{
 
       upload = new Upload();
       upload.setId(IdGenarater.uuid19());
-      upload.setCreateTime(new Date());
-      upload.setCreator(WebContextHolder.get().getUser().getNickName());
+      upload.setCreator(WebContextFactory.get().getUser().getId());
       upload.setName(file.getOriginalFilename());
       upload.setPath("/post/uploads/" + year + "/" + savePath.getName());
 
@@ -51,6 +55,37 @@ public class UploadManager{
     }catch(Exception e){
       e.printStackTrace();
       upload = null;
+    }
+
+    return upload;
+  }
+
+  public Upload insertUpload(byte[] file, String fileName, String userid){
+    Upload upload = null;
+    OutputStream out = null;
+    try{
+      String year = DateUtils.currentDate("yyyy");
+      WebContext context = WebContextFactory.get();
+      File parent = new File(ServletUtils.getRealPath(context.getRequest(), "/post/uploads"), year);
+      if(!parent.exists())
+        parent.mkdirs();
+
+      File savePath = determineFile(parent, fileName);
+      IOUtils.write(file, out = new FileOutputStream(savePath));
+
+      upload = new Upload();
+      upload.setId(IdGenarater.uuid19());
+      upload.setCreateTime(new Date());
+      upload.setCreator(userid);
+      upload.setName(fileName);
+      upload.setPath("/post/uploads/" + year + "/" + savePath.getName());
+
+      uploadService.insert(upload);
+    }catch(Exception e){
+      e.printStackTrace();
+      upload = null;
+    }finally{
+      IOUtils.closeQuietly(out);
     }
 
     return upload;
@@ -84,5 +119,5 @@ public class UploadManager{
 
     return temp;
   }
-
+  
 }

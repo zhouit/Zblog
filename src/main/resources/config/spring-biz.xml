@@ -36,9 +36,9 @@
           execution(* delete*(..)) || execution(* update*(..)))" id="p-link" />
       <aop:after-returning method="staticLinks" pointcut-ref="p-link" />
       
-      <aop:after-returning method="staticPost" pointcut-ref="p-post-insert" arg-names="post" />
-      <aop:after-returning method="staticPost" pointcut-ref="p-post-update" arg-names="post" />
-      <aop:after-returning method="removePost" pointcut-ref="p-post-remove" arg-names="postid,postType" />
+      <aop:after-returning method="postInsertOrUpdate" pointcut-ref="p-post-insert" arg-names="post" />
+      <aop:after-returning method="postInsertOrUpdate" pointcut-ref="p-post-update" arg-names="post" />
+      <aop:after-returning method="postRemove" pointcut-ref="p-post-remove" arg-names="postid,postType" />
     </aop:aspect>
   </aop:config>
   

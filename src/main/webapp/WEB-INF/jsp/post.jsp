@@ -11,8 +11,7 @@
    <%@include file="common/header.html" %>
    <div id="content" class="clearfix">
      <div id="left_col">
-       <jsp:include page="../../post/post-${post.id}.html" flush="false" />
-      <%--  <%@include file="../../../post/post-201412.html" %> --%>
+       <jsp:include page="common/content.jsp" flush="false" />
        <div id="comments_wrapper">
          <div id="comment_header" class="clearfix">
            <span class="comments_right">评论 (${post.ccount})</span>

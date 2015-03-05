@@ -18,7 +18,7 @@ import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.Constants;
-import com.zblog.core.util.web.WebContextHolder;
+import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.CommentService;
 import com.zblog.service.PostService;
 import com.zblog.service.UserService;
@@ -43,14 +43,14 @@ public class BackendController{
     model.addAttribute("javaVersion", System.getProperty("java.version"));
     model.addAttribute("memory", Runtime.getRuntime().totalMemory() / 1024 / 1024);
 
-    model.addAttribute("posts", postService.listRecent());
+    model.addAttribute("posts", postService.listRecent(10));
     model.addAttribute("comments", commentService.listRecent());
     return "backend/index";
   }
 
   @RequestMapping(value = "/login", method = RequestMethod.GET)
   public String login(String msg, Model model){
-    if(WebContextHolder.get().isLogon())
+    if(WebContextFactory.get().isLogon())
       return "redirect:/backend/index";
 
     if("logout".equals(msg))

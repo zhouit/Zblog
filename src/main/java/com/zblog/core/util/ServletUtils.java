@@ -44,6 +44,10 @@ public class ServletUtils{
     return result;
   }
 
+  public static String getRealPath(HttpServletRequest request, String path){
+    return request.getSession(true).getServletContext().getRealPath(path);
+  }
+
   public static void sendRedirect(HttpServletResponse response, String url){
     try{
       response.sendRedirect(url);

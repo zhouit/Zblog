@@ -32,7 +32,7 @@
              </li>
              <li class="post_comment"> ${post.rcount}人阅读</li>
              <li class="post_author">
-               <a rel="author" title="由${post.creator}发布" href="${domain}/author/26793713/">${post.creator}</a>
+               <a rel="author" title="由${post.nickName}发布" href="${domain}/authors/${post.creator}">${post.nickName}</a>
              </li>
              <li class="post_comment">
                 <a title="${post.title}的评论" href="${g.domain}/posts/${post.id}/#respond">发表评论</a>

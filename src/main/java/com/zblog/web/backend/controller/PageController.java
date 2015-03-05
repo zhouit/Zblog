@@ -21,7 +21,7 @@ import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.PostConstants;
-import com.zblog.core.util.web.WebContextHolder;
+import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.PostService;
 import com.zblog.web.backend.form.validator.PostFormValidator;
 
@@ -53,7 +53,7 @@ public class PageController{
     }
 
     post.setId(optionManager.getNextPostid());
-    post.setCreator(WebContextHolder.get().getUser().getNickName());
+    post.setCreator(WebContextFactory.get().getUser().getId());
     post.setLastUpdate(new Date());
 
     /* 由于加入xss的过滤,html内容都被转义了,这里需要unescape */
@@ -92,7 +92,7 @@ public class PageController{
     /* 是否可设置父页面 */
     boolean showparent = true;
     if(!StringUtils.isBlank(pid)){
-      Post page = postService.loadEditById(pid);
+      Post page = postService.loadById(pid);
       model.addAttribute("post", page);
       showparent = PostConstants.DEFAULT_PARENT.equals(page.getParent());
     }

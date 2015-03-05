@@ -50,7 +50,10 @@ public class IndexController{
   public void rss(HttpServletRequest request, HttpServletResponse response) throws IOException{
     Channel channel = new Channel();
     channel.setDomain(ServletUtils.getDomain(request));
-    channel.setLogoUrl(channel.getDomain()+"/resource/img/zblog-logo.png");
+    channel.setLogoUrl(channel.getDomain()+"/resource/img/logo.png");
+    channel.setTitle(WebConstants.TITLE);
+    channel.setDescription(WebConstants.DESCRIPTION);
+    
     List<Article> items = new ArrayList<>();
     for(MapContainer mc : postService.listRss()){
       items.add(new ArticleAdapter(mc));

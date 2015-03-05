@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.zblog.core.dal.entity.Post;
+import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.CommentService;
@@ -25,9 +25,9 @@ public class PostController{
 
   @RequestMapping(value = "/{postid}", method = RequestMethod.GET)
   public String post(@PathVariable("postid") String id, HttpServletRequest request, Model model){
-    Post post = postService.loadById(id);
+    MapContainer post = postService.loadReadById(id);
     if(post != null){
-      model.addAttribute(WebConstants.PRE_TITLE_KEY, post.getTitle());
+      model.addAttribute(WebConstants.PRE_TITLE_KEY, post.getAsString("title"));
       model.addAttribute("post", post);
       model.addAttribute("comments",
           commentService.listByPost(id, new CookieUtil(request, null).getCookie("comment_author")));

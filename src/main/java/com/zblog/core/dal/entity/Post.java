@@ -2,6 +2,12 @@ package com.zblog.core.dal.entity;
 
 import com.zblog.core.util.constants.PostConstants;
 
+/**
+ * 文章/页面,注：post的creator为userid
+ * 
+ * @author zhou
+ * 
+ */
 public class Post extends BaseEntity{
   private String title;
   /* 摘录,当type为页面该项为null */

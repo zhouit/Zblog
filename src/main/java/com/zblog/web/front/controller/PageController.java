@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.zblog.core.dal.entity.Post;
+import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.CommentService;
@@ -24,14 +24,15 @@ public class PageController{
 
   @RequestMapping("/{pageid}")
   public String page(@PathVariable("pageid") String pageid, HttpServletRequest request, Model model){
-    Post post = postService.loadById(pageid);
+    MapContainer post = postService.loadReadById(pageid);
     if(post != null){
-      model.addAttribute(WebConstants.PRE_TITLE_KEY, post.getTitle());
+      model.addAttribute(WebConstants.PRE_TITLE_KEY, post.getAsString("title"));
       model.addAttribute("post", post);
       model.addAttribute("comments",
           commentService.listByPost(pageid, new CookieUtil(request, null).getCookie("comment_author")));
     }
-    return "post";
+    
+    return post != null ? "post" : "404";
   }
 
 }

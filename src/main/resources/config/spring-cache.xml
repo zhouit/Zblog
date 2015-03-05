@@ -22,7 +22,7 @@
        (execution(* loadById(..)) || execution(* update(..)) || execution(* deleteById(..)))"/>
     
     <aop:advisor advice-ref="postAdvisor" pointcut="target(com.zblog.service.PostService) and 
-       (execution(* loadById(..)) || execution(* update(..)) || execution(* deleteById(..)))"/>
+       (execution(* loadReadById(..)) || execution(* update(..)) || execution(* deleteById(..)))"/>
   </aop:config>
   
   <cache:advice id="userAdvisor" cache-manager="cacheManager">
@@ -36,7 +36,7 @@
   
   <cache:advice id="postAdvisor" cache-manager="cacheManager">
     <cache:caching cache="posts">
-       <cache:cacheable method="loadById" key="#p0" />
+       <cache:cacheable method="loadReadById" key="#p0" />
        <cache:cache-evict method="update" key="#p0.id" />
        <cache:cache-evict method="deleteById" key="#p0" />
     </cache:caching>

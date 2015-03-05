@@ -9,14 +9,8 @@ import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
 
 public interface PostMapper extends BaseMapper{
-
-  /**
-   * 与loadById区别为:此方法会加载content，而loadById会加载exceprt
-   * 
-   * @param postid
-   * @return
-   */
-  Post loadEditById(String postid);
+  
+  public MapContainer loadReadById(String postid);
 
   /**
    * 获取制定post的下一篇
@@ -47,7 +41,7 @@ public interface PostMapper extends BaseMapper{
    * 
    * @return
    */
-  List<MapContainer> listRecent();
+  List<MapContainer> listRecent(int nums);
   
   List<MapContainer> listRss();
 

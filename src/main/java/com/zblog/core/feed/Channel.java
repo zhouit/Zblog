@@ -6,6 +6,8 @@ import java.util.List;
 public class Channel{
   private String domain;
   private String logoUrl;
+  private String title;
+  private String description;
   private List<Article> items;
 
   public Channel(){
@@ -30,6 +32,22 @@ public class Channel{
 
   public void setLogoUrl(String logoUrl){
     this.logoUrl = logoUrl;
+  }
+
+  public String getTitle(){
+    return title;
+  }
+
+  public void setTitle(String title){
+    this.title = title;
+  }
+
+  public String getDescription(){
+    return description;
+  }
+
+  public void setDescription(String description){
+    this.description = description;
   }
 
   public void setItems(List<Article> items){

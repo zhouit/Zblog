@@ -3,7 +3,7 @@ package com.zblog.core.util.constants;
 import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.web.WebContext;
-import com.zblog.core.util.web.WebContextHolder;
+import com.zblog.core.util.web.WebContextFactory;
 
 public class WebConstants{
   private WebConstants(){
@@ -38,7 +38,7 @@ public class WebConstants{
   static final String BACKEND_URL = "^/backend.*(?<!/login|/rcode)$";
 
   public static String getDomain(){
-    WebContext context = WebContextHolder.get();
+    WebContext context = WebContextFactory.get();
     return ServletUtils.getDomain(context.getRequest());
   }
 

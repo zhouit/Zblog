@@ -16,15 +16,9 @@ import com.zblog.core.util.constants.PostConstants;
 public class PostService extends BaseService{
   @Autowired
   private PostMapper postMapper;
-
-  /**
-   * 此方法会加载Post的content,loadById只会加载excerpt
-   * 
-   * @param postid
-   * @return
-   */
-  public Post loadEditById(String postid){
-    return postMapper.loadEditById(postid);
+  
+  public MapContainer loadReadById(String postid){
+    return postMapper.loadReadById(postid);
   }
 
   public Post getNextPost(String postid){
@@ -44,8 +38,8 @@ public class PostService extends BaseService{
     return page;
   }
 
-  public List<MapContainer> listRecent(){
-    return postMapper.listRecent();
+  public List<MapContainer> listRecent(int nums){
+    return postMapper.listRecent(nums);
   }
 
   public List<MapContainer> listRss(){

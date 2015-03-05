@@ -5,11 +5,13 @@
 <mapper namespace="com.zblog.core.dal.mapper.PostMapper">
    
    <select id="loadById" parameterType="java.lang.String" resultType="Post">  
-      select id, title,excerpt, categoryid, ccount, rcount, creator, createTime from post where id = #{id}
+      select id, title, content, categoryid, parent, createTime from post where id = #{id}
    </select>
    
-    <select id="loadEditById" parameterType="java.lang.String" resultType="Post">  
-      select id, title,content, categoryid, parent from post where id = #{id}
+   <select id="loadReadById" parameterType="java.lang.String" resultType="MapContainer">  
+      select p.id, p.title, p.content, p.categoryid, c.name as categoryName, p.parent, p.creator, p.rcount, p.ccount, p.createTime,u.nickName 
+      from post p left join category c on p.categoryid=c.id left join user u on p.creator=u.id
+      where p.id = #{id}
    </select>
    
    <select id="getNextPost" parameterType="java.lang.String" resultType="Post">
@@ -23,8 +25,9 @@
    </select>
    
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
-      select p.id, p.title, excerpt, c.name as category, p.rcount, p.ccount, p.creator, p.createTime
-          from post p left join category c on p.categoryid=c.id where p.type=#{query.type} order by p.createTime desc
+      select p.id, p.title, excerpt, c.name as category, p.rcount, p.ccount, p.creator, u.nickName, p.createTime
+          from post p left join category c on p.categoryid=c.id left join user u on p.creator=u.id
+          where p.type=#{query.type} order by p.createTime desc
    </select>
    
    <select id="listPage" resultType="MapContainer" parameterType="boolean">
@@ -33,18 +36,19 @@
    </select>
    
    <select id="listRss" resultType="MapContainer">  
-      select p.id, p.title, excerpt, c.name as category, p.creator, p.createTime
-        from post p left join category c on p.categoryid=c.id 
+      select p.id, p.title, excerpt, c.name as category, p.creator, u.nickName, p.createTime
+        from post p left join category c on p.categoryid=c.id left join user u on p.creator=u.id
         where p.type='post' order by p.createTime desc limit 10
    </select>
    
-   <select id="listRecent" resultType="MapContainer">  
-      select id, title, rcount, createTime from post where type='post' order by createTime desc limit 10
+   <select id="listRecent" parameterType="integer" resultType="MapContainer">  
+      select id, title, categoryid, creator, rcount, createTime from post where type='post' order by createTime desc limit #{nums}
    </select>
    
    <select id="listByCategory" parameterType="PageModel" resultType="MapContainer">  
-      select p.id, p.title, p.excerpt, p.creator, p.createTime from post p inner join category c on p.categoryid=c.id 
-          where c.name=#{query.categoryName} and p.type=#{query.type} order by p.createTime desc
+      select p.id, p.title, p.excerpt, p.creator, u.nickName, p.createTime 
+        from post p inner join category c on p.categoryid=c.id left join user u on p.creator=u.id 
+        where c.name=#{query.categoryName} and p.type=#{query.type} order by p.createTime desc
    </select>
    
    <insert id="insert" parameterType="Post">

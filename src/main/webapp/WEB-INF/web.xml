@@ -48,7 +48,7 @@
     <init-param>
       <param-name>exclude</param-name>
       <!-- 基于ant风格的url匹配 -->
-      <param-value>/resource/**,/comments/**</param-value>
+      <param-value>/resource/**,/comments/**,/xmlrpc/**</param-value>
     </init-param>
   </filter>
   <!-- 隐藏的HttpMethod方法过滤器，表单提交中需要携带一个name=_method的隐藏域，value=put或者delete -->
@@ -88,6 +88,10 @@
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>/resource/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.ico</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>

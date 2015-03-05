@@ -110,14 +110,14 @@ CREATE TABLE `post` (
   `cstatus` varchar(10) NOT NULL,
   `ccount` int(11) NOT NULL,
   `rcount` int(11) NOT NULL,
-  `creator` varchar(25) NOT NULL,
+  `creator` varchar(19) NOT NULL,
   `createTime` datetime NOT NULL,
   `lastUpdate` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_post_category` (`categoryid`),
   KEY `index_post_user` (`creator`),
   CONSTRAINT `index_post_category` FOREIGN KEY (`categoryid`) REFERENCES `category` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `index_post_user` FOREIGN KEY (`creator`) REFERENCES `user` (`nickName`) ON DELETE CASCADE
+  CONSTRAINT `index_post_user` FOREIGN KEY (`creator`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------

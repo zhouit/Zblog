@@ -29,7 +29,7 @@ public class ArticleAdapter implements Article{
   
   @Override
   public String getAuthor(){
-    return post.getAsString("creator");
+    return post.getAsString("nickName");
   }
 
   @Override

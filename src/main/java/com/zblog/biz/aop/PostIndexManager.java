@@ -5,16 +5,18 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.index.Term;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.lucene.LuceneUtils;
 import com.zblog.core.lucene.QueryBuilder;
 import com.zblog.core.lucene.SearchEnginer;
+import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
-import com.zblog.core.util.DateUtils;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.constants.PostConstants;
+import com.zblog.service.PostService;
 
 /**
  * 文章Lucene索引管理器
@@ -25,6 +27,8 @@ import com.zblog.core.util.constants.PostConstants;
 @Component
 public class PostIndexManager{
   private static final Logger logger = LoggerFactory.getLogger(PostIndexManager.class);
+  @Autowired
+  private PostService postService;
 
   /**
    * 只有添加文章才插入Lucene索引
@@ -50,7 +54,7 @@ public class PostIndexManager{
 
   public void remove(String postid, String postType){
     if(PostConstants.TYPE_POST.equals(postType))
-    SearchEnginer.postEnginer().delete(new Term("id", postid));
+      SearchEnginer.postEnginer().delete(new Term("id", postid));
   }
 
   public PageModel search(String word, int pageIndex){
@@ -58,6 +62,11 @@ public class PostIndexManager{
     QueryBuilder builder = new QueryBuilder(SearchEnginer.postEnginer().getAnalyzer());
     builder.addShould("title", word).addShould("excerpt", word);
     SearchEnginer.postEnginer().searchHighlight(builder, result);
+    /* 填充其他属性 */
+    for(MapContainer mc : result.getContent()){
+      MapContainer all = postService.loadReadById(mc.getAsString("id"));
+      mc.put("createTime", all.get("createTime")).put("nickName", all.get("nickName")).put("rcount", all.get("rcount"));
+    }
 
     return result;
   }
@@ -69,8 +78,8 @@ public class PostIndexManager{
     /* 用jsoup剔除html标签 */
     doc.add(new Field("excerpt", JsoupUtils.plainText(post.getContent()), LuceneUtils.searchType()));
     doc.add(new Field("creator", post.getCreator(), LuceneUtils.storeType()));
-    doc.add(new Field("createTime", DateUtils.formatDate("yyyy-MM-dd", post.getCreateTime()), LuceneUtils.storeType()));
-
+    // doc.add(new LongField("createTime", post.getCreateTime().getTime(),
+    // LuceneUtils.storeType()));
     return doc;
   }
 

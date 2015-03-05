@@ -2,12 +2,12 @@ a,a:hover,a:focus{text-decoration: none;outline: medium none;}
 h1, h2, h3, h4, h5, h6,p{margin: 0;padding: 0;}
 
 /**************  login  ************/
-#login h1{margin-bottom: 15px;}
-#login h1 img{margin-left: 15px;}
-#login p{margin: 0 0 16px 8px;padding: 12px;}
-#login .message{background-color: #ffffe0;border:1px solid #e6db55; border-radius: 3px;}
-#login #loginform{background-color:#fff;border: 1px solid #e5e5e5;font-weight: normal;margin-left: 8px;padding:24px;
-    box-shadow: 0 4px 10px -1px rgba(200, 200, 200, 0.7);}
+#login{width:500px;margin:0px auto;margin-top: 150px;}
+#login #logo{text-align: center;float: left;padding-top: 10px;width: 200px;}
+#login p{padding: 12px 12px 12px 0;}
+#login .message{background-color: #ffffe0;border:1px solid #e6db55; border-radius: 3px;text-align: center;margin-bottom: 10px;}
+#login #loginform{background-color:#fff;border: 1px solid #e5e5e5;font-weight: normal;padding:24px;
+    box-shadow: 0 4px 10px -1px rgba(200, 200, 200, 0.7);margin-left: 200px;}
 
 .icon{padding-right: 0.75em;}
 #sidebar{overflow-x: hidden;padding: 20px;border-right: 1px solid #cccccc;}

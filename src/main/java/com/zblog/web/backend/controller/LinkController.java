@@ -16,7 +16,7 @@ import com.zblog.core.dal.entity.Link;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.IdGenarater;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.web.WebContextHolder;
+import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.LinkService;
 import com.zblog.web.backend.form.validator.LinkFormValidator;
 
@@ -42,7 +42,7 @@ public class LinkController{
     }
 
     link.setLastUpdate(new Date());
-    link.setCreator(WebContextHolder.get().getUser().getNickName());
+    link.setCreator(WebContextFactory.get().getUser().getNickName());
     link.setId(IdGenarater.uuid19());
     link.setVisible(true);
     linkService.insert(link);

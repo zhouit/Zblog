@@ -17,7 +17,7 @@ import com.zblog.core.dal.entity.User;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.IdGenarater;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.web.WebContextHolder;
+import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.UserService;
 import com.zblog.web.backend.form.validator.UserFormValidator;
 
@@ -82,7 +82,7 @@ public class UserController{
 
   @RequestMapping(value = "/my", method = RequestMethod.GET)
   public String my(Model model){
-    model.addAttribute("my", WebContextHolder.get().getUser());
+    model.addAttribute("my", WebContextFactory.get().getUser());
     return "backend/user/my";
   }
 

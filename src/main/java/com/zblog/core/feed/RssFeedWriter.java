@@ -12,7 +12,6 @@ import javax.xml.stream.XMLStreamWriter;
 import com.zblog.core.feed.Channel.Article;
 import com.zblog.core.util.IndentXMLStreamWriter;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.constants.WebConstants;
 
 public class RssFeedWriter{
 
@@ -34,9 +33,9 @@ public class RssFeedWriter{
 
       writer.writeStartElement("channel");
 
-      createNode(writer, "title", WebConstants.TITLE);
+      createNode(writer, "title", channel.getTitle());
       createNode(writer, "link", channel.getDomain());
-      createNode(writer, "description", WebConstants.DESCRIPTION);
+      createNode(writer, "description", channel.getDescription());
       createNode(writer, "language", "zh-CN");
       createNode(writer, "pubdate", format.format(new Date()));
 
@@ -44,7 +43,7 @@ public class RssFeedWriter{
         writer.writeStartElement("image");
         createNode(writer, "link", channel.getDomain());
         createNode(writer, "url", channel.getLogoUrl());
-        createNode(writer, "title", WebConstants.TITLE);
+        createNode(writer, "title", channel.getTitle());
         writer.writeEndElement();
       }
 

@@ -14,7 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.constants.Constants;
 import com.zblog.core.util.web.WebContext;
-import com.zblog.core.util.web.WebContextHolder;
+import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.shiro.StatelessToken;
 
 /**
@@ -28,7 +28,7 @@ public class LoginFilter extends OncePerRequestFilter{
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException{
-    WebContext context = WebContextHolder.get();
+    WebContext context = WebContextFactory.get();
     if(context != null)
       return;
 
@@ -36,7 +36,7 @@ public class LoginFilter extends OncePerRequestFilter{
       context = new WebContext(request, response);
       context.setUser(CookieRemberManager.extractValidRememberMeCookieUser(request, response));
       // 保存上下文
-      WebContextHolder.set(context);
+      WebContextFactory.set(context);
 
       accessControl();
 
@@ -54,13 +54,13 @@ public class LoginFilter extends OncePerRequestFilter{
         handleException(e.getCause(), request, response);
       }
     }finally{
-      WebContextHolder.remove();
+      WebContextFactory.remove();
       cleanup();
     }
   }
 
   private void accessControl(){
-    WebContext context = WebContextHolder.get();
+    WebContext context = WebContextFactory.get();
 
     if(context.isLogon()){
       /* 注意：此处要委托给Realm进行登录 */

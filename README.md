@@ -14,6 +14,7 @@ a java blog
 6.	会员注册登录，后台管理功能。
 7.	lucene实现的站内搜索。
 8.	防xss、csrf攻击。
+9.	支持metaWeblog Api
 
 ### 技术选型
 

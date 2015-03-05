@@ -97,7 +97,7 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
         response.getWriter().write("{'status':'403','success':false,'msg':'非法请求,请刷新重试'}");
         return;
       }else if(!ajax && !isVerificationToken(request, csrfToken)){
-        if(response.isCommitted())
+//        if(response.isCommitted())
           response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         return;
       }

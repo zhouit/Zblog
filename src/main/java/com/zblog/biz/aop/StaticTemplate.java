@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.zblog.biz.PostManager;
-import com.zblog.core.dal.entity.Category;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.constants.PostConstants;
@@ -70,33 +69,11 @@ public class StaticTemplate{
    * 
    * @param post
    */
-  public void staticPost(Post post){
-    MapContainer param = new MapContainer("domain", WebConstants.getDomain()).put("post", post);
-    if(PostConstants.TYPE_POST.equals(post.getType())){
-      Category category = categoryService.loadById(post.getCategoryid());
-      param.put("categoryName", category.getName());
-    }
-
-    /* 有可能为更新post,这就需要从数据库查询createTime,creator这些信息了 */
-    if(post.getCreateTime() == null){
-      Post old = postService.loadEditById(post.getId());
-      post.setCreateTime(old.getCreateTime());
-      post.setCreator(old.getCreator());
-    }
-
-    FreeMarkerUtils.genHtml("/post.html",
-        new File(WebConstants.APPLICATION_PATH, "post/post-" + post.getId() + ".html"), param);
-    logger.info("staticPost");
-
+  public void postInsertOrUpdate(Post post){
     staticRecentOrHeader(PostConstants.TYPE_POST.equals(post.getType()));
   }
 
-  public void removePost(String postid, String postType){
-    String path = "post/post-" + postid + ".html";
-    File postFile = new File(WebConstants.APPLICATION_PATH, path);
-    postFile.delete();
-    logger.info("removePost");
-
+  public void postRemove(String postid, String postType){
     staticRecentOrHeader(PostConstants.TYPE_POST.equals(postType));
   }
 
@@ -108,7 +85,7 @@ public class StaticTemplate{
   private void staticRecentOrHeader(boolean ispost){
     if(ispost){
       MapContainer param = new MapContainer("domain", WebConstants.getDomain());
-      param.put("posts", postService.listRecent());
+      param.put("posts", postService.listRecent(10));
       FreeMarkerUtils.genHtml("/common/recent.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
           + "/common/recent.html"), param);
       logger.info("staticRecent");

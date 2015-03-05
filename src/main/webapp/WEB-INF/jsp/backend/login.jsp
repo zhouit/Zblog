@@ -7,9 +7,12 @@
   <jsp:include page="common/bootstrap.jsp" flush="false" />
  </head>
  <body style="background-color: #fbfbfb;">
-   <div id="login" style="width:300px;margin:0px auto;margin-top: 100px;">
-     <h1><img title="Zblog" src="../../resource/img/zblog-logo.png" /></h1>
+   <div id="login" class="clearfix">
      <c:if test="${msg!=null}"><p class="message">${msg}<br></p></c:if>
+     <div id="logo">
+       <img title="Zblog" src="../../resource/img/logo.png" />
+       <p><a href="${g.domain}" title="不知道自己在哪">← 回到${g.title}</a></p>
+     </div>
      <form id="loginform" method="post">
        <input type="hidden" name="CSRFToken" value="${CSRFToken}" />
        <div class="form-group">
@@ -34,7 +37,6 @@
          <button type="submit" class="btn btn-primary" style="margin-left: 40px;">登录</button>
        </div>
      </form>
-     <p><a href="${g.domain}" title="不知道自己在哪">← 回到${g.title}</a></p>
   </div>
   <footer class="footer">
      <div class="container">
