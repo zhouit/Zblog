@@ -52,6 +52,8 @@ CREATE TABLE `comment` (
   `createTime` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_comment_post` (`postid`),
+  KEY `index_parent` (`parent`) USING BTREE,
+  CONSTRAINT `index_comment` FOREIGN KEY (`parent`) REFERENCES `comment` (`id`) ON DELETE CASCADE,
   CONSTRAINT `index_comment_post` FOREIGN KEY (`postid`) REFERENCES `post` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

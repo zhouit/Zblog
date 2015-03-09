@@ -22,7 +22,7 @@ public class BeanPropertyUtils{
         }
       }
     }catch(Exception e){
-      logger.warn("can't get field " + fieldName + " value in class " + obj);
+      logger.debug("can't get field " + fieldName + " value in class " + obj);
     }
 
     return value;
@@ -38,7 +38,7 @@ public class BeanPropertyUtils{
       try{
         return superClass.getDeclaredField(fieldName);
       }catch(Exception e){
-        logger.warn("can't found field " + fieldName + " in class "
+        logger.debug("can't found field " + fieldName + " in class "
             + obj.getClass());
       }
     }

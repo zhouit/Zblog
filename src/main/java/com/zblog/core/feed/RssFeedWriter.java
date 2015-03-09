@@ -30,6 +30,7 @@ public class RssFeedWriter{
 
       writer.writeStartElement("rss");
       writer.writeAttribute("version", "2.0");
+      writer.writeNamespace("content", "http://purl.org/rss/1.0/modules/content/");
 
       writer.writeStartElement("channel");
 
@@ -53,9 +54,11 @@ public class RssFeedWriter{
         createNode(writer, "link", channel.getDomain() + article.getLink());
         createNode(writer, "category", article.getCategory());
         createNode(writer, "author", article.getAuthor());
-        createNode(writer, "description", article.getDescription());
+        createNode(writer, "description", "");
+        createNode(writer, "content", "http://purl.org/rss/1.0/modules/content/", "encoded", article.getDescription());
         createNode(writer, "pubDate", format.format(article.getPubDate()));
         createNode(writer, "guid", channel.getDomain() + article.getGuid());
+        createNode(writer, "comments", channel.getDomain() + article.getGuid() + "#comments");
         writer.writeEndElement();
       }
 
@@ -73,6 +76,13 @@ public class RssFeedWriter{
   private static void createNode(XMLStreamWriter writer, String name, String value) throws XMLStreamException{
     writer.writeStartElement(name);
     writer.writeCharacters(value);
+    writer.writeEndElement();
+  }
+
+  private static void createNode(XMLStreamWriter writer, String prefix, String namespace, String name, String value)
+      throws XMLStreamException{
+    writer.writeStartElement(prefix, name, namespace);
+    writer.writeCData(value);
     writer.writeEndElement();
   }
 

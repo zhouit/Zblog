@@ -47,6 +47,7 @@ public class LoginFilter extends OncePerRequestFilter{
       filterChain.doFilter(request, response);
     }catch(Exception e){
       if(ServletUtils.isAjax(request)){
+        logger.error("error happend", e);
         response.setContentType("application/json");
         response.setCharacterEncoding(Constants.ENCODING_UTF_8);
         response.getWriter().write("{'status':'500','success':false,'msg':'操作失败,服务端出错'}");

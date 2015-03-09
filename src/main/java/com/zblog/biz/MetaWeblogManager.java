@@ -15,7 +15,6 @@ import redstone.xmlrpc.XmlRpcArray;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcStruct;
 
-import com.zblog.core.dal.entity.Category;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.dal.entity.User;
@@ -182,17 +181,15 @@ public class MetaWeblogManager{
     if(user == null)
       loginError();
 
-    List<MapContainer> list = postService.listRecent(numberOfPosts);
+    List<MapContainer> list = postManager.listRecent(numberOfPosts);
     MapContainer[] result = new MapContainer[list.size()];
     for(int i = 0; i < list.size(); i++){
       MapContainer temp = list.get(i);
-      Category category = categoryService.loadById(temp.getAsString("categoryid"));
       result[i] = new MapContainer("dateCreated", temp.getAsDate("createTime"))
-          .put("userid", temp.getAsString("creator")).put("postid", temp.getAsString("id")).put("description", "")
-          .put("title", temp.getAsString("title")).put("link", toLink("/posts/" + temp.get("id")))
-          .put("permaLink", toLink("/posts/" + temp.get("id"))).put("categories", Arrays.asList(category.getName()))
-          .put("post_status", "publish");
-      ;
+          .put("userid", temp.getAsString("creator")).put("postid", temp.getAsString("id"))
+          .put("description", temp.getAsString("content")).put("title", temp.getAsString("title"))
+          .put("link", toLink("/posts/" + temp.get("id"))).put("permaLink", toLink("/posts/" + temp.get("id")))
+          .put("categories", Arrays.asList(temp.getAsString("categoryName"))).put("post_status", "publish");
     }
     return result;
   }

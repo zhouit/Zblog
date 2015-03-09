@@ -16,7 +16,7 @@ import com.zblog.core.util.constants.PostConstants;
 public class PostService extends BaseService{
   @Autowired
   private PostMapper postMapper;
-  
+
   public MapContainer loadReadById(String postid){
     return postMapper.loadReadById(postid);
   }
@@ -38,21 +38,36 @@ public class PostService extends BaseService{
     return page;
   }
 
-  public List<MapContainer> listRecent(int nums){
-    return postMapper.listRecent(nums);
+  /**
+   * 更改阅读数
+   * 
+   * @param postid
+   * @param count
+   */
+  public void addRcount(String postid, int count){
+    postMapper.addRcount(postid, count);
   }
 
-  public List<MapContainer> listRss(){
-    return postMapper.listRss();
+  /**
+   * 更改评论数
+   * 
+   * @param commentid
+   * @param count
+   */
+  public void addCcount(String commentid, int count){
+    postMapper.addCcount(commentid, count);
+  }
+
+  public List<String> listRecent(int nums){
+    return postMapper.listRecent(nums);
   }
 
   public PageModel listByCategory(String categoryName, int pageIndex, int pageSize){
     PageModel page = new PageModel(pageIndex, pageSize);
-    page.insertQuery("type", PostConstants.TYPE_POST);
     page.insertQuery("categoryName", categoryName);
     List<MapContainer> content = postMapper.listByCategory(page);
     page.setContent(content);
-    page.removeQuery("type");
+    page.removeQuery("categoryName");
 
     return page;
   }

@@ -163,12 +163,13 @@ a:hover{color: #009dc4;}
 
 /****************   comments  ****************/
 #comments_wrapper{float: right;font-size: 12px;position: relative;width: 86%;z-index: 3;}
-#comments_wrapper a{color: #888;text-decoration: underline;}
+#comments_wrapper a{color: #888;}
+#comments_wrapper a:hover{color: #00a19e;}
 #comment_header{border-bottom: 1px solid #ccc;font-size: 11px;margin: 0 340px 0 0;min-width: 200px;padding: 0 4%;position: relative;}
 #comment_header span.comments_right{float:right; position:relative; bottom:-1px; padding:5px 10px; background:#fff;border:1px solid #ccc;border-bottom-width: 0;}
 #comments{margin: 0 340px 0 0;padding: 20px 4% 15px 4%;}
 
-#comment_area{margin:15px 0 20px; padding:0 0 5px 0;}
+#comment_area{margin:15px 0 20px;}
 .commentlist{list-style-type:none; margin:0; padding:0; }
 .comment{border:1px solid #ccc; color:#666; margin:0 0 15px; padding:15px 20px 3px; background:#f7f7f7;  -moz-border-radius:4px; -khtml-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; }
 .even_comment{ background:#f7f7f7; }
@@ -176,8 +177,7 @@ a:hover{color: #009dc4;}
 
 /************ comment-meta *************/
 .comment-meta{height:56px; position:relative; }
-.comment-meta .comment-reply{position: absolute;right: 0px;top:7px;display: none;}
-li.comment:hover .comment-reply{display: block;}
+.comment-meta .comment-reply{position: absolute;right: 0px;top:7px;}
 .avatar{border:1px solid #ccc; background:#fff; width:37px; height:37px; padding:2px; display:inline; float:left; margin:0 10px 0 0; }
 ul.comment-name-date{padding:6px 0 0 0; float:left;}
 ul.comment-name-date li{padding: 0 0 5px;}
@@ -187,12 +187,13 @@ ul.comment-name-date li{padding: 0 0 5px;}
 .comment-content{padding:0; clear:both; margin:0; }
 .comment-content p{line-height: 250%;}
 * html .comment-content{padding:5px 0 0 0; }
+.comment-note{background: none repeat scroll 0 0 #d6f4f0;border: 1px solid #94ddd4;color: #33a8e5;display: block;font-size: 11px;margin: 0 0 1em;padding: 10px 15px;}
 .comment-content a, .comment-content a:visited{text-decoration:underline; }
 
 
 /************  comment-form ************/
-.comment_form_wrapper{background: #fff;border: 1px solid #ccc;border-radius: 4px;box-shadow: 0 0 2px 1px #ddd;padding: 15px;font-size: 12px;}
-#cancel_comment_reply{background:url(../img/arrow2.gif) no-repeat left center; margin:0 0 1em 0; padding:0 0 0 11px; }
+.comment_form_wrapper{background: #fff;border: 1px solid #ccc;border-radius: 4px;box-shadow: 0 0 2px 1px #ddd;padding: 15px;font-size: 12px;margin-bottom: 15px;}
+#cancel_comment_reply{background:url(../img/arrow2.gif) no-repeat left center; margin:0 0 1em 0; padding:0 0 0 11px;display: none;}
 #guest_info{padding:0; width:100%; }
 #guest_info div{margin:0 0 12px 0; text-align:left; }
 #guest_info input{margin:0; padding:5px 0; border:1px solid #ccc; width:100%; background:#fff; color:#666; }
@@ -232,11 +233,12 @@ ul.comment-name-date li{padding: 0 0 5px;}
 
 /*social_link*/
 #introduction_widget{position: relative;}
-#social_link{padding: 0;position: absolute;right: 0;top: 7px;}
-#social_link li{float: left;}
-#social_link li a{display: block;width: 27px;height: 27px;}
-#social_link li.rss_button a{background-image: url("../img/rss.gif");text-indent: -9999px;}
-#social_link li.rss_button a:hover{background-position: bottom;}
+#social_link{padding: 0;position: absolute;right: 0;top: 5px;}
+#social_link li{float: left;margin: 0 5px 0 0;}
+#social_link li a{display: block;width: 20px;height: 20px;text-indent: -9999px;}
+#social_link li.rss_button a{background-image: url("../img/rss.png");}
+#social_link li.github_button a{background-image: url("../img/github.png");}
+#social_link li a:hover{background-position: bottom;}
 
 /***********  search_area *************/
 #search_area{background-color:#eee;border-radius: 20px;height: 33px;position: relative;width: 100%;margin-top: 20px;}

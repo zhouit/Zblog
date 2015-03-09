@@ -15,6 +15,7 @@ import com.zblog.core.util.IdGenarater;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.StringUtils;
+import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.CommentService;
 import com.zblog.web.front.validator.CommentValidator;
 
@@ -26,6 +27,9 @@ public class CommentController{
 
   @RequestMapping(method = RequestMethod.POST)
   public String post(Comment comment, HttpServletRequest request, HttpServletResponse response){
+    if(!WebConstants.ALLOW_COMMENT)
+      return "redirect:/posts/" + comment.getPostid();
+
     CookieUtil cookieUtil = new CookieUtil(request, response);
     if(StringUtils.isBlank(comment.getCreator())){
       comment.setCreator(cookieUtil.getCookie("comment_author"));
@@ -34,8 +38,11 @@ public class CommentController{
     }
 
     if(!CommentValidator.validate(comment).isEmpty()){
-      return "redirect:/posts/"+comment.getPostid();
+      return "redirect:/posts/" + comment.getPostid();
     }
+
+    if(StringUtils.isBlank(comment.getParent()))
+      comment.setParent(null);
 
     /* 根据RFC-2109中的规定，在Cookie中只能包含ASCII的编码 */
     cookieUtil.setCookie("comment_author", comment.getCreator(), "/", false, 365 * 24 * 3600, true);
@@ -49,7 +56,7 @@ public class CommentController{
     String content = HtmlUtils.htmlUnescape(comment.getContent());
     comment.setContent(JsoupUtils.simpleText(content));
     commentService.insert(comment);
-    return "redirect:/posts/"+comment.getPostid();
+    return "redirect:/posts/" + comment.getPostid();
   }
-  
+
 }

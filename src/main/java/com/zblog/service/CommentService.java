@@ -33,6 +33,21 @@ public class CommentService extends BaseService{
   }
 
   /**
+   * 获取各种状态评论的总数
+   * 
+   * @return
+   */
+  public MapContainer listCountByGroupStatus(){
+    List<MapContainer> list = commentMapper.listCountByGroupStatus();
+    MapContainer mc = new MapContainer();
+    for(MapContainer temp : list){
+      mc.put(temp.getAsString("status"), temp.get("count"));
+    }
+
+    return mc;
+  }
+
+  /**
    * 最近留言
    * 
    * @return
@@ -42,7 +57,7 @@ public class CommentService extends BaseService{
   }
 
   /**
-   * 根据postid获取被批准的评论和指定creator的评论
+   * 根据postid获取被批准的评论+指定creator的评论
    * 
    * @param postid
    * @param creator
@@ -51,9 +66,9 @@ public class CommentService extends BaseService{
   public List<MapContainer> listByPost(String postid, String creator){
     return commentMapper.listByPost(postid, creator);
   }
-
-  public void setStutas(String commentid, String newStatus){
-    commentMapper.setStutas(commentid, newStatus);
+  
+  public void setStatus(String commentid, String newStatus){
+    commentMapper.setStatus(commentid, newStatus);
   }
 
   @Override

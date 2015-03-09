@@ -1,5 +1,6 @@
 package com.zblog.web.front.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +12,12 @@ import javax.xml.stream.XMLStreamException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.zblog.biz.aop.PostIndexManager;
-import com.zblog.core.dal.entity.Option;
+import com.zblog.biz.PostManager;
+import com.zblog.biz.aop.StaticTemplate;
 import com.zblog.core.feed.ArticleAdapter;
 import com.zblog.core.feed.Channel;
 import com.zblog.core.feed.Channel.Article;
@@ -26,6 +26,7 @@ import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.WebConstants;
+import com.zblog.core.util.web.ServletRequestReader;
 import com.zblog.service.PostService;
 
 @Controller
@@ -33,16 +34,19 @@ public class IndexController{
   @Autowired
   private PostService postService;
   @Autowired
-  private PostIndexManager postIndexManager;
+  private PostManager postManager;
+  @Autowired
+  private StaticTemplate staticTemplate;
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String index(@RequestParam(value = "page", defaultValue = "1") int page, String word, Model model){
     if(!StringUtils.isBlank(word)){
-      model.addAttribute("page", postIndexManager.search(word, page));
+      model.addAttribute("page", postManager.search(word, page));
       model.addAttribute(WebConstants.PRE_TITLE_KEY, word);
     }else{
       model.addAttribute("page", postService.listPost(page, 10));
     }
+    
     return "index";
   }
 
@@ -50,12 +54,12 @@ public class IndexController{
   public void rss(HttpServletRequest request, HttpServletResponse response) throws IOException{
     Channel channel = new Channel();
     channel.setDomain(ServletUtils.getDomain(request));
-    channel.setLogoUrl(channel.getDomain()+"/resource/img/logo.png");
+    channel.setLogoUrl(channel.getDomain() + "/resource/img/logo.png");
     channel.setTitle(WebConstants.TITLE);
     channel.setDescription(WebConstants.DESCRIPTION);
-    
+
     List<Article> items = new ArrayList<>();
-    for(MapContainer mc : postService.listRss()){
+    for(MapContainer mc : postManager.listRecent(10)){
       items.add(new ArticleAdapter(mc));
     }
     channel.setItems(items);
@@ -67,10 +71,11 @@ public class IndexController{
     }
   }
 
-  @RequestMapping("/init.json")
-  public void init(@ModelAttribute Option option){
-    option.setName("此为测试页");
-    option.setValue("hello");
+  @RequestMapping("/restatic.json")
+  public void restatic(HttpServletRequest request){
+    /* 静态化首页 */
+    ServletRequestReader reader = new ServletRequestReader(request);
+    staticTemplate.staticIndex(reader.getDomain(), new File(reader.getRealPath("/"), "index.html"));
   }
 
 }

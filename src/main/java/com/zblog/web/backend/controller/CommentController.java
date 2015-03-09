@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zblog.biz.CommentManager;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.constants.CommentConstants;
@@ -24,6 +25,8 @@ import com.zblog.service.CommentService;
 public class CommentController{
   @Autowired
   private CommentService commentService;
+  @Autowired
+  private CommentManager commentManager;
 
   @RequestMapping(method = RequestMethod.GET)
   public String index(@RequestParam(value = "page", defaultValue = "1") int page,
@@ -33,26 +36,28 @@ public class CommentController{
     PageModel pageModel = commentService.listByStatus(page, 15, status);
     model.addAttribute("page", pageModel);
     model.addAttribute("type", type);
+    model.addAttribute("stat", commentService.listCountByGroupStatus());
     return "backend/comment/list";
   }
 
   @ResponseBody
   @RequestMapping(value = "/{commentid}", method = RequestMethod.DELETE)
   public Object remove(@PathVariable("commentid") String commentid){
-    commentService.deleteById(commentid);
+    commentManager.deleteComment(commentid);
     return new MapContainer("success", true);
   }
 
   /**
-   * 批准留言
+   * 修改评论状态
    * 
    * @param commentid
+   * @param status
    * @return
    */
   @ResponseBody
   @RequestMapping(value = "/{commentid}", method = RequestMethod.PUT)
-  public Object approve(@PathVariable("commentid") String commentid){
-    commentService.setStutas(commentid, CommentConstants.TYPE_APPROVE);
+  public Object approve(@PathVariable("commentid") String commentid, String status){
+    commentManager.setStatus(commentid, status);
     return new MapContainer("success", true);
   }
 

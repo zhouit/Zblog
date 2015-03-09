@@ -34,7 +34,7 @@ public class ArticleAdapter implements Article{
 
   @Override
   public String getDescription(){
-    return post.getAsString("excerpt");
+    return post.getAsString("content");
   }
 
   @Override

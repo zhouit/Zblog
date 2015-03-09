@@ -9,5 +9,4 @@ public class CommentConstants{
   public static final String TYPE_APPROVE = "approve";
   public static final String TYPE_REJECT = "reject";
   public static final String TYPE_TRASH = "trash";
-
 }

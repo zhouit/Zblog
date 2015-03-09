@@ -22,10 +22,10 @@
         <div class="panel panel-default">
           <div class="panel-heading"><span class="icon glyphicon glyphicon-briefcase"></span>新建账户</div>
           <div class="panel-body">
-            <form action="." method="post" class="form-horizontal text-left" role="form">
+            <form action="." method="PUT" class="form-horizontal text-left" role="form">
               <input type="hidden" name="CSRFToken" value="${CSRFToken}" />
               <c:if test="${user!=null}">
-                <input type="hidden" name="_method" value="PUT" />
+               <!--  <input type="hidden" name="_method" value="PUT" /> -->
                 <input type="hidden" name="id" value="${user.id}" />
               </c:if>
               <div class="form-group ${nickName!=null?'has-error':''}">

@@ -9,9 +9,13 @@
    </select>
    
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
-     select c.id, c.postid, c.url, c.email, c.ip, c.content, c.creator, c.status, c.createTime, p.title 
-       from comment c left join post p on c.postid=p.id 
+     select c.id, c.postid, c.url, c.email, c.ip, c.content, c.creator, c.status, c.createTime, p.title, t.id as pid, t.creator as pcreator
+       from comment c left join post p on c.postid=p.id left join comment t on c.parent=t.id
        where c.status in <foreach collection="query.status" open="(" close=")" item="item" separator=",">#{item}</foreach>
+   </select>
+   
+   <select id="listCountByGroupStatus" resultType="MapContainer">
+     select status, count(*) as count from comment group by status
    </select>
    
    <select id="listRecent" resultType="MapContainer">  
@@ -30,7 +34,7 @@
          values(#{id},#{postid},#{parent},#{email},#{url},#{ip},#{agent},#{content},#{creator},#{createTime})
    </insert>
    
-   <update id="setStutas">
+   <update id="setStatus">
      update comment set status=#{status} where id=#{commentid}
    </update>
 

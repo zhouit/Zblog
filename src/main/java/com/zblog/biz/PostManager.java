@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.zblog.biz.aop.PostIndexManager;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.CollectionUtils;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.constants.PostConstants;
@@ -28,6 +30,8 @@ public class PostManager{
   private UploadService uploadService;
   @Autowired
   private OptionsService optionsService;
+  @Autowired
+  private PostIndexManager postIndexManager;
 
   /**
    * 插入文章，同时更新上传文件的postid
@@ -104,6 +108,28 @@ public class PostManager{
     }
 
     return tree;
+  }
+
+  public List<MapContainer> listRecent(int nums){
+    List<String> list = postService.listRecent(nums);
+    List<MapContainer> result = new ArrayList<>(list.size());
+    for(String id : list){
+      result.add(postService.loadReadById(id));
+    }
+
+    return result;
+  }
+
+  public PageModel search(String word, int pageIndex){
+    PageModel page = postIndexManager.search(word, pageIndex);
+    /* 填充其他属性，更好的做法是：搜索结果只包含对象id，详细资料到数据库查询(缓存) */
+    for(MapContainer mc : page.getContent()){
+      MapContainer all = postService.loadReadById(mc.getAsString("id"));
+      mc.put("createTime", all.get("createTime")).put("nickName", all.get("nickName"))
+        .put("rcount", all.get("rcount"));
+    }
+    
+    return page;
   }
 
   /**

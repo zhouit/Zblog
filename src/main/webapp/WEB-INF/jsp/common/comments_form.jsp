@@ -3,11 +3,12 @@
 <%@ taglib prefix="z" uri="/WEB-INF/tld/function.tld" %>
 <fieldset id="respond" class="comment_form_wrapper">
   <c:if test="${g.allowComment}">
-<!--   <div id="cancel_comment_reply">
+  <div id="cancel_comment_reply">
      <a href="#respond" rel="nofollow">点击这里取消回复。</a>
-  </div> -->
+  </div>
   <form method="post" action="${g.domain}/comments" id="comment_form">
     <input type="hidden" id="postid" name="postid" value="${post.id}" />
+    <input type="hidden" id="comment_parent" name="parent" />
     <c:if test="${cookie.comment_author!=null}">
       <div id="guest_info">登录身份:${z:cookieValue('comment_author')}</div>
     </c:if>

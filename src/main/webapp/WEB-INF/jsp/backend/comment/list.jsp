@@ -24,9 +24,15 @@
           <div class="panel-body">
             <ul class="table-nav">
               <li><a class="${type=='all'?'active':''}" href="?type=all">全部</a> | </li>
-              <li><a class="${type=='wait'?'active':''}" href="?type=wait">待审</a> | </li>
-              <li><a class="${type=='approve'?'active':''}" href="?type=approve">获准</a> | </li>
-              <li><a class="${type=='trash'?'active':''}" href="?type=trash">垃圾评论</a></li>
+              <li><a class="${type=='wait'?'active':''}" href="?type=wait">待审
+               <c:if test="${stat.wait!=null}"><span>(${stat.wait})</span></c:if> | </a>
+              </li>
+              <li><a class="${type=='approve'?'active':''}" href="?type=approve">获准
+               <c:if test="${stat.approve!=null}"><span>(${stat.approve})</span></c:if> | </a>
+              </li>
+              <li><a class="${type=='trash'?'active':''}" href="?type=trash">垃圾评论
+               <c:if test="${stat.trash!=null}"><span>(${stat.trash})</span></c:if></a>
+              </li>
             </ul>
            <table id="post-table" class="table table-striped list-table">
                <thead><tr>
@@ -42,12 +48,16 @@
                         <a href="${comment.url}">${z:substring(comment.url, 7)}</a><br/>
                         <a href="mailto:${comment.email}">${comment.email}</a></br/>
                         <a href="#">${comment.ip}</a></td>
-                      <td><div>提交于<a href="${g.domain}/posts/${comment.postid}/#comment-${comment.id}">
-                            <fmt:formatDate value="${comment.createTime}" pattern="yyyy-MM-dd ahh:mm"/></a></div>
+                      <td><div>提交于<a href="${g.domain}/posts/${comment.postid}/#comment-${comment.id}" target="_blank">
+                            <fmt:formatDate value="${comment.createTime}" pattern="yyyy-MM-dd ahh:mm"/></a>
+                            <c:if test="${comment.pid!=null}">| 回复给 
+                              <a href="${g.domain}/posts/${comment.postid}/#comment-${comment.pid}" target="_blank">${comment.pcreator}</a>
+                            </c:if>
+                           </div>
                           <p style="margin: 7px 0;">${comment.content}</p>
                           <div class="row-action">
                             <c:if test="${type=='all'}">
-                             <span><a href="#" onclick="zblog.comment.approve('${comment.id}'，${comment.status=='wait'?'approve':'wait'});">${comment.status=='wait'?'批准':'驳回'}</a>&nbsp;|&nbsp;</span>
+                             <span><a href="#" onclick="zblog.comment.approve('${comment.id}','${comment.status=='wait'?'approve':'wait'}');">${comment.status=='wait'?'批准':'驳回'}</a>&nbsp;|&nbsp;</span>
                              <span><a href="#" onclick="zblog.comment.approve('${comment.id}','reject');">垃圾评论</a>&nbsp;|&nbsp;</span>
                              <span><a href="#" onclick="zblog.comment.approve('${comment.id}','trash');">移动到回收站</a></span> 
                             </c:if>

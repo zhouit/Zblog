@@ -9,7 +9,7 @@ import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
 
 public interface PostMapper extends BaseMapper{
-  
+
   public MapContainer loadReadById(String postid);
 
   /**
@@ -36,14 +36,16 @@ public interface PostMapper extends BaseMapper{
    */
   List<MapContainer> listPage(boolean onlyParent);
 
+  public void addRcount(@Param("postid") String postid, @Param("count") int count);
+
+  public void addCcount(@Param("commentid") String commentid, @Param("count") int count);
+
   /**
    * 获取最近发表文章
    * 
-   * @return
+   * @return 文章id
    */
-  List<MapContainer> listRecent(int nums);
-  
-  List<MapContainer> listRss();
+  List<String> listRecent(int nums);
 
   List<MapContainer> listByCategory(PageModel model);
 

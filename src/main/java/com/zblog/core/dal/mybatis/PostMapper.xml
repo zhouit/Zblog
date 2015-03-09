@@ -9,7 +9,7 @@
    </select>
    
    <select id="loadReadById" parameterType="java.lang.String" resultType="MapContainer">  
-      select p.id, p.title, p.content, p.categoryid, c.name as categoryName, p.parent, p.creator, p.rcount, p.ccount, p.createTime,u.nickName 
+      select p.id, p.title, p.content, p.type, p.categoryid, c.name as categoryName, p.parent, p.creator, p.rcount, p.ccount, p.createTime, u.nickName 
       from post p left join category c on p.categoryid=c.id left join user u on p.creator=u.id
       where p.id = #{id}
    </select>
@@ -25,30 +25,24 @@
    </select>
    
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
-      select p.id, p.title, excerpt, c.name as category, p.rcount, p.ccount, p.creator, u.nickName, p.createTime
+      select p.id, p.title, p.excerpt, c.name as categoryName, p.rcount, p.ccount, p.creator, u.nickName, p.createTime
           from post p left join category c on p.categoryid=c.id left join user u on p.creator=u.id
           where p.type=#{query.type} order by p.createTime desc
    </select>
    
    <select id="listPage" resultType="MapContainer" parameterType="boolean">
       <!-- 必须使用_parameter 否则There is no getter for property named 'onlyParent' in 'class java.lang.Boolean'-->
-      select id, title,parent from post where type='page' <if test="_parameter"> and parent='Root'</if>
+      select id, title, parent from post where type='page' <if test="_parameter"> and parent='Root'</if>
    </select>
    
-   <select id="listRss" resultType="MapContainer">  
-      select p.id, p.title, excerpt, c.name as category, p.creator, u.nickName, p.createTime
-        from post p left join category c on p.categoryid=c.id left join user u on p.creator=u.id
-        where p.type='post' order by p.createTime desc limit 10
+   <select id="listRecent" parameterType="integer" resultType="string">  
+      select id from post where type='post' order by createTime desc limit #{nums}
    </select>
    
-   <select id="listRecent" parameterType="integer" resultType="MapContainer">  
-      select id, title, categoryid, creator, rcount, createTime from post where type='post' order by createTime desc limit #{nums}
-   </select>
-   
-   <select id="listByCategory" parameterType="PageModel" resultType="MapContainer">  
-      select p.id, p.title, p.excerpt, p.creator, u.nickName, p.createTime 
+   <select id="listByCategory" parameterType="PageModel" resultType="MapContainer">
+      select p.id, p.title, p.excerpt, p.creator, p.rcount, u.nickName, p.createTime 
         from post p inner join category c on p.categoryid=c.id left join user u on p.creator=u.id 
-        where c.name=#{query.categoryName} and p.type=#{query.type} order by p.createTime desc
+        where c.name=#{query.categoryName} and p.type='post' order by p.createTime desc
    </select>
    
    <insert id="insert" parameterType="Post">
@@ -66,6 +60,14 @@
        <foreach collection="oldCategoryIds" item="item" open="(" separator="," close=")">
         #{item}
        </foreach>
+   </update>
+   
+   <update id="addRcount">
+     update post set rcount=rcount+#{count} where id=#{postid}
+   </update>
+   
+   <update id="addCcount">
+     update post set ccount=ccount+#{count} where id = (select postid from comment where id=#{commentid})
    </update>
 
    <delete id="deleteById">

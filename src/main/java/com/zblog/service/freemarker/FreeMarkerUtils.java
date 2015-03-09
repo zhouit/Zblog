@@ -25,6 +25,8 @@ public class FreeMarkerUtils{
       config = new Configuration();
       config.setCacheStorage(new NullCacheStorage());
       config.setAutoFlush(false);
+      /* 不产生指令造成的空白行 */
+      config.setWhitespaceStripping(true);
       config.setOutputEncoding(Constants.ENCODING_UTF_8);
       URL uri = FreeMarkerUtils.class.getResource("ftl");
       config.setDirectoryForTemplateLoading(new File(uri.toURI()));

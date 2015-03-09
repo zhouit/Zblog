@@ -45,7 +45,26 @@ $(function(){
     }
     
     var content = $.trim($("#comment").val());
-    mark = content && content != "";
+    /* 评论中需包含中文，escape对字符串进行编码时，字符值大于255(非英文字符)的以"%u****"格式存储 */
+    mark = content && content != "" && escape(content).indexOf("%u")>0;
     return mark;
+  });
+  
+  $(".comment-reply a").each(function(){
+    var t=$(this);
+    t.click(function(){
+      $("#cancel_comment_reply").show();
+      var commentMeta=t.parent().parent();
+      $("#comment_parent").val(commentMeta.parent().attr("id").substring(8));
+      $("#respond").insertAfter(commentMeta.next());
+      return false;
+    });
+  });
+  
+  $("#cancel_comment_reply").click(function(){
+    $("#cancel_comment_reply").hide();
+    $("#comment_parent").val('');
+    $("#respond").insertAfter($("#comment_area"));
+    return false;
   });
 });

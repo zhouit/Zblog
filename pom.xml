@@ -220,11 +220,12 @@
       <version>1.2.3</version>
     </dependency>
     
+    <!-- xmlrpc支持 -->
     <dependency>
-    <groupId>org.kohsuke.redstone</groupId>
-    <artifactId>redstone</artifactId>
-    <version>1.1.1</version>
-</dependency>
+      <groupId>org.kohsuke.redstone</groupId>
+      <artifactId>redstone</artifactId>
+      <version>1.1.1</version>
+    </dependency>
    
   </dependencies>
   <build>

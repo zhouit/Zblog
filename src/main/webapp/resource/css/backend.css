@@ -47,7 +47,8 @@ ul.ul-group li{padding: 5px 0;}
 
 ul.table-nav{float: left;font-size: 12px;font-family: sans-serif;}
 ul.table-nav li{ float: left;display: inline-block;}
-ul.table-nav li a{line-height: 2;padding: 0.2em;}
+ul.table-nav li a, ul.table-nav li span{line-height: 2;padding: 0.2em;}
+ul.table-nav li span{color:#999;font-weight: normal;}
 ul.table-nav li a.active{color: #000;font-weight: bold;}
 
 /**********  数据table表格 **************/

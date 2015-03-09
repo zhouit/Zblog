@@ -6,4 +6,5 @@
 <title>${ptitle}${ptitle!=null?' | ':''}${g.title}</title>
 <link rel="icon" href="${g.domain}/resource/img/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" href="${g.domain}/resource/css/style.css">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="${g.domain}/xmlrpc" />
 <script src="${g.domain}/resource/js/jquery-1.9.1.min.js"></script>

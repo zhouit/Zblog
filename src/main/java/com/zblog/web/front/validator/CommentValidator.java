@@ -1,5 +1,7 @@
 package com.zblog.web.front.validator;
 
+import java.util.regex.Pattern;
+
 import com.zblog.core.dal.entity.Comment;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.CommRegular;
@@ -19,7 +21,7 @@ public class CommentValidator{
       result.put("msg", "需填写用户昵称");
     }else if(comment.isApproved()){
       result.put("msg", "非法请求");
-    }else if(StringUtils.isBlank(comment.getContent())){
+    }else if(StringUtils.isBlank(comment.getContent()) || !Pattern.matches("[\u4e00-\u9fa5]", comment.getContent())){
       result.put("msg", "请填写评价内容");
     }
 
