@@ -22,7 +22,6 @@ import com.zblog.core.util.constants.PostConstants;
 import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.CategoryService;
 import com.zblog.service.LinkService;
-import com.zblog.service.PostService;
 import com.zblog.service.freemarker.FreeMarkerUtils;
 
 /**
@@ -39,11 +38,9 @@ public class StaticTemplate{
   @Autowired
   private PostManager postManager;
   @Autowired
-  private PostService postService;
-  @Autowired
   private LinkService linksService;
 
-  public boolean staticIndex(String url, File file){
+  public boolean staticHtml(String url, File file){
     boolean result = true;
     Writer writer = null;
     try{
@@ -51,7 +48,7 @@ public class StaticTemplate{
       writer = new OutputStreamWriter(new FileOutputStream(file), Charset.forName(Constants.ENCODING_UTF_8));
       IOUtils.write(text, writer);
     }catch(IOException e){
-      logger.error("staticIndex error-->" + url, e);
+      logger.error("staticHtml error-->" + url, e);
       result = true;
     }finally{
       IOUtils.closeQuietly(writer);
@@ -110,7 +107,7 @@ public class StaticTemplate{
   private void staticRecentOrHeader(boolean ispost){
     if(ispost){
       MapContainer param = new MapContainer("domain", WebConstants.getDomain());
-      param.put("posts", postService.listRecent(10));
+      param.put("posts", postManager.listRecent(10));
       FreeMarkerUtils.genHtml("/common/recent.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
           + "/common/recent.html"), param);
       logger.info("staticRecent");

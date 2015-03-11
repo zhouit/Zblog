@@ -75,7 +75,7 @@ public class IndexController{
   public void restatic(HttpServletRequest request){
     /* 静态化首页 */
     ServletRequestReader reader = new ServletRequestReader(request);
-    staticTemplate.staticIndex(reader.getDomain(), new File(reader.getRealPath("/"), "index.html"));
+    staticTemplate.staticHtml(reader.getDomain(), new File(reader.getRealPath("/"), "index.html"));
   }
 
 }

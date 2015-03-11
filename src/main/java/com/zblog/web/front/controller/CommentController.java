@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
 import com.zblog.core.dal.entity.Comment;
+import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.IdGenarater;
 import com.zblog.core.util.JsoupUtils;
@@ -25,10 +27,11 @@ public class CommentController{
   @Autowired
   private CommentService commentService;
 
+  @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
-  public String post(Comment comment, HttpServletRequest request, HttpServletResponse response){
+  public Object post(Comment comment, HttpServletRequest request, HttpServletResponse response){
     if(!WebConstants.ALLOW_COMMENT)
-      return "redirect:/posts/" + comment.getPostid();
+      return new MapContainer("success", false).put("msg", "当前禁止评论");
 
     CookieUtil cookieUtil = new CookieUtil(request, response);
     if(StringUtils.isBlank(comment.getCreator())){
@@ -37,8 +40,9 @@ public class CommentController{
       comment.setEmail(cookieUtil.getCookie("comment_author_email", false));
     }
 
-    if(!CommentValidator.validate(comment).isEmpty()){
-      return "redirect:/posts/" + comment.getPostid();
+    MapContainer form = CommentValidator.validate(comment);
+    if(!form.isEmpty()){
+      return form.put("success", true);
     }
 
     if(StringUtils.isBlank(comment.getParent()))
@@ -56,7 +60,7 @@ public class CommentController{
     String content = HtmlUtils.htmlUnescape(comment.getContent());
     comment.setContent(JsoupUtils.simpleText(content));
     commentService.insert(comment);
-    return "redirect:/posts/" + comment.getPostid();
+    return new MapContainer("success", true);
   }
 
 }

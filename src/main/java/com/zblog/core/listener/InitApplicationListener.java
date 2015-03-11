@@ -14,6 +14,7 @@ public class InitApplicationListener implements ServletContextListener{
   @Override
   public void contextInitialized(ServletContextEvent sce){
     WebConstants.APPLICATION_PATH = sce.getServletContext().getRealPath("/");
+    
     initApp();
   }
 

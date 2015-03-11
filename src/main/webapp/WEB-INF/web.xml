@@ -22,6 +22,10 @@
     <param-value>classpath:config/spring-base.xml</param-value>
   </context-param>
 
+  <!-- 注：此listener需在spring的ContextLoaderListener前  -->
+  <listener>
+    <listener-class>com.zblog.core.listener.Log4jConfigureListener</listener-class>
+  </listener>
   <!-- 系统启动监听器 -->
   <listener>
     <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>

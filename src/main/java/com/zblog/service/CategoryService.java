@@ -1,7 +1,6 @@
 package com.zblog.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +87,6 @@ public class CategoryService extends BaseService{
     root.setLeftv(1);
     root.setName(CategoryConstants.ROOT);
     root.setRightv(2);
-    root.setCreateTime(new Date());
     insert(root);
   }
 

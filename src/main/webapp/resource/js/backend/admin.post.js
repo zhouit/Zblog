@@ -29,11 +29,11 @@ zblog.post.insert=function(){
     type:postid.length>0?"PUT":"POST",
     url:".",
     data:data,
-    dateType:"json",
+    dataType:"json",
     success:function(data){
-	  if(data&&data.success){
-	     window.location.href=".";
-      }else if(data){
+	    if(data&&data.success){
+	      window.location.reload();
+      }else{
     	 alert(data.msg);
       }
      }
@@ -44,12 +44,12 @@ zblog.post.remove=function(postid){
  $.ajax({
    type:"DELETE",
    url:"posts/"+postid,
-   dateType:"json",
+   dataType:"json",
    success:function(data){
-	if(data&&data.success){
-	  window.location.href=".";
-    }else if(data){
-      alert(data.msg);
+	   if(data&&data.success){
+	     window.location.reload();
+     }else{
+       alert(data.msg);
      }
    }
  });

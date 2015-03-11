@@ -18,36 +18,77 @@ $(function(){
     }
 
     return cookieValue;
-  };
-
-  $("#comment_form").submit(function(){
-    var mark = true;
-    if(!getCookie("comment_author")){
-      var regmap = {
-        '1' : mail,
-        '2' : url
-      };
-      
-      $("#respond :text").each(function(index, item){
-        var value = $.trim(item.value);
-        if(!value || value == ""){
-          $(this).focus();
-          mark = false;
-          return false;
-        }
-
-        if(regmap[index + ""] && !regmap[index + ""].test(value)){
-          $(this).focus();
-          mark = false;
-          return false;
-        }
-      });
+  },
+  check=function(name,value){
+    value=$.trim(value);
+    if(!value || value=="") return false;
+    
+    switch(name){
+    case "email":
+      return mail.test(value);
+    case "url":
+      return url.test(value);
+    case "content":
+      /* 评论中需包含中文，escape对字符串进行编码时，字符值大于255(非英文字符)的以"%u****"格式存储 */
+      return escape(value).indexOf("%u")>-1;
+    }
+  },
+  generate=function(msg,data){
+    var meta="<div class='comment-meta'>"
+      +"<img class='avatar' width='35' height='35' src='../../resource/img/avatar.png'>"
+      +"<ul class='comment-name-date'><li class='comment-name'>"
+      +"<a class='url' href='"+msg.url+"' target='_blank'>"+msg.creator+"</a></li>"
+      +"<li class='comment-date'>2013</li></ul></div>";
+    var content="<div class='comment-content'><span class='comment-note'>你的评论正在等待审核。。。</span>"
+         +"<p>"+data.content+"<p></div>";
+    $("#nocomment").remove();
+    var isEven;
+    if(data.parent&&data.parent!=''){
+      isEven=$("#comment-"+data.parent).hasClass("even_comment");
+    }else{
+      isEven=$(".comment").last().hasClass("even_comment");
     }
     
-    var content = $.trim($("#comment").val());
-    /* 评论中需包含中文，escape对字符串进行编码时，字符值大于255(非英文字符)的以"%u****"格式存储 */
-    mark = content && content != "" && escape(content).indexOf("%u")>0;
-    return mark;
+    var li="<li class='comment "+isEven?"odd":"even"+"_comment'>"+meta+content+"</li>";
+    if(data.parent&&data.parent!=''){
+      var parent=$("#comment-"+data.parent);
+      if(parent.length()>0){
+        parent.find("commentlist").prepend(li);
+      }else{
+        parent.chidlren(".comment-content").after("<ol class='commentlist'>"+li+"</ol>");
+      }
+    }else{
+      $(".comment").first().before(li);
+    }
+  };
+  
+  $("#submit_comment").click(function(){
+    var form=$("#respond").find(":text,textarea");
+    if(!getCookie("comment_author")&&form.length!=4) return ;
+    
+    var data={};
+    for(var i=0;i<form.length;i++){
+      var item=form.slice(i,i+1);
+      if(!check(item.attr("name"),item.val())){
+        item.focus();
+        return ;
+      }
+      
+      data[item.attr("name")]=item.val();
+    }
+    
+    $("#respond :hidden").each(function(index,item){
+      data[item.name]=item.value;
+    });
+    
+    $.post("/comments",data,function(msg){
+      if(msg&&msg.success){
+        $("textarea").val("");
+        window.location.reload();
+      }else{
+        alert(msg.msg);
+      }
+    },"json");
   });
   
   $(".comment-reply a").each(function(){

@@ -4,11 +4,11 @@ zblog.link.remove=function(linkid){
  $.ajax({
    type:"DELETE",
    url:"links/"+linkid,
-   dateType:"json",
+   dataType:"json",
    success:function(data){
-	if(data&&data.success){
-	  window.location.href=".";
-    }else if(data){
+	  if(data&&data.success){
+	   window.location.reload();
+    }else{
       alert(data.msg);
      }
    }

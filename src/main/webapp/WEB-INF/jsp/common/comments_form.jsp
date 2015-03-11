@@ -6,7 +6,7 @@
   <div id="cancel_comment_reply">
      <a href="#respond" rel="nofollow">点击这里取消回复。</a>
   </div>
-  <form method="post" action="${g.domain}/comments" id="comment_form">
+ <%--  <form method="post" action="${g.domain}/comments" id="comment_form"> --%>
     <input type="hidden" id="postid" name="postid" value="${post.id}" />
     <input type="hidden" id="comment_parent" name="parent" />
     <c:if test="${cookie.comment_author!=null}">
@@ -32,9 +32,9 @@
       <textarea id="comment" tabindex="4" rows="10" cols="50" name="content"></textarea>
     </div>
     <div id="submit_comment_wrapper">
-      <input id="submit_comment" type="submit" value="发表评论" >
+      <input id="submit_comment" type="button" value="发表评论" >
     </div>
-  </form>
+<!--   </form> -->
  </c:if>
  <c:if test="${!g.allowComment}">
    当前禁止评论

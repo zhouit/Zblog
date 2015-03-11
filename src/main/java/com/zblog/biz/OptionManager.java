@@ -27,7 +27,6 @@ public class OptionManager{
   public void updateGeneralOption(GeneralOption form){
     optionsService.updateOptionValue(OptionConstants.TITLE, form.getTitle());
     optionsService.updateOptionValue(OptionConstants.SUBTITLE, form.getSubtitle());
-    optionsService.updateOptionValue("weburl", form.getWeburl());
 
     WebConstants.init(form.getTitle(), form.getSubtitle());
   }

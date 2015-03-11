@@ -41,7 +41,7 @@ public class WebConstants{
     WebContext context = WebContextFactory.get();
     return ServletUtils.getDomain(context.getRequest());
   }
-
+  
   public static void init(String title, String subtitle){
     if(!StringUtils.isBlank(title))
       TITLE = title;

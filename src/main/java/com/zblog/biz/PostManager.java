@@ -57,7 +57,7 @@ public class PostManager{
   public void updatePost(Post post){
     uploadService.setNullPostid(post.getId());
     List<String> imgs = extractImagepath(JsoupUtils.getImages(post.getContent()));
-    if(CollectionUtils.isEmpty(imgs))
+    if(!CollectionUtils.isEmpty(imgs))
       uploadService.updatePostid(post.getId(), imgs);
 
     postService.update(post);

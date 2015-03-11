@@ -16,19 +16,25 @@
         <property name="configLocation" value="classpath:config/ehcache.xml" />
       </bean>
     </property>
+    <property name="transactionAware" value="true" />
   </bean>
   <aop:config>
     <aop:advisor advice-ref="userAdvisor" pointcut="target(com.zblog.service.UserService) and 
        (execution(* loadById(..)) || execution(* update(..)) || execution(* deleteById(..)))"/>
     
     <aop:advisor advice-ref="postAdvisor" pointcut="target(com.zblog.service.PostService) and 
-       (execution(* loadReadById(..)) || execution(* update(..)) || execution(* deleteById(..)))"/>
+       (execution(* loadReadById(..)) || execution(* update(..)) || execution(* deleteById(..)))" />
+       
+    <aop:advisor advice-ref="prenextAdvisor" pointcut="target(com.zblog.service.PostService) and 
+       (execution(* getPrevPost(..)) || execution(* getNextPost(..)) || 
+        execution(* update(..)) || execution(* deleteById(..)))" />
   </aop:config>
   
   <cache:advice id="userAdvisor" cache-manager="cacheManager">
     <cache:caching cache="users">
       <!-- cache-put是每次都会执行该方法，并将执行结果以键值对的形式存入指定的缓存中 -->
-      <cache:cacheable method="loadById" key="#p0" />
+      <!-- 判断unless,如果返回false,则放入缓存;(即跟condition相反) -->
+      <cache:cacheable method="loadById" key="#p0" unless="#result==null" />
       <cache:cache-evict method="update" key="#p0.id" />
       <cache:cache-evict method="deleteById" key="#p0" />
     </cache:caching>
@@ -39,6 +45,15 @@
        <cache:cacheable method="loadReadById" key="#p0" />
        <cache:cache-evict method="update" key="#p0.id" />
        <cache:cache-evict method="deleteById" key="#p0" />
+    </cache:caching>
+  </cache:advice>
+  
+  <cache:advice id="prenextAdvisor" cache-manager="cacheManager">
+    <cache:caching cache="prevnexts">
+      <cache:cacheable method="getNextPost" key="'next-' + #p0" />
+      <cache:cacheable method="getPrevPost" key="'prev-' + #p0" />
+      <cache:cache-evict method="update" key="#p0.id" all-entries="true" />
+      <cache:cache-evict method="deleteById" key="#p0" all-entries="true"  />
     </cache:caching>
   </cache:advice>
   

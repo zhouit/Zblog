@@ -38,4 +38,9 @@
 		timeToIdleSeconds="2400" timeToLiveSeconds="7200"
 		memoryStoreEvictionPolicy="LFU" transactionalMode="off" />
     
+	<cache name="prevnexts" statistics="false" maxEntriesLocalHeap="1000"
+		maxEntriesLocalDisk="1000" eternal="false" 
+		timeToIdleSeconds="2400" timeToLiveSeconds="7200"
+		memoryStoreEvictionPolicy="LFU" transactionalMode="off" />
+    
 </ehcache>

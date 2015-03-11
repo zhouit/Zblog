@@ -45,8 +45,8 @@ public class CommentManager{
    */
   @Transactional
   public void deleteComment(String commentid){
-    commentService.deleteById(commentid);
     postService.addCcount(commentid, -1);
+    commentService.deleteById(commentid);
   }
 
 }
