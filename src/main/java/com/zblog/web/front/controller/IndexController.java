@@ -25,8 +25,10 @@ import com.zblog.core.feed.RssFeedWriter;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.StringUtils;
+import com.zblog.core.util.constants.OptionConstants;
 import com.zblog.core.util.constants.WebConstants;
 import com.zblog.core.util.web.ServletRequestReader;
+import com.zblog.service.OptionsService;
 import com.zblog.service.PostService;
 
 @Controller
@@ -37,6 +39,8 @@ public class IndexController{
   private PostManager postManager;
   @Autowired
   private StaticTemplate staticTemplate;
+  @Autowired
+  private OptionsService optionsService;
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String index(@RequestParam(value = "page", defaultValue = "1") int page, String word, Model model){
@@ -46,7 +50,7 @@ public class IndexController{
     }else{
       model.addAttribute("page", postService.listPost(page, 10));
     }
-    
+
     return "index";
   }
 
@@ -55,8 +59,8 @@ public class IndexController{
     Channel channel = new Channel();
     channel.setDomain(ServletUtils.getDomain(request));
     channel.setLogoUrl(channel.getDomain() + "/resource/img/logo.png");
-    channel.setTitle(WebConstants.TITLE);
-    channel.setDescription(WebConstants.DESCRIPTION);
+    channel.setTitle(optionsService.getOptionValue(OptionConstants.TITLE));
+    channel.setDescription(optionsService.getOptionValue(OptionConstants.DESCRIPTION));
 
     List<Article> items = new ArrayList<>();
     for(MapContainer mc : postManager.listRecent(10)){

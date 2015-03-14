@@ -8,7 +8,6 @@ import com.zblog.core.util.NumberUtils;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.OptionConstants;
 import com.zblog.core.util.constants.PostConstants;
-import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.OptionsService;
 import com.zblog.web.backend.form.GeneralOption;
 import com.zblog.web.backend.form.PostOption;
@@ -27,17 +26,13 @@ public class OptionManager{
   public void updateGeneralOption(GeneralOption form){
     optionsService.updateOptionValue(OptionConstants.TITLE, form.getTitle());
     optionsService.updateOptionValue(OptionConstants.SUBTITLE, form.getSubtitle());
-
-    WebConstants.init(form.getTitle(), form.getSubtitle());
   }
 
   @Transactional
   public void updatePostOption(PostOption form){
-    optionsService.updateOptionValue("maxshow", form.getMaxshow() + "");
+    optionsService.updateOptionValue(OptionConstants.MAXSHOW, form.getMaxshow() + "");
     optionsService.updateOptionValue(OptionConstants.ALLOW_COMMENT, form.isAllowComment() + "");
     optionsService.updateOptionValue(OptionConstants.DEFAULT_CATEGORY_ID, form.getDefaultCategory());
-    
-    WebConstants.allowComment(form.isAllowComment()+"");
   }
 
   /**
@@ -75,10 +70,10 @@ public class OptionManager{
 
   public PostOption getPostOption(){
     PostOption option = new PostOption();
-    option.setMaxshow(NumberUtils.toInteger(optionsService.getOptionValue("maxshow"), 10));
+    option.setMaxshow(NumberUtils.toInteger(optionsService.getOptionValue(OptionConstants.MAXSHOW), 10));
     option.setAllowComment(Boolean.parseBoolean(optionsService.getOptionValue(OptionConstants.ALLOW_COMMENT)));
     option.setDefaultCategory(optionsService.getOptionValue(OptionConstants.DEFAULT_CATEGORY_ID));
- 
+
     return option;
   }
 

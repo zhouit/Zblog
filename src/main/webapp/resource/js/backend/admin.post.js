@@ -32,7 +32,7 @@ zblog.post.insert=function(){
     dataType:"json",
     success:function(data){
 	    if(data&&data.success){
-	      window.location.reload();
+	      window.location.href=".";
       }else{
     	 alert(data.msg);
       }

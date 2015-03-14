@@ -39,9 +39,9 @@
      </form>
   </div>
   <footer class="footer">
-     <div class="container">
-       <p class="text-muted">Power By Zblog</p>
-     </div>
-   </footer>
+    <div class="container">
+      <p class="text-muted">Power By <a href="https://github.com/dongfangshangren/Zblog" target="_blank">Zblog</a></p>
+    </div>
+  </footer>
  </body>
 </html>

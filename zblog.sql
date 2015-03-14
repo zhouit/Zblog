@@ -95,7 +95,11 @@ CREATE TABLE `options` (
 -- ----------------------------
 -- Records of options
 -- ----------------------------
-
+INSERT INTO `options` VALUES ('title','title','Zblog');
+INSERT INTO `options` VALUES ('subtitle','subtitle','Just another zblog website');
+INSERT INTO `options` VALUES ('description','description','Spring Mybatis Ehcache Shiro Lucene FreeMarker');
+INSERT INTO `options` VALUES ('allowComment','allowComment','true');
+INSERT INTO `options` VALUES ('maxshow','maxshow','10');
 -- ----------------------------
 -- Table structure for `post`
 -- ----------------------------

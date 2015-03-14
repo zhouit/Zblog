@@ -23,10 +23,11 @@ import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.CategoryConstants;
+import com.zblog.core.util.constants.OptionConstants;
 import com.zblog.core.util.constants.PostConstants;
-import com.zblog.core.util.constants.WebConstants;
 import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.CategoryService;
+import com.zblog.service.OptionsService;
 import com.zblog.service.PostService;
 import com.zblog.service.UserService;
 
@@ -49,6 +50,8 @@ public class MetaWeblogManager{
   private UploadManager uploadManager;
   @Autowired
   private OptionManager optionManager;
+  @Autowired
+  private OptionsService optionsService;
 
   public Object getPost(String postid, String username, String pwd){
     User user = userService.login(username, pwd);
@@ -151,7 +154,8 @@ public class MetaWeblogManager{
       loginError();
 
     MapContainer mc = new MapContainer("isAdmin", "false");
-    mc.put("isAdmin", false).put("blogid", user.getId()).put("blogName", WebConstants.TITLE);
+    mc.put("isAdmin", false).put("blogid", user.getId())
+        .put("blogName", optionsService.getOptionValue(OptionConstants.TITLE));
     mc.put("xmlrpc", toLink("/xmlrpc")).put("link", "");
 
     return mc;

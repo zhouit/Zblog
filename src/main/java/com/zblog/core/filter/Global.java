@@ -3,7 +3,9 @@ package com.zblog.core.filter;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.zblog.core.util.constants.WebConstants;
+import com.zblog.core.plugin.ApplicationContextUtil;
+import com.zblog.core.util.constants.OptionConstants;
+import com.zblog.service.OptionsService;
 
 public class Global{
   private String domain;
@@ -13,19 +15,19 @@ public class Global{
   }
 
   public String getTitle(){
-    return WebConstants.TITLE;
+    return getOptionValue(OptionConstants.TITLE);
   }
 
   public String getSubtitle(){
-    return WebConstants.SUBTITLE;
+    return getOptionValue(OptionConstants.SUBTITLE);
   }
 
   public String getDescription(){
-    return WebConstants.DESCRIPTION;
+    return getOptionValue(OptionConstants.DESCRIPTION);
   }
 
   public boolean isAllowComment(){
-    return WebConstants.ALLOW_COMMENT;
+    return Boolean.parseBoolean(getOptionValue(OptionConstants.ALLOW_COMMENT));
   }
 
   public int getYear(){
@@ -36,6 +38,11 @@ public class Global{
 
   public String getDomain(){
     return domain;
+  }
+
+  private static String getOptionValue(String name){
+    OptionsService optionsService = ApplicationContextUtil.getBean(OptionsService.class);
+    return optionsService.getOptionValue(name);
   }
 
 }

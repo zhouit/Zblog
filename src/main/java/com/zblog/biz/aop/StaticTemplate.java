@@ -18,10 +18,12 @@ import com.zblog.biz.PostManager;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.constants.Constants;
+import com.zblog.core.util.constants.OptionConstants;
 import com.zblog.core.util.constants.PostConstants;
 import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.CategoryService;
 import com.zblog.service.LinkService;
+import com.zblog.service.OptionsService;
 import com.zblog.service.freemarker.FreeMarkerUtils;
 
 /**
@@ -39,6 +41,8 @@ public class StaticTemplate{
   private PostManager postManager;
   @Autowired
   private LinkService linksService;
+  @Autowired
+  private OptionsService optionsService;
 
   public boolean staticHtml(String url, File file){
     boolean result = true;
@@ -63,8 +67,8 @@ public class StaticTemplate{
   public void staticHeader(){
     MapContainer map = new MapContainer();
     map.put("domain", WebConstants.getDomain());
-    map.put("title", WebConstants.TITLE);
-    map.put("subtitle", WebConstants.SUBTITLE);
+    map.put("title", optionsService.getOptionValue(OptionConstants.TITLE));
+    map.put("subtitle", optionsService.getOptionValue(OptionConstants.SUBTITLE));
     map.put("categorys", categoryService.listAsTree());
     map.put("pages", postManager.listPageAsTree());
 

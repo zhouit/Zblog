@@ -28,6 +28,9 @@
     <aop:advisor advice-ref="prenextAdvisor" pointcut="target(com.zblog.service.PostService) and 
        (execution(* getPrevPost(..)) || execution(* getNextPost(..)) || 
         execution(* update(..)) || execution(* deleteById(..)))" />
+        
+    <aop:advisor advice-ref="optionsAdvisor" pointcut="target(com.zblog.service.OptionsService) and 
+       (execution(* getOptionValue(..)) || execution(* updateOptionValue(..)))" />
   </aop:config>
   
   <cache:advice id="userAdvisor" cache-manager="cacheManager">
@@ -54,6 +57,13 @@
       <cache:cacheable method="getPrevPost" key="'prev-' + #p0" />
       <cache:cache-evict method="update" key="#p0.id" all-entries="true" />
       <cache:cache-evict method="deleteById" key="#p0" all-entries="true"  />
+    </cache:caching>
+  </cache:advice>
+  
+  <cache:advice id="optionsAdvisor" cache-manager="cacheManager">
+    <cache:caching cache="options">
+      <cache:cacheable method="getOptionValue" key="#p0" unless="#result==null" />
+      <cache:cache-evict method="updateOptionValue" key="#p0" />
     </cache:caching>
   </cache:advice>
   

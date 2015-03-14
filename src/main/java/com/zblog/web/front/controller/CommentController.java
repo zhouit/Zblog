@@ -17,8 +17,9 @@ import com.zblog.core.util.IdGenarater;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.constants.WebConstants;
+import com.zblog.core.util.constants.OptionConstants;
 import com.zblog.service.CommentService;
+import com.zblog.service.OptionsService;
 import com.zblog.web.front.validator.CommentValidator;
 
 @Controller
@@ -26,11 +27,13 @@ import com.zblog.web.front.validator.CommentValidator;
 public class CommentController{
   @Autowired
   private CommentService commentService;
+  @Autowired
+  private OptionsService optionsService;
 
   @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
   public Object post(Comment comment, HttpServletRequest request, HttpServletResponse response){
-    if(!WebConstants.ALLOW_COMMENT)
+    if(!"true".equals(optionsService.getOptionValue(OptionConstants.ALLOW_COMMENT)))
       return new MapContainer("success", false).put("msg", "当前禁止评论");
 
     CookieUtil cookieUtil = new CookieUtil(request, response);
