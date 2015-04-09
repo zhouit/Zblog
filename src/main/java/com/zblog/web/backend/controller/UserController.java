@@ -86,4 +86,18 @@ public class UserController{
     return "backend/user/my";
   }
 
+  @RequestMapping(value = "/my", method = RequestMethod.PUT)
+  public String upmy(User user, String repass, Model model){
+    MapContainer form = UserFormValidator.validateMy(user, repass);
+    if(!form.isEmpty()){
+      model.addAllAttributes(form);
+      model.addAttribute("my", user);
+      return "backend/user/my";
+    }
+
+    user.setRole(WebContextFactory.get().getUser().getRole());
+    userService.update(user);
+    return "redirect:/backend/users";
+  }
+
 }

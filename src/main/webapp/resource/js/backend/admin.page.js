@@ -60,5 +60,5 @@ zblog.page.remove=function(postid){
 }
 
 zblog.page.edit=function(postid){
-  window.location.href="pages/edit?pid="+postid;
+  window.location.href="edit?pid="+postid;
 }

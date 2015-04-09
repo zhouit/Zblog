@@ -15,7 +15,7 @@ html{overflow-y: scroll; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100
 a,img { border:none; }
 a, a:visited { text-decoration:none; outline:none; }
 a:hover{text-decoration:underline; }
-p{margin:0 0 1em 0; padding:0; line-height:200%; }
+p{margin:0 0 1em 0; padding:0; line-height:150%; }
 ul{ list-style-type:none; margin:0 0 1em 0; padding:0; line-height:0%; }
 ul li{margin:0; padding:0; line-height:normal; zoom:1; }
 ol{margin:0 0 1em 19px; padding:0; }

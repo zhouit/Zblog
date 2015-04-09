@@ -23,7 +23,10 @@
    </insert>
    
    <update id="update" parameterType="User">
-     update user set realName=#{realName},role=#{role},email=#{email},description=#{description}
+     update user set realName=#{realName},email=#{email},description=#{description}
+     <if test="role!=null and role!=''">
+        ,role=#{role}
+     </if>
      <if test="password!=null and password!=''">
        ,password=md5(#{password})
      </if>

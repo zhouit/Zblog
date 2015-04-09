@@ -22,16 +22,14 @@
         <div class="panel panel-default">
           <div class="panel-heading"><span class="icon glyphicon glyphicon-briefcase"></span>新建账户</div>
           <div class="panel-body">
-            <form action="." method="post" class="form-horizontal text-left" role="form">
+            <form action="my" method="post" class="form-horizontal text-left" role="form">
               <input type="hidden" name="CSRFToken" value="${CSRFToken}" />
-              <c:if test="${user!=null}">
-                <input type="hidden" name="_method" value="PUT" />
-                <input type="hidden" name="id" value="${my.id}" />
-              </c:if>
+              <input type="hidden" name="_method" value="PUT" />
+              <input type="hidden" name="id" value="${my.id}" />
               <div class="form-group">
                 <label class="col-sm-3" for="title">*用户名</label>
                 <div class="col-sm-6">
-                  <input class="form-control" type="text"  value="${my.nickName}" readonly="readonly"  />
+                  <input class="form-control" type="text" name="nickName"  value="${my.nickName}" readonly="readonly"  />
                 </div>
               </div>
                <div class="form-group ${email!=null?'has-error':''}">
@@ -44,7 +42,7 @@
                <div class="form-group ${realName!=null?'has-error':''}">
                  <label class="col-sm-3" for="realName">真实名称</label>
                  <div class="col-sm-6">
-                    <input class="form-control" autocomplete="off" type="text" name="realName" value="${my.realName}" />
+                    <input class="form-control" autocomplete="off" name="realName" type="text" value="${my.realName}" />
                      <p class="help-block">${realName}</p>
                   </div>
                </div>

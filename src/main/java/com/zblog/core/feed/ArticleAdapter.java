@@ -19,7 +19,7 @@ public class ArticleAdapter implements Article{
 
   @Override
   public String getLink(){
-    return "/post/" + post.getAsString("id");
+    return "/posts/" + post.getAsString("id");
   }
 
   @Override

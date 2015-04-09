@@ -15,6 +15,9 @@ public class OptionFormValidator{
     if(StringUtils.isBlank(option.getSubtitle())){
       form.put("subtitle", "需填写副标题");
     }
+    if(StringUtils.isBlank(option.getDescription())){
+      form.put("subtitle", "需填写站点描述");
+    }
     if(StringUtils.isBlank(option.getWeburl())){
       form.put("weburl", "需填写网站url");
     }

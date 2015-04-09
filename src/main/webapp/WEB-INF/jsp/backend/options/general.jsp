@@ -39,6 +39,13 @@
                    <p class="help-block">${subtitle!=null?subtitle:'用简洁的文字描述本站点。'}</p>
                  </div>
                </div>
+               <div class="form-group ${subtitle!=null?'has-error':''}">
+                 <label class="col-sm-3" for="description">站点描述</label>
+                 <div class="col-sm-6">
+                   <input placeholder="站点描述" name="description" class="form-control" type="text" value="${form.description}" />
+                   <p class="help-block">${description!=null?description:'用简洁的文字描述本站点。'}</p>
+                 </div>
+               </div>
                <div class="form-group ${weburl!=null?'has-error':''}">
                  <label class="col-sm-3" for="weburl">*站点地址（URL）</label>
                  <div class="col-sm-6">

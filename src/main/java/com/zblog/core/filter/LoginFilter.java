@@ -98,11 +98,11 @@ public class LoginFilter extends OncePerRequestFilter{
       //
       // ServletUtils.sendRedirect(response, "/backend/login?redirectURL=" +
       // encodeURL);
-      ServletUtils.sendRedirect(response, "/resources/error/unauthenticated.html");
+      ServletUtils.sendRedirect(response, "/resource/error/unauthenticated.html");
     }else{
       logger.error("error happend", t);
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      ServletUtils.sendRedirect(response, "/resources/error/500.html");
+      ServletUtils.sendRedirect(response, "/resource/error/500.html");
     }
   }
 

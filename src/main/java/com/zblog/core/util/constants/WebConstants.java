@@ -15,7 +15,7 @@ public class WebConstants{
 
   public static String APPLICATION_PATH;
   public static final String PREFIX = "/WEB-INF/jsp/";
-  
+
   /**
    * 以/backend开头,非/login结尾
    */
@@ -24,6 +24,10 @@ public class WebConstants{
   public static String getDomain(){
     WebContext context = WebContextFactory.get();
     return ServletUtils.getDomain(context.getRequest());
+  }
+
+  public static String getDomainLink(String path){
+    return getDomain() + path;
   }
 
 }

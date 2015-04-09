@@ -4,6 +4,8 @@ public class LoginForm{
   private String username;
   private String password;
   private boolean remeber;
+  /* 防止后台暴力破解的字段 */
+  private String guard;
   private String redirectURL;
 
   public String getUsername(){
@@ -28,6 +30,14 @@ public class LoginForm{
 
   public void setRemeber(boolean remeber){
     this.remeber = remeber;
+  }
+
+  public String getGuard(){
+    return guard;
+  }
+
+  public void setGuard(String guard){
+    this.guard = guard;
   }
 
   public String getRedirectURL(){

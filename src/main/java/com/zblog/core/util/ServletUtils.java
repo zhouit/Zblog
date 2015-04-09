@@ -1,6 +1,7 @@
 package com.zblog.core.util;
 
 import java.io.IOException;
+import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,6 +52,17 @@ public class ServletUtils{
   public static void sendRedirect(HttpServletResponse response, String url){
     try{
       response.sendRedirect(url);
+    }catch(IOException e){
+      e.printStackTrace();
+    }
+  }
+
+  public static void sendText(HttpServletResponse response, String text){
+    Writer writer = null;
+    try{
+      writer = response.getWriter();
+      writer.write(text);
+      writer.flush();
     }catch(IOException e){
       e.printStackTrace();
     }

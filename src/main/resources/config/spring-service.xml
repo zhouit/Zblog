@@ -16,5 +16,10 @@
   <task:scheduled-tasks>
     <task:scheduled ref="visitStatManager" method="flush" cron="0 0 0/1 * * ?" />
   </task:scheduled-tasks>
+  
+  <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <property name="staticMethod" value="com.zblog.web.backend.form.validator.LoginFormValidator.setLoginGuard"/>
+    <property name="arguments" value="no"/>
+  </bean>
 
 </beans>

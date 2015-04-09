@@ -9,6 +9,7 @@ package com.zblog.web.backend.form;
 public class GeneralOption{
   private String title;
   private String subtitle;
+  private String description;
   private String weburl;
 
   public String getTitle(){
@@ -25,6 +26,14 @@ public class GeneralOption{
 
   public void setSubtitle(String subtitle){
     this.subtitle = subtitle;
+  }
+
+  public String getDescription(){
+    return description;
+  }
+
+  public void setDescription(String description){
+    this.description = description;
   }
 
   public String getWeburl(){
