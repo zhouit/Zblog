@@ -42,7 +42,7 @@ public class PostManager{
   public void insertPost(Post post){
     postService.insert(post);
     /* 查找当前html中所有图片链接 */
-    List<String> imgs = extractImagepath(JsoupUtils.getImages(post.getContent()));
+    List<String> imgs = extractImagepath(JsoupUtils.getImagesOrLinks(post.getContent()));
     if(!CollectionUtils.isEmpty(imgs)){
       uploadService.updatePostid(post.getId(), imgs);
     }
@@ -56,7 +56,7 @@ public class PostManager{
   @Transactional
   public void updatePost(Post post){
     uploadService.setNullPostid(post.getId());
-    List<String> imgs = extractImagepath(JsoupUtils.getImages(post.getContent()));
+    List<String> imgs = extractImagepath(JsoupUtils.getImagesOrLinks(post.getContent()));
     if(!CollectionUtils.isEmpty(imgs))
       uploadService.updatePostid(post.getId(), imgs);
 

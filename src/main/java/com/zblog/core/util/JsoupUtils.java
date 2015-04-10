@@ -1,10 +1,11 @@
 package com.zblog.core.util;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.helper.StringUtil;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
@@ -39,18 +40,35 @@ public class JsoupUtils{
   }
 
   /**
-   * 获取当前html文本中所有图片src地址
+   * 获取当前html文本中所有可能存在图片的地址
    * 
    * @param html
    * @return
    */
-  public static List<String> getImages(String html){
-    Elements eles = Jsoup.parse(html).getElementsByTag("img");
-    List<String> result = new ArrayList<>(eles.size());
+  public static List<String> getImagesOrLinks(String html){
+    Document doc = Jsoup.parse(html);
+    Elements eles = doc.getElementsByTag("img");
+    List<String> result = new LinkedList<>();
     for(Element element : eles){
       String src = element.attr("src");
       if(!StringUtils.isBlank(src))
         result.add(src);
+    }
+
+    eles = doc.getElementsByTag("a");
+    for(Element element : eles){
+      String src = element.attr("href");
+      if(StringUtils.isBlank(src))
+        continue;
+
+      int question = src.indexOf("?");
+      if(question > 0)
+        src = src.substring(0, question);
+      int comma = src.lastIndexOf(".");
+      String ext = src.substring(comma + 1);
+      if(FileUtils.isImageExt(ext)){
+        result.add(src);
+      }
     }
 
     return result;

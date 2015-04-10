@@ -32,6 +32,8 @@ $(function(){
       /* 评论中需包含中文，escape对字符串进行编码时，字符值大于255(非英文字符)的以"%u****"格式存储 */
       return escape(value).indexOf("%u")>-1;
     }
+    
+    return true;
   },
   generate=function(msg,data){
     var meta="<div class='comment-meta'>"

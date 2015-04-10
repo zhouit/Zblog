@@ -26,7 +26,7 @@
        (execution(* loadReadById(..)) || execution(* update(..)) || execution(* deleteById(..)))" />
        
     <aop:advisor advice-ref="prenextAdvisor" pointcut="target(com.zblog.service.PostService) and 
-       (execution(* getPrevPost(..)) || execution(* getNextPost(..)) || 
+       (execution(* getPrevPost(..)) || execution(* getNextPost(..)) || execution(* insert(..)) ||
         execution(* update(..)) || execution(* deleteById(..)))" />
         
     <aop:advisor advice-ref="optionsAdvisor" pointcut="target(com.zblog.service.OptionsService) and 
@@ -55,6 +55,7 @@
     <cache:caching cache="prevnexts">
       <cache:cacheable method="getNextPost" key="'next-' + #p0" />
       <cache:cacheable method="getPrevPost" key="'prev-' + #p0" />
+      <cache:cache-evict method="insert" key="#p0.id" all-entries="true" />
       <cache:cache-evict method="update" key="#p0.id" all-entries="true" />
       <cache:cache-evict method="deleteById" key="#p0" all-entries="true"  />
     </cache:caching>

@@ -1,5 +1,7 @@
 package com.zblog.core.util;
 
+import java.util.Arrays;
+
 /**
  * 文件工具类
  * 
@@ -31,6 +33,16 @@ public class FileUtils{
   public static String getFileName(String filename){
     int point = filename.lastIndexOf(".");
     return filename.substring(0, point);
+  }
+
+  /**
+   * 判断指定格式是否为图片
+   * 
+   * @param ext
+   * @return
+   */
+  public static boolean isImageExt(String ext){
+    return ext != null && Arrays.asList("jpg", "jpeg", "png", "bmp", "gif").contains(ext.toLowerCase());
   }
 
 }
