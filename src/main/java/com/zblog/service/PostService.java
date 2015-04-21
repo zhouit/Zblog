@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zblog.core.dal.entity.Category;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.mapper.BaseMapper;
 import com.zblog.core.dal.mapper.PostMapper;
@@ -62,12 +63,12 @@ public class PostService extends BaseService{
     return postMapper.listRecent(nums);
   }
 
-  public PageModel listByCategory(String categoryName, int pageIndex, int pageSize){
+  public PageModel listByCategory(Category category, int pageIndex, int pageSize){
     PageModel page = new PageModel(pageIndex, pageSize);
-    page.insertQuery("categoryName", categoryName);
+    page.insertQuery("category", category);
     List<MapContainer> content = postMapper.listByCategory(page);
     page.setContent(content);
-    page.removeQuery("categoryName");
+    page.removeQuery("category");
 
     return page;
   }

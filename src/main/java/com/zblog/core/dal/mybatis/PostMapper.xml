@@ -42,7 +42,7 @@
    <select id="listByCategory" parameterType="PageModel" resultType="MapContainer">
       select p.id, p.title, p.excerpt, p.creator, p.rcount, u.nickName, p.createTime 
         from post p inner join category c on p.categoryid=c.id left join user u on p.creator=u.id 
-        where c.name=#{query.categoryName} and p.type='post' order by p.createTime desc
+        where p.type='post' and c.leftv>=#{query.category.leftv} and c.rightv &lt;= #{query.category.rightv} order by p.createTime desc
    </select>
    
    <insert id="insert" parameterType="Post">
