@@ -101,8 +101,11 @@ public class MetaWeblogManager{
     post.setTitle(param.getString("title"));
     post.setCreator(user.getId());
     XmlRpcArray categories = param.getArray("categories");
-    if(categories != null && !categories.isEmpty())
+    if(categories != null && !categories.isEmpty()){
       post.setCategoryid(categoryService.loadByName(categories.getString(0)).getId());
+    }else{
+      post.setCategoryid(optionsService.getOptionValue(OptionConstants.DEFAULT_CATEGORY_ID));
+    }
 
     /* 由于加入xss的过滤,html内容都被转义了,这里需要unescape */
     String content = HtmlUtils.htmlUnescape(param.getString("description"));

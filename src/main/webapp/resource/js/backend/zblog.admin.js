@@ -16,6 +16,10 @@ zblog.register =function(){
   return result;
 }
 
+zblog.getDomainLink=function(path){
+  return window.location.protocol+"//"+window.location.port+window.location.host+"/backend/"+path;
+}
+
 zblog.getCookie=function(name){
   var cookieValue = null;
   if(document.cookie && document.cookie != ''){

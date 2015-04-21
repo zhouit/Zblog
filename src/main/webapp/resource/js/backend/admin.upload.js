@@ -3,7 +3,7 @@ zblog.register("zblog.upload");
 zblog.upload.remove=function(uploadid){
  $.ajax({
    type:"DELETE",
-   url:"uploads/"+uploadid,
+   url:zblog.getDomainLink("uploads/"+uploadid),
    dataType:"json",
    success:function(data){
    	if(data&&data.success){

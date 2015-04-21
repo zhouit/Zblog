@@ -3,7 +3,7 @@ zblog.register("zblog.link");
 zblog.link.remove=function(linkid){
  $.ajax({
    type:"DELETE",
-   url:"links/"+linkid,
+   url:zblog.getDomainLink("links/"+linkid),
    dataType:"json",
    success:function(data){
 	  if(data&&data.success){
@@ -16,5 +16,5 @@ zblog.link.remove=function(linkid){
 }
 
 zblog.link.edit=function(linkid){
-  window.location.href="links/edit?lid="+linkid;
+  window.location.href=zblog.getDomainLink("links/edit?lid="+linkid);
 }

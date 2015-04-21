@@ -2,7 +2,7 @@ zblog.register("zblog.category");
 $(function(){
   $.ajax({
 	 type:"GET",
-	 url:"categorys/index",
+	 url:zblog.getDomainLink("categorys/index"),
 	 dataType:"json",
 	 success:function(data){
 	   if(!data) return ;
@@ -15,12 +15,12 @@ zblog.category.insert=function(){
  var select = $("#tree .node-selected");
  $.ajax({
    type:"POST",
-   url:"categorys",
+   url:zblog.getDomainLink("categorys"),
    dataType:"json",
    data:{parent:select.text(),name:$("#newCategory").val()},
    success:function(msg){
 	 if(msg&&msg.success){
-	   window.location.href="categorys";
+	   window.location.reload();
 	   zdialog.hide('insert-box');
 	 }else{
 	   alert("添加失败"); 
@@ -34,11 +34,11 @@ zblog.category.remove=function(){
   if(!select) return ;
   $.ajax({
    type:"DELETE",
-   url:"categorys/"+select,
+   url:zblog.getDomainLink("categorys/"+select),
    dataType:"json",
    success:function(msg){
 	 if(msg&&msg.success){
-	   window.location.href="categorys";
+	   window.location.reload();
 	 }else{
 	   alert("删除失败"); 
 	  }

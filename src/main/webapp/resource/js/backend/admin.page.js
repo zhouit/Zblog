@@ -31,12 +31,12 @@ zblog.page.insert=function(){
   
   $.ajax({
     type:postid.length>0?"PUT":"POST",
-    url:".",
+    url:zblog.getDomainLink("pages"),
     data:data,
     dataType:"json",
     success:function(data){
 	    if(data&&data.success){
-	       window.location.href=".";
+	       window.location.reload();
       }else{
     	  alert(data.msg);
       }
@@ -47,7 +47,7 @@ zblog.page.insert=function(){
 zblog.page.remove=function(postid){
  $.ajax({
    type:"DELETE",
-   url:"pages/"+postid,
+   url:zblog.getDomainLink("pages/"+postid),
    dataType:"json",
    success:function(data){
 	  if(data&&data.success){
@@ -60,5 +60,5 @@ zblog.page.remove=function(postid){
 }
 
 zblog.page.edit=function(postid){
-  window.location.href="edit?pid="+postid;
+  window.location.href=zblog.getDomainLink("pages/edit?pid="+postid);
 }

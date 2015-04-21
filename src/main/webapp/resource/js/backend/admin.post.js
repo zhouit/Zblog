@@ -27,7 +27,7 @@ zblog.post.insert=function(){
   
   $.ajax({
     type:postid.length>0?"PUT":"POST",
-    url:".",
+    url:zblog.getDomainLink("posts"),
     data:data,
     dataType:"json",
     success:function(data){
@@ -41,9 +41,10 @@ zblog.post.insert=function(){
 }
 
 zblog.post.remove=function(postid){
+ alert(window.location.host);
  $.ajax({
    type:"DELETE",
-   url:"posts/"+postid,
+   url:zblog.getDomainLink("posts/"+postid),
    dataType:"json",
    success:function(data){
 	   if(data&&data.success){
@@ -56,5 +57,5 @@ zblog.post.remove=function(postid){
 }
 
 zblog.post.edit=function(postid){
-  window.location.href="edit?pid="+postid;
+  window.location.href=zblog.getDomainLink("posts/edit?pid="+postid);
 }

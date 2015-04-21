@@ -42,6 +42,8 @@ public class VisitStatManager{
     Integer count = visit.get(postid);
     /* 该数据，并发问题忽略 */
     visit.put(postid, count == null ? 1 : count + 1);
+    /*  此处更新文章阅读数 */
+    postService.loadReadById(postid).put("rcount", visit.get(postid));
   }
 
 }

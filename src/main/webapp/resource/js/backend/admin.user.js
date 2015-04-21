@@ -3,7 +3,7 @@ zblog.register("zblog.user");
 zblog.user.remove=function(userid){
  $.ajax({
    type:"DELETE",
-   url:"users/"+userid,
+   url:zblog.getDomainLink("users/"+userid),
    dataType:"json",
    success:function(data){
 	  if(data&&data.success){
@@ -16,5 +16,5 @@ zblog.user.remove=function(userid){
 }
 
 zblog.user.edit=function(userid){
-  window.location.href="users/edit?uid="+userid;
+  window.location.href=zblog.getDomainLink("users/edit?uid="+userid);
 }
