@@ -8,7 +8,7 @@
      <li class="comment ${status.index%2==0?'even_comment':'odd_comment'}" id="comment-${comment.id}">
     </c:when>
     <c:otherwise>
-      <li class="comment ${depth%2==0?'even_comment':'odd_comment'}" id="comment-${comment.id}">
+      <li class="comment ${depth%2==(parent?0:1)?'even_comment':'odd_comment'}" id="comment-${comment.id}">
     </c:otherwise>
    </c:choose>
    <div class="comment-meta">
@@ -26,10 +26,8 @@
        <p>${comment.content}</p>
      </div>
      <c:if test="${comment.children!=null}">
-       <c:choose>
-         <c:when test="${depth==null}"><c:set var="depth" value="${status.index%2==0?1:2}" scope="request" /></c:when>
-         <c:otherwise><c:set var="depth" value="${depth+1}" scope="request" /></c:otherwise>
-       </c:choose>
+       <c:set var="depth" value="${depth+1}" scope="request" />
+       <c:set var="parent" value="${status.index%2==0}" scope="request" />
        <c:set var="comments" value="${comment.children}" scope="request" />
        <jsp:include page="comments_list.jsp" flush="false" />
        <c:set var="depth" value="${depth-1}" scope="request" />
