@@ -33,7 +33,7 @@ a java blog
 * 搜索工具 Lucene
 * 缓存 Ehcache
 * 静态化 FreeMarker
-* 视图模板 Jsp/Jstl
+* 视图模板 Jsp/Jstl/JspTaglib
 * 其它 Jsoup(xss过滤)、fastjson、IKAnalyzer
 
 #### 前端

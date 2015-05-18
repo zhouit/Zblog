@@ -98,7 +98,7 @@ public class MetaWeblogManager{
     post.setId(optionManager.getNextPostid());
     /* param.getDate("dateCreated") */
     post.setLastUpdate(new Date());
-    post.setTitle(param.getString("title"));
+    post.setTitle(HtmlUtils.htmlEscape(param.getString("title")));
     post.setCreator(user.getId());
     XmlRpcArray categories = param.getArray("categories");
     if(categories != null && !categories.isEmpty()){
@@ -107,8 +107,7 @@ public class MetaWeblogManager{
       post.setCategoryid(optionsService.getOptionValue(OptionConstants.DEFAULT_CATEGORY_ID));
     }
 
-    /* 由于加入xss的过滤,html内容都被转义了,这里需要unescape */
-    String content = HtmlUtils.htmlUnescape(param.getString("description"));
+    String content = param.getString("description");
     post.setContent(JsoupUtils.filter(content));
     String cleanTxt = JsoupUtils.plainText(content);
     post.setExcerpt(cleanTxt.length() > PostConstants.EXCERPT_LENGTH ? cleanTxt.substring(0,
@@ -136,9 +135,9 @@ public class MetaWeblogManager{
 
     Post post = new Post();
     post.setId(postid);
-    post.setTitle(param.getString("title"));
+    post.setTitle(HtmlUtils.htmlEscape(param.getString("title")));
     post.setLastUpdate(new Date());
-    String content = HtmlUtils.htmlUnescape(param.getString("description"));
+    String content = param.getString("description");
     post.setContent(JsoupUtils.filter(content));
     String cleanTxt = JsoupUtils.plainText(content);
     post.setExcerpt(cleanTxt.length() > PostConstants.EXCERPT_LENGTH ? cleanTxt.substring(0,
