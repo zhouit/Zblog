@@ -4,7 +4,10 @@
 <%@ taglib uri="/WEB-INF/tld/shiro-function.tld" prefix="sf" %>
 <fieldset id="respond" class="comment_form_wrapper">
 <c:choose>
- <c:when test="${g.allowComment && sf:isUser()}">
+ <c:when test="${!g.allowComment || (!sf:isUser()&&post.pstatus=='secret')}">
+  当前禁止评论
+ </c:when>
+ <c:otherwise>
   <div id="cancel_comment_reply">
      <a href="#respond" rel="nofollow">点击这里取消回复。</a>
   </div>
@@ -37,10 +40,7 @@
       <input id="submit_comment" type="button" value="发表评论" >
     </div>
 <!--   </form> -->
-  </c:when>
-  <c:otherwise>
-   当前禁止评论
-  </c:otherwise>
- </c:choose>
+ </c:otherwise>
+</c:choose>
 </fieldset>
 <script src="${g.domain}/resource/js/zblog.js"></script>

@@ -17,6 +17,7 @@
     <task:scheduled ref="visitStatManager" method="flush" cron="0 0 0/1 * * ?" />
   </task:scheduled-tasks>
   
+  <!-- 设置后台防暴力破解登录请求参数，详见BackendController.dashboard()方法 -->
   <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
     <property name="staticMethod" value="com.zblog.web.backend.form.validator.LoginFormValidator.setLoginGuard"/>
     <property name="arguments" value="no"/>

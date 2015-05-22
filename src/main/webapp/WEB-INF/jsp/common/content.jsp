@@ -16,12 +16,8 @@
    <h3 class="title"><span>${post.title}</span></h3>
    <div class="post_content">
      <c:choose>
-       <c:when test="${sf:isUser()}">
-         ${post.content}
-       </c:when>
-       <c:otherwise>
-         由于作者设置了权限，你没法阅读此文，请与作者联系
-       </c:otherwise>
+       <c:when test="${!sf:isUser()&&post.pstatus=='secret'}">由于作者设置了权限，你没法阅读此文，请与作者联系</c:when>
+       <c:otherwise>${post.content}</c:otherwise>
      </c:choose>
    </div>
   </div>

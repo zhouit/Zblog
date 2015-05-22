@@ -53,8 +53,11 @@ public class BackendController{
     if(WebContextFactory.get().isLogon())
       return "redirect:/backend/index";
 
-    if("logout".equals(msg))
+    if("logout".equals(msg)){
       model.addAttribute("msg", "您已登出。");
+    }else if("unauthenticated".equals(msg)){
+      model.addAttribute("msg", "你没有当前操作权限");
+    }
     return "backend/login";
   }
 

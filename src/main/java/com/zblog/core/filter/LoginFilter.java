@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.util.ThreadContext;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -88,8 +89,7 @@ public class LoginFilter extends OncePerRequestFilter{
    * @param response
    */
   private void handleException(Throwable t, HttpServletRequest request, HttpServletResponse response){
-    String className = t.getClass().getName();
-    if("org.apache.shiro.authz.UnauthenticatedException".equals(className)){
+    if(t instanceof UnauthenticatedException){
       response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
       // String uri = StringUtils.emptyDefault(request.getRequestURI(), "/");
       // String encodeURL = UrlUtil.encode(uri
