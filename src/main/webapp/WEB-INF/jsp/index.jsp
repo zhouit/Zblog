@@ -17,7 +17,9 @@
       <c:forEach items="${page.content}" var="post">
       <div class="post_wrap clearfix">
         <div class="post">
-          <h3 class="title"><a href="${g.domain}/posts/${post.id}">${post.title}</a></h3>
+          <h3 class="title"><a href="${g.domain}/posts/${post.id}">
+          <c:if test="${post.pstatus=='secret'}">私密:</c:if>
+          ${post.title}</a></h3>
           <div class="post_content">
             <p class="excerpt">${post.excerpt}...</p>
             <p><a class="more_link" href="${g.domain}/posts/${post.id}">阅读全文</a></p>

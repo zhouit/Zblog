@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" version="2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+                            http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
+  <description>shiro function</description>
+  <display-name>sf</display-name>
+  <tlib-version>1.0</tlib-version>
+  <short-name>sf</short-name>
+  <uri>/WEB-INF/tld/shiro-function.tld</uri>
+  
+  <function>
+    <name>getPrincipals</name>
+    <function-class>com.zblog.core.tag.ShiroFunctions</function-class>
+    <function-signature>org.apache.shiro.subject.PrincipalCollection getPrincipals()</function-signature>
+  </function>
+  
+  <function>
+    <name>hasAllRoles</name>
+    <function-class>com.zblog.core.tag.ShiroFunctions</function-class>
+    <function-signature>boolean hasAllRoles(java.lang.String)</function-signature>
+  </function>
+
+  <function>
+    <name>hasAnyRoles</name>
+    <function-class>com.zblog.core.tag.ShiroFunctions</function-class>
+    <function-signature>boolean hasAnyRoles(java.lang.String)</function-signature>
+  </function>
+
+  <function>
+    <name>hasRole</name>
+    <function-class>com.zblog.core.tag.ShiroFunctions</function-class>
+    <function-signature>boolean hasRole(java.lang.String)</function-signature>
+  </function>
+
+  <function>
+    <name>isAuthenticated</name>
+    <function-class>com.zblog.core.tag.ShiroFunctions</function-class>
+    <function-signature>boolean isAuthenticated()</function-signature>
+  </function>
+
+  <function>
+    <name>isGuest</name>
+    <function-class>com.zblog.core.tag.ShiroFunctions</function-class>
+    <function-signature>boolean isGuest()</function-signature>
+  </function>
+
+  <function>
+    <name>isPermitted</name>
+    <function-class>com.zblog.core.tag.ShiroFunctions</function-class>
+    <function-signature>boolean isPermitted(java.lang.String)</function-signature>
+  </function>
+
+  <function>
+    <name>isPermittedAll</name>
+    <function-class>com.zblog.core.tag.ShiroFunctions</function-class>
+    <function-signature>boolean isPermittedAll(java.lang.String)</function-signature>
+  </function>
+
+  <function>
+    <name>isPermittedAny</name>
+    <function-class>com.zblog.core.tag.ShiroFunctions</function-class>
+    <function-signature>boolean isPermittedAny(java.lang.String)</function-signature>
+  </function>
+
+  <function>
+    <name>isRemembered</name>
+    <function-class>com.zblog.core.tag.ShiroFunctions</function-class>
+    <function-signature>boolean isRemembered()</function-signature>
+  </function>
+
+  <function>
+    <name>isRunAs</name>
+    <function-class>com.zblog.core.tag.ShiroFunctions</function-class>
+    <function-signature>boolean isRunAs()</function-signature>
+  </function>
+
+  <function>
+    <name>isUser</name>
+    <function-class>com.zblog.core.tag.ShiroFunctions</function-class>
+    <function-signature>boolean isUser()</function-signature>
+  </function>
+
+  <function>
+    <name>lacksPermission</name>
+    <function-class>com.zblog.core.tag.ShiroFunctions</function-class>
+    <function-signature>boolean lacksPermission(java.lang.String)</function-signature>
+  </function>
+
+  <function>
+    <name>lacksRole</name>
+    <function-class>com.zblog.core.tag.ShiroFunctions</function-class>
+    <function-signature>boolean lacksRole(java.lang.String)</function-signature>
+  </function>
+  
+  <function>
+    <name>notAuthenticated</name>
+    <function-class>com.zblog.core.tag.ShiroFunctions</function-class>
+    <function-signature>boolean notAuthenticated()</function-signature>
+  </function>
+</taglib>

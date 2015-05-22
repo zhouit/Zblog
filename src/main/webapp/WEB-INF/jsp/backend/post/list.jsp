@@ -34,7 +34,9 @@
                </tr></thead>
               <tbody>
                <c:forEach items="${page.content}" var="post">
-                 <tr><td><strong><a target="_blank" href="../../posts/${post.id}">${post.title}</a></strong>
+                 <tr><td><strong><a target="_blank" href="../../posts/${post.id}">${post.title}</a>
+                  <c:if test="${post.pstatus=='secret'}"> - 私密</c:if>
+                 </strong>
                      <div class="row-action">
                        <span><a href="#">编辑</a>&nbsp;|&nbsp;</span>
                        <span><a href="#">快速编辑</a>&nbsp;|&nbsp;</span>

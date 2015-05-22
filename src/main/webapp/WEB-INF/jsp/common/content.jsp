@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
+<%@ taglib uri="/WEB-INF/tld/shiro-function.tld" prefix="sf" %>
 <c:if test="${post.type=='post'}">
 <div id="bread_crumb">
   <ul class="clearfix">
@@ -14,7 +14,16 @@
 <div class="post_wrap clearfix">
   <div class="post">
    <h3 class="title"><span>${post.title}</span></h3>
-   <div class="post_content">${post.content}</div>
+   <div class="post_content">
+     <c:choose>
+       <c:when test="${sf:isUser()}">
+         ${post.content}
+       </c:when>
+       <c:otherwise>
+         由于作者设置了权限，你没法阅读此文，请与作者联系
+       </c:otherwise>
+     </c:choose>
+   </div>
   </div>
   <div class="meta">
     <ul>

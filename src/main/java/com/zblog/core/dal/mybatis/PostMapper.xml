@@ -5,11 +5,11 @@
 <mapper namespace="com.zblog.core.dal.mapper.PostMapper">
    
    <select id="loadById" parameterType="java.lang.String" resultType="Post">  
-      select id, title, content, categoryid, parent, createTime from post where id = #{id}
+      select id, title, content, categoryid, parent, pstatus, createTime from post where id = #{id}
    </select>
    
    <select id="loadReadById" parameterType="java.lang.String" resultType="MapContainer">  
-      select p.id, p.title, p.content, p.type, p.categoryid, c.name as categoryName, p.parent, p.creator, p.rcount, p.ccount, p.createTime, u.nickName 
+      select p.id, p.title, p.content, p.type, p.categoryid, c.name as categoryName, p.parent, p.pstatus, p.creator, p.rcount, p.ccount, p.createTime, u.nickName 
       from post p left join category c on p.categoryid=c.id left join user u on p.creator=u.id
       where p.id = #{id}
    </select>
@@ -25,7 +25,7 @@
    </select>
    
    <select id="list" parameterType="PageModel" resultType="MapContainer">  
-      select p.id, p.title, p.excerpt, c.name as categoryName, p.rcount, p.ccount, p.creator, u.nickName, p.createTime
+      select p.id, p.title, p.excerpt, c.name as categoryName, p.pstatus, p.rcount, p.ccount, p.creator, u.nickName, p.createTime
           from post p left join category c on p.categoryid=c.id left join user u on p.creator=u.id
           where p.type=#{query.type} order by p.createTime desc
    </select>
@@ -40,7 +40,7 @@
    </select>
    
    <select id="listByCategory" parameterType="PageModel" resultType="MapContainer">
-      select p.id, p.title, p.excerpt, p.creator, p.rcount, u.nickName, p.createTime 
+      select p.id, p.title, p.excerpt, p.creator, p.rcount, u.nickName, p.createTime, p.pstatus
         from post p inner join category c on p.categoryid=c.id left join user u on p.creator=u.id 
         where p.type='post' and c.leftv>=#{query.category.leftv} and c.rightv &lt;= #{query.category.rightv} order by p.createTime desc
    </select>
@@ -51,7 +51,7 @@
    </insert>
    
    <update id="update" parameterType="Post">
-     update post set title=#{title},excerpt=#{excerpt}, content=#{content, jdbcType=CLOB},parent=#{parent}, categoryid=#{categoryid},lastUpdate=#{lastUpdate}
+     update post set title=#{title},excerpt=#{excerpt}, content=#{content, jdbcType=CLOB},parent=#{parent}, pstatus=#{pstatus}, categoryid=#{categoryid},lastUpdate=#{lastUpdate}
      where id=#{id}
    </update>
    

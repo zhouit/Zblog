@@ -10,8 +10,9 @@ public class PostConstants{
   /* 文章评论状态 */
   public static final String COMMENT_POST = "open";
   public static final String COMMENT_CLOSE = "close";
-  /*文章状态,发布、回收站*/
+  /* 文章状态,发布、回收站 */
   public static final String POST_PUBLISH = "publish";
+  public static final String POST_SECRET = "secret";
   public static final String POST_TRASH = "trash";
 
   /**

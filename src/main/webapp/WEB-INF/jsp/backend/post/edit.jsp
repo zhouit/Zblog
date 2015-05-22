@@ -53,15 +53,15 @@
                <div class="form-group">
                  <label>公开度</label><br/>
                  <label class="radio-inline">
-                    <input type="radio" name="visual" value="open" checked="checked">公开
+                    <input type="radio" name="pstatus" value="publish" ${post.pstatus=='publish'?'checked':''}>公开
                  </label>
                  <label class="radio-inline">
-                    <input type="radio" name="visual" value="open">隐藏
+                    <input type="radio" name="pstatus" value="secret" ${post.pstatus=='secret'?'checked':''}>隐藏
                  </label>
                </div>
                <div class="form-group">
                  <label for="mark">标签</label>
-                 <input type="text" class="form-control" id="mark" />
+                 <input type="text" class="form-control" id="mark />
                  <span class="help-block">多个标签请用英文逗号（,）分开</span>
                </div>
              </div>

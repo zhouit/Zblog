@@ -1,12 +1,14 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="z" uri="/WEB-INF/tld/function.tld" %>
+<%@ taglib uri="/WEB-INF/tld/shiro-function.tld" prefix="sf" %>
 <fieldset id="respond" class="comment_form_wrapper">
-  <c:if test="${g.allowComment}">
+<c:choose>
+ <c:when test="${g.allowComment && sf:isUser()}">
   <div id="cancel_comment_reply">
      <a href="#respond" rel="nofollow">点击这里取消回复。</a>
   </div>
- <%--  <form method="post" action="${g.domain}/comments" id="comment_form"> --%>
+ <!--  <form method="post" action="/comments" id="comment_form"> -->
     <input type="hidden" id="postid" name="postid" value="${post.id}" />
     <input type="hidden" id="comment_parent" name="parent" />
     <c:if test="${cookie.comment_author!=null}">
@@ -35,9 +37,10 @@
       <input id="submit_comment" type="button" value="发表评论" >
     </div>
 <!--   </form> -->
- </c:if>
- <c:if test="${!g.allowComment}">
+  </c:when>
+  <c:otherwise>
    当前禁止评论
- </c:if>
+  </c:otherwise>
+ </c:choose>
 </fieldset>
 <script src="${g.domain}/resource/js/zblog.js"></script>

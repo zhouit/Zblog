@@ -22,7 +22,10 @@ zblog.post.insert=function(){
   }
 
   var postid=$("#postid").val();
-  var data={title:title, content:zblog.post.editor.getContent(), categoryid:$("#category").val()};
+  var data={title:title,
+            content:zblog.post.editor.getContent(),
+            categoryid:$("#category").val(),
+            pstatus:$("input:radio[name=pstatus]:checked").val()};
   if(postid.length>0) data.id=postid;
   
   $.ajax({

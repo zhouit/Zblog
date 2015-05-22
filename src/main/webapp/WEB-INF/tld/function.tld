@@ -3,10 +3,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
                             http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
-  <description>zblog function utils</description>
+  <description>common function</description>
   <display-name>fns</display-name>
   <tlib-version>1.0</tlib-version>
-  <short-name>function</short-name>
+  <short-name>common function</short-name>
   <uri>/WEB-INF/tld/function.tld</uri>
   <function>
     <name>cookieValue</name>
@@ -16,12 +16,14 @@
     </function-signature>
     <example>${z:cookieValue('name')}</example>
   </function>
+  
   <function>
     <name>substring</name>
     <function-class>com.zblog.core.tag.FunctionHelper</function-class>
     <function-signature>java.lang.String substring(java.lang.String, int)</function-signature>
     <example>${z:substring('http://github.com',7)}</example>
   </function>
+  
   <function>
     <name>fileExt</name>
     <function-class>com.zblog.core.tag.FunctionHelper</function-class>
