@@ -24,7 +24,7 @@
             <c:if test="${success}">
               <div class="alert alert-success" style="padding: 10px 15px;">修改成功</div>
             </c:if>
-            <form action="" method="post" class="form-horizontal text-left" role="form">
+            <form action="post" method="post" class="form-horizontal text-left" role="form">
               <input type="hidden" name="CSRFToken" value="${CSRFToken}" />
               <div class="form-group ${maxshow!=null?'has-error':''}">
                 <label class="col-sm-3" for="maxshow">*博客页面至多显示(文章数/页)</label>

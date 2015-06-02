@@ -38,8 +38,9 @@ public class UploadManager{
     Upload upload = null;
     MultipartFile file = reader.getFile(fileVal);
     try{
-      String year = DateUtils.currentDate("yyyy");
-      File parent = new File(reader.getRealPath("/post/uploads"), year);
+      Date current = new Date();
+      String yearMonth = DateUtils.formatDate("yyyy/MM", current);
+      File parent = new File(reader.getRealPath("/post/uploads"), yearMonth);
       if(!parent.exists())
         parent.mkdirs();
 
@@ -49,9 +50,9 @@ public class UploadManager{
       upload = new Upload();
       upload.setId(IdGenarater.uuid19());
       upload.setCreator(WebContextFactory.get().getUser().getId());
-      upload.setCreateTime(new Date());
+      upload.setCreateTime(current);
       upload.setName(file.getOriginalFilename());
-      upload.setPath("/post/uploads/" + year + "/" + savePath.getName());
+      upload.setPath("/post/uploads/" + yearMonth + "/" + savePath.getName());
 
       uploadService.insert(upload);
     }catch(Exception e){
@@ -66,9 +67,10 @@ public class UploadManager{
     Upload upload = null;
     OutputStream out = null;
     try{
-      String year = DateUtils.currentDate("yyyy");
+      Date current = new Date();
+      String yearMonth = DateUtils.formatDate("yyyy/MM", current);
       WebContext context = WebContextFactory.get();
-      File parent = new File(ServletUtils.getRealPath(context.getRequest(), "/post/uploads"), year);
+      File parent = new File(ServletUtils.getRealPath(context.getRequest(), "/post/uploads"), yearMonth);
       if(!parent.exists())
         parent.mkdirs();
 
@@ -77,10 +79,10 @@ public class UploadManager{
 
       upload = new Upload();
       upload.setId(IdGenarater.uuid19());
-      upload.setCreateTime(new Date());
+      upload.setCreateTime(current);
       upload.setCreator(userid);
       upload.setName(fileName);
-      upload.setPath("/post/uploads/" + year + "/" + savePath.getName());
+      upload.setPath("/post/uploads/" + yearMonth + "/" + savePath.getName());
 
       uploadService.insert(upload);
     }catch(Exception e){
@@ -97,9 +99,9 @@ public class UploadManager{
     Upload upload = null;
     OutputStream out = null;
     try{
-      String year = DateUtils.formatDate("yyyy", create);
+      String yearMonth = DateUtils.formatDate("yyyy/MM", create);
       WebContext context = WebContextFactory.get();
-      File parent = new File(ServletUtils.getRealPath(context.getRequest(), "/post/uploads"), year);
+      File parent = new File(ServletUtils.getRealPath(context.getRequest(), "/post/uploads"), yearMonth);
       if(!parent.exists())
         parent.mkdirs();
 
@@ -111,7 +113,7 @@ public class UploadManager{
       upload.setCreateTime(create);
       upload.setCreator(userid);
       upload.setName(fileName);
-      upload.setPath("/post/uploads/" + year + "/" + savePath.getName());
+      upload.setPath("/post/uploads/" + yearMonth + "/" + savePath.getName());
 
       uploadService.insert(upload);
     }catch(Exception e){

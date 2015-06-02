@@ -17,7 +17,7 @@ public class CurrentRightTag extends AbstartTagSupport{
 
     if(model.getPageIndex() < model.getTotalPage() / 2){
       current = Math.max(1, model.getPageIndex() - p.getShowPage() / 2);
-      end = current + p.getShowPage() - 1;
+      end = Math.min(current + p.getShowPage() - 1, model.getTotalPage());
     }else{
       end = Math.min(model.getTotalPage(), model.getPageIndex() + p.getShowPage() / 2 - 1);
       current = Math.max(1, end - p.getShowPage());

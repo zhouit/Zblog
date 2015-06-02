@@ -74,9 +74,9 @@
     <i class="left glyphicon glyphicon-wrench" aria-hidden="true"></i>工具
     <i class="right glyphicon glyphicon-chevron-up" aria-hidden="true"></i></a>
     <ul class="sub-menu">
-      <li><a href="${g.domain}/backend/monitor/ehcache">缓存监控</a></li>
-      <li><a href="${g.domain}/backend/options/import">导入</a></li>
-      <li><a class="last" href="${g.domain}/backend/options/output">导出</a></li>
+      <li><a href="${g.domain}/backend/tool/ehcache">缓存监控</a></li>
+      <li><a href="${g.domain}/backend/tool/import">导入</a></li>
+      <li><a class="last" href="${g.domain}/backend/tool/output">导出</a></li>
     </ul>
    </li>
   </shiro:hasRole>

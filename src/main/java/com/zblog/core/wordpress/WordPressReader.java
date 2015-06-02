@@ -22,8 +22,6 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.io.IOUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document.OutputSettings;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -42,6 +40,12 @@ public final class WordPressReader{
   private WordPressReader(){
   }
 
+  /**
+   * 从wordpress的xml站点文件中加载数据
+   * 
+   * @param xml
+   * @return 返回有序链表，依次为domain、attachment、post
+   */
   public static List<MapContainer> load(InputStream xml){
     List<MapContainer> list = new ArrayList<>();
 
@@ -53,6 +57,11 @@ public final class WordPressReader{
 
       XPath xpath = XPathFactory.newInstance().newXPath();
       String domain = (String) xpath.evaluate("/rss/channel/link/text()", doc, XPathConstants.STRING);
+      MapContainer link = new MapContainer();
+      link.put("itemType", "domain");
+      link.put("domain", domain);
+      list.add(link);
+
       xpath.reset();
       NodeList items = (NodeList) xpath.evaluate("/rss/channel/item", doc, XPathConstants.NODESET);
       DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
@@ -69,11 +78,10 @@ public final class WordPressReader{
         if("attachment".equals(itemType)){
           String attachUrl = item.getElementsByTagName("wp:attachment_url").item(0).getTextContent();
           map.put("attachUrl", attachUrl);
-          list.add(0, map);
+          list.add(1, map);
         }else if("post".equals(itemType)){
           String content = item.getElementsByTagName("content:encoded").item(0).getTextContent();
           content = htmlTagAdjust(content);
-          content = htmlImageOrLinkAdjust(domain, content);
           map.put("content", content);
 
           String category = item.getElementsByTagName("category").item(0).getTextContent();
@@ -157,33 +165,6 @@ public final class WordPressReader{
     }
 
     return result;
-  }
-
-  /**
-   * 这里使用jsoup,因为jaxb必须要求well-formed格式的xml文档
-   * 
-   * @param domain
-   * @param html
-   * @return
-   * @throws Exception
-   */
-  private static String htmlImageOrLinkAdjust(String domain, String html) throws Exception{
-    org.jsoup.nodes.Document doc = Jsoup.parse(html);
-    OutputSettings settings = new OutputSettings();
-    settings.prettyPrint(false);
-    doc.outputSettings(settings);
-    org.jsoup.select.Elements eles = doc.select("img,a");
-    for(int i = 0; i < eles.size(); i++){
-      org.jsoup.nodes.Element ele = eles.get(i);
-      String tagName = ele.nodeName();
-      String linkAttr = "img".equals(tagName) ? "src" : "href";
-      String link = ele.attr(linkAttr);
-      if(!link.startsWith("http://") && !link.startsWith("https://")){
-        ele.attr(linkAttr, domain + link);
-      }
-    }
-
-    return doc.body().html();
   }
 
   static String htmlImageOrLinkAdjust(String domain, XPath xpath, String xhtml) throws Exception{
