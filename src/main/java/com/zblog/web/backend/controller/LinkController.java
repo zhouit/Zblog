@@ -41,7 +41,8 @@ public class LinkController{
       return "backend/link/edit";
     }
 
-    link.setLastUpdate(new Date());
+    link.setCreateTime(new Date());
+    link.setLastUpdate(link.getCreateTime());
     link.setCreator(WebContextFactory.get().getUser().getNickName());
     link.setId(IdGenarater.uuid19());
     link.setVisible(true);
@@ -58,6 +59,7 @@ public class LinkController{
       return "backend/link/edit";
     }
 
+    link.setLastUpdate(new Date());
     linkService.update(link);
     return "redirect:/backend/links";
   }

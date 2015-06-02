@@ -7,6 +7,38 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import com.zblog.core.plugin.PageModel;
 
+/**
+ * 分页标签,使用方法:
+ * 
+ * <pre>
+ *   &lt;page:page model="${requestPageAttr}" pageUrl="." showPage="8"&gt;
+ *     &lt;page:first&gt;
+ *      somehtml,${pageUrl}-${pageNumber}
+ *     &lt;/page:first&gt;
+ *     &lt;page:prev&gt;
+ *       somehtml,${pageUrl}-${pageNumber}
+ *     &lt;/page:prev&gt;
+ *     &lt;page:currentLeft&gt;
+ *       somehtml,${pageUrl}-${pageNumber}
+ *     &lt;/page:currentLeft&gt;
+ *     &lt;page:current&gt;
+ *       somehtml,${pageUrl}-${pageNumber}
+ *     &lt;/page:current&gt;
+ *     &lt;page:currentRight&gt;
+ *       somehtml,${pageUrl}-${pageNumber}
+ *     &lt;/page:currentRight&gt;
+ *     &lt;page:next&gt;
+ *       somehtml,${pageUrl}-${pageNumber}
+ *     &lt;/page:next&gt;
+ *     &lt;page:last&gt;
+ *       somehtml,${pageUrl}-${pageNumber}
+ *     &lt;/page:last&gt;
+ *   &lt;/page:page&gt;
+ * </pre>
+ * 
+ * @author zhou
+ *
+ */
 public class Pagination extends TagSupport{
   private static final long serialVersionUID = 1L;
 
@@ -16,6 +48,8 @@ public class Pagination extends TagSupport{
   // 页面访问参数如/user/product
   private String pageUrl;
   private PageModel model;
+  /* 当前遍历索引 */
+  private int current = 0;
 
   // 显示几个页脚
   private int showPage = SHOW_PAGE;
@@ -52,6 +86,14 @@ public class Pagination extends TagSupport{
 
   int getBoundary(){
     return boundary;
+  }
+
+  void setCurrent(int current){
+    this.current = current;
+  }
+
+  int getCurrent(){
+    return current;
   }
 
   @Override

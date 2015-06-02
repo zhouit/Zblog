@@ -57,7 +57,8 @@ public class PostController{
 
     post.setId(optionManager.getNextPostid());
     post.setCreator(WebContextFactory.get().getUser().getId());
-    post.setLastUpdate(new Date());
+    post.setCreateTime(new Date());
+    post.setLastUpdate(post.getCreateTime());
 
     /* 由于加入xss的过滤,html内容都被转义了,这里需要unescape */
     String content = HtmlUtils.htmlUnescape(post.getContent());
@@ -84,6 +85,7 @@ public class PostController{
     post.setExcerpt(cleanTxt.length() > PostConstants.EXCERPT_LENGTH ? cleanTxt.substring(0,
         PostConstants.EXCERPT_LENGTH) : cleanTxt);
 
+    post.setLastUpdate(new Date());
     postManager.updatePost(post);
     return new MapContainer("success", true);
   }

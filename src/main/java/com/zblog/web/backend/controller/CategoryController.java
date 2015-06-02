@@ -42,7 +42,7 @@ public class CategoryController{
   public Object insert(Category category, String parent){
     category.setId(IdGenarater.uuid19());
     category.setCreateTime(new Date());
-    category.setLastUpdate(new Date());
+    category.setLastUpdate(category.getCreateTime());
     return new MapContainer("success", categoryService.insertChildren(category, parent));
   }
 

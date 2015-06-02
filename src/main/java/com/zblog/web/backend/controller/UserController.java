@@ -46,7 +46,7 @@ public class UserController{
 
     user.setId(IdGenarater.uuid19());
     user.setCreateTime(new Date());
-    user.setLastUpdate(new Date());
+    user.setLastUpdate(user.getCreateTime());
 
     userService.insert(user);
     return "redirect:/backend/users";
@@ -61,6 +61,7 @@ public class UserController{
       return "backend/user/edit";
     }
 
+    user.setLastUpdate(new Date());
     userService.update(user);
     return "redirect:/backend/users";
   }
@@ -96,6 +97,7 @@ public class UserController{
     }
 
     user.setRole(WebContextFactory.get().getUser().getRole());
+    user.setLastUpdate(new Date());
     userService.update(user);
     return "redirect:/backend/users";
   }

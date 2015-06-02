@@ -1,5 +1,6 @@
 package com.zblog.core.util;
 
+import java.io.File;
 import java.util.Arrays;
 
 /**
@@ -43,6 +44,24 @@ public class FileUtils{
    */
   public static boolean isImageExt(String ext){
     return ext != null && Arrays.asList("jpg", "jpeg", "png", "bmp", "gif").contains(ext.toLowerCase());
+  }
+
+  /**
+   * 生成文件存储名
+   * 
+   * @param parent
+   * @param fileName
+   * @return
+   */
+  public static File determineFile(File parent, String fileName){
+    String name = getFileName(fileName);
+    String ext = getFileExt(fileName);
+    File temp = new File(parent, fileName);
+    for(int i = 1; temp.exists(); i++){
+      temp = new File(parent, name + i + "." + ext);
+    }
+
+    return temp;
   }
 
 }

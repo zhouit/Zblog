@@ -1,13 +1,13 @@
 package com.zblog.core.plugin;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import com.zblog.core.util.DateUtils;
 
 @SuppressWarnings("unchecked")
 public class MapContainer extends LinkedHashMap<String, Object>{
@@ -23,6 +23,16 @@ public class MapContainer extends LinkedHashMap<String, Object>{
 
   public <T> T get(String key, Class<T> clazz){
     return (T) get(key);
+  }
+
+  /**
+   * 此方法和getAs方法区别为getAs为把对应键值转化为字符串再parse，此方法为直接获取值进行强转
+   * 
+   * @param key
+   * @return
+   */
+  public <T> T get(String key){
+    return (T) super.get(key);
   }
 
   @Override
@@ -75,15 +85,7 @@ public class MapContainer extends LinkedHashMap<String, Object>{
     if(value == null)
       return null;
 
-    Date result = null;
-    try{
-      SimpleDateFormat format = new SimpleDateFormat(pattern);
-      result = format.parse(value.toString());
-    }catch(ParseException e){
-      e.printStackTrace();
-    }
-
-    return result;
+    return DateUtils.parse(pattern, value.toString());
   }
 
   public int getAsInteger(String key, int defaults){

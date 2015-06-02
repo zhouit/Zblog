@@ -2,6 +2,7 @@ package com.zblog.biz;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
 
@@ -42,12 +43,13 @@ public class UploadManager{
       if(!parent.exists())
         parent.mkdirs();
 
-      File savePath = determineFile(parent, file.getOriginalFilename());
+      File savePath = FileUtils.determineFile(parent, file.getOriginalFilename());
       file.transferTo(savePath);
 
       upload = new Upload();
       upload.setId(IdGenarater.uuid19());
       upload.setCreator(WebContextFactory.get().getUser().getId());
+      upload.setCreateTime(new Date());
       upload.setName(file.getOriginalFilename());
       upload.setPath("/post/uploads/" + year + "/" + savePath.getName());
 
@@ -70,12 +72,43 @@ public class UploadManager{
       if(!parent.exists())
         parent.mkdirs();
 
-      File savePath = determineFile(parent, fileName);
+      File savePath = FileUtils.determineFile(parent, fileName);
       IOUtils.write(file, out = new FileOutputStream(savePath));
 
       upload = new Upload();
       upload.setId(IdGenarater.uuid19());
       upload.setCreateTime(new Date());
+      upload.setCreator(userid);
+      upload.setName(fileName);
+      upload.setPath("/post/uploads/" + year + "/" + savePath.getName());
+
+      uploadService.insert(upload);
+    }catch(Exception e){
+      e.printStackTrace();
+      upload = null;
+    }finally{
+      IOUtils.closeQuietly(out);
+    }
+
+    return upload;
+  }
+
+  public Upload insertUpload(InputStream in, Date create, String fileName, String userid){
+    Upload upload = null;
+    OutputStream out = null;
+    try{
+      String year = DateUtils.formatDate("yyyy", create);
+      WebContext context = WebContextFactory.get();
+      File parent = new File(ServletUtils.getRealPath(context.getRequest(), "/post/uploads"), year);
+      if(!parent.exists())
+        parent.mkdirs();
+
+      File savePath = FileUtils.determineFile(parent, fileName);
+      IOUtils.copy(in, out = new FileOutputStream(savePath));
+
+      upload = new Upload();
+      upload.setId(IdGenarater.uuid19());
+      upload.setCreateTime(create);
       upload.setCreator(userid);
       upload.setName(fileName);
       upload.setPath("/post/uploads/" + year + "/" + savePath.getName());
@@ -102,22 +135,4 @@ public class UploadManager{
     new File(WebConstants.APPLICATION_PATH, upload.getPath()).delete();
   }
 
-  /**
-   * 生成文件存储名
-   * 
-   * @param parent
-   * @param fileName
-   * @return
-   */
-  private File determineFile(File parent, String fileName){
-    String name = FileUtils.getFileName(fileName);
-    String ext = FileUtils.getFileExt(fileName);
-    File temp = new File(parent, fileName);
-    for(int i = 1; temp.exists(); i++){
-      temp = new File(parent, name + i + "." + ext);
-    }
-
-    return temp;
-  }
-  
 }

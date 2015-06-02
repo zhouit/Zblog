@@ -1,6 +1,5 @@
 package com.zblog.service;
 
-import java.util.Date;
 import java.util.List;
 
 import com.zblog.core.dal.entity.BaseEntity;
@@ -11,8 +10,6 @@ import com.zblog.core.plugin.PageModel;
 public abstract class BaseService{
 
   public <T extends BaseEntity> int insert(T t){
-    t.setCreateTime(new Date());
-
     return getMapper().insert(t);
   }
 
@@ -30,8 +27,6 @@ public abstract class BaseService{
   }
 
   public <T extends BaseEntity> void update(T t){
-    t.setLastUpdate(new Date());
-
     getMapper().update(t);
   }
 
