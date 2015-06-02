@@ -113,7 +113,7 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
-  <!-- 设置Session时长:以分钟为单位;如果是零或负数,那么会话就永远不会超时。 -->
+  <!-- 设置Session时长:以分钟为单位;如果是零或负数,那么会话就永远不会超时。注：当前程序不使用session，使用cookie -->
   <session-config>
     <session-timeout>1</session-timeout>
   </session-config>

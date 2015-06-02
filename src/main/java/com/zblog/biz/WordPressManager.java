@@ -18,7 +18,7 @@ import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.core.wordpress.WordPressReader;
 
 /**
- * wordpress文章导入
+ * wordpress站点导入，只会导入文章、附件
  * 
  * @author zhou
  *
@@ -44,6 +44,11 @@ public class WordPressManager{
     }
   }
 
+  /**
+   * 导入指定附件
+   * 
+   * @param attach
+   */
   private void importAttach(MapContainer attach){
     String attachUrl = attach.get("attachUrl");
     Date pubDate = attach.get("pubDate");
@@ -59,6 +64,11 @@ public class WordPressManager{
     }
   }
 
+  /**
+   * 导入指定文章
+   * 
+   * @param post
+   */
   private void importPost(MapContainer post){
     Post p = new Post();
     p.setType(PostConstants.TYPE_POST);

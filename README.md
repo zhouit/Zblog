@@ -16,6 +16,7 @@ a java blog
 7.	lucene实现的站内搜索。
 8.	防xss、csrf攻击。
 9.	支持metaWeblog Api(支持windows live writer等离线博客编写)
+10.	WordPress站点xml文件导入功能(支持文章及附件)
 
 #### TODO
 *	文章标签tag功能
