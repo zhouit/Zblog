@@ -14,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.constants.Constants;
+import com.zblog.core.util.constants.WebConstants;
 import com.zblog.core.util.web.WebContext;
 import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.shiro.StatelessToken;
@@ -42,8 +43,12 @@ public class LoginFilter extends OncePerRequestFilter{
       accessControl();
 
       boolean ajax = ServletUtils.isAjax(request);
-      if(!ajax)
+      if(!ajax){
         request.setAttribute("g", new Global(ServletUtils.getDomain(request)));
+      }
+      
+      /* 设置domain */
+      WebConstants.setDomain(ServletUtils.getDomain(request));
 
       filterChain.doFilter(request, response);
     }catch(Exception e){

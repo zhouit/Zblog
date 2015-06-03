@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-	                         http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="3.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee   
+                             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 	
   <jsp-config>
     <jsp-property-group>
@@ -41,14 +41,17 @@
   <filter>
     <filter-name>HttpPutFormContentFilter</filter-name>
     <filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
+    <async-supported>true</async-supported>
   </filter>
   <filter>
     <filter-name>LoginFilter</filter-name>
     <filter-class>com.zblog.core.filter.LoginFilter</filter-class>
+    <async-supported>true</async-supported>
   </filter>
   <filter>
     <filter-name>XssFilter</filter-name>
     <filter-class>com.zblog.core.filter.XssFilter</filter-class>
+    <async-supported>true</async-supported>
     <!-- 字符编码过滤 -->
     <init-param>
       <param-name>encoding</param-name>
@@ -59,6 +62,7 @@
   <filter>
     <filter-name>StatelessCsrfFilter</filter-name>
     <filter-class>com.zblog.core.filter.StatelessCsrfFilter</filter-class>
+    <async-supported>true</async-supported>
     <init-param>
       <param-name>exclude</param-name>
       <!-- 基于ant风格的url匹配 -->
@@ -69,12 +73,14 @@
   <filter>
     <filter-name>HiddenHttpMethodFilter</filter-name>
     <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+    <async-supported>true</async-supported>
   </filter>
 
   <servlet>
     <servlet-name>Zblog</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
+    <async-supported>true</async-supported>
     <init-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>classpath:config/spring-servlet.xml</param-value>

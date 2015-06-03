@@ -20,11 +20,11 @@ import org.springframework.stereotype.Component;
 import com.zblog.core.dal.entity.Category;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.entity.Upload;
+import com.zblog.core.dal.entity.User;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.constants.PostConstants;
 import com.zblog.core.util.constants.WebConstants;
-import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.core.wordpress.WordPressReader;
 import com.zblog.service.CategoryService;
 
@@ -45,7 +45,7 @@ public class WordPressManager{
   @Autowired
   private CategoryService categoryService;
 
-  public void importData(InputStream wordpressXml){
+  public void importData(InputStream wordpressXml, User user){
     List<MapContainer> list = WordPressReader.load(wordpressXml);
     Map<String, Upload> links = new HashMap<>();
     /* wordpress站点域名 */
@@ -55,10 +55,10 @@ public class WordPressManager{
       if("domain".equals(itemType)){
         wpdomain = mc.get("domain");
       }else if("attachment".equals(itemType)){
-        Upload upload = importAttach(mc);
+        Upload upload = importAttach(mc, user);
         links.put(mc.getAsString("attachUrl"), upload);
       }else if("post".equals(itemType)){
-        importPost(mc, wpdomain, links);
+        importPost(mc, user, wpdomain, links);
       }
     }
   }
@@ -68,7 +68,7 @@ public class WordPressManager{
    * 
    * @param attach
    */
-  private Upload importAttach(MapContainer attach){
+  private Upload importAttach(MapContainer attach, User user){
     String attachUrl = attach.get("attachUrl");
     Date pubDate = attach.get("pubDate");
     InputStream in = null;
@@ -76,8 +76,7 @@ public class WordPressManager{
     try{
       UrlResource resource = new UrlResource(URI.create(attachUrl));
       in = resource.getInputStream();
-      upload = uploadManager.insertUpload(in, pubDate, resource.getFilename(), WebContextFactory.get().getUser()
-          .getId());
+      upload = uploadManager.insertUpload(in, pubDate, resource.getFilename(), user.getId());
     }catch(Exception e){
       e.printStackTrace();
     }finally{
@@ -92,11 +91,11 @@ public class WordPressManager{
    * 
    * @param post
    */
-  private void importPost(MapContainer post, String wpdoamin, Map<String, Upload> links){
+  private void importPost(MapContainer post, User user, String wpdoamin, Map<String, Upload> links){
     Post p = new Post();
     p.setType(PostConstants.TYPE_POST);
     p.setId(optionManager.getNextPostid());
-    p.setCreator(WebContextFactory.get().getUser().getId());
+    p.setCreator(user.getId());
     p.setTitle(post.getAsString("title"));
     Category category = categoryService.loadByName(post.getAsString("category"));
     if(category != null){
@@ -137,7 +136,10 @@ public class WordPressManager{
       if(!oldLink.startsWith("http://") && !oldLink.startsWith("https://")){
         oldLink = wpdomain + oldLink;
       }
-      ele.attr(linkAttr, WebConstants.getDomainLink(links.get(oldLink).getPath()));
+      Upload newUpload = links.get(oldLink);
+      if(newUpload != null){
+        ele.attr(linkAttr, WebConstants.getDomainLink(newUpload.getPath()));
+      }
     }
 
     return doc.body().html();

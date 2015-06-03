@@ -26,7 +26,10 @@
             </c:if>
             <form action="import" method="post" class="form-horizontal text-left" enctype="multipart/form-data" role="form">
               <input type="hidden" name="CSRFToken" value="${CSRFToken}" />
-              <div class="alert alert-info">支持导入wordpress的文章及附件数据</div>
+              <div class="well">支持导入wordpress的文章及附件数据</div>
+              <c:if test="${msg!=null}">
+                <div class="alert alert-warning">${msg}</div>
+              </c:if>
               <div class="form-group">
                 <label class="col-sm-3">*wordpress</label>
                 <div class="col-sm-6">

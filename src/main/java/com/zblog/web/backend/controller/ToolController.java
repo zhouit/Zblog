@@ -11,7 +11,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.zblog.biz.EhCacheManager;
 import com.zblog.biz.WordPressManager;
+import com.zblog.core.dal.entity.User;
 import com.zblog.core.lucene.SearchEnginer;
+import com.zblog.core.util.web.WebContextFactory;
 
 @Controller
 @RequestMapping("/backend/tool")
@@ -40,13 +42,21 @@ public class ToolController{
   }
 
   @RequestMapping(value = "/import", method = RequestMethod.POST)
-  public String importData(MultipartFile wordpress, Model model){
+  public String importData(final MultipartFile wordpress, final Model model){
+    final User user = WebContextFactory.get().getUser();
+    // return new Callable<String>(){
+    // @Override
+    // public String call() throws Exception{
     try{
-      wordPressManager.importData(wordpress.getInputStream());
+      wordPressManager.importData(wordpress.getInputStream(), user);
+      model.addAttribute("msg", "导入成功");
     }catch(Exception e){
       e.printStackTrace();
       model.addAttribute("msg", "导入失败，请重试");
     }
+
     return "backend/tool/import";
+    // }
+    // };
   }
 }

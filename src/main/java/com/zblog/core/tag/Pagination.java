@@ -51,8 +51,6 @@ public class Pagination extends TagSupport{
   // 页面访问参数如/user/product
   private String pageUrl;
   private PageModel model;
-  /* 当前遍历索引 */
-  private int current = 0;
 
   // 显示几个页脚
   private int showPage = SHOW_PAGE;
@@ -89,14 +87,6 @@ public class Pagination extends TagSupport{
 
   int getBoundary(){
     return boundary;
-  }
-
-  void setCurrent(int current){
-    this.current = current;
-  }
-
-  int getCurrent(){
-    return current;
   }
 
   @Override

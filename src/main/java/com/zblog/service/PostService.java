@@ -36,7 +36,6 @@ public class PostService extends BaseService{
     super.list(page);
     /* 由于分页标签会根据query产生,这里删除掉无用query,下同 */
     page.removeQuery("type");
-    page.setTotalCount(152);
     return page;
   }
 

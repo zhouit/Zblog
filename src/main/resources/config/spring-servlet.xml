@@ -20,6 +20,8 @@
          </property>
 	  </bean>
 	</mvc:message-converters>
+    <!--  可不设置，使用默认的超时时间,当前为5分钟 -->
+    <mvc:async-support default-timeout="300000" />
   </mvc:annotation-driven>
   
   <context:component-scan base-package="com.zblog.web.front.controller" />

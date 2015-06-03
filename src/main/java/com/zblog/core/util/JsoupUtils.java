@@ -47,27 +47,25 @@ public class JsoupUtils{
    */
   public static List<String> getImagesOrLinks(String html){
     Document doc = Jsoup.parse(html);
-    Elements eles = doc.getElementsByTag("img");
+    Elements eles = doc.select("img,a");
     List<String> result = new LinkedList<>();
     for(Element element : eles){
-      String src = element.attr("src");
-      if(!StringUtils.isBlank(src))
-        result.add(src);
-    }
-
-    eles = doc.getElementsByTag("a");
-    for(Element element : eles){
-      String src = element.attr("href");
-      if(StringUtils.isBlank(src))
+      boolean isa = "a".equals(element.nodeName());
+      String link = element.attr(isa ? "href" : "src");
+      if(StringUtils.isBlank(link))
         continue;
 
-      int question = src.indexOf("?");
-      if(question > 0)
-        src = src.substring(0, question);
-      int comma = src.lastIndexOf(".");
-      String ext = src.substring(comma + 1);
-      if(FileUtils.isImageExt(ext)){
-        result.add(src);
+      if(isa){
+        int question = link.indexOf("?");
+        if(question > 0)
+          link = link.substring(0, question);
+        int comma = link.lastIndexOf(".");
+        String ext = link.substring(comma + 1).toLowerCase();
+        if(FileUtils.isImageExt(ext)){
+          result.add(link);
+        }
+      }else{
+        result.add(link);
       }
     }
 

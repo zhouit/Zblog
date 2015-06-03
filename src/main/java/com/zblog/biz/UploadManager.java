@@ -100,8 +100,7 @@ public class UploadManager{
     OutputStream out = null;
     try{
       String yearMonth = DateUtils.formatDate("yyyy/MM", create);
-      WebContext context = WebContextFactory.get();
-      File parent = new File(ServletUtils.getRealPath(context.getRequest(), "/post/uploads"), yearMonth);
+      File parent = new File(WebConstants.APPLICATION_PATH + "post/uploads", yearMonth);
       if(!parent.exists())
         parent.mkdirs();
 

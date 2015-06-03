@@ -1,9 +1,5 @@
 package com.zblog.core.util.constants;
 
-import com.zblog.core.util.ServletUtils;
-import com.zblog.core.util.web.WebContext;
-import com.zblog.core.util.web.WebContextFactory;
-
 public class WebConstants{
   private WebConstants(){
   }
@@ -15,6 +11,7 @@ public class WebConstants{
 
   public static String APPLICATION_PATH;
   public static final String PREFIX = "/WEB-INF/jsp/";
+  private static String DOMAIN;
 
   /**
    * 以/backend开头,非/login结尾
@@ -22,8 +19,17 @@ public class WebConstants{
   static final String BACKEND_URL = "^/backend.*(?<!/login|/rcode)$";
 
   public static String getDomain(){
-    WebContext context = WebContextFactory.get();
-    return ServletUtils.getDomain(context.getRequest());
+    return DOMAIN;
+  }
+
+  /**
+   * 设置当前站点域名，因为{@link getDomain()}
+   * 为ThreadLocal方式实现获取domain,这样不在servlet线程中执行时会拿到null值
+   * 
+   * @param domain
+   */
+  public static void setDomain(String domain){
+    DOMAIN = domain;
   }
 
   public static String getDomainLink(String path){
