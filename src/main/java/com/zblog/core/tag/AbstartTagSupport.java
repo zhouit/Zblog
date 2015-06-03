@@ -13,10 +13,14 @@ abstract class AbstartTagSupport extends TagSupport{
     pageContext.setAttribute("pageUrl", p.getPageUrl() + pageNumber);
   }
 
-  @Override
-  public int doEndTag() throws JspException{
+  protected void clearPageAttribute(){
     pageContext.removeAttribute("pageNumber");
     pageContext.removeAttribute("pageUrl");
+  }
+
+  @Override
+  public int doEndTag() throws JspException{
+    clearPageAttribute();
     return super.doEndTag();
   }
 

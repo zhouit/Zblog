@@ -8,7 +8,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 import com.zblog.core.plugin.PageModel;
 
 /**
- * 分页标签,使用方法:
+ * 灵活的分页标签,使用方法:
  * 
  * <pre>
  *   &lt;page:page model="${requestPageAttr}" pageUrl="." showPage="8"&gt;
@@ -18,15 +18,19 @@ import com.zblog.core.plugin.PageModel;
  *     &lt;page:prev&gt;
  *       somehtml,${pageUrl}-${pageNumber}
  *     &lt;/page:prev&gt;
- *     &lt;page:currentLeft&gt;
- *       somehtml,${pageUrl}-${pageNumber}
- *     &lt;/page:currentLeft&gt;
- *     &lt;page:current&gt;
- *       somehtml,${pageUrl}-${pageNumber}
- *     &lt;/page:current&gt;
- *     &lt;page:currentRight&gt;
- *       somehtml,${pageUrl}-${pageNumber}
- *     &lt;/page:currentRight&gt;
+ *     &lt;page:pager&gt;
+ *     &lt;c:choose&gt;
+ *       &lt;c:when test='${dot}'&gt;
+ *         ...
+ *       &lt;/c:when&gt;
+ *       &lt;c:when test='${pageNumber==page.pageIndex}'&gt;
+ *         currentIndex,${pageUrl}-${pageNumber}
+ *       &lt;/c:when&gt;
+ *       &lt;c:otherwise&gt;
+ *         somehtml,${pageUrl}-${pageNumber}
+ *       &lt;/c:otherwise&gt;
+ *     &lt;/c:choose&gt;
+ *     &lt;/page:pager&gt;
  *     &lt;page:next&gt;
  *       somehtml,${pageUrl}-${pageNumber}
  *     &lt;/page:next&gt;
@@ -43,7 +47,6 @@ public class Pagination extends TagSupport{
   private static final long serialVersionUID = 1L;
 
   private static final int SHOW_PAGE = 10;
-  private static final int BOUNDARY_PAGE = 3;
 
   // 页面访问参数如/user/product
   private String pageUrl;
@@ -54,7 +57,7 @@ public class Pagination extends TagSupport{
   // 显示几个页脚
   private int showPage = SHOW_PAGE;
   // 最左最右保留几个页脚
-  private int boundary = BOUNDARY_PAGE;
+  private int boundary = 0;
 
   public void setPageUrl(String pageUrl){
     this.pageUrl = pageUrl;

@@ -51,19 +51,23 @@
              <li><span class="dots">…</span></li>
               <li><a href="#">66</a></li>
               <li><a href="#">>></a></li> -->
-             <page:page model="${page}" pageUrl="." showPage="8">
+             <page:page model="${page}" pageUrl="." showPage="9" boundary="2">
                <page:prev>
                  <li><a href="${pageUrl}"><<</a></li>
                </page:prev>
-               <page:currentLeft>
-                 <li><a href="${pageUrl}">${pageNumber}</a></li>
-               </page:currentLeft>
-               <page:current>
-                 <li><span class="current">${pageNumber}</span></li>
-               </page:current>
-               <page:currentRight>
-                 <li><a href="${pageUrl}">${pageNumber}</a></li>
-               </page:currentRight>
+              <page:pager>
+                <c:choose>
+                  <c:when test="${dot}">
+                   <li><span class="dots">…</span></li>
+                  </c:when>
+                  <c:when test="${pageNumber==page.pageIndex}">
+                     <li><span class="current">${pageNumber}</span></li>
+                  </c:when>
+                  <c:otherwise>
+                    <li><a href="${pageUrl}">${pageNumber}</a></li>
+                  </c:otherwise>
+                </c:choose>
+              </page:pager>
                <page:next>
                  <li><a href="${pageUrl}">>></a></li>
                </page:next>
