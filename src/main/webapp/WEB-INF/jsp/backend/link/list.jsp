@@ -32,7 +32,7 @@
                </tr></thead>
               <tbody>
                <c:forEach items="${page.content}" var="link">
-                 <tr><td>${link.name}</td><td><a target="_blank" href='${link.url}'>${z:substring(link.url, 7)}</a></td>
+                 <tr><td>${link.name}</td><td><a target="_blank" href='${link.url}'>${z:getDomainLink(link.url)}</a></td>
                      <td>${link.visible?"是":"否"}</td><td><fmt:formatDate value="${link.createTime}" pattern="yyyy-MM-dd"/></td>
                      <td class="center"><span class="icon glyphicon glyphicon-pencil pointer" onclick="zblog.link.edit('${link.id}')"></span>
                        <span class="glyphicon glyphicon-trash pointer" onclick="zblog.link.remove('${link.id}')"></span></td></tr>

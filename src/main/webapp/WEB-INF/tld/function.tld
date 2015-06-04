@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<taglib xmlns="http://java.sun.com/xml/ns/j2ee" version="2.0"
+<taglib xmlns="http://java.sun.com/xml/ns/javaee" version="2.1"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
-                            http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+                            http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd">
   <description>common function</description>
   <display-name>fns</display-name>
   <tlib-version>1.0</tlib-version>
@@ -18,10 +18,10 @@
   </function>
   
   <function>
-    <name>substring</name>
+    <name>getDomainLink</name>
     <function-class>com.zblog.core.tag.FunctionHelper</function-class>
-    <function-signature>java.lang.String substring(java.lang.String, int)</function-signature>
-    <example>${z:substring('http://github.com',7)}</example>
+    <function-signature>java.lang.String getDomainLink(java.lang.String)</function-signature>
+    <example>${z:getDomainLink('http://github.com/')}</example>
   </function>
   
   <function>

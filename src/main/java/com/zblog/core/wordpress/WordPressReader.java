@@ -112,24 +112,24 @@ public final class WordPressReader{
         if(tag != null){
           if(pureText){
             result.delete(result.length() - 4, result.length());
-            result.append("</p>");
+            result.append("</p>\n");
             pureText = false;
           }
 
-          result.append(line);
+          result.append(line).append('\n');
           tag = line.trim().endsWith("</" + tag + ">") ? null : tag;
           continue;
         }
 
         if(!pureText){
           if(line.trim().length() != 0){
-            result.append("<p>").append(line).append("<br>");
+            result.append("<p>\n").append(line).append("<br>");
             pureText = true;
           }
         }else{
           if(line.trim().length() == 0){
             result.delete(result.length() - 4, result.length());
-            result.append("</p>");
+            result.append("</p>\n");
             pureText = false;
           }else{
             result.append(line).append("<br>");

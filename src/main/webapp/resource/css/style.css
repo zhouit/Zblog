@@ -104,6 +104,7 @@ a:hover{color: #009dc4;}
 
 /* headline */
 .post h1,.post h2, .post h3, .post h4, .post h5, .post h6{line-height:130%; margin:0 0 10px 0; }
+.post_content a{text-decoration: underline;color:#00a19e;}
 /* image */
 .post img{height:auto; max-width:100%; width:auto;}
 .post img.centered, div.centered{display:block; margin:15px auto;}

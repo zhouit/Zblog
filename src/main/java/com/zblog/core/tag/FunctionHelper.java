@@ -1,5 +1,7 @@
 package com.zblog.core.tag;
 
+import java.net.URI;
+
 import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.FileUtils;
 import com.zblog.core.util.StringUtils;
@@ -23,8 +25,31 @@ public class FunctionHelper{
     return cookieUtil.getCookie(name);
   }
 
-  public static String substring(String src, int start){
-    return StringUtils.isBlank(src) ? "" : src.substring(start);
+  /**
+   * 获取制定url的域名链接，包含path路径
+   * 
+   * @param url
+   * @return
+   */
+  public static String getDomainLink(String url){
+    if(StringUtils.isBlank(url))
+      return "";
+
+    URI uri = URI.create(url);
+    String result = uri.getHost();
+    if(uri.getPort() != -1 && uri.getPort() != 80){
+      result += ":" + uri.getPort();
+    }
+
+    if(!"/".equals(uri.getPath())){
+      result += uri.getPath();
+    }
+
+    if(result.endsWith("/")){
+      result = result.substring(0, result.length() - 1);
+    }
+
+    return result;
   }
 
   public static String fileExt(String filename){

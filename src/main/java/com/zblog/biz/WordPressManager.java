@@ -23,13 +23,15 @@ import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.dal.entity.User;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.JsoupUtils;
+import com.zblog.core.util.constants.OptionConstants;
 import com.zblog.core.util.constants.PostConstants;
 import com.zblog.core.util.constants.WebConstants;
 import com.zblog.core.wordpress.WordPressReader;
 import com.zblog.service.CategoryService;
+import com.zblog.service.OptionsService;
 
 /**
- * wordpress站点导入，只会导入文章、附件
+ * wordpress站点导入，暂只支持导入文章、附件
  * 
  * @author zhou
  *
@@ -44,6 +46,8 @@ public class WordPressManager{
   private OptionManager optionManager;
   @Autowired
   private CategoryService categoryService;
+  @Autowired
+  private OptionsService optionsService;
 
   public void importData(InputStream wordpressXml, User user){
     List<MapContainer> list = WordPressReader.load(wordpressXml);
@@ -100,6 +104,8 @@ public class WordPressManager{
     Category category = categoryService.loadByName(post.getAsString("category"));
     if(category != null){
       p.setCategoryid(category.getId());
+    }else{
+      p.setCategoryid(optionsService.getOptionValue(OptionConstants.DEFAULT_CATEGORY_ID));
     }
     p.setCreateTime((Date) post.get("pubDate"));
     p.setLastUpdate(p.getCreateTime());
