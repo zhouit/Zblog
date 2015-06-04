@@ -45,7 +45,7 @@
                <c:forEach items="${page.content}" var="comment">
                  <tr><td><strong><img class="avatar" src='../../resource/img/avatar.png' width="32" height="32" />
                         ${comment.creator}</strong><br/>
-                        <a href="${comment.url}">${z:substring(comment.url, 7)}</a><br/>
+                        <a href="${comment.url}">${z:getDomainLink(comment.url)}</a><br/>
                         <a href="mailto:${comment.email}">${comment.email}</a></br/>
                         <a href="#">${comment.ip}</a></td>
                       <td><div>提交于<a href="${g.domain}/posts/${comment.postid}/#comment-${comment.id}" target="_blank">

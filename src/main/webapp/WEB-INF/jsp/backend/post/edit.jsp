@@ -41,7 +41,9 @@
                  <label for="categoty">分类</label>
                  <select class="form-control" id="category">
                    <c:forEach items="${categorys}" var="category" begin="1">
-                     <option value="${category.id}">├─<c:if test="${category.level==3}">└─</c:if>${category.text}</option>
+                     <option value="${category.id}" ${post.categoryid==category.id?'selected':''}>
+                        ├─<c:if test="${category.level==3}">└─</c:if>${category.text}
+                      </option>
                    </c:forEach>
 <!--                    <option value="1">├─Java</option>
                    <option value="2">├─└─JavaSE</option>
