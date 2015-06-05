@@ -62,8 +62,8 @@
                  </label>
                </div>
                <div class="form-group">
-                 <label for="mark">标签</label>
-                 <input type="text" class="form-control" id="mark />
+                 <label for="tags">标签</label>
+                 <input type="text" class="form-control" id="tags" name="tags" />
                  <span class="help-block">多个标签请用英文逗号（,）分开</span>
                </div>
              </div>

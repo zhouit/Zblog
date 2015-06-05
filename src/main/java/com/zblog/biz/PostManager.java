@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zblog.biz.aop.PostIndexManager;
 import com.zblog.core.dal.entity.Post;
+import com.zblog.core.dal.entity.Tag;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.CollectionUtils;
@@ -20,6 +21,7 @@ import com.zblog.core.util.constants.PostConstants;
 import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.OptionsService;
 import com.zblog.service.PostService;
+import com.zblog.service.TagService;
 import com.zblog.service.UploadService;
 
 @Component
@@ -32,19 +34,25 @@ public class PostManager{
   private OptionsService optionsService;
   @Autowired
   private PostIndexManager postIndexManager;
+  @Autowired
+  private TagService tagService;
 
   /**
    * 插入文章，同时更新上传文件的postid
    * 
    * @param post
+   * @param tags
    */
   @Transactional
-  public void insertPost(Post post){
+  public void insertPost(Post post, List<Tag> tags){
     postService.insert(post);
     /* 查找当前html中所有图片链接 */
     List<String> imgs = extractImagepath(JsoupUtils.getImagesOrLinks(post.getContent()));
     if(!CollectionUtils.isEmpty(imgs)){
       uploadService.updatePostid(post.getId(), imgs);
+    }
+    if(PostConstants.TYPE_POST.equals(post.getType()) && !CollectionUtils.isEmpty(tags)){
+      tagService.insertBatch(tags);
     }
   }
 
@@ -52,15 +60,22 @@ public class PostManager{
    * 更新文章,先重置以前文件对应的附件的postid,再更新文章对应的postid
    * 
    * @param post
+   * @param tags
    */
   @Transactional
-  public void updatePost(Post post){
+  public void updatePost(Post post, List<Tag> tags){
     uploadService.setNullPostid(post.getId());
     List<String> imgs = extractImagepath(JsoupUtils.getImagesOrLinks(post.getContent()));
     if(!CollectionUtils.isEmpty(imgs))
       uploadService.updatePostid(post.getId(), imgs);
 
     postService.update(post);
+
+    tagService.deleteByPostid(post.getId());
+
+    if(PostConstants.TYPE_POST.equals(post.getType()) && !CollectionUtils.isEmpty(tags)){
+      tagService.insertBatch(tags);
+    }
   }
 
   /**
@@ -125,10 +140,9 @@ public class PostManager{
     /* 填充其他属性，更好的做法是：搜索结果只包含对象id，详细资料到数据库查询(缓存) */
     for(MapContainer mc : page.getContent()){
       MapContainer all = postService.loadReadById(mc.getAsString("id"));
-      mc.put("createTime", all.get("createTime")).put("nickName", all.get("nickName"))
-        .put("rcount", all.get("rcount"));
+      mc.put("createTime", all.get("createTime")).put("nickName", all.get("nickName")).put("rcount", all.get("rcount"));
     }
-    
+
     return page;
   }
 

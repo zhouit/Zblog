@@ -3,7 +3,7 @@
       "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.zblog.core.dal.mapper.PostMapper">
-   
+
    <select id="loadById" parameterType="java.lang.String" resultType="Post">  
       select id, title, content, categoryid, parent, pstatus, createTime from post where id = #{id}
    </select>
@@ -43,6 +43,12 @@
       select p.id, p.title, p.excerpt, p.creator, p.rcount, u.nickName, p.createTime, p.pstatus
         from post p inner join category c on p.categoryid=c.id left join user u on p.creator=u.id 
         where p.type='post' and c.leftv>=#{query.category.leftv} and c.rightv &lt;= #{query.category.rightv} order by p.createTime desc
+   </select>
+   
+   <select id="listByTag" parameterType="PageModel" resultType="MapContainer">
+      select p.id, p.title, p.excerpt, p.creator, p.rcount, u.nickName, p.createTime, p.pstatus
+        from tag t inner join post p on tag.postid=p.id left join user u on p.creator=u.id 
+        where p.type='post' and t.name=#{query.tagName} order by p.createTime desc
    </select>
    
    <insert id="insert" parameterType="Post">

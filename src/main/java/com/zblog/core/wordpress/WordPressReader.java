@@ -84,8 +84,16 @@ public final class WordPressReader{
           content = htmlTagAdjust(content);
           map.put("content", content);
 
-          String category = item.getElementsByTagName("category").item(0).getTextContent();
-          map.put("category", category);
+          NodeList categorys = item.getElementsByTagName("category");
+          for(int j = 0; j < categorys.getLength(); j++){
+            Element category = (Element) categorys.item(i);
+            String categoryDomain = category.getAttribute("domain");
+            if("post_tag".equals(categoryDomain)){
+              map.getAsList("tags", String.class).add(category.getTextContent());
+            }else if("category".equals(categoryDomain)){
+              map.put("category", category.getTextContent());
+            }
+          }
           list.add(map);
         }
       }

@@ -11,8 +11,8 @@
   <%@include file="common/header.html" %>
   <div id="content" class="clearfix">
     <div id="left_col">
-      <c:if test="${categoryName!=null}">
-        <div id="archive_headline"><h2>'<span style="color: #00a19e;">${categoryName}</span>'目录归档</h2></div>
+      <c:if test="${categoryOrTag!=null}">
+        <div id="archive_headline"><h2>'<span style="color: #00a19e;">${categoryOrTag}</span>'目录归档</h2></div>
       </c:if>
       <c:forEach items="${page.content}" var="post">
       <div class="post_wrap clearfix">
@@ -98,6 +98,7 @@
       </div>
       </div>
       <%@include file="common/recent.html" %>
+      <%@include file="common/tagcloud.html" %>
       <%@include file="common/link.html" %>
     </div>
     <jsp:include page="common/footer.jsp" flush="false" />

@@ -46,11 +46,14 @@
                 <div class="col-sm-6">
                   <select class="form-control" name="defaultCategory">
                    <c:forEach var="category" items="${categorys}" begin="1">
+                     <c:if test="${form.defaultCategory==null}">
+                       <option>请选择</option>
+                     </c:if>
                      <option value="${category.id}" ${form.defaultCategory==category.id?'selected':''} >
-                        <c:if test="${category.level==3}">└─</c:if>${category.text}
-                      </option>
+                       <c:if test="${category.level==3}">└─</c:if>${category.text}
+                     </option>
                    </c:forEach>
-                 </select>
+                  </select>
                 </div>
               </div>
               <div class="form-group" style="padding-top: 20px;">

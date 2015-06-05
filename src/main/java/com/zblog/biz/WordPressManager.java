@@ -23,6 +23,7 @@ import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.dal.entity.User;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.JsoupUtils;
+import com.zblog.core.util.PostTagHelper;
 import com.zblog.core.util.constants.OptionConstants;
 import com.zblog.core.util.constants.PostConstants;
 import com.zblog.core.util.constants.WebConstants;
@@ -116,7 +117,7 @@ public class WordPressManager{
         : cleanTxt);
     p.setContent(content);
 
-    postManager.insertPost(p);
+    postManager.insertPost(p, PostTagHelper.from(p, post.getAsList("tags", String.class), p.getCreator()));
   }
 
   /**

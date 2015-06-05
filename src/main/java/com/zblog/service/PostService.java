@@ -72,6 +72,15 @@ public class PostService extends BaseService{
 
     return page;
   }
+  
+  public PageModel listByTag(String tagName, int pageIndex, int pageSize){
+    PageModel page = new PageModel(pageIndex, pageSize);
+    page.insertQuery("tagName", tagName);
+    List<MapContainer> content = postMapper.listByTag(page);
+    page.setContent(content);
+    
+    return page;
+  }
 
   public PageModel listPage(int pageIndex, int pageSize){
     PageModel page = new PageModel(pageIndex, pageSize);

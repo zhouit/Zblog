@@ -1,5 +1,6 @@
 package com.zblog.web.backend.controller;
 
+import java.util.Collections;
 import java.util.Date;
 
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -16,6 +17,7 @@ import org.springframework.web.util.HtmlUtils;
 import com.zblog.biz.OptionManager;
 import com.zblog.biz.PostManager;
 import com.zblog.core.dal.entity.Post;
+import com.zblog.core.dal.entity.Tag;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.JsoupUtils;
@@ -61,7 +63,7 @@ public class PageController{
     String content = HtmlUtils.htmlUnescape(post.getContent());
     post.setContent(JsoupUtils.filter(content));
 
-    postManager.insertPost(post);
+    postManager.insertPost(post, Collections.<Tag> emptyList());
     return new MapContainer("success", true);
   }
 
@@ -78,7 +80,7 @@ public class PageController{
     post.setContent(JsoupUtils.filter(content));
     post.setLastUpdate(new Date());
 
-    postManager.updatePost(post);
+    postManager.updatePost(post, Collections.<Tag> emptyList());
     return new MapContainer("success", true);
   }
 

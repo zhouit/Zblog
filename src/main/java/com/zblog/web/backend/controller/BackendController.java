@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.zblog.biz.PostManager;
 import com.zblog.core.dal.entity.User;
-import com.zblog.core.filter.CookieRemberManager;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.StringUtils;
@@ -25,6 +24,7 @@ import com.zblog.service.UserService;
 import com.zblog.service.shiro.StatelessToken;
 import com.zblog.web.backend.form.LoginForm;
 import com.zblog.web.backend.form.validator.LoginFormValidator;
+import com.zblog.web.filter.CookieRemberManager;
 
 @Controller
 @RequestMapping("/backend")

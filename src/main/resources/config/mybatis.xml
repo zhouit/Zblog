@@ -23,5 +23,6 @@
     <mapper resource="com/zblog/core/dal/mybatis/LinkMapper.xml" />
     <mapper resource="com/zblog/core/dal/mybatis/CommentMapper.xml" />
     <mapper resource="com/zblog/core/dal/mybatis/OptionMapper.xml" />
+    <mapper resource="com/zblog/core/dal/mybatis/TagMapper.xml" />
   </mappers>
 </configuration>

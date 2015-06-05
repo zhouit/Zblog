@@ -26,10 +26,10 @@ public class CategoryController{
       @RequestParam(value = "page", defaultValue = "1") int page, Model model){
     Category category = categoryService.loadByName(categoryName);
     if(category != null){
-      model.addAttribute("page", postService.listByCategory(category, page, 12));
+      model.addAttribute("page", postService.listByCategory(category, page, 10));
     }
     
-    model.addAttribute("categoryName", categoryName);
+    model.addAttribute("categoryOrTag", categoryName);
     model.addAttribute(WebConstants.PRE_TITLE_KEY, categoryName);
     return "index";
   }

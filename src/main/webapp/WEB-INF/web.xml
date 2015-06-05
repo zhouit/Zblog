@@ -24,7 +24,7 @@
 
   <!-- 注：此listener需在spring的ContextLoaderListener前  -->
   <listener>
-    <listener-class>com.zblog.core.listener.Log4jConfigureListener</listener-class>
+    <listener-class>com.zblog.web.listener.Log4jConfigureListener</listener-class>
   </listener>
   <!-- 系统启动监听器 -->
   <listener>
@@ -34,7 +34,7 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   <listener>
-    <listener-class>com.zblog.core.listener.InitApplicationListener</listener-class>
+    <listener-class>com.zblog.web.listener.InitApplicationListener</listener-class>
   </listener>
   
   <!-- Servlet规范要求表单数据可用于POST，但没要求PUT和PATCH -->
@@ -45,12 +45,12 @@
   </filter>
   <filter>
     <filter-name>LoginFilter</filter-name>
-    <filter-class>com.zblog.core.filter.LoginFilter</filter-class>
+    <filter-class>com.zblog.web.filter.LoginFilter</filter-class>
     <async-supported>true</async-supported>
   </filter>
   <filter>
     <filter-name>XssFilter</filter-name>
-    <filter-class>com.zblog.core.filter.XssFilter</filter-class>
+    <filter-class>com.zblog.web.filter.XssFilter</filter-class>
     <async-supported>true</async-supported>
     <!-- 字符编码过滤 -->
     <init-param>
@@ -61,7 +61,7 @@
    <!-- 注意xssFilter需配置在csrfFilter之前 -->
   <filter>
     <filter-name>StatelessCsrfFilter</filter-name>
-    <filter-class>com.zblog.core.filter.StatelessCsrfFilter</filter-class>
+    <filter-class>com.zblog.web.filter.StatelessCsrfFilter</filter-class>
     <async-supported>true</async-supported>
     <init-param>
       <param-name>exclude</param-name>

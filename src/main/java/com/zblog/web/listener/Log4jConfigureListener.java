@@ -1,4 +1,4 @@
-package com.zblog.core.listener;
+package com.zblog.web.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

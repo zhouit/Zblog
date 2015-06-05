@@ -48,6 +48,8 @@ public interface PostMapper extends BaseMapper{
   List<String> listRecent(int nums);
 
   List<MapContainer> listByCategory(PageModel model);
+  
+  List<MapContainer> listByTag(PageModel model);
 
   void updateCategory(@Param("oldCategoryIds") List<String> oldCategoryIds, @Param("newCategoryId") String newCategoryId);
 

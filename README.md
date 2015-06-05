@@ -10,19 +10,20 @@ a java blog
 2.	提供文章形式的RSS聚合。
 3.	提供链接的添加、归类功能。
 4.	附件上传添加管理功能。
-4.	评论的管理，垃圾信息过滤功能。
-5.	文章静态html页面生成。
-6.	会员注册登录，后台管理功能。
-7.	lucene实现的站内搜索。
-8.	防xss、csrf攻击。
-9.	支持metaWeblog Api(支持windows live writer等离线博客编写)
-10.	WordPress站点xml文件导入功能(支持文章及附件)
+5.	评论的管理，垃圾信息过滤功能。
+6.	文章静态html页面生成。
+7.	会员注册登录，后台管理功能。
+8.	lucene实现的站内搜索。
+9.	防xss、csrf攻击。
+10.	支持metaWeblog Api(支持windows live writer等离线博客编写)
+11.	WordPress站点xml文件导入功能(支持文章、附件及标签)
+12.	文章标签tag功能、私密文章支持
 
 #### TODO
-*	文章标签tag功能
 *	评论邮件提醒
 *	文章归档/近期评论
-*	文章编辑markdown支持
+*	文章编辑markdown/纯文本支持
+*	文章快速编辑功能
 
 ### 技术选型
 

@@ -1,14 +1,7 @@
 package com.zblog.biz.aop;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.nio.charset.Charset;
 
-import org.apache.commons.io.IOUtils;
-import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +10,18 @@ import org.springframework.stereotype.Component;
 import com.zblog.biz.PostManager;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.plugin.MapContainer;
-import com.zblog.core.util.constants.Constants;
+import com.zblog.core.util.NumberUtils;
 import com.zblog.core.util.constants.OptionConstants;
 import com.zblog.core.util.constants.PostConstants;
 import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.CategoryService;
 import com.zblog.service.LinkService;
 import com.zblog.service.OptionsService;
+import com.zblog.service.TagService;
 import com.zblog.service.freemarker.FreeMarkerUtils;
+
+import freemarker.ext.beans.BeansWrapper;
+import freemarker.template.TemplateHashModel;
 
 /**
  * 静态化组件
@@ -43,23 +40,8 @@ public class StaticTemplate{
   private LinkService linksService;
   @Autowired
   private OptionsService optionsService;
-
-  public boolean staticHtml(String url, File file){
-    boolean result = true;
-    Writer writer = null;
-    try{
-      String text = Jsoup.connect(url).execute().body();
-      writer = new OutputStreamWriter(new FileOutputStream(file), Charset.forName(Constants.ENCODING_UTF_8));
-      IOUtils.write(text, writer);
-    }catch(IOException e){
-      logger.error("staticHtml error-->" + url, e);
-      result = true;
-    }finally{
-      IOUtils.closeQuietly(writer);
-    }
-
-    return result;
-  }
+  @Autowired
+  private TagService tagService;
 
   /**
    * 静态化导航栏
@@ -76,6 +58,25 @@ public class StaticTemplate{
         + "/common/header.html"), map);
 
     logger.info("staticHeader");
+  }
+
+  /**
+   * 静态化标签云
+   */
+  private void staticCloudTags(){
+    MapContainer map = new MapContainer();
+    map.put("tags", tagService.list());
+    try{
+      BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
+      TemplateHashModel thm = (TemplateHashModel) wrapper.getStaticModels().get(NumberUtils.class.getName());
+      map.put("NumberUtils", thm);
+    }catch(Exception e){
+      logger.error("staticCloudTags init NumberUtils error", e);
+    }
+
+    FreeMarkerUtils.genHtml("/common/tagcloud.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
+        + "/common/tagcloud.html"), map);
+    logger.info("staticCloudTags");
   }
 
   /**
@@ -115,6 +116,8 @@ public class StaticTemplate{
       FreeMarkerUtils.genHtml("/common/recent.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
           + "/common/recent.html"), param);
       logger.info("staticRecent");
+
+      staticCloudTags();
     }else{
       staticHeader();
     }

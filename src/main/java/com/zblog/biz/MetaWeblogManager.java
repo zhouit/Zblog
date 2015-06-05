@@ -20,6 +20,7 @@ import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.dal.entity.User;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.JsoupUtils;
+import com.zblog.core.util.PostTagHelper;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.CategoryConstants;
 import com.zblog.core.util.constants.OptionConstants;
@@ -28,6 +29,7 @@ import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.CategoryService;
 import com.zblog.service.OptionsService;
 import com.zblog.service.PostService;
+import com.zblog.service.TagService;
 import com.zblog.service.UserService;
 
 /**
@@ -51,6 +53,8 @@ public class MetaWeblogManager{
   private OptionManager optionManager;
   @Autowired
   private OptionsService optionsService;
+  @Autowired
+  private TagService tagService;
 
   public Object getPost(String postid, String username, String pwd){
     User user = userService.login(username, pwd);
@@ -97,7 +101,9 @@ public class MetaWeblogManager{
     Post post = new Post();
     post.setId(optionManager.getNextPostid());
     /* param.getDate("dateCreated") */
-    post.setLastUpdate(new Date());
+    post.setCreateTime(new Date());
+    post.setLastUpdate(post.getCreateTime());
+    post.setType(PostConstants.TYPE_POST);
     post.setTitle(HtmlUtils.htmlEscape(param.getString("title")));
     post.setCreator(user.getId());
     XmlRpcArray categories = param.getArray("categories");
@@ -114,7 +120,8 @@ public class MetaWeblogManager{
         PostConstants.EXCERPT_LENGTH) : cleanTxt);
     post.setParent(PostConstants.DEFAULT_PARENT);
 
-    postManager.insertPost(post);
+    String tags = param.getString("tags_input");
+    postManager.insertPost(post, PostTagHelper.from(post, tags, post.getCreator()));
 
     return post.getId();
   }
@@ -137,6 +144,8 @@ public class MetaWeblogManager{
     post.setId(postid);
     post.setTitle(HtmlUtils.htmlEscape(param.getString("title")));
     post.setLastUpdate(new Date());
+    post.setType(PostConstants.TYPE_POST);
+    // param.getString("tags_input");
     String content = param.getString("description");
     post.setContent(JsoupUtils.filter(content));
     String cleanTxt = JsoupUtils.plainText(content);
@@ -146,7 +155,8 @@ public class MetaWeblogManager{
     if(categories != null && !categories.isEmpty())
       post.setCategoryid(categoryService.loadByName(categories.getString(0)).getId());
 
-    postManager.updatePost(post);
+    String tags = param.getString("tags_input");
+    postManager.updatePost(post, PostTagHelper.from(post, tags, user.getId()));
     return postid;
   }
 
@@ -182,7 +192,18 @@ public class MetaWeblogManager{
   }
 
   public Object getTags(String blogid, String username, String pwd){
-    return null;
+    User user = userService.login(username, pwd);
+    if(user == null)
+      loginError();
+
+    List<MapContainer> tags = new ArrayList<>();
+    for(MapContainer mc : tagService.list()){
+      MapContainer tag = new MapContainer("tag_id", mc.get("name"));
+      tag.put("name", mc.get("name")).put("count", tag.get("count"));
+      tags.add(tag);
+    }
+
+    return tags;
   }
 
   public Object getRecentPosts(String blogid, String username, String pwd, int numberOfPosts){

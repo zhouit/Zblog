@@ -20,6 +20,7 @@ import com.zblog.core.dal.entity.Post;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.JsoupUtils;
+import com.zblog.core.util.PostTagHelper;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.PostConstants;
 import com.zblog.core.util.web.WebContextFactory;
@@ -49,7 +50,7 @@ public class PostController{
 
   @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
-  public Object insert(Post post){
+  public Object insert(Post post, String tags){
     MapContainer form = PostFormValidator.validatePublish(post);
     if(!form.isEmpty()){
       return form.put("success", false);
@@ -67,13 +68,13 @@ public class PostController{
     post.setExcerpt(cleanTxt.length() > PostConstants.EXCERPT_LENGTH ? cleanTxt.substring(0,
         PostConstants.EXCERPT_LENGTH) : cleanTxt);
 
-    postManager.insertPost(post);
+    postManager.insertPost(post, PostTagHelper.from(post, tags, post.getCreator()));
     return new MapContainer("success", true);
   }
 
   @ResponseBody
   @RequestMapping(method = RequestMethod.PUT)
-  public Object update(Post post){
+  public Object update(Post post, String tags){
     MapContainer form = PostFormValidator.validateUpdate(post);
     if(!form.isEmpty()){
       return form.put("success", false);
@@ -86,7 +87,7 @@ public class PostController{
         PostConstants.EXCERPT_LENGTH) : cleanTxt);
 
     post.setLastUpdate(new Date());
-    postManager.updatePost(post);
+    postManager.updatePost(post, PostTagHelper.from(post, tags, WebContextFactory.get().getUser().getId()));
     return new MapContainer("success", true);
   }
 

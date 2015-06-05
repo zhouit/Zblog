@@ -37,6 +37,7 @@
          </div>
        </div>
        <%@include file="common/recent.html" %>
+       <%@include file="common/tagcloud.html" %>
        <%@include file="common/link.html" %>
      </div>
      <jsp:include page="common/footer.jsp" flush="false" />

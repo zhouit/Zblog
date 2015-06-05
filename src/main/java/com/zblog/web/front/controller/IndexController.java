@@ -1,6 +1,5 @@
 package com.zblog.web.front.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,6 @@ import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.OptionConstants;
 import com.zblog.core.util.constants.WebConstants;
-import com.zblog.core.util.web.ServletRequestReader;
 import com.zblog.service.OptionsService;
 import com.zblog.service.PostService;
 
@@ -77,9 +75,6 @@ public class IndexController{
 
   @RequestMapping("/restatic.json")
   public void restatic(HttpServletRequest request){
-    /* 静态化首页 */
-    ServletRequestReader reader = new ServletRequestReader(request);
-    staticTemplate.staticHtml(reader.getDomain(), new File(reader.getRealPath("/"), "index.html"));
   }
 
 }

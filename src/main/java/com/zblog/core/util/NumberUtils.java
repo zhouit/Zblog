@@ -2,13 +2,14 @@ package com.zblog.core.util;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class NumberUtils{
+  private static final Random random = new Random();
 
-  final static char[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c',
-      'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
-      'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-      'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+  final static char[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+      'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C',
+      'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 
   final static Map<Character, Integer> digitMap = new HashMap<Character, Integer>();
 
@@ -36,8 +37,10 @@ public class NumberUtils{
    * @return
    */
   public static String toString(long i, int radix){
-    if(radix < MIN_RADIX || radix > MAX_RADIX) radix = 10;
-    if(radix == 10) return Long.toString(i);
+    if(radix < MIN_RADIX || radix > MAX_RADIX)
+      radix = 10;
+    if(radix == 10)
+      return Long.toString(i);
 
     final int size = 65;
     int charPos = 64;
@@ -100,7 +103,8 @@ public class NumberUtils{
         if(firstChar == '-'){
           negative = true;
           limit = Long.MIN_VALUE;
-        }else if(firstChar != '+') throw forInputString(s);
+        }else if(firstChar != '+')
+          throw forInputString(s);
 
         if(len == 1){
           throw forInputString(s);
@@ -140,14 +144,14 @@ public class NumberUtils{
   public static int toInteger(String str){
     return toInteger(str, Integer.MIN_VALUE);
   }
-  
-  public static int toInteger(String str,int defaults){
+
+  public static int toInteger(String str, int defaults){
     int result = defaults;
     try{
       result = Integer.parseInt(str);
     }catch(Exception e){
     }
-    
+
     return result;
   }
 
@@ -177,10 +181,14 @@ public class NumberUtils{
   public static int toNumber(char c){
     char[] numbers = { '一', '二', '三', '四', '五', '六', '七', '八', '九' };
     for(int i = 0; i < numbers.length; i++){
-      if(numbers[i] == c) return i;
+      if(numbers[i] == c)
+        return i;
     }
 
     return -1;
   }
 
+  public static int randomInt(int min, int max){
+    return min + random.nextInt(max - min);
+  }
 }
