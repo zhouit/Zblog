@@ -1,5 +1,10 @@
 zblog.register("zblog.post");
 $(function(){
+  $('#editor-nav a').click(function (e) {
+    e.preventDefault();//阻止a链接的跳转行为
+    $(this).tab('show');//显示当前选中的链接及关联的content
+  });
+  
   if(!document.getElementById("container")) return ;
   
   zblog.post.editor = UE.getEditor('container',{

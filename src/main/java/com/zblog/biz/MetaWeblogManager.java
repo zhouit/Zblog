@@ -15,6 +15,7 @@ import redstone.xmlrpc.XmlRpcArray;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcStruct;
 
+import com.zblog.core.dal.entity.Category;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.dal.entity.User;
@@ -67,7 +68,9 @@ public class MetaWeblogManager{
     mc.put("postid", post.getId()).put("description", post.getContent());
     mc.put("title", post.getTitle()).put("link", WebConstants.getDomainLink("/posts/" + postid))
         .put("permaLink", WebConstants.getDomainLink("/posts/" + postid));
-    mc.put("categories", Arrays.asList(post.getCategoryid()));
+    Category category = categoryService.loadById(post.getCategoryid());
+    mc.put("categories", Arrays.asList(category.getName()));
+    mc.put("mt_keywords", StringUtils.join(tagService.listTagsByPost(postid), ","));
     mc.put("post_status", "public");
 
     return mc;
@@ -120,7 +123,7 @@ public class MetaWeblogManager{
         PostConstants.EXCERPT_LENGTH) : cleanTxt);
     post.setParent(PostConstants.DEFAULT_PARENT);
 
-    String tags = param.getString("tags_input");
+    String tags = param.getString("mt_keywords");
     postManager.insertPost(post, PostTagHelper.from(post, tags, post.getCreator()));
 
     return post.getId();
@@ -155,7 +158,7 @@ public class MetaWeblogManager{
     if(categories != null && !categories.isEmpty())
       post.setCategoryid(categoryService.loadByName(categories.getString(0)).getId());
 
-    String tags = param.getString("tags_input");
+    String tags = param.getString("mt_keywords");
     postManager.updatePost(post, PostTagHelper.from(post, tags, user.getId()));
     return postid;
   }

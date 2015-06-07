@@ -28,8 +28,21 @@
             <div class="panel-body">
               <input type="hidden" id="postid" value="${post.id}" />
               <input type="text" id="title" class="form-control input-md" placeholder="输入标题" value="${post.title}"><br/>
-              <!-- 必须要添加width:100% -->
-              <script id="container" style="width: 100%; height: 300px;" name="content" type="text/plain">${post.content}</script>
+                            <ul class="nav nav-tabs nav-justified" id="editor-nav">
+                <li class="active"><a href="#editor-ue">UEditor</a></li>
+                <li><a href="#editor-txt">纯文本</a></li>
+                <li><a href="#editor-mk">Markdown</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="editor-ue">
+                  <!-- 必须要添加width:100% -->
+                  <script id="container" style="width: 100%; height: 300px;" name="content" type="text/plain">${post.content}</script>
+                </div>
+                <div class="tab-pane" id="editor-txt">
+                  <textarea name="content" style="width: 100%; height: 300px">${post.content}</textarea>
+                </div>
+                <div class="tab-pane" id="editor-mk">正在集成中...</div>
+              </div>
             </div>
            </div>
          </div>

@@ -7,6 +7,17 @@ Author URI:http://www.mono-lab.net/
 Version:4.3.4
 */
 
+@font-face {
+    font-family: 'icomoon-zblog';
+    src: url('../font/icomoon-zblog.eot');
+    src: url('../font/icomoon-zblog.eot?#iefix') format('embedded-opentype'),
+         url('../font/icomoon-zblog.woff') format('woff'),
+         url('../font/icomoon-zblog.ttf') format('truetype'),
+         url('../font/icomoon-zblog.svg#icomoon-zblog') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 /* ----------------------------------------------------------------------
  reset css
@@ -90,9 +101,10 @@ a:hover{color: #009dc4;}
 .post_content{background-color:#fff;margin: 0 340px 0 0;min-height: 50px;padding: 25px 4%;}
 .post_content p.excerpt{text-indent: 1.5em;}
 /* read more link */
-.post a.more_link{background-color:#f2f2f2;border-radius: 3px;color: #666;display: inline-block;font-size: 12px;height: 35px;line-height: 35px;padding: 0 36px;position: relative;}
+.post a.more_link{background-color:#f2f2f2;border-radius: 3px;color: #666;display: inline-block;font-size: 12px;height: 35px;line-height: 35px;padding: 0 36px;text-decoration: none;}
 .post a.more_link:hover{color:#fff;background-color:#009dc4;}   
 .post p.back{text-align: center;}
+.post p.back a:before{content: "\e60a";font-family: "icomoon-zblog";padding-right: 5px;}
 
 
 #archive_headline h2,
@@ -141,14 +153,15 @@ a:hover{color: #009dc4;}
 .meta li{font-size:11px; margin:0 0 15px 0; color:#777; }
 .meta li a{color:#777; }
 .meta li a:hover{color:#333; }
-.meta li.post_date{line-height:100%; margin:-12px 0 30px 0; }
+.meta li:after{font-family: "icomoon-zblog";font-size: 13px;color:rgba(102, 102, 102);vertical-align: middle;padding-left: 5px;}
+.meta li.post_date{margin:-12px 0 30px 0; }
 .meta li span.date{font-size:40px; float:right; display:block; line-height:40px; margin:0 0 0 5px; }
 .meta li span.month{text-transform:uppercase; padding:13px 0 0px 0; display:block; font-size:10px; }
 .meta li span.year{display:block; font-size:10px; }
-.meta li.post_author{background:url(../img/icon_author.png) no-repeat right 1px; padding:0 19px 0 0; }
-.meta li.post_category{background:url(../img/icon_category.png) no-repeat right 1px; padding:0 19px 0 0; }
-.meta li.post_tag{background:url(../img/icon_tag.png) no-repeat right 1px; padding:0 19px 0 0; }
-.meta li.post_comment{margin:0 0 20px 0; background:url(../img/icon_comment.png) no-repeat right 1px; padding:0 19px 0 0; }
+.meta li.post_author:after{content: "\e609";}
+.meta li.post_category:after{content: "\e608";}
+.meta li.post_tag:after{content: "\e607";}
+.meta li.post_comment:after{content: "\e61a";}
 
 
 /***********  pager **********/
@@ -236,10 +249,12 @@ ul.comment-name-date li{padding: 0 0 5px;}
 #introduction_widget{position: relative;}
 #social_link{padding: 0;position: absolute;right: 0;top: 5px;}
 #social_link li{float: left;margin: 0 5px 0 0;}
-#social_link li a{display: block;width: 20px;height: 20px;text-indent: -9999px;}
-#social_link li.rss_button a{background-image: url("../img/rss.png");}
-#social_link li.github_button a{background-image: url("../img/github.png");}
-#social_link li a:hover{background-position: bottom;}
+#social_link li a{display: block;width: 20px;height: 20px;text-decoration: none;}
+#social_link li a:after{color: #aaa;display: inline-block;font-family: "icomoon-zblog";font-size: 18px;}
+#social_link li.rss_button a:after{content:"\e603"; }
+#social_link li.github_button a:after{content:"\eab1"; }
+#social_link li.rss_button a:hover:after{color:#ffcc00;}
+#social_link li.github_button a:hover:after{color:#16b9dc;}
 
 /***********  search_area *************/
 #search_area{background-color:#eee;border-radius: 20px;height: 33px;position: relative;width: 100%;margin-top: 20px;}

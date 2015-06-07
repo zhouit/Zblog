@@ -81,8 +81,8 @@
      <div id="introduction_widget" class="side_widget clearfix">
       <h3 class="headline">About</h3>
       <ul id="social_link">
-        <li class="rss_button"><a target="_blank" href="${g.domain}/feed">rss</a></li>
-        <li class="github_button"><a target="_blank" href="https://github.com/dongfangshangren">github</a></li>
+        <li class="rss_button"><a target="_blank" href="${g.domain}/feed"></a></li>
+        <li class="github_button"><a target="_blank" href="https://github.com/dongfangshangren"></a></li>
       </ul>
       <p>You can show your site introduction by using Site Introduction Widget. 
        You also can show Social Icon on upper part, and search form at bottom. </p>

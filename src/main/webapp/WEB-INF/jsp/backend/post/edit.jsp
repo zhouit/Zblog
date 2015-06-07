@@ -22,14 +22,27 @@
           <li class="active">编辑文章</li>
         </ol>
        <div class="row">
-         <div class="col-sm-9 .col-md-9">
+         <div class="col-sm-9 col-md-9">
           <div class="panel panel-default">
             <div class="panel-heading"><span class="icon glyphicon glyphicon-edit"></span>标题/内容</div>
             <div class="panel-body">
               <input type="hidden" id="postid" value="${post.id}" />
               <input type="text" id="title" class="form-control input-md" placeholder="输入标题" value="${post.title}"><br/>
-              <!-- 必须要添加width:100% -->
-              <script id="container" style="width: 100%; height: 300px;" name="content" type="text/plain">${post.content}</script>
+              <ul class="nav nav-tabs nav-justified" id="editor-nav">
+                <li class="active"><a href="#editor-ue">UEditor</a></li>
+                <li><a href="#editor-txt">纯文本</a></li>
+                <li><a href="#editor-mk">Markdown</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="editor-ue">
+                  <!-- 必须要添加width:100% -->
+                  <script id="container" style="width: 100%; height: 300px;" name="content" type="text/plain">${post.content}</script>
+                </div>
+                <div class="tab-pane" id="editor-txt">
+                  <textarea name="content" style="width: 100%; height: 300px">${post.content}</textarea>
+                </div>
+                <div class="tab-pane" id="editor-mk">正在集成中...</div>
+              </div>
             </div>
            </div>
          </div>
@@ -45,11 +58,6 @@
                         ├─<c:if test="${category.level==3}">└─</c:if>${category.text}
                       </option>
                    </c:forEach>
-<!--                    <option value="1">├─Java</option>
-                   <option value="2">├─└─JavaSE</option>
-                   <option value="3">├─└─JavaEE</option>
-                   <option value="4">├─└─JavaFX</option>
-                   <option value="5">├─DataBase</option> -->
                  </select>
                </div>
                <div class="form-group">

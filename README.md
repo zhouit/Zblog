@@ -43,7 +43,7 @@ a java blog
 * bootstrap 后台界面
 * ueditor 编辑器
 * webuploader 文件上传
-* font-wesome 字体/图标
+* font-wesome/icomoon.io 字体/图标
 
 ### 支持浏览器
 * 前台 ie6+
