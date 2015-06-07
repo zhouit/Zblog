@@ -8,7 +8,7 @@ import java.util.List;
  * @author zhou 数据库分页组件 在service层构造PageModel,添加查询参数insertQuery 在sql中不用写limit语句
  * 
  */
-public class PageModel{
+public class PageModel<T>{
   private static final int PAGE_SIZE = 10;
 
   private int pageIndex;
@@ -16,7 +16,7 @@ public class PageModel{
   private long totalCount;
 
   // 多表组合时使用
-  private List<MapContainer> content;
+  private List<T> content;
   // 查询参数
   private MapContainer query;
   
@@ -28,7 +28,7 @@ public class PageModel{
     this.pageIndex = pageIndex;
     this.pageSize = pageSize;
     this.query = new MapContainer();
-    this.content = new ArrayList<MapContainer>();
+    this.content = new ArrayList<T>();
   }
   
   public int getPageIndex(){
@@ -55,24 +55,24 @@ public class PageModel{
     this.totalCount = totalCount;
   }
 
-  public List<MapContainer> getContent(){
+  public List<T> getContent(){
     return content;
   }
 
-  public void setContent(List<MapContainer> content){
+  public void setContent(List<T> content){
     this.content = content;
   }
 
-  public void addContent(MapContainer mc){
+  public void addContent(T mc){
     content.add(mc);
   }
 
-  public PageModel insertQuery(String key, Object value){
+  public PageModel<T> insertQuery(String key, Object value){
     query.put(key, value);
     return this;
   }
 
-  public PageModel insertQuerys(MapContainer map){
+  public PageModel<T> insertQuerys(MapContainer map){
     if(map != null)
       query.putAll(map);
 

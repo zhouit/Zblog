@@ -10,8 +10,7 @@ public class LastTag extends AbstartTagSupport{
 
   @Override
   public int doStartTag() throws JspException{
-    Pagination p = (Pagination) findAncestorWithClass(this, Pagination.class);
-    PageModel model = p.getModel();
+    PageModel<?> model = getPagination().getModel();
 
     if(model.getPageIndex() > 1){
       setPageAttribute(model.getTotalPage());

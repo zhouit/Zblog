@@ -35,7 +35,7 @@
               <tbody>
                <c:forEach items="${page.content}" var="user">
                  <tr><td>${user.nickName}</td><td>${user.realName}</td>
-                      <td><a href="mailto:${user.email}">${user.email}</a></td><td>${user.role}</td><td>${user.postCount}</td>
+                      <td><a href="mailto:${user.email}">${user.email}</a></td><td>${user.role}</td><td>...</td>
                       <td><fmt:formatDate value="${user.createTime}" pattern="yyyy-MM-dd"/></td>
                      <td class="center"><span class="icon glyphicon glyphicon-pencil pointer" onclick="zblog.user.edit('${user.id}')"></span>
                        <c:if test="${z:cookieValue('un')!=user.nickName}">

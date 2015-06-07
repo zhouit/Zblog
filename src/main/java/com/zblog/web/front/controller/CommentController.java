@@ -1,5 +1,7 @@
 package com.zblog.web.front.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -59,6 +61,8 @@ public class CommentController{
     comment.setId(IdGenarater.uuid19());
     comment.setIp(ServletUtils.getIp(request));
     comment.setAgent(request.getHeader("User-Agent"));
+    comment.setCreateTime(new Date());
+    comment.setLastUpdate(comment.getCreateTime());
     /* 使用jsoup来对帖子内容进行过滤 */
     String content = HtmlUtils.htmlUnescape(comment.getContent());
     comment.setContent(JsoupUtils.simpleText(content));

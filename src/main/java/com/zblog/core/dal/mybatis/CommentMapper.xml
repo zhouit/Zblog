@@ -18,12 +18,11 @@
      select status, count(*) as count from comment group by status
    </select>
    
-   <select id="listRecent" resultType="MapContainer">  
-     select c.id, c.content, c.creator, c.createTime, p.title
-       from comment c left join post p on c.postid=p.id order by c.createTime desc limit 10
+   <select id="listRecent" resultType="CommentVO">  
+     select * from comment c order by c.createTime desc limit 10
    </select>
    
-   <select id="listByPost" resultType="MapContainer">
+   <select id="listByPost" resultType="CommentVO">
      select id, content, creator, url, status, parent, createTime from comment c 
      where postid=#{postid} and (status='approve' <if test="creator!=null and creator!=''"> or creator=#{creator} </if>) 
      order by c.createTime desc

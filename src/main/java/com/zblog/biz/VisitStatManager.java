@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.zblog.service.PostService;
+import com.zblog.service.vo.PostVO;
 
 /**
  * 文章的访问统计
@@ -43,7 +44,8 @@ public class VisitStatManager{
     /* 该数据，并发问题忽略 */
     visit.put(postid, count == null ? 1 : count + 1);
     /*  此处更新文章阅读数 */
-    postService.loadReadById(postid).put("rcount", visit.get(postid));
+    PostVO p=postService.loadById(postid);
+    p.setRcount(visit.get(postid));
   }
 
 }

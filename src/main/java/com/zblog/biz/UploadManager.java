@@ -11,21 +11,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.entity.Upload;
+import com.zblog.core.dal.entity.User;
+import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.DateUtils;
 import com.zblog.core.util.FileUtils;
 import com.zblog.core.util.IdGenarater;
 import com.zblog.core.util.ServletUtils;
+import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.WebConstants;
 import com.zblog.core.util.web.ServletRequestReader;
 import com.zblog.core.util.web.WebContext;
 import com.zblog.core.util.web.WebContextFactory;
+import com.zblog.service.PostService;
 import com.zblog.service.UploadService;
+import com.zblog.service.UserService;
+import com.zblog.service.vo.UploadVO;
 
 @Component
 public class UploadManager{
   @Autowired
   private UploadService uploadService;
+  @Autowired
+  private PostService postService;
+  @Autowired
+  private UserService userService;
+
+  public PageModel<UploadVO> list(int pageIndex, int pageSize){
+    PageModel<UploadVO> result = uploadService.list(pageIndex, pageSize);
+    for(UploadVO upload : result.getContent()){
+      if(!StringUtils.isBlank(upload.getPostid())){
+        Post post = postService.loadById(upload.getPostid());
+        upload.setPost(post);
+      }
+      User user = userService.loadById(upload.getCreator());
+      upload.setUser(user);
+    }
+
+    return result;
+  }
 
   /**
    * 添加上传记录并存储文件

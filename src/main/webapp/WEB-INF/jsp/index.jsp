@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="page" uri="/WEB-INF/tld/pagination.tld" %>
 <!DOCTYPE Html>
 <html>
@@ -24,6 +25,16 @@
             <p class="excerpt">${post.excerpt}...</p>
             <p><a class="more_link" href="${g.domain}/posts/${post.id}">阅读全文</a></p>
           </div>
+          <c:if test="${post.tags!=null&&fn:length(post.tags)!=0}">
+            <div class="post_meta clearfix">
+              <ul class="post-category clearfix">
+                <li></li>
+                <c:forEach items="${post.tags}" var="tag">
+                   <li class="post_tags"><a href="${g.domain}/tags/${tag}">${tag}</a></li>
+                </c:forEach>
+              </ul>
+            </div>
+            </c:if>
         </div>
         <div class="meta">
           <ul>
@@ -32,9 +43,9 @@
              <span class="month"><fmt:formatDate value="${post.createTime}" pattern="MMM"/></span>
              <span class="year"><fmt:formatDate value="${post.createTime}" pattern="yyyy" /></span>
             </li>
-            <li class="post_comment"> ${post.rcount}人阅读</li>
+            <li class="post_comment">${post.rcount}人阅读</li>
             <li class="post_author">
-              <a rel="author" title="由${post.nickName}发布" href="${g.domain}/authors/${post.creator}">${post.nickName}</a>
+              <a rel="author" title="由${post.user.nickName}发布" href="${g.domain}/authors/${post.creator}">${post.user.nickName}</a>
             </li>
             <li class="post_comment">
                <a title="${post.title}的评论" href="${g.domain}/posts/${post.id}/#respond">发表评论</a>
@@ -51,7 +62,7 @@
              <li><span class="dots">…</span></li>
               <li><a href="#">66</a></li>
               <li><a href="#">>></a></li> -->
-             <page:page model="${page}" pageUrl="." showPage="9" boundary="2">
+             <page:page model="${page}" pageUrl="${request.requestURL}" showPage="9" boundary="2">
                <page:prev>
                  <li><a href="${pageUrl}"><<</a></li>
                </page:prev>

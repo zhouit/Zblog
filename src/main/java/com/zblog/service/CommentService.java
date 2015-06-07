@@ -10,6 +10,7 @@ import com.zblog.core.dal.mapper.BaseMapper;
 import com.zblog.core.dal.mapper.CommentMapper;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
+import com.zblog.service.vo.CommentVO;
 
 @Service
 public class CommentService extends BaseService{
@@ -24,8 +25,8 @@ public class CommentService extends BaseService{
    * @param status
    * @return
    */
-  public PageModel listByStatus(int pageIndex, int pageSize, Collection<String> status){
-    PageModel page = new PageModel(pageIndex, pageSize);
+  public PageModel<MapContainer> listByStatus(int pageIndex, int pageSize, Collection<String> status){
+    PageModel<MapContainer> page = new PageModel<>(pageIndex, pageSize);
     page.insertQuery("status", status);
     super.list(page);
     page.removeQuery("status");
@@ -52,7 +53,7 @@ public class CommentService extends BaseService{
    * 
    * @return
    */
-  public List<MapContainer> listRecent(){
+  public List<CommentVO> listRecent(){
     return commentMapper.listRecent();
   }
 
@@ -63,10 +64,10 @@ public class CommentService extends BaseService{
    * @param creator
    * @return
    */
-  public List<MapContainer> listByPost(String postid, String creator){
+  public List<CommentVO> listByPost(String postid, String creator){
     return commentMapper.listByPost(postid, creator);
   }
-  
+
   public void setStatus(String commentid, String newStatus){
     commentMapper.setStatus(commentid, newStatus);
   }

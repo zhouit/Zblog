@@ -100,19 +100,6 @@ public class MapContainer extends LinkedHashMap<String, Object>{
     return getAsInteger(key, 0);
   }
 
-  public int removeAsInteger(String key, int defaults){
-    Object value = remove(key);
-    if(value == null){
-      return defaults;
-    }
-
-    return Integer.parseInt(value.toString());
-  }
-
-  public int removeAsInteger(String key){
-    return removeAsInteger(key, 0);
-  }
-
   public Boolean getAsBoolean(String key){
     Object value = get(key);
     if(value == null)

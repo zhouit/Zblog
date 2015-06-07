@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.zblog.biz.CategoryManager;
 import com.zblog.biz.PostManager;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.plugin.MapContainer;
@@ -14,7 +15,6 @@ import com.zblog.core.util.NumberUtils;
 import com.zblog.core.util.constants.OptionConstants;
 import com.zblog.core.util.constants.PostConstants;
 import com.zblog.core.util.constants.WebConstants;
-import com.zblog.service.CategoryService;
 import com.zblog.service.LinkService;
 import com.zblog.service.OptionsService;
 import com.zblog.service.TagService;
@@ -33,7 +33,7 @@ import freemarker.template.TemplateHashModel;
 public class StaticTemplate{
   private static final Logger logger = LoggerFactory.getLogger(StaticTemplate.class);
   @Autowired
-  private CategoryService categoryService;
+  private CategoryManager categoryManager;
   @Autowired
   private PostManager postManager;
   @Autowired
@@ -51,7 +51,7 @@ public class StaticTemplate{
     map.put("domain", WebConstants.getDomain());
     map.put("title", optionsService.getOptionValue(OptionConstants.TITLE));
     map.put("subtitle", optionsService.getOptionValue(OptionConstants.SUBTITLE));
-    map.put("categorys", categoryService.listAsTree());
+    map.put("categorys", categoryManager.listAsTree());
     map.put("pages", postManager.listPageAsTree());
 
     FreeMarkerUtils.genHtml("/common/header.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX

@@ -8,12 +8,11 @@
       select id, postid, name, path, creator, createTime from upload where id = #{id}
    </select>
    
-   <select id="list" parameterType="PageModel" resultType="MapContainer">  
-      select u.id, p.id as postid, p.title, p.type, u.name, u.path, u.createTime, u.creator, s.nickName
-      from upload u left join post p on u.postid=p.id left join user s on p.creator=s.id
+   <select id="list" parameterType="PageModel" resultType="UploadVO">  
+      select * from upload order by createTime desc
    </select>
    
-   <select id="listByPostid" parameterType="java.lang.String" resultType="MapContainer">  
+   <select id="listByPostid" parameterType="java.lang.String" resultType="Upload">  
       select id, path from upload m where postid=#{postid}
    </select>
    

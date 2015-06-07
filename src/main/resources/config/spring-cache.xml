@@ -23,11 +23,17 @@
        (execution(* loadById(..)) || execution(* update(..)) || execution(* deleteById(..)))"/>
     
     <aop:advisor advice-ref="postAdvisor" pointcut="target(com.zblog.service.PostService) and 
-       (execution(* loadReadById(..)) || execution(* update(..)) || execution(* deleteById(..)))" />
+       (execution(* loadById(..)) || execution(* update(..)) || execution(* deleteById(..)))" />
        
     <aop:advisor advice-ref="prenextAdvisor" pointcut="target(com.zblog.service.PostService) and 
        (execution(* getPrevPost(..)) || execution(* getNextPost(..)) || execution(* insert(..)) ||
         execution(* update(..)) || execution(* deleteById(..)))" />
+        
+    <aop:advisor advice-ref="tagAdvisor" pointcut="target(com.zblog.service.TagService) and 
+       (execution(* listTagsByPost(..)) || execution(* deleteByPostid(..)))" />
+       
+    <aop:advisor advice-ref="categoryAdvisor" pointcut="target(com.zblog.service.CategoryService) and 
+       (execution(* loadById(..)) || execution(* remove(..)) || execution(* loadByName(..)))" />
         
     <aop:advisor advice-ref="optionsAdvisor" pointcut="target(com.zblog.service.OptionsService) and 
        (execution(* getOptionValue(..)) || execution(* updateOptionValue(..)))" />
@@ -45,7 +51,7 @@
   
   <cache:advice id="postAdvisor" cache-manager="cacheManager">
     <cache:caching cache="posts">
-       <cache:cacheable method="loadReadById" key="#p0" />
+       <cache:cacheable method="loadById" key="#p0" />
        <cache:cache-evict method="update" key="#p0.id" />
        <cache:cache-evict method="deleteById" key="#p0" />
     </cache:caching>
@@ -55,9 +61,24 @@
     <cache:caching cache="prevnexts">
       <cache:cacheable method="getNextPost" key="'next-' + #p0" />
       <cache:cacheable method="getPrevPost" key="'prev-' + #p0" />
-      <cache:cache-evict method="insert" key="#p0.id" all-entries="true" />
-      <cache:cache-evict method="update" key="#p0.id" all-entries="true" />
-      <cache:cache-evict method="deleteById" key="#p0" all-entries="true"  />
+      <cache:cache-evict method="insert" all-entries="true" />
+      <cache:cache-evict method="update" all-entries="true" />
+      <cache:cache-evict method="deleteById" all-entries="true"  />
+    </cache:caching>
+  </cache:advice>
+  
+  <cache:advice id="tagAdvisor" cache-manager="cacheManager">
+    <cache:caching cache="tags">
+       <cache:cacheable method="listTagsByPost" key="#p0" />
+       <cache:cache-evict method="deleteByPostid" key="#p0" />
+    </cache:caching>
+  </cache:advice>
+  
+  <cache:advice id="categoryAdvisor" cache-manager="cacheManager">
+    <cache:caching cache="categorys">
+       <cache:cacheable method="loadById" key="#p0" />
+       <cache:cacheable method="loadByName" key="#p0" />
+       <cache:cache-evict method="remove" all-entries="true" />
     </cache:caching>
   </cache:advice>
   

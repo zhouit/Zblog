@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.zblog.core.dal.entity.BaseEntity;
 import com.zblog.core.dal.mapper.BaseMapper;
-import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
 
 public abstract class BaseService{
@@ -17,12 +16,12 @@ public abstract class BaseService{
     return getMapper().loadById(id);
   }
 
-  public void list(PageModel model){
-     List<MapContainer> result=getMapper().list(model);
+  public <T> void list(PageModel<T> model){
+     List<T> result=getMapper().list(model);
      model.setContent(result);
   }
   
-  public List<MapContainer> list(){
+  public <T> List<T> list(){
     return getMapper().list();
   }
 

@@ -233,11 +233,11 @@ public final class SearchEnginer{
     return search(query, 5, null);
   }
 
-  public void searchHighlight(QueryBuilder builder, PageModel model){
+  public void searchHighlight(QueryBuilder builder, PageModel<MapContainer> model){
     searchHighlight(builder, model, null);
   }
 
-  private ScoreDoc lastScoreDoc(IndexSearcher searcher, QueryBuilder builder, PageModel model) throws IOException{
+  private ScoreDoc lastScoreDoc(IndexSearcher searcher, QueryBuilder builder, PageModel<MapContainer> model) throws IOException{
     if(model.getPageIndex() == 1)
       return null;
 
@@ -253,7 +253,7 @@ public final class SearchEnginer{
    * @param model
    * @param fields
    */
-  public void searchAfterHighlight(QueryBuilder builder, PageModel model, Set<String> fields){
+  public void searchAfterHighlight(QueryBuilder builder, PageModel<MapContainer> model, Set<String> fields){
     IndexSearcher searcher = null;
     try{
       nmrt.waitForGeneration(reopenToken);
@@ -301,7 +301,7 @@ public final class SearchEnginer{
    * @param fields
    *          需要从Document中获取的字段,为空时为全部获取
    */
-  public void searchHighlight(QueryBuilder builder, PageModel model, Set<String> fields){
+  public void searchHighlight(QueryBuilder builder, PageModel<MapContainer> model, Set<String> fields){
     IndexSearcher searcher = null;
     try{
       nmrt.waitForGeneration(reopenToken);

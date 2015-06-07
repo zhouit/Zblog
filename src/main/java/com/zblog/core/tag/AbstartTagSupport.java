@@ -7,10 +7,9 @@ abstract class AbstartTagSupport extends TagSupport{
   private static final long serialVersionUID = 1L;
 
   protected void setPageAttribute(int pageNumber){
-    Pagination p = (Pagination) findAncestorWithClass(this, Pagination.class);
 
     pageContext.setAttribute("pageNumber", pageNumber);
-    pageContext.setAttribute("pageUrl", p.getPageUrl() + pageNumber);
+    pageContext.setAttribute("pageUrl", getPagination().getPageUrl() + pageNumber);
   }
 
   protected void clearPageAttribute(){
@@ -23,5 +22,9 @@ abstract class AbstartTagSupport extends TagSupport{
     clearPageAttribute();
     return super.doEndTag();
   }
-
+  
+  protected Pagination<?> getPagination(){
+    return (Pagination<?>) findAncestorWithClass(this, Pagination.class);
+  }
+  
 }

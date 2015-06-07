@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.dal.entity.Upload;
 
 public interface UploadMapper extends BaseMapper{
-
-  List<MapContainer> listByPostid(String postid);
+  
+  List<Upload> listByPostid(String postid);
 
   /**
    * 更新上传文件记录对应的文章ID

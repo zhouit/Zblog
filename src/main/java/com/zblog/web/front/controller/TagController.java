@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.zblog.biz.PostManager;
 import com.zblog.core.util.constants.WebConstants;
-import com.zblog.service.PostService;
 
 @Controller
 @RequestMapping("/tags")
 public class TagController{
   @Autowired
-  private PostService postService;
+  private PostManager postManager;
 
   @RequestMapping(value = "/{tagName}", method = RequestMethod.GET)
   public String post(@PathVariable("tagName") String tagName,
       @RequestParam(value = "page", defaultValue = "1") int page, Model model){
-    model.addAttribute("page", postService.listByTag(tagName, page, 10));
+    model.addAttribute("page", postManager.listByTag(tagName, page, 10));
     model.addAttribute("categoryOrTag", tagName);
     model.addAttribute(WebConstants.PRE_TITLE_KEY, tagName);
     return "index";

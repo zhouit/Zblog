@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.zblog.core.dal.entity.Category;
 import com.zblog.core.plugin.MapContainer;
 
+@SuppressWarnings("unchecked")
 public interface CategoryMapper extends BaseMapper{
 
   List<MapContainer> list();

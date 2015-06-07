@@ -3,43 +3,48 @@ package com.zblog.core.feed;
 import java.util.Date;
 
 import com.zblog.core.feed.Channel.Article;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.service.vo.PostVO;
 
 public class ArticleAdapter implements Article{
-  private MapContainer post;
+  private PostVO post;
 
-  public ArticleAdapter(MapContainer post){
+  public ArticleAdapter(PostVO post){
     this.post = post;
   }
 
   @Override
   public String getTitle(){
-    return post.getAsString("title");
+    return post.getTitle();
   }
 
   @Override
   public String getLink(){
-    return "/posts/" + post.getAsString("id");
+    return "/posts/" + post.getId();
   }
 
   @Override
   public String getCategory(){
-    return post.getAsString("category");
+    return post.getCategory().getName();
   }
-  
+
   @Override
   public String getAuthor(){
-    return post.getAsString("nickName");
+    return post.getUser().getNickName();
   }
 
   @Override
   public String getDescription(){
-    return post.getAsString("content");
+    return post.getExcerpt();
+  }
+  
+  @Override
+  public String getContent(){
+    return post.getContent();
   }
 
   @Override
   public Date getPubDate(){
-    return post.getAsDate("createTime");
+    return post.getCreateTime();
   }
 
   @Override

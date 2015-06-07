@@ -50,7 +50,7 @@
                        <option>请选择</option>
                      </c:if>
                      <option value="${category.id}" ${form.defaultCategory==category.id?'selected':''} >
-                       <c:if test="${category.level==3}">└─</c:if>${category.text}
+                       <c:if test="${category.level==3}">└─</c:if>${category.name}
                      </option>
                    </c:forEach>
                   </select>

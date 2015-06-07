@@ -25,6 +25,7 @@ import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.PostConstants;
 import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.PostService;
+import com.zblog.service.vo.PostVO;
 import com.zblog.web.backend.form.validator.PostFormValidator;
 
 @Controller(value = "adminPageController")
@@ -40,7 +41,7 @@ public class PageController{
 
   @RequestMapping(method = RequestMethod.GET)
   public String index(@RequestParam(value = "page", defaultValue = "1") int page, Model model){
-    PageModel pageModel = postService.listPage(page, 15);
+    PageModel<PostVO> pageModel = postManager.listPage(page, 15);
     model.addAttribute("page", pageModel);
     return "backend/page/list";
   }

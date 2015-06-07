@@ -11,6 +11,7 @@ import com.zblog.core.dal.entity.Post;
 import com.zblog.core.lucene.LuceneUtils;
 import com.zblog.core.lucene.QueryBuilder;
 import com.zblog.core.lucene.SearchEnginer;
+import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.constants.PostConstants;
@@ -52,8 +53,8 @@ public class PostIndexManager{
       SearchEnginer.postEnginer().delete(new Term("id", postid));
   }
 
-  public PageModel search(String word, int pageIndex){
-    PageModel result = new PageModel(pageIndex, 15);
+  public PageModel<MapContainer> search(String word, int pageIndex){
+    PageModel<MapContainer> result = new PageModel<>(pageIndex, 15);
     QueryBuilder builder = new QueryBuilder(SearchEnginer.postEnginer().getAnalyzer());
     builder.addShould("title", word).addShould("excerpt", word);
     builder.addLighter("title","excerpt");

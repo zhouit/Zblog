@@ -4,15 +4,15 @@
 
 <mapper namespace="com.zblog.core.dal.mapper.PostMapper">
 
-   <select id="loadById" parameterType="java.lang.String" resultType="Post">  
-      select id, title, content, categoryid, parent, pstatus, createTime from post where id = #{id}
+   <select id="loadById" parameterType="java.lang.String" resultType="PostVO">  
+      select * from post where id = #{id}
    </select>
    
-   <select id="loadReadById" parameterType="java.lang.String" resultType="MapContainer">  
+  <!--  <select id="loadReadById" parameterType="java.lang.String" resultType="MapContainer">  
       select p.id, p.title, p.content, p.type, p.categoryid, c.name as categoryName, p.parent, p.pstatus, p.creator, p.rcount, p.ccount, p.createTime, u.nickName 
       from post p left join category c on p.categoryid=c.id left join user u on p.creator=u.id
       where p.id = #{id}
-   </select>
+   </select> -->
    
    <select id="getNextPost" parameterType="java.lang.String" resultType="Post">
      select id,title from post where type='post' and createTime > 
@@ -24,13 +24,11 @@
          (select createTime from post where id=#{postid}) order by createTime desc limit 1
    </select>
    
-   <select id="list" parameterType="PageModel" resultType="MapContainer">  
-      select p.id, p.title, p.excerpt, c.name as categoryName, p.pstatus, p.rcount, p.ccount, p.creator, u.nickName, p.createTime
-          from post p left join category c on p.categoryid=c.id left join user u on p.creator=u.id
-          where p.type=#{query.type} order by p.createTime desc
+   <select id="list" parameterType="PageModel" resultType="java.lang.String">  
+      select id from post p where p.type=#{query.type} order by p.createTime desc
    </select>
    
-   <select id="listPage" resultType="MapContainer" parameterType="boolean">
+   <select id="listPage" resultType="PageVO" parameterType="boolean">
       <!-- 必须使用_parameter 否则There is no getter for property named 'onlyParent' in 'class java.lang.Boolean'-->
       select id, title, parent from post where type='page' <if test="_parameter"> and parent='Root'</if>
    </select>
@@ -39,15 +37,13 @@
       select id from post where type='post' order by createTime desc limit #{nums}
    </select>
    
-   <select id="listByCategory" parameterType="PageModel" resultType="MapContainer">
-      select p.id, p.title, p.excerpt, p.creator, p.rcount, u.nickName, p.createTime, p.pstatus
-        from post p inner join category c on p.categoryid=c.id left join user u on p.creator=u.id 
+   <select id="listByCategory" parameterType="PageModel" resultType="java.lang.String">
+      select p.id from post p inner join category c on p.categoryid=c.id 
         where p.type='post' and c.leftv>=#{query.category.leftv} and c.rightv &lt;= #{query.category.rightv} order by p.createTime desc
    </select>
    
-   <select id="listByTag" parameterType="PageModel" resultType="MapContainer">
-      select p.id, p.title, p.excerpt, p.creator, p.rcount, u.nickName, p.createTime, p.pstatus
-        from tag t inner join post p on t.postid=p.id left join user u on p.creator=u.id 
+   <select id="listByTag" parameterType="PageModel" resultType="java.lang.String">
+      select p.id from tag t inner join post p on t.postid=p.id 
         where p.type='post' and t.name=#{query.tagName} order by p.createTime desc
    </select>
    

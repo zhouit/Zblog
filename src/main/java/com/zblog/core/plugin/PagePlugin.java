@@ -44,7 +44,7 @@ public class PagePlugin implements Interceptor{
       if(param == null ||!(param instanceof PageModel))
         return invocation.proceed();
 
-      PageModel model = (PageModel) param;
+      PageModel<?> model = (PageModel<?>) param;
 
       String sql = boundSql.getSql();
       PreparedStatement ps = null;

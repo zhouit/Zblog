@@ -11,57 +11,25 @@ public class TreeUtils{
   }
 
   /**
-   * 根据一棵树的先序遍历集合还原成一颗树
+   * 根据指定的list构建森林
    * 
-   * @param preOrder
-   * @return
+   * @param list
    */
-  public static MapContainer buildTreefromPreOrder(List<MapContainer> preOrder){
-    // MapContainer root=preOrder.remove(0);
-    // for(MapContainer current:preOrder){
-    // int level=current.removeAsInteger("level");
-    // current.getAsList("attributes", Integer.class).add(level-1);
-    // MapContainer parent=getLastParentByLevel(root, level-1);
-    // parent.getAsList("children", MapContainer.class).add(current);
-    // }
-
-    MapContainer root = preOrder.get(0).clone();
-    for(int i = 1; i < preOrder.size(); i++){
-      MapContainer current = preOrder.get(i).clone();
-      int level = current.removeAsInteger("level");
-      if(level == 2)
-        current.put("icon", "glyphicon glyphicon-star");
-      current.put("level", level - 1);
-      MapContainer parent = getLastParentByLevel(root, level - 1);
-      parent.getAsList("nodes", MapContainer.class).add(current);
-    }
-
-    return root;
-  }
-
-  private static MapContainer getLastParentByLevel(MapContainer mc, int currentlevel){
-    MapContainer current = mc;
-    for(int i = 1; i < currentlevel; i++){
-      List<MapContainer> children = current.getAsList("nodes", MapContainer.class);
-      current = children.get(children.size() - 1);
-    }
-
-    return current;
-  }
-
-  public static void rebuildTree(List<MapContainer> list){
-    /* 原理就是把list中parent不为Root的元素全删除 */
+  public static <T extends TreeItem<T>> void rebuildTree(List<T> list){
     while(!solve(list)){
-      Iterator<MapContainer> it = list.iterator();
+      Iterator<T> it = list.iterator();
       while(it.hasNext()){
-        MapContainer item = it.next();
-        if(!hasChild(list, item.getAsString("id"))){
-          if(!StringUtils.isBlank(item.getAsString("parent"))){
-            MapContainer parent = getParent(list, item);
-            /* 有可能该条评论的parent以前被批准后又被驳回/删除 */
-            if(parent != null){
+        T item = it.next();
+        if(hasChild(list, item.getId()))
+          continue;
+
+        if(!StringUtils.isBlank(item.getParent())){
+          /* 获取item父节点 */
+          for(T temp : list){
+            if(item.getParent().equals(temp.getId())){
               it.remove();
-              parent.getAsList("children", MapContainer.class).add(item);
+              temp.addChild(item);
+              break;
             }
           }
         }
@@ -76,28 +44,12 @@ public class TreeUtils{
    * @param id
    * @return
    */
-  private static boolean hasChild(List<MapContainer> list, String id){
-    for(MapContainer mc : list){
-      if(id.equals(mc.get("parent")))
+  private static <T extends TreeItem<T>> boolean hasChild(List<T> list, String id){
+    for(T mc : list){
+      if(id.equals(mc.getParent()))
         return true;
     }
     return false;
-  }
-
-  /**
-   * 获取item的父节点
-   * 
-   * @param list
-   * @param item
-   * @return
-   */
-  private static MapContainer getParent(List<MapContainer> list, MapContainer item){
-    for(MapContainer mc : list){
-      if(item.getAsString("parent").equals(mc.get("id")))
-        return mc;
-    }
-
-    return null;
   }
 
   /**
@@ -106,9 +58,9 @@ public class TreeUtils{
    * @param list
    * @return
    */
-  private static boolean solve(List<MapContainer> list){
-    for(MapContainer mc : list){
-      if(hasChild(list, mc.getAsString("id")))
+  private static <T extends TreeItem<T>> boolean solve(List<T> list){
+    for(T mc : list){
+      if(hasChild(list, mc.getId()))
         return false;
     }
 

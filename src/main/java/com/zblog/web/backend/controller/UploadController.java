@@ -18,7 +18,6 @@ import com.zblog.biz.editor.Ueditor;
 import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.web.ServletRequestReader;
-import com.zblog.service.UploadService;
 
 @Controller
 @RequestMapping("/backend/uploads")
@@ -27,13 +26,11 @@ public class UploadController{
   @Autowired
   private Ueditor ueditor;
   @Autowired
-  private UploadService uploadService;
-  @Autowired
   private UploadManager uploadManager;
 
   @RequestMapping(method = RequestMethod.GET)
   public String index(@RequestParam(value = "page", defaultValue = "1") int page, Model model){
-    model.addAttribute("page", uploadService.list(page, 15));
+    model.addAttribute("page", uploadManager.list(page, 15));
     return "backend/upload/list";
   }
 

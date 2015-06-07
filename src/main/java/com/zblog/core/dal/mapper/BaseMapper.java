@@ -2,7 +2,6 @@ package com.zblog.core.dal.mapper;
 
 import java.util.List;
 
-import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
 
 public interface BaseMapper{
@@ -22,9 +21,9 @@ public interface BaseMapper{
    */
   public <T> T loadById(String id);
 
-  public List<MapContainer> list(PageModel model);
-  
-  public List<MapContainer> list();
+  public <T> List<T> list(PageModel<T> model);
+
+  public <T> List<T> list();
 
   /**
    * 根据ID删除记录

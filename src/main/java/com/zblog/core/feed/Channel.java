@@ -64,10 +64,12 @@ public class Channel{
     String getLink();
 
     String getCategory();
-    
+
     String getAuthor();
 
     String getDescription();
+
+    public String getContent();
 
     Date getPubDate();
 

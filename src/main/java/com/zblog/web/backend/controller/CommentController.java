@@ -33,7 +33,7 @@ public class CommentController{
       @RequestParam(value = "type", defaultValue = "all") String type, Model model){
     Collection<String> status = "all".equals(type) ? Arrays.asList(CommentConstants.TYPE_APPROVE,
         CommentConstants.TYPE_WAIT) : Arrays.asList(type);
-    PageModel pageModel = commentService.listByStatus(page, 15, status);
+    PageModel<MapContainer> pageModel = commentService.listByStatus(page, 15, status);
     model.addAttribute("page", pageModel);
     model.addAttribute("type", type);
     model.addAttribute("stat", commentService.listCountByGroupStatus());

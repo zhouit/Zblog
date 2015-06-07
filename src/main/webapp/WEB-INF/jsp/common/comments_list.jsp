@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <ol class="commentlist">
   <c:forEach items="${comments}" var="comment" varStatus="status">
@@ -25,7 +26,7 @@
       </c:if>
        <p>${comment.content}</p>
      </div>
-     <c:if test="${comment.children!=null}">
+     <c:if test="${comment.children!=null&&fn:length(comment.children)!=0}">
        <c:set var="depth" value="${depth+1}" scope="request" />
        <c:set var="parent" value="${status.index%2==0}" scope="request" />
        <c:set var="comments" value="${comment.children}" scope="request" />

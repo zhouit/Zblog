@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.zblog.biz.PostManager;
 import com.zblog.core.dal.entity.Category;
 import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.CategoryService;
-import com.zblog.service.PostService;
 
 @Controller
 @RequestMapping("/categorys")
 public class CategoryController{
   @Autowired
-  private PostService postService;
+  private PostManager postManager;
   @Autowired
   private CategoryService categoryService;
 
@@ -26,7 +26,7 @@ public class CategoryController{
       @RequestParam(value = "page", defaultValue = "1") int page, Model model){
     Category category = categoryService.loadByName(categoryName);
     if(category != null){
-      model.addAttribute("page", postService.listByCategory(category, page, 10));
+      model.addAttribute("page", postManager.listByCategory(category, page, 10));
     }
     
     model.addAttribute("categoryOrTag", categoryName);

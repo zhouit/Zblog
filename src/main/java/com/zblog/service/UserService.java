@@ -13,8 +13,8 @@ public class UserService extends BaseService{
   @Autowired
   private UserMapper userMapper;
 
-  public PageModel list(int pageIndex, int pageSize){
-    PageModel page = new PageModel(pageIndex, pageSize);
+  public PageModel<User> list(int pageIndex, int pageSize){
+    PageModel<User> page = new PageModel<>(pageIndex, pageSize);
     super.list(page);
     return page;
   }

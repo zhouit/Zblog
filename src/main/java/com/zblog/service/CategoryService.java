@@ -1,6 +1,5 @@
 package com.zblog.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,6 @@ import com.zblog.core.dal.entity.Category;
 import com.zblog.core.dal.mapper.BaseMapper;
 import com.zblog.core.dal.mapper.CategoryMapper;
 import com.zblog.core.dal.mapper.PostMapper;
-import com.zblog.core.plugin.MapContainer;
-import com.zblog.core.plugin.TreeUtils;
 import com.zblog.core.util.IdGenarater;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.CategoryConstants;
@@ -72,13 +69,6 @@ public class CategoryService extends BaseService{
    */
   public List<Category> loadChildren(Category category){
     return categoryMapper.loadChildren(category);
-  }
-
-  public List<MapContainer> listAsTree(){
-    List<MapContainer> list = super.list();
-    if(list == null || list.isEmpty())
-      return new ArrayList<>();
-    return TreeUtils.buildTreefromPreOrder(list).getAsList("nodes", MapContainer.class);
   }
 
   public void init(){

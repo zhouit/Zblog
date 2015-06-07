@@ -5,24 +5,25 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.dal.mapper.BaseMapper;
 import com.zblog.core.dal.mapper.UploadMapper;
-import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
+import com.zblog.service.vo.UploadVO;
 
 @Service
 public class UploadService extends BaseService{
   @Autowired
   private UploadMapper uploadMapper;
 
-  public PageModel list(int pageIndex, int pageSize){
-    PageModel pageModel = new PageModel(pageIndex, pageSize);
+  public PageModel<UploadVO> list(int pageIndex, int pageSize){
+    PageModel<UploadVO> pageModel = new PageModel<>(pageIndex, pageSize);
     list(pageModel);
 
     return pageModel;
   }
 
-  public List<MapContainer> listByPostid(String postid){
+  public List<Upload> listByPostid(String postid){
     return uploadMapper.listByPostid(postid);
   }
 

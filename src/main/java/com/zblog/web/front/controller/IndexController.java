@@ -21,18 +21,15 @@ import com.zblog.core.feed.ArticleAdapter;
 import com.zblog.core.feed.Channel;
 import com.zblog.core.feed.Channel.Article;
 import com.zblog.core.feed.RssFeedWriter;
-import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.OptionConstants;
 import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.OptionsService;
-import com.zblog.service.PostService;
+import com.zblog.service.vo.PostVO;
 
 @Controller
 public class IndexController{
-  @Autowired
-  private PostService postService;
   @Autowired
   private PostManager postManager;
   @Autowired
@@ -46,7 +43,7 @@ public class IndexController{
       model.addAttribute("page", postManager.search(word, page));
       model.addAttribute(WebConstants.PRE_TITLE_KEY, word);
     }else{
-      model.addAttribute("page", postService.listPost(page, 10));
+      model.addAttribute("page", postManager.listPost(page, 10));
     }
 
     return "index";
@@ -61,8 +58,8 @@ public class IndexController{
     channel.setDescription(optionsService.getOptionValue(OptionConstants.DESCRIPTION));
 
     List<Article> items = new ArrayList<>();
-    for(MapContainer mc : postManager.listRecent(10)){
-      items.add(new ArticleAdapter(mc));
+    for(PostVO pvo : postManager.listRecent(10)){
+      items.add(new ArticleAdapter(pvo));
     }
     channel.setItems(items);
     response.setContentType("text/xml");

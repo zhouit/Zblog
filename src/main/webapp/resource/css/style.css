@@ -160,9 +160,12 @@ a:hover{color: #009dc4;}
 .meta li span.year{display:block; font-size:10px; }
 .meta li.post_author:after{content: "\e609";}
 .meta li.post_category:after{content: "\e608";}
-.meta li.post_tag:after{content: "\e607";}
 .meta li.post_comment:after{content: "\e61a";}
 
+.post_meta{background: url("../img/meta_bg.gif") repeat scroll 0 0 rgb(0, 0, 0);font-size: 11px;margin: 0 340px 0 0;padding: 9px 3% 8px 4%}
+.post_meta ul{float: right; margin: 0;}
+.post_meta ul li{float: left;background: none;}
+.post_meta ul li:first-child:before{content: "\e607";font-family: "icomoon-zblog";font-size: 13px;display: inline;}
 
 /***********  pager **********/
 #page_nav{float: right;padding: 0;position: relative;width: 86%;z-index: 3;}

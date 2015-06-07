@@ -3,7 +3,7 @@
       "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.zblog.core.dal.mapper.LinkMapper">
-   <select id="list" resultType="MapContainer">  
+   <select id="list" resultType="Link">  
       select id, name, url, visible,createTime from link order by createTime desc
    </select>
    <select id="loadById" resultType="Link" parameterType="java.lang.String">  

@@ -30,4 +30,9 @@
     <function-signature>java.lang.String fileExt(java.lang.String)</function-signature>
     <example>${z:fileExt('some.png')}</example>
   </function>
+  <function>
+    <name>join</name>
+    <function-class>com.zblog.core.tag.FunctionHelper</function-class>
+    <function-signature>java.lang.String join(java.util.Collection,java.lang.String)</function-signature>
+  </function>
 </taglib>

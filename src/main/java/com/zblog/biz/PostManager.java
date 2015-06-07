@@ -3,7 +3,6 @@ package com.zblog.biz;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,18 +10,26 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zblog.biz.aop.PostIndexManager;
+import com.zblog.core.dal.entity.Category;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.entity.Tag;
+import com.zblog.core.dal.entity.Upload;
+import com.zblog.core.dal.entity.User;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
+import com.zblog.core.plugin.TreeUtils;
 import com.zblog.core.util.CollectionUtils;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.constants.PostConstants;
 import com.zblog.core.util.constants.WebConstants;
+import com.zblog.service.CategoryService;
 import com.zblog.service.OptionsService;
 import com.zblog.service.PostService;
 import com.zblog.service.TagService;
 import com.zblog.service.UploadService;
+import com.zblog.service.UserService;
+import com.zblog.service.vo.PageVO;
+import com.zblog.service.vo.PostVO;
 
 @Component
 public class PostManager{
@@ -36,6 +43,26 @@ public class PostManager{
   private PostIndexManager postIndexManager;
   @Autowired
   private TagService tagService;
+  @Autowired
+  private CategoryService categoryService;
+  @Autowired
+  private UserService userService;
+
+  public PostVO loadReadById(String postid){
+    PostVO pvo = postService.loadById(postid);
+    if(pvo == null)
+      return null;
+    
+    if(PostConstants.TYPE_POST.equals(pvo.getType())){
+      Category category = categoryService.loadById(pvo.getCategoryid());
+      pvo.setCategory(category);
+      pvo.setTags(tagService.listTagsByPost(postid));
+    }
+    User user = userService.loadById(pvo.getCreator());
+    pvo.setUser(user);
+
+    return pvo;
+  }
 
   /**
    * 插入文章，同时更新上传文件的postid
@@ -87,63 +114,78 @@ public class PostManager{
    */
   @Transactional
   public void removePost(String postid, String postType){
-    List<MapContainer> list = uploadService.listByPostid(postid);
+    List<Upload> list = uploadService.listByPostid(postid);
     uploadService.deleteByPostid(postid);
     postService.deleteById(postid);
 
-    for(MapContainer mc : list){
-      File file = new File(WebConstants.APPLICATION_PATH, mc.getAsString("path"));
+    for(Upload upload : list){
+      File file = new File(WebConstants.APPLICATION_PATH, upload.getPath());
       file.delete();
     }
   }
 
-  public Collection<MapContainer> listPageAsTree(){
-    List<MapContainer> list = postService.listPage(false);
-    List<MapContainer> tree = new ArrayList<>();
-    Iterator<MapContainer> it = list.iterator();
-    while(it.hasNext()){
-      MapContainer page = it.next();
-      if(PostConstants.DEFAULT_PARENT.equals(page.getAsString("parent"))){
-        tree.add(page);
-        it.remove();
-      }
-    }
-
-    it = list.iterator();
-    while(it.hasNext()){
-      MapContainer child = it.next();
-      String parent = child.getAsString("parent");
-      for(MapContainer pc : tree){
-        if(parent.equals(pc.getAsString("id"))){
-          pc.getAsList("children", MapContainer.class).add(child);
-          it.remove();
-          break;
-        }
-      }
-    }
-
-    return tree;
+  public PageModel<PostVO> listPost(int pageIndex, int pageSize){
+    return pageId2pageVo(postService.listPost(pageIndex, pageSize));
   }
 
-  public List<MapContainer> listRecent(int nums){
+  public PageModel<PostVO> listPage(int pageIndex, int pageSize){
+    return pageId2pageVo(postService.listPage(pageIndex, pageSize));
+  }
+
+  public PageModel<PostVO> listByTag(String tagName, int pageIndex, int pageSize){
+    return pageId2pageVo(postService.listByTag(tagName, pageIndex, pageSize));
+  }
+
+  public PageModel<PostVO> listByCategory(Category category, int pageIndex, int pageSize){
+    return pageId2pageVo(postService.listByCategory(category, pageIndex, pageSize));
+  }
+
+  public List<PostVO> listRecent(int nums){
     List<String> list = postService.listRecent(nums);
-    List<MapContainer> result = new ArrayList<>(list.size());
+    List<PostVO> result = new ArrayList<>(list.size());
     for(String id : list){
-      result.add(postService.loadReadById(id));
+      result.add(loadReadById(id));
     }
 
     return result;
   }
 
-  public PageModel search(String word, int pageIndex){
-    PageModel page = postIndexManager.search(word, pageIndex);
+  private PageModel<PostVO> pageId2pageVo(PageModel<String> postidPage){
+    PageModel<PostVO> result = new PageModel<>(postidPage.getPageIndex(), postidPage.getPageSize());
+    result.setTotalCount(postidPage.getTotalCount());
+    List<PostVO> content = new ArrayList<>(postidPage.getContent().size());
+    for(String id : postidPage.getContent()){
+      content.add(loadReadById(id));
+    }
+    result.setContent(content);
+    return result;
+  }
+
+  public Collection<PageVO> listPageAsTree(){
+    List<PageVO> list = postService.listPage(false);
+    TreeUtils.rebuildTree(list);
+
+    return list;
+  }
+
+  public PageModel<PostVO> search(String word, int pageIndex){
+    PageModel<MapContainer> page = postIndexManager.search(word, pageIndex);
+    PageModel<PostVO> result = new PageModel<PostVO>(page.getPageIndex(), page.getPageSize());
+    result.setTotalCount(page.getTotalCount());
+    result.insertQuery("word", word);
+    List<PostVO> content = new ArrayList<>(page.getContent().size());
     /* 填充其他属性，更好的做法是：搜索结果只包含对象id，详细资料到数据库查询(缓存) */
     for(MapContainer mc : page.getContent()){
-      MapContainer all = postService.loadReadById(mc.getAsString("id"));
-      mc.put("createTime", all.get("createTime")).put("nickName", all.get("nickName")).put("rcount", all.get("rcount"));
-    }
+      PostVO all = loadReadById(mc.getAsString("id"));
+      //TODO 此处会影响缓存内容
+      all.setTitle(mc.getAsString("title"));
+      all.setExcerpt(mc.getAsString("excerpt"));
 
-    return page;
+      content.add(all);
+    }
+    result.setContent(content);
+
+    return result;
   }
 
   /**

@@ -13,8 +13,8 @@
          from user where nickName = #{username} and password=md5(#{password}) 
    </select>
    
-   <select id="list" parameterType="PageModel" resultType="MapContainer">  
-      select id, nickName, realName, role, email, createTime from user 
+   <select id="list" parameterType="PageModel" resultType="User">  
+      select id, nickName, realName, role, email, createTime from user
    </select>
    
    <insert id="insert" parameterType="User">

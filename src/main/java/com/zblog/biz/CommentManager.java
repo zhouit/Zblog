@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.dal.entity.Post;
 import com.zblog.core.plugin.TreeUtils;
 import com.zblog.core.util.constants.CommentConstants;
 import com.zblog.service.CommentService;
 import com.zblog.service.PostService;
+import com.zblog.service.vo.CommentVO;
 
 @Component
 public class CommentManager{
@@ -19,10 +20,25 @@ public class CommentManager{
   @Autowired
   private PostService postService;
 
-  public List<MapContainer> getAsTree(String postid, String creator){
-    List<MapContainer> list = commentService.listByPost(postid, creator);
+  public List<CommentVO> getAsTree(String postid, String creator){
+    List<CommentVO> list = commentService.listByPost(postid, creator);
     TreeUtils.rebuildTree(list);
 
+    return list;
+  }
+
+  /**
+   * 最近留言
+   * 
+   * @return
+   */
+  public List<CommentVO> listRecent(){
+    List<CommentVO> list = commentService.listRecent();
+    for(CommentVO cvo : list){
+      Post post = postService.loadById(cvo.getPostid());
+      cvo.setPost(post);
+    }
+    
     return list;
   }
 

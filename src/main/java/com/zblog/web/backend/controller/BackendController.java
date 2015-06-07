@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.zblog.biz.CommentManager;
 import com.zblog.biz.PostManager;
 import com.zblog.core.dal.entity.User;
 import com.zblog.core.plugin.MapContainer;
@@ -19,7 +20,6 @@ import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.Constants;
 import com.zblog.core.util.web.WebContextFactory;
-import com.zblog.service.CommentService;
 import com.zblog.service.UserService;
 import com.zblog.service.shiro.StatelessToken;
 import com.zblog.web.backend.form.LoginForm;
@@ -34,7 +34,7 @@ public class BackendController{
   @Autowired
   private PostManager postManager;
   @Autowired
-  private CommentService commentService;
+  private CommentManager commentManager;
 
   @RequiresRoles(value = { "admin", "editor" }, logical = Logical.OR)
   @RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -44,7 +44,7 @@ public class BackendController{
     model.addAttribute("memory", Runtime.getRuntime().totalMemory() / 1024 / 1024);
 
     model.addAttribute("posts", postManager.listRecent(10));
-    model.addAttribute("comments", commentService.listRecent());
+    model.addAttribute("comments", commentManager.listRecent());
     return "backend/index";
   }
 

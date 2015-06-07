@@ -1,7 +1,9 @@
 package com.zblog.core.tag;
 
 import java.net.URI;
+import java.util.Collection;
 
+import com.zblog.core.util.CollectionUtils;
 import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.FileUtils;
 import com.zblog.core.util.StringUtils;
@@ -54,6 +56,10 @@ public class FunctionHelper{
 
   public static String fileExt(String filename){
     return FileUtils.getFileExt(filename).toUpperCase();
+  }
+
+  public static String join(Collection<String> collect, String delimiter){
+    return CollectionUtils.isEmpty(collect)?null:StringUtils.join(collect, delimiter);
   }
 
 }

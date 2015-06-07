@@ -43,14 +43,14 @@ import com.zblog.core.plugin.PageModel;
  * @author zhou
  *
  */
-public class Pagination extends TagSupport{
+public class Pagination<T> extends TagSupport{
   private static final long serialVersionUID = 1L;
 
   private static final int SHOW_PAGE = 10;
 
   // 页面访问参数如/user/product
   private String pageUrl;
-  private PageModel model;
+  private PageModel<T> model;
 
   // 显示几个页脚
   private int showPage = SHOW_PAGE;
@@ -65,11 +65,11 @@ public class Pagination extends TagSupport{
     return pageUrl;
   }
 
-  public void setModel(PageModel model){
+  public void setModel(PageModel<T> model){
     this.model = model;
   }
 
-  PageModel getModel(){
+  PageModel<T> getModel(){
     return model;
   }
 

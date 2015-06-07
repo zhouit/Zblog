@@ -54,8 +54,8 @@ public class RssFeedWriter{
         createNode(writer, "link", channel.getDomain() + article.getLink());
         createNode(writer, "category", article.getCategory());
         createNode(writer, "author", article.getAuthor());
-        createNode(writer, "description", "");
-        createNode(writer, "content", "http://purl.org/rss/1.0/modules/content/", "encoded", article.getDescription());
+        createNode(writer, "description", article.getDescription());
+        createNode(writer, "content", "http://purl.org/rss/1.0/modules/content/", "encoded", article.getContent());
         createNode(writer, "pubDate", format.format(article.getPubDate()));
         createNode(writer, "guid", channel.getDomain() + article.getGuid());
         createNode(writer, "comments", channel.getDomain() + article.getGuid() + "#comments");

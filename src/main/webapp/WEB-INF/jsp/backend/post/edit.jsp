@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib prefix="z" uri="/WEB-INF/tld/function.tld" %>
 <!DOCTYPE Html>
 <html>
  <head>
@@ -54,8 +54,8 @@
                  <label for="categoty">分类</label>
                  <select class="form-control" id="category">
                    <c:forEach items="${categorys}" var="category" begin="1">
-                     <option value="${category.id}" ${post.categoryid==category.id?'selected':''}>
-                        ├─<c:if test="${category.level==3}">└─</c:if>${category.text}
+                     <option value="${category.id}" ${post.category.id==category.id?'selected':''}>
+                        ├─<c:if test="${category.level==3}">└─</c:if>${category.name}
                       </option>
                    </c:forEach>
                  </select>
@@ -71,7 +71,7 @@
                </div>
                <div class="form-group">
                  <label for="tags">标签</label>
-                 <input type="text" class="form-control" id="tags" value="${tagService}" />
+                 <input type="text" class="form-control" id="tags" value="${z:join(post.tags,',')}" />
                  <span class="help-block">多个标签请用英文逗号（,）分开</span>
                </div>
              </div>

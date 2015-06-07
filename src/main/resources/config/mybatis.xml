@@ -14,6 +14,11 @@
     <typeAlias alias="Link" type="com.zblog.core.dal.entity.Link" />
     <typeAlias alias="Comment" type="com.zblog.core.dal.entity.Comment" />
     <typeAlias alias="Option" type="com.zblog.core.dal.entity.Option" />
+    
+    <typeAlias alias="PostVO" type="com.zblog.service.vo.PostVO" />
+    <typeAlias alias="PageVO" type="com.zblog.service.vo.PageVO" />
+    <typeAlias alias="CommentVO" type="com.zblog.service.vo.CommentVO" />
+    <typeAlias alias="UploadVO" type="com.zblog.service.vo.UploadVO" />
   </typeAliases>
   <mappers>
     <mapper resource="com/zblog/core/dal/mybatis/UserMapper.xml" />

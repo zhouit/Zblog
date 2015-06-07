@@ -1,6 +1,7 @@
 package com.zblog.web.backend.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zblog.biz.CategoryManager;
 import com.zblog.core.dal.entity.Category;
 import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.util.CollectionUtils;
 import com.zblog.core.util.IdGenarater;
 import com.zblog.service.CategoryService;
 
@@ -34,7 +36,20 @@ public class CategoryController{
   @ResponseBody
   @RequestMapping(value = "/index", method = RequestMethod.GET)
   public Object data(){
-    return categoryService.listAsTree();
+    List<MapContainer> list = categoryManager.listAsTree();
+    for(MapContainer temp : list){
+      temp.put("text", temp.remove("name"));
+      List<MapContainer> nodes = temp.get("nodes");
+      if(CollectionUtils.isEmpty(nodes))
+        continue;
+
+      for(MapContainer child : nodes){
+        child.put("text", child.remove("name"));
+        child.put("icon", "glyphicon glyphicon-star");
+      }
+    }
+
+    return list;
   }
 
   @ResponseBody

@@ -12,16 +12,16 @@ public class Pager extends AbstartTagSupport{
 
   @Override
   public int doAfterBody() throws JspException{
-    Pagination p = (Pagination) findAncestorWithClass(this, Pagination.class);
-    PageModel model = p.getModel();
+    Pagination<?> p = getPagination();
+    PageModel<?> model = p.getModel();
 
     pageContext.removeAttribute("dot");
     if(current <= p.getBoundary()){
       setPageAttribute(current);
 
-      return current++ < model.getTotalPage() ? TagSupport.EVAL_BODY_AGAIN : TagSupport.SKIP_BODY;
+      return current++ <= model.getTotalPage() ? TagSupport.EVAL_BODY_AGAIN : TagSupport.SKIP_BODY;
     }
-
+    
     if(current < start){
       pageContext.setAttribute("dot", true);
       clearPageAttribute();
@@ -61,8 +61,8 @@ public class Pager extends AbstartTagSupport{
   }
 
   private void initStartEnd(){
-    Pagination p = (Pagination) findAncestorWithClass(this, Pagination.class);
-    PageModel model = p.getModel();
+    Pagination<?> p = getPagination();
+    PageModel<?> model = p.getModel();
     int extra = p.getShowPage() - 2 * p.getBoundary();
     if(model.getTotalPage() - 2 * p.getBoundary() > 0){
       if(model.getPageIndex() <= model.getTotalPage() / 2){

@@ -32,6 +32,7 @@ import com.zblog.service.OptionsService;
 import com.zblog.service.PostService;
 import com.zblog.service.TagService;
 import com.zblog.service.UserService;
+import com.zblog.service.vo.PostVO;
 
 /**
  * 
@@ -199,14 +200,15 @@ public class MetaWeblogManager{
     if(user == null)
       loginError();
 
-    List<MapContainer> tags = new ArrayList<>();
-    for(MapContainer mc : tagService.list()){
+    List<MapContainer> result = new ArrayList<>();
+    List<MapContainer> tags=tagService.list();
+    for(MapContainer mc : tags){
       MapContainer tag = new MapContainer("tag_id", mc.get("name"));
       tag.put("name", mc.get("name")).put("count", tag.get("count"));
-      tags.add(tag);
+      result.add(tag);
     }
 
-    return tags;
+    return result;
   }
 
   public Object getRecentPosts(String blogid, String username, String pwd, int numberOfPosts){
@@ -214,16 +216,15 @@ public class MetaWeblogManager{
     if(user == null)
       loginError();
 
-    List<MapContainer> list = postManager.listRecent(numberOfPosts);
+    List<PostVO> list = postManager.listRecent(numberOfPosts);
     MapContainer[] result = new MapContainer[list.size()];
     for(int i = 0; i < list.size(); i++){
-      MapContainer temp = list.get(i);
-      result[i] = new MapContainer("dateCreated", temp.getAsDate("createTime"))
-          .put("userid", temp.getAsString("creator")).put("postid", temp.getAsString("id"))
-          .put("description", temp.getAsString("content")).put("title", temp.getAsString("title"))
-          .put("link", WebConstants.getDomainLink("/posts/" + temp.get("id")))
-          .put("permaLink", WebConstants.getDomainLink("/posts/" + temp.get("id")))
-          .put("categories", Arrays.asList(temp.getAsString("categoryName"))).put("post_status", "publish");
+      PostVO temp = list.get(i);
+      result[i] = new MapContainer("dateCreated", temp.getCreateTime()).put("userid", temp.getCreator())
+          .put("postid", temp.getId()).put("description", temp.getContent()).put("title", temp.getTitle())
+          .put("link", WebConstants.getDomainLink("/posts/" + temp.getId()))
+          .put("permaLink", WebConstants.getDomainLink("/posts/" + temp.getId()))
+          .put("categories", Arrays.asList(temp.getCategory().getName())).put("post_status", "publish");
     }
     return result;
   }

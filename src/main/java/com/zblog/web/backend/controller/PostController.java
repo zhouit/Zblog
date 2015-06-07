@@ -25,8 +25,7 @@ import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.PostConstants;
 import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.CategoryService;
-import com.zblog.service.PostService;
-import com.zblog.service.TagService;
+import com.zblog.service.vo.PostVO;
 import com.zblog.web.backend.form.validator.PostFormValidator;
 
 @Controller(value = "adminPostController")
@@ -34,19 +33,15 @@ import com.zblog.web.backend.form.validator.PostFormValidator;
 @RequiresRoles(value = { "admin", "editor" }, logical = Logical.OR)
 public class PostController{
   @Autowired
-  private PostService postService;
-  @Autowired
   private PostManager postManager;
   @Autowired
   private OptionManager optionManager;
   @Autowired
   private CategoryService categoryService;
-  @Autowired
-  private TagService tagService;
 
   @RequestMapping(method = RequestMethod.GET)
   public String index(@RequestParam(value = "page", defaultValue = "1") int page, Model model){
-    PageModel pageModel = postService.listPost(page, 15);
+    PageModel<PostVO> pageModel = postManager.listPost(page, 15);
     model.addAttribute("page", pageModel);
     return "backend/post/list";
   }
@@ -104,8 +99,7 @@ public class PostController{
   @RequestMapping(value = "/edit", method = RequestMethod.GET)
   public String edit(String pid, Model model){
     if(!StringUtils.isBlank(pid)){
-      model.addAttribute("post", postService.loadById(pid));
-      model.addAttribute("tags", StringUtils.join(tagService.listTagsByPost(pid), ","));
+      model.addAttribute("post", postManager.loadReadById(pid));
     }
 
     model.addAttribute("categorys", categoryService.list());

@@ -5,11 +5,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.zblog.core.plugin.MapContainer;
+import com.zblog.service.vo.CommentVO;
 
 public interface CommentMapper extends BaseMapper{
 
-  List<MapContainer> listRecent();
-  
+  List<CommentVO> listRecent();
+
   public List<MapContainer> listCountByGroupStatus();
 
   /**
@@ -19,13 +20,13 @@ public interface CommentMapper extends BaseMapper{
    * @param creator
    * @return
    */
-  List<MapContainer> listByPost(@Param("postid") String postid, @Param("creator") String creator);
+  List<CommentVO> listByPost(@Param("postid") String postid, @Param("creator") String creator);
 
   /**
    * 更改comment的状态
    * 
    * @param commentid
    */
-  void setStatus(@Param("commentid")String commentid, @Param("status")String status);
+  void setStatus(@Param("commentid") String commentid, @Param("status") String status);
 
 }
