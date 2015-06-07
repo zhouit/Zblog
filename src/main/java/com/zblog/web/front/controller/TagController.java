@@ -13,12 +13,12 @@ import com.zblog.service.PostService;
 
 @Controller
 @RequestMapping("/tags")
-public class TagsController{
+public class TagController{
   @Autowired
   private PostService postService;
 
-  @RequestMapping(value = "/tagName", method = RequestMethod.GET)
-  public String post(@PathVariable("categoryName") String tagName,
+  @RequestMapping(value = "/{tagName}", method = RequestMethod.GET)
+  public String post(@PathVariable("tagName") String tagName,
       @RequestParam(value = "page", defaultValue = "1") int page, Model model){
     model.addAttribute("page", postService.listByTag(tagName, page, 10));
     model.addAttribute("categoryOrTag", tagName);

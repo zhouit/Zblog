@@ -47,7 +47,7 @@
    
    <select id="listByTag" parameterType="PageModel" resultType="MapContainer">
       select p.id, p.title, p.excerpt, p.creator, p.rcount, u.nickName, p.createTime, p.pstatus
-        from tag t inner join post p on tag.postid=p.id left join user u on p.creator=u.id 
+        from tag t inner join post p on t.postid=p.id left join user u on p.creator=u.id 
         where p.type='post' and t.name=#{query.tagName} order by p.createTime desc
    </select>
    

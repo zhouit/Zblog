@@ -12,8 +12,8 @@
   
   <context:component-scan base-package="com.zblog.biz" />
   <aop:config proxy-target-class="true">
-    <aop:pointcut expression="execution(* com.zblog.biz.PostManager.insertPost(..)) and args(post)" id="p-post-insert" />
-    <aop:pointcut expression="execution(* com.zblog.biz.PostManager.updatePost(..)) and args(post)" id="p-post-update" />
+    <aop:pointcut expression="execution(* com.zblog.biz.PostManager.insertPost(..)) and args(post,..)" id="p-post-insert" />
+    <aop:pointcut expression="execution(* com.zblog.biz.PostManager.updatePost(..)) and args(post,..)" id="p-post-update" />
     <aop:pointcut expression="execution(* com.zblog.biz.PostManager.removePost(String, String)) 
         and args(postid, postType)" id="p-post-remove" />
         

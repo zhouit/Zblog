@@ -4,16 +4,16 @@
 <configuration>
   <typeAliases>
     <!-- 给实体Bean一个别名 -->
-    <typeAlias alias="MapContainer" type="com.zblog.core.plugin.MapContainer"/>
-    <typeAlias alias="PageModel" type="com.zblog.core.plugin.PageModel"/>
+    <typeAlias alias="MapContainer" type="com.zblog.core.plugin.MapContainer" />
+    <typeAlias alias="PageModel" type="com.zblog.core.plugin.PageModel" />
     
-    <typeAlias alias="User" type="com.zblog.core.dal.entity.User"/>
-    <typeAlias alias="Category" type="com.zblog.core.dal.entity.Category"/>
-    <typeAlias alias="Post" type="com.zblog.core.dal.entity.Post"/>
-    <typeAlias alias="Upload" type="com.zblog.core.dal.entity.Upload"/>
-    <typeAlias alias="Link" type="com.zblog.core.dal.entity.Link"/>
-    <typeAlias alias="Comment" type="com.zblog.core.dal.entity.Comment"/>
-    <typeAlias alias="Option" type="com.zblog.core.dal.entity.Option"/>
+    <typeAlias alias="User" type="com.zblog.core.dal.entity.User" />
+    <typeAlias alias="Category" type="com.zblog.core.dal.entity.Category" />
+    <typeAlias alias="Post" type="com.zblog.core.dal.entity.Post" />
+    <typeAlias alias="Upload" type="com.zblog.core.dal.entity.Upload" />
+    <typeAlias alias="Link" type="com.zblog.core.dal.entity.Link" />
+    <typeAlias alias="Comment" type="com.zblog.core.dal.entity.Comment" />
+    <typeAlias alias="Option" type="com.zblog.core.dal.entity.Option" />
   </typeAliases>
   <mappers>
     <mapper resource="com/zblog/core/dal/mybatis/UserMapper.xml" />

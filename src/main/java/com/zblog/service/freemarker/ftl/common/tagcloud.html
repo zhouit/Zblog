@@ -1,8 +1,8 @@
 <div class="side_widget clearfix">
    <h3 class="headline">标签</h3>
    <div id="tagcloud">
-     <#list tag as tags>
-       <a target="_blank" style="font-size:${NumberUtils.randomInt(9,20)};" 
+     <#list tags as tag>
+       <a style="font-size:${NumberUtils.randomInt(9,20)}pt;" 
             href="${domain}/tags/${tag.name}" title="${tag.count}个话题">${tag.name}</a>
      </#list>
    </div>

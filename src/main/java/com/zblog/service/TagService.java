@@ -14,7 +14,7 @@ public class TagService extends BaseService{
   @Autowired
   private TagMapper tagMapper;
 
-  public List<String> getTagsByPost(String postid){
+  public List<String> listTagsByPost(String postid){
     return tagMapper.getTagsByPost(postid);
   }
 

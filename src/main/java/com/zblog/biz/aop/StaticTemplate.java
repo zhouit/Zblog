@@ -66,6 +66,7 @@ public class StaticTemplate{
   private void staticCloudTags(){
     MapContainer map = new MapContainer();
     map.put("tags", tagService.list());
+    map.put("domain", WebConstants.getDomain());
     try{
       BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
       TemplateHashModel thm = (TemplateHashModel) wrapper.getStaticModels().get(NumberUtils.class.getName());

@@ -251,6 +251,8 @@ ul.comment-name-date li{padding: 0 0 5px;}
     background-color:rgb(187, 187, 187)\9;background-image:url("../img/search_ie.png")\9;}
 #search_area .search_button input:hover{background-color: #009dc4;}
 
+/*********** tagclound ************/
+#tagcloud a{color:#00a19e;}
 
 /*****************  friendlink  *************/
 #friendlink ul li{float: left;line-height: 160%;margin: 10px 25px;}

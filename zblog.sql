@@ -131,6 +131,20 @@ CREATE TABLE `post` (
 -- ----------------------------
 
 -- ----------------------------
+--  Table structure for `tag`
+-- ----------------------------
+DROP TABLE IF EXISTS `tag`;
+CREATE TABLE `tag` (
+  `id` varchar(19) NOT NULL,
+  `name` varchar(15) NOT NULL,
+  `postid` varchar(19) NOT NULL,
+  `createTime` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `postid` (`postid`),
+  CONSTRAINT `tag_post_index` FOREIGN KEY (`postid`) REFERENCES `post` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for `upload`
 -- ----------------------------
 DROP TABLE IF EXISTS `upload`;

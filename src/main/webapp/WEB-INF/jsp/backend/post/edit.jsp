@@ -63,7 +63,7 @@
                </div>
                <div class="form-group">
                  <label for="tags">标签</label>
-                 <input type="text" class="form-control" id="tags" name="tags" />
+                 <input type="text" class="form-control" id="tags" value="${tagService}" />
                  <span class="help-block">多个标签请用英文逗号（,）分开</span>
                </div>
              </div>

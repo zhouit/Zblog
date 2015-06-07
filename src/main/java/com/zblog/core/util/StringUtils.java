@@ -1,5 +1,7 @@
 package com.zblog.core.util;
 
+import java.util.Collection;
+
 public final class StringUtils{
 
   private StringUtils(){
@@ -7,6 +9,18 @@ public final class StringUtils{
 
   public static boolean isBlank(String str){
     return str == null || str.trim().length() == 0;
+  }
+
+  public static String join(Collection<String> collect, String delimiter){
+    StringBuilder result = new StringBuilder();
+    for(String temp : collect){
+      result.append(temp).append(delimiter);
+    }
+
+    if(!collect.isEmpty())
+      result.delete(result.length() - delimiter.length(), result.length());
+
+    return result.toString();
   }
 
   public static String trimLeft(String source){
