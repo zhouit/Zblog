@@ -86,7 +86,7 @@ public final class WordPressReader{
 
           NodeList categorys = item.getElementsByTagName("category");
           for(int j = 0; j < categorys.getLength(); j++){
-            Element category = (Element) categorys.item(i);
+            Element category = (Element) categorys.item(j);
             String categoryDomain = category.getAttribute("domain");
             if("post_tag".equals(categoryDomain)){
               map.getAsList("tags", String.class).add(category.getTextContent());
@@ -94,6 +94,7 @@ public final class WordPressReader{
               map.put("category", category.getTextContent());
             }
           }
+          
           list.add(map);
         }
       }
