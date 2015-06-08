@@ -16,11 +16,11 @@
       <li><a href="${domain}/categorys/DataBase">DataBase</a></li> -->
       
       <#list categorys as category>
-        <li><a href="${domain}/categorys/${category.text}">${category.name}</a>
+        <li><a href="${domain}/categorys/${category.name}">${category.name}</a>
         <#if (category.nodes?exists && category.nodes?size>0) >
          <ul class="sub-menu">
           <#list category.nodes as subcategory >
-             <li><a href="${domain}/categorys/${subcategory.text}">${subcategory.name}</a></li>
+             <li><a href="${domain}/categorys/${subcategory.name}">${subcategory.name}</a></li>
           </#list>
           </ul>
         </#if>

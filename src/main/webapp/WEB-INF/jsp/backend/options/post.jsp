@@ -45,10 +45,10 @@
                 <label class="col-sm-3" for="defaultType">*默认文章分类目录</label>
                 <div class="col-sm-6">
                   <select class="form-control" name="defaultCategory">
-                   <c:forEach var="category" items="${categorys}" begin="1">
-                     <c:if test="${form.defaultCategory==null}">
+                    <c:if test="${form.defaultCategory==null}">
                        <option>请选择</option>
-                     </c:if>
+                    </c:if>
+                   <c:forEach var="category" items="${categorys}" begin="1">
                      <option value="${category.id}" ${form.defaultCategory==category.id?'selected':''} >
                        <c:if test="${category.level==3}">└─</c:if>${category.name}
                      </option>
