@@ -1,4 +1,4 @@
-package com.zblog.core.plugin;
+package com.zblog.core.util;
 
 import java.lang.reflect.Field;
 
@@ -33,20 +33,18 @@ public class BeanPropertyUtils{
       return null;
     }
 
-    for(Class<?> superClass = obj.getClass(); superClass != Object.class; superClass = superClass
-        .getSuperclass()){
+    for(Class<?> superClass = obj.getClass(); superClass != Object.class; superClass = superClass.getSuperclass()){
       try{
         return superClass.getDeclaredField(fieldName);
       }catch(Exception e){
-        logger.debug("can't found field " + fieldName + " in class "
-            + obj.getClass());
+        logger.debug("can't found field " + fieldName + " in class " + obj.getClass());
       }
     }
 
     return null;
   }
 
-  public static boolean setFieldValue(Object obj, String fieldName,Object value){
+  public static boolean setFieldValue(Object obj, String fieldName, Object value){
     try{
       Field field = obj.getClass().getDeclaredField(fieldName);
       if(field.isAccessible()){

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,7 +53,7 @@ public class PostManager{
     PostVO pvo = postService.loadById(postid);
     if(pvo == null)
       return null;
-    
+
     if(PostConstants.TYPE_POST.equals(pvo.getType())){
       Category category = categoryService.loadById(pvo.getCategoryid());
       pvo.setCategory(category);
@@ -177,11 +178,13 @@ public class PostManager{
     /* 填充其他属性，更好的做法是：搜索结果只包含对象id，详细资料到数据库查询(缓存) */
     for(MapContainer mc : page.getContent()){
       PostVO all = loadReadById(mc.getAsString("id"));
-      //TODO 此处会影响缓存内容
-      all.setTitle(mc.getAsString("title"));
-      all.setExcerpt(mc.getAsString("excerpt"));
+      PostVO copy = new PostVO();
+      // 此处需要copy，否则会影响缓存内容
+      BeanUtils.copyProperties(all, copy, new String[]{ "title", "excerpt" });
+      copy.setTitle(mc.getAsString("title"));
+      copy.setExcerpt(mc.getAsString("excerpt"));
 
-      content.add(all);
+      content.add(copy);
     }
     result.setContent(content);
 

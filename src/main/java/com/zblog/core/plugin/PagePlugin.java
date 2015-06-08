@@ -18,12 +18,12 @@ import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
 import org.apache.log4j.Logger;
 
+import com.zblog.core.util.BeanPropertyUtils;
 import com.zblog.core.util.JdbcUtils;
 
 /**
- * Mybatis的分页查询插件，通过拦截StatementHandler的prepare方法来实现。 
- * 只有在参数列表中包括PageModel类型的参数时才进行分页查询。 
- * 在多参数的情况下，只对第一个PageModel类型的参数生效。 
+ * Mybatis的分页查询插件，通过拦截StatementHandler的prepare方法来实现。
+ * 只有在参数列表中包括PageModel类型的参数时才进行分页查询。 在多参数的情况下，只对第一个PageModel类型的参数生效。
  * 
  * @author zhou
  *
@@ -41,7 +41,7 @@ public class PagePlugin implements Interceptor{
       BoundSql boundSql = delegate.getBoundSql();
       // 获取分页参数
       Object param = boundSql.getParameterObject();
-      if(param == null ||!(param instanceof PageModel))
+      if(param == null || !(param instanceof PageModel))
         return invocation.proceed();
 
       PageModel<?> model = (PageModel<?>) param;

@@ -54,7 +54,7 @@ public class StaticTemplate{
     map.put("categorys", categoryManager.listAsTree());
     map.put("pages", postManager.listPageAsTree());
 
-    FreeMarkerUtils.genHtml("/common/header.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
+    FreeMarkerUtils.genHtml("/header.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
         + "/common/header.html"), map);
 
     logger.info("staticHeader");
@@ -75,7 +75,7 @@ public class StaticTemplate{
       logger.error("staticCloudTags init NumberUtils error", e);
     }
 
-    FreeMarkerUtils.genHtml("/common/tagcloud.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
+    FreeMarkerUtils.genHtml("/tagcloud.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
         + "/common/tagcloud.html"), map);
     logger.info("staticCloudTags");
   }
@@ -87,7 +87,7 @@ public class StaticTemplate{
     MapContainer map = new MapContainer();
     map.put("links", linksService.list());
 
-    FreeMarkerUtils.genHtml("/common/link.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
+    FreeMarkerUtils.genHtml("/link.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
         + "/common/link.html"), map);
     logger.info("staticLinks");
   }
@@ -114,7 +114,7 @@ public class StaticTemplate{
     if(ispost){
       MapContainer param = new MapContainer("domain", WebConstants.getDomain());
       param.put("posts", postManager.listRecent(10));
-      FreeMarkerUtils.genHtml("/common/recent.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
+      FreeMarkerUtils.genHtml("/recent.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
           + "/common/recent.html"), param);
       logger.info("staticRecent");
 
