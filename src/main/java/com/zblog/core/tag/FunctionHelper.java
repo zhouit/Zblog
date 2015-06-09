@@ -59,7 +59,7 @@ public class FunctionHelper{
   }
 
   public static String join(Collection<String> collect, String delimiter){
-    return CollectionUtils.isEmpty(collect)?null:StringUtils.join(collect, delimiter);
+    return CollectionUtils.isEmpty(collect) ? null : StringUtils.join(collect, delimiter);
   }
 
 }

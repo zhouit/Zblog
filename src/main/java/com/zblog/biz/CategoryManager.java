@@ -58,16 +58,16 @@ public class CategoryManager{
       int level = current.getAsInteger("level");
       current.put("level", level - 1);
       MapContainer parent = getLastParentByLevel(root, level - 1);
-      parent.getAsList("nodes", MapContainer.class).add(current);
+      parent.putIfAbsent("nodes", new ArrayList<MapContainer>()).add(current);
     }
 
-    return root.getAsList("nodes", MapContainer.class);
+    return root.get("nodes");
   }
 
   private static MapContainer getLastParentByLevel(MapContainer mc, int currentlevel){
     MapContainer current = mc;
     for(int i = 1; i < currentlevel; i++){
-      List<MapContainer> children = current.getAsList("nodes", MapContainer.class);
+      List<MapContainer> children = current.putIfAbsent("nodes", new ArrayList<MapContainer>());
       current = children.get(children.size() - 1);
     }
 

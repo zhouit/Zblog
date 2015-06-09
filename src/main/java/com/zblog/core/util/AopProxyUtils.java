@@ -13,15 +13,16 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
 import org.springframework.util.ReflectionUtils;
 
 /**
- * AOP代理工具类
+ * AOP代理工具类,其他用法详见spring的AopUtils
  * 
  * @author zhou
  * 
  */
 public class AopProxyUtils{
-  
-  private AopProxyUtils(){}
-  
+
+  private AopProxyUtils(){
+  }
+
   /**
    * 是否代理了多次
    * 
@@ -150,7 +151,7 @@ public class AopProxyUtils{
   private static Class<?> JdkDynamicAopProxy_CLASS;
   private static Field JdkDynamicAopProxy_advised_FIELD;
   // CGLIB代理 相关字段
-//  private static Class<?> CglibAopProxy_CLASS;
+  // private static Class<?> CglibAopProxy_CLASS;
   private static Class<?> CglibAopProxy$DynamicAdvisedInterceptor_CLASS;
   private static Field CglibAopProxy$DynamicAdvisedInterceptor_advised_FIELD;
   // ProxyFactory 相关字段
@@ -168,7 +169,8 @@ public class AopProxyUtils{
       /* ignore */
     }
     try{
-//      CglibAopProxy_CLASS = Class.forName("org.springframework.aop.framework.CglibAopProxy");
+      // CglibAopProxy_CLASS =
+      // Class.forName("org.springframework.aop.framework.CglibAopProxy");
       CglibAopProxy$DynamicAdvisedInterceptor_CLASS = Class
           .forName("org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor");
       CglibAopProxy$DynamicAdvisedInterceptor_advised_FIELD = ReflectionUtils.findField(

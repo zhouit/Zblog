@@ -1,14 +1,23 @@
 package com.zblog.core.plugin;
 
+import java.lang.reflect.Array;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import com.zblog.core.util.DateUtils;
 
+/**
+ * 提供方法链功能和增强的Map&lt;String,Object&gt;实现
+ * 
+ * @author zhou
+ *
+ */
 @SuppressWarnings("unchecked")
 public class MapContainer extends LinkedHashMap<String, Object>{
   private static final long serialVersionUID = 1L;
@@ -22,7 +31,7 @@ public class MapContainer extends LinkedHashMap<String, Object>{
   }
 
   public <T> T get(String key, Class<T> clazz){
-    return (T) get(key);
+    return (T) super.get(key);
   }
 
   /**
@@ -41,10 +50,67 @@ public class MapContainer extends LinkedHashMap<String, Object>{
     return this;
   }
 
-  public static MapContainer convert(Map<String, ? extends Object> map){
-    MapContainer container = new MapContainer();
-    container.putAll(map);
-    return container;
+  /**
+   * 缺少即加入,和ConcurrentHashMap中的putIfAbsent一致
+   * 
+   * @param key
+   * @param value
+   * @return
+   */
+  public <T> T putIfAbsent(String key, T value){
+    T result = value;
+    if(containsKey(key)){
+      result = get(key);
+    }else{
+      put(key, value);
+    }
+
+    return result;
+  }
+
+  public static MapContainer from(Map<String, ? extends Object> map){
+    return from(map, false);
+  }
+
+  /**
+   * 将指定对象中的所有Map实现MapContainer化，使用时注意返回值
+   * 
+   * @param obj
+   * @param recursion
+   *          是否递归执行
+   * @return
+   */
+  public static <T> T from(Object obj, boolean recursion){
+    if(obj == null)
+      return null;
+
+    Object result = obj;
+    if(Map.class.isInstance(obj)){
+      MapContainer temp = MapContainer.class.isInstance(obj) ? (MapContainer) obj : new MapContainer();
+      for(Map.Entry<String, Object> entry : temp.entrySet()){
+        temp.put(entry.getKey(), from(entry.getValue(), recursion));
+      }
+
+      result = temp;
+    }else if(Collection.class.isInstance(obj)){
+      Collection<Object> collect = (Collection<Object>) obj;
+      if(!collect.isEmpty()){
+        List<Object> copy = new ArrayList<Object>(collect.size());
+        Iterator<Object> it = collect.iterator();
+        while(it.hasNext()){
+          copy.add(from(it.next(), recursion));
+          it.remove();
+        }
+
+        collect.addAll(copy);
+      }
+    }else if(obj.getClass().isArray()){
+      for(int i = 0; i < Array.getLength(obj); i++){
+        Array.set(obj, i, from(Array.get(obj, i), recursion));
+      }
+    }
+
+    return (T) result;
   }
 
   @Override
@@ -54,38 +120,20 @@ public class MapContainer extends LinkedHashMap<String, Object>{
     return clone;
   }
 
+  public String getAsString(String key, String defaults){
+    return getAsString(key, defaults);
+  }
+
   public String getAsString(String key){
     Object value = get(key);
     if(value == null)
-      return "";
+      return null;
 
     return value.toString();
   }
 
-  public Timestamp getAsTimestamp(String key){
-    Object value = get(key);
-    if(value == null)
-      return null;
-
-    return Timestamp.valueOf(value.toString());
-  }
-
-  /**
-   * 以yyyy-MM-dd HH:mm:ss格式获取日期
-   * 
-   * @param key
-   * @return
-   */
-  public Date getAsDate(String key){
-    return getAsDate(key, "yyyy-MM-dd HH:mm:ss");
-  }
-
-  public Date getAsDate(String key, String pattern){
-    Object value = get(key);
-    if(value == null)
-      return null;
-
-    return DateUtils.parse(pattern, value.toString());
+  public int getAsInteger(String key){
+    return getAsInteger(key, 0);
   }
 
   public int getAsInteger(String key, int defaults){
@@ -96,16 +144,8 @@ public class MapContainer extends LinkedHashMap<String, Object>{
     return Integer.parseInt(value.toString());
   }
 
-  public int getAsInteger(String key){
-    return getAsInteger(key, 0);
-  }
-
-  public Boolean getAsBoolean(String key){
-    Object value = get(key);
-    if(value == null)
-      return null;
-
-    return Boolean.parseBoolean(value.toString());
+  public boolean getAsBoolean(String key){
+    return getAsBoolean(key, false);
   }
 
   public boolean getAsBoolean(String key, boolean defaults){
@@ -129,20 +169,33 @@ public class MapContainer extends LinkedHashMap<String, Object>{
   }
 
   /**
-   * 注:当key对应的键值不存在时,会put入一个List
+   * 以yyyy-MM-dd HH:mm:ss格式获取日期
    * 
    * @param key
-   * @param clazz
    * @return
    */
-  public <T> List<T> getAsList(String key, Class<T> clazz){
-    List<T> result = (List<T>) get(key);
-    if(result == null){
-      result = new LinkedList<T>();
-      this.put(key, result);
-    }
+  public Date getAsDate(String key){
+    return getAsDate(key, "yyyy-MM-dd HH:mm:ss");
+  }
 
-    return result;
+  public Date getAsDate(String key, String pattern){
+    return getAsDate(key, pattern, null);
+  }
+
+  public Date getAsDate(String key, String pattern, Date defaults){
+    Object value = get(key);
+    if(value == null)
+      return defaults;
+
+    return DateUtils.parse(pattern, value.toString());
+  }
+
+  public Timestamp getAsTimestamp(String key){
+    Object value = get(key);
+    if(value == null)
+      return null;
+
+    return Timestamp.valueOf(value.toString());
   }
 
 }

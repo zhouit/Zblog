@@ -17,7 +17,12 @@
    <div class="post_content">
      <c:choose>
        <c:when test="${!sf:isUser()&&post.pstatus=='secret'}">由于作者设置了权限，你没法阅读此文，请与作者联系</c:when>
-       <c:otherwise>${post.content}</c:otherwise>
+       <c:otherwise>
+         ${post.content}
+         <div style="margin-top: 15px; font-style: italic">
+           <p style="margin:0;"><strong>原创文章，转载请注明：</strong>转载自<a href="${g.domain}">${g.title} – zhouhaocheng.com</a></p>
+         </div>
+       </c:otherwise>
      </c:choose>
    </div>
   </div>

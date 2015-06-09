@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 数据库分页组件 在service层构造PageModel,添加查询参数insertQuery 在sql中不用写limit语句
  * 
- * @author zhou 数据库分页组件 在service层构造PageModel,添加查询参数insertQuery 在sql中不用写limit语句
+ * @author zhou
  * 
  */
-public class PageModel<T>{
+public class PageModel<T> {
   private static final int PAGE_SIZE = 10;
 
   private int pageIndex;
   private int pageSize;
   private long totalCount;
 
-  // 多表组合时使用
   private List<T> content;
   // 查询参数
   private MapContainer query;
-  
+
   public PageModel(int pageIndex){
     this(pageIndex, PAGE_SIZE);
   }
@@ -30,7 +30,7 @@ public class PageModel<T>{
     this.query = new MapContainer();
     this.content = new ArrayList<T>();
   }
-  
+
   public int getPageIndex(){
     return pageIndex;
   }
@@ -93,14 +93,14 @@ public class PageModel<T>{
    * @return
    */
   public String countSql(String sql){
-//    int index = query.getSql().indexOf(" from ");
-//    String sql = "select count(*) " + query.getSql().substring(index);
-//    index = sql.indexOf("order by");
-//    sql = index == -1 ? sql : sql.substring(0, index);
-//    /* 只要有group by就使用子查询 */
-//    if(sql.indexOf("group by") != -1){
-//      sql = "select count(*) from ( " + sql + " ) _temp_";
-//    }
+    // int index = query.getSql().indexOf(" from ");
+    // String sql = "select count(*) " + query.getSql().substring(index);
+    // index = sql.indexOf("order by");
+    // sql = index == -1 ? sql : sql.substring(0, index);
+    // /* 只要有group by就使用子查询 */
+    // if(sql.indexOf("group by") != -1){
+    // sql = "select count(*) from ( " + sql + " ) _temp_";
+    // }
 
     return "select count(*) from ( " + sql + " ) _temp_";
   }

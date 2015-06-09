@@ -117,7 +117,8 @@ public class WordPressManager{
         : cleanTxt);
     p.setContent(content);
 
-    postManager.insertPost(p, PostTagHelper.from(p, post.getAsList("tags", String.class), p.getCreator()));
+    List<String> tags = post.get("tags");
+    postManager.insertPost(p, PostTagHelper.from(p, tags, p.getCreator()));
   }
 
   /**
