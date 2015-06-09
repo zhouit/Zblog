@@ -27,7 +27,7 @@ public class FreeMarkerUtils{
       config.setAutoFlush(false);
       /* 不产生指令造成的空白行 */
       config.setWhitespaceStripping(true);
-      config.setOutputEncoding(Constants.ENCODING_UTF_8);
+      config.setOutputEncoding(Constants.ENCODING_UTF_8.name());
       URL uri = FreeMarkerUtils.class.getResource("ftl");
       config.setDirectoryForTemplateLoading(new File(uri.toURI()));
     }catch(Exception e){
@@ -39,7 +39,7 @@ public class FreeMarkerUtils{
     boolean result = true;
     OutputStreamWriter writer = null;
     try{
-      Template template = config.getTemplate(name, Constants.ENCODING_UTF_8);
+      Template template = config.getTemplate(name, Constants.ENCODING_UTF_8.name());
       File parent = out.getParentFile();
       if(!parent.exists())
         parent.mkdirs();

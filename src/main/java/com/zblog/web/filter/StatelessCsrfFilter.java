@@ -93,7 +93,7 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
     if(METHODS.contains(request.getMethod())){
       if(ajax && !isAjaxVerificationToken(request, csrfToken)){
         response.setContentType("application/json");
-        response.setCharacterEncoding(Constants.ENCODING_UTF_8);
+        response.setCharacterEncoding(Constants.ENCODING_UTF_8.name());
         response.getWriter().write("{'status':'403','success':false,'msg':'非法请求,请刷新重试'}");
         return;
       }else if(!ajax && !isVerificationToken(request, csrfToken)){

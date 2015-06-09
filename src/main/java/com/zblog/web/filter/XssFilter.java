@@ -31,7 +31,7 @@ public class XssFilter extends OncePerRequestFilter{
   @Override
   protected void initFilterBean() throws ServletException{
     XssCommonsMultipartResolver resolver = new XssCommonsMultipartResolver();
-    resolver.setDefaultEncoding(Constants.ENCODING_UTF_8);
+    resolver.setDefaultEncoding(Constants.ENCODING_UTF_8.name());
     resolver.setMaxUploadSize(4096000);
     resolver.setServletContext(getServletContext());
     multipartResolver = resolver;

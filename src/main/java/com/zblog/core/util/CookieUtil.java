@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.util.ReflectionUtils;
 
+import com.zblog.core.util.constants.Constants;
+
 public class CookieUtil{
   private static Method setHttpOnlyMethod;
   private static final String PATH = "/";
@@ -96,10 +98,10 @@ public class CookieUtil{
   }
 
   private String encode(String value){
-    return value == null ? null : Base64Codec.encode(value);
+    return value == null ? null : new String(Base64Codec.encode(value.getBytes(Constants.ENCODING_UTF_8)));
   }
 
   private String decode(String value){
-    return value == null ? null : new String(Base64Codec.decode(value));
+    return value == null ? null : new String(Base64Codec.decode(value), Constants.ENCODING_UTF_8);
   }
 }
