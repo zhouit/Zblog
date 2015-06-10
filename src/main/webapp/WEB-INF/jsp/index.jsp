@@ -53,6 +53,7 @@
                    <c:when test="${post.ccount>0}">${post.ccount}条评论</c:when>
                    <c:otherwise>发表评论</c:otherwise>
                  </c:choose>
+                </a>
             </li>
            </ul>
         </div>
