@@ -1,10 +1,14 @@
 package com.zblog.web.backend.controller;
 
+import java.io.InputStream;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,12 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.zblog.biz.UploadManager;
 import com.zblog.biz.editor.Ueditor;
 import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.plugin.MapContainer;
-import com.zblog.core.util.web.ServletRequestReader;
+import com.zblog.core.util.web.WebContextFactory;
 
 @Controller
 @RequestMapping("/backend/uploads")
@@ -36,8 +41,15 @@ public class UploadController{
 
   @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
-  public Object insert(HttpServletRequest request){
-    Upload upload = uploadManager.insertUpload(new ServletRequestReader(request), "file");
+  public Object insert(MultipartFile file){
+    Upload upload = null;
+    try(InputStream in = file.getInputStream()){
+      upload = uploadManager.insertUpload(new InputStreamResource(in), new Date(), file.getOriginalFilename(),
+          WebContextFactory.get().getUser().getId());
+    }catch(Exception e){
+      e.printStackTrace();
+    }
+
     return new MapContainer("success", upload != null);
   }
 

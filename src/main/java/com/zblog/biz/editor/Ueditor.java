@@ -1,17 +1,22 @@
 package com.zblog.biz.editor;
 
+import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.zblog.biz.UploadManager;
 import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.constants.WebConstants;
 import com.zblog.core.util.web.ServletRequestReader;
+import com.zblog.core.util.web.WebContextFactory;
 
 /**
  * ueditor上传参数见:http://fex-team.github.io/ueditor/#dev-request_specification
@@ -76,7 +81,16 @@ public class Ueditor{
   }
 
   public MapContainer uploadImage(ServletRequestReader reader){
-    Upload upload = uploadManager.insertUpload(reader, "upfile");
+    MultipartFile file = reader.getFile("upfile");
+    Upload upload = null;
+    try(InputStream in = file.getInputStream()){
+      upload = uploadManager.insertUpload(new InputStreamResource(in), new Date(), file.getOriginalFilename(),
+          WebContextFactory.get().getUser().getId());
+    }catch(Exception e){
+      e.printStackTrace();
+      upload = null;
+    }
+    
     if(upload == null){
       return new MapContainer("state", "文件上传失败");
     }

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.HtmlUtils;
 
@@ -93,7 +94,7 @@ public class MetaWeblogManager{
           "img_file_not_accept");
     }
 
-    Upload upload = uploadManager.insertUpload(bits, name, user.getId());
+    Upload upload = uploadManager.insertUpload(new ByteArrayResource(bits), new Date(), name, user.getId());
     return new MapContainer("url", WebConstants.getDomainLink(upload.getPath()));
   }
 
@@ -201,7 +202,7 @@ public class MetaWeblogManager{
       loginError();
 
     List<MapContainer> result = new ArrayList<>();
-    List<MapContainer> tags=tagService.list();
+    List<MapContainer> tags = tagService.list();
     for(MapContainer mc : tags){
       MapContainer tag = new MapContainer("tag_id", mc.get("name"));
       tag.put("name", mc.get("name")).put("count", tag.get("count"));

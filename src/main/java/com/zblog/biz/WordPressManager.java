@@ -1,6 +1,7 @@
 package com.zblog.biz;
 
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ import org.jsoup.nodes.Document.OutputSettings;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Component;
 
 import com.zblog.core.dal.entity.Category;
@@ -22,6 +23,7 @@ import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.dal.entity.User;
 import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.util.FileUtils;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.PostTagHelper;
 import com.zblog.core.util.constants.OptionConstants;
@@ -60,8 +62,10 @@ public class WordPressManager{
       if("domain".equals(itemType)){
         wpdomain = mc.get("domain");
       }else if("attachment".equals(itemType)){
-        Upload upload = importAttach(mc, user);
-        links.put(mc.getAsString("attachUrl"), upload);
+        Upload upload = importAttach(mc, user, wpdomain);
+        if(upload != null){
+          links.put(mc.getAsString("attachUrl"), upload);
+        }
       }else if("post".equals(itemType)){
         importPost(mc, user, wpdomain, links);
       }
@@ -72,20 +76,32 @@ public class WordPressManager{
    * 导入指定附件
    * 
    * @param attach
+   * @param user
+   * @param wpdomain
+   *          用于下载图片时防盗链处理
+   * @return
    */
-  private Upload importAttach(MapContainer attach, User user){
+  private Upload importAttach(MapContainer attach, User user, String wpdomain){
     String attachUrl = attach.get("attachUrl");
     Date pubDate = attach.get("pubDate");
     InputStream in = null;
     Upload upload = null;
+    HttpURLConnection conn = null;
     try{
-      UrlResource resource = new UrlResource(URI.create(attachUrl));
-      in = resource.getInputStream();
-      upload = uploadManager.insertUpload(in, pubDate, resource.getFilename(), user.getId());
+      conn = (HttpURLConnection) URI.create(attachUrl).toURL().openConnection();
+      /* 针对服务器防盗链处理 */
+      conn.setRequestProperty("Referer", wpdomain);
+      conn.setInstanceFollowRedirects(false);
+      conn.connect();
+      in = conn.getInputStream();
+      upload = uploadManager.insertUpload(new InputStreamResource(in), pubDate,
+          FileUtils.getFileNameWithExt(attachUrl), user.getId());
     }catch(Exception e){
       e.printStackTrace();
     }finally{
       IOUtils.closeQuietly(in);
+      if(conn != null)
+        conn.disconnect();
     }
 
     return upload;

@@ -2,14 +2,13 @@ package com.zblog.biz;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.entity.Upload;
@@ -18,12 +17,8 @@ import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.DateUtils;
 import com.zblog.core.util.FileUtils;
 import com.zblog.core.util.IdGenarater;
-import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.WebConstants;
-import com.zblog.core.util.web.ServletRequestReader;
-import com.zblog.core.util.web.WebContext;
-import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.PostService;
 import com.zblog.service.UploadService;
 import com.zblog.service.UserService;
@@ -55,72 +50,13 @@ public class UploadManager{
   /**
    * 添加上传记录并存储文件
    * 
-   * @param reader
-   * @param fileVal
+   * @param resource
+   * @param create
+   * @param fileName
+   * @param userid
    * @return 当前上传对象
    */
-  public Upload insertUpload(ServletRequestReader reader, String fileVal){
-    Upload upload = null;
-    MultipartFile file = reader.getFile(fileVal);
-    try{
-      Date current = new Date();
-      String yearMonth = DateUtils.formatDate("yyyy/MM", current);
-      File parent = new File(reader.getRealPath("/post/uploads"), yearMonth);
-      if(!parent.exists())
-        parent.mkdirs();
-
-      File savePath = FileUtils.determineFile(parent, file.getOriginalFilename());
-      file.transferTo(savePath);
-
-      upload = new Upload();
-      upload.setId(IdGenarater.uuid19());
-      upload.setCreator(WebContextFactory.get().getUser().getId());
-      upload.setCreateTime(current);
-      upload.setName(file.getOriginalFilename());
-      upload.setPath("/post/uploads/" + yearMonth + "/" + savePath.getName());
-
-      uploadService.insert(upload);
-    }catch(Exception e){
-      e.printStackTrace();
-      upload = null;
-    }
-
-    return upload;
-  }
-
-  public Upload insertUpload(byte[] file, String fileName, String userid){
-    Upload upload = null;
-    OutputStream out = null;
-    try{
-      Date current = new Date();
-      String yearMonth = DateUtils.formatDate("yyyy/MM", current);
-      WebContext context = WebContextFactory.get();
-      File parent = new File(ServletUtils.getRealPath(context.getRequest(), "/post/uploads"), yearMonth);
-      if(!parent.exists())
-        parent.mkdirs();
-
-      File savePath = FileUtils.determineFile(parent, fileName);
-      IOUtils.write(file, out = new FileOutputStream(savePath));
-
-      upload = new Upload();
-      upload.setId(IdGenarater.uuid19());
-      upload.setCreateTime(current);
-      upload.setCreator(userid);
-      upload.setName(fileName);
-      upload.setPath("/post/uploads/" + yearMonth + "/" + savePath.getName());
-
-      uploadService.insert(upload);
-    }catch(Exception e){
-      e.printStackTrace();
-      upload = null;
-    }finally{
-      IOUtils.closeQuietly(out);
-    }
-
-    return upload;
-  }
-
-  public Upload insertUpload(InputStream in, Date create, String fileName, String userid){
+  public Upload insertUpload(Resource resource, Date create, String fileName, String userid){
     Upload upload = null;
     OutputStream out = null;
     try{
@@ -130,7 +66,7 @@ public class UploadManager{
         parent.mkdirs();
 
       File savePath = FileUtils.determineFile(parent, fileName);
-      IOUtils.copy(in, out = new FileOutputStream(savePath));
+      IOUtils.copy(resource.getInputStream(), out = new FileOutputStream(savePath));
 
       upload = new Upload();
       upload.setId(IdGenarater.uuid19());

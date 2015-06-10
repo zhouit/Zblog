@@ -32,8 +32,20 @@ public class FileUtils{
    * @return
    */
   public static String getFileName(String filename){
+    filename = getFileNameWithExt(filename);
     int point = filename.lastIndexOf(".");
     return filename.substring(0, point);
+  }
+
+  /**
+   * 获取文件名(包含后缀)
+   * 
+   * @param filename
+   * @return
+   */
+  public static String getFileNameWithExt(String filename){
+    int slash = filename.lastIndexOf("/");
+    return filename.substring(slash + 1);
   }
 
   /**
