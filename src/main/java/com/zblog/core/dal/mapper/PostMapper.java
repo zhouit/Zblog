@@ -58,6 +58,8 @@ public interface PostMapper extends BaseMapper{
    */
   List<String> listRecent(int nums);
 
+  List<String> listByMonth(PageModel<String> model);
+
   List<String> listByCategory(PageModel<String> model);
 
   List<String> listByTag(PageModel<String> model);

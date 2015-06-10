@@ -29,7 +29,7 @@ public class CategoryController{
       model.addAttribute("page", postManager.listByCategory(category, page, 10));
     }
     
-    model.addAttribute("categoryOrTag", categoryName);
+    model.addAttribute("category", categoryName);
     model.addAttribute(WebConstants.PRE_TITLE_KEY, categoryName);
     return "index";
   }

@@ -3,6 +3,7 @@ package com.zblog.biz;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -139,6 +140,10 @@ public class PostManager{
 
   public PageModel<PostVO> listByCategory(Category category, int pageIndex, int pageSize){
     return pageId2pageVo(postService.listByCategory(category, pageIndex, pageSize));
+  }
+  
+  public PageModel<PostVO> listByMonth(Date yearMonth, int pageIndex, int pageSize){
+    return pageId2pageVo(postService.listByMonth(yearMonth, pageIndex, pageSize));
   }
 
   public List<PostVO> listRecent(int nums){

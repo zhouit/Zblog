@@ -1,5 +1,6 @@
 package com.zblog.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,16 @@ public class PostService extends BaseService{
     page.setContent(content);
     page.removeQuery("tagName");
 
+    return page;
+  }
+  
+  public PageModel<String> listByMonth(Date yearMonth, int pageIndex, int pageSize){
+    PageModel<String> page = new PageModel<>(pageIndex, pageSize);
+    page.insertQuery("yearMonth", yearMonth);
+    List<String> content = postMapper.listByMonth(page);
+    page.setContent(content);
+    page.removeQuery("yearMonth");
+    
     return page;
   }
 

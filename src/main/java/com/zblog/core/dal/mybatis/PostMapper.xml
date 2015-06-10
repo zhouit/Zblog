@@ -48,7 +48,11 @@
    </select>
    
    <select id="listArchive" resultType="MapContainer">
-      select createTime ,count(*) as count from post where type='post' group by date_format(createTime,date_format(createTime,'%Y%m')) order by createTime desc
+      select createTime ,count(*) as count from post where type='post' group by date_format(createTime,'%Y%m') order by createTime desc
+   </select>
+   
+   <select id="listByMonth" parameterType="PageModel" resultType="java.lang.String">
+      select id from post where type='post' and date_format(createTime,'%Y%m')=date_format(#{query.yearMonth},'%Y%m') order by createTime desc
    </select>
    
    <insert id="insert" parameterType="Post">

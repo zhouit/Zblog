@@ -91,6 +91,7 @@ a:hover{color: #009dc4;}
 #left_col{float: left;margin: 230px -340px 0 0;width: 100%;z-index: 1000;}
 #archive_headline{float: right;position: relative;width: 86%;z-index: 3;}
 #archive_headline h2{font-size: 14px;margin: 0 340px 0 0;padding: 45px 4%;}
+#archive_headline h2 span{color: #00a19e;}
 
 .post_wrap{clear: right;}
 .post{float: right;position: relative;width: 86%;z-index: 3;}
@@ -108,7 +109,7 @@ a:hover{color: #009dc4;}
 
 
 #archive_headline h2,
-.post .title a, .post .title span, .post_content, .page,
+.post .title a, .post .title span, .post_content, .post .post_tags, .page,
 #comment_header, #comments{border-right: 1px solid #ccc;}
 #right_col{border-left: 1px solid #ccc;margin-left: -1px;}
 
@@ -162,10 +163,10 @@ a:hover{color: #009dc4;}
 .meta li.post_category:after{content: "\e608";}
 .meta li.post_comment:after{content: "\e61a";}
 
-.post_meta{background: url("../img/meta_bg.gif") repeat scroll 0 0 rgb(0, 0, 0);font-size: 11px;margin: 0 340px 0 0;padding: 9px 3% 8px 4%}
-.post_meta ul{float: right; margin: 0;}
-.post_meta ul li{float: left;background: none;}
-.post_meta ul li:first-child:before{content: "\e607";font-family: "icomoon-zblog";font-size: 13px;display: inline;}
+.post_tags{background: url("../img/meta_bg.gif") repeat scroll 0 0 rgb(0, 0, 0);font-size: 11px;margin: 0 340px 0 0;padding: 9px 3% 8px 4%}
+.post_tags ul{float: right; margin: 0;}
+.post_tags ul li{float: left;background: none;}
+.post_tags ul li:first-child:before{content: "\e607";font-family: "icomoon-zblog";font-size: 13px;display: inline;}
 
 /***********  pager **********/
 #page_nav{float: right;padding: 0;position: relative;width: 86%;z-index: 3;}

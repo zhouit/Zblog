@@ -12,8 +12,14 @@
   <%@include file="common/header.html" %>
   <div id="content" class="clearfix">
     <div id="left_col">
-      <c:if test="${categoryOrTag!=null}">
-        <div id="archive_headline"><h2>'<span style="color: #00a19e;">${categoryOrTag}</span>'目录归档</h2></div>
+     <c:if test="${category!=null||tag!=null||archive!=null}">
+       <div id="archive_headline"><h2>
+        <c:choose>
+          <c:when test="${category!=null}">'<span>${category}</span>' 目录归档</c:when>
+          <c:when test="${tag!=null}">标签 '<span>${tag}</span>'</c:when>
+          <c:otherwise>归档之于 '<span><fmt:formatDate value="${archive}" pattern="yyyy 年MMM" /></span>'</c:otherwise>
+        </c:choose></h2>
+       </div>
       </c:if>
       <c:forEach items="${page.content}" var="post">
       <div class="post_wrap clearfix">
@@ -26,11 +32,11 @@
             <p><a class="more_link" href="${g.domain}/posts/${post.id}">阅读全文</a></p>
           </div>
           <c:if test="${post.tags!=null&&fn:length(post.tags)!=0}">
-            <div class="post_meta clearfix">
-              <ul class="post-category clearfix">
+            <div class="post_tags clearfix">
+              <ul class="clearfix">
                 <li></li>
                 <c:forEach items="${post.tags}" var="tag">
-                   <li class="post_tags"><a href="${g.domain}/tags/${tag}">${tag}</a></li>
+                   <li><a href="${g.domain}/tags/${tag}">${tag}</a></li>
                 </c:forEach>
               </ul>
             </div>
