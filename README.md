@@ -17,11 +17,11 @@ a java blog
 9.	防xss、csrf攻击。
 10.	支持metaWeblog Api(支持windows live writer等离线博客编写)
 11.	WordPress站点xml文件导入功能(支持文章、附件及标签)
-12.	文章标签tag功能、私密文章支持
+12.	文章标签tag功能、私密文章支持、文章归档
 
 #### TODO
 *	评论邮件提醒
-*	文章归档/近期评论
+*	近期评论
 *	文章编辑markdown/纯文本支持
 *	文章快速编辑功能
 

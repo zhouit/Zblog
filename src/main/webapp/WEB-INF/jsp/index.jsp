@@ -40,7 +40,7 @@
           <ul>
             <li class="post_date clearfix">
              <span class="date"><fmt:formatDate value="${post.createTime}" pattern="dd" /></span>
-             <span class="month"><fmt:formatDate value="${post.createTime}" pattern="MMM"/></span>
+             <span class="month"><fmt:formatDate value="${post.createTime}" pattern="MMM" /></span>
              <span class="year"><fmt:formatDate value="${post.createTime}" pattern="yyyy" /></span>
             </li>
             <li class="post_comment">${post.rcount}人阅读</li>
@@ -48,7 +48,11 @@
               <a rel="author" title="由${post.user.nickName}发布" href="${g.domain}/authors/${post.creator}">${post.user.nickName}</a>
             </li>
             <li class="post_comment">
-               <a title="${post.title}的评论" href="${g.domain}/posts/${post.id}/#respond">发表评论</a>
+               <a title="${post.title}的评论" href="${g.domain}/posts/${post.id}/#respond">
+                 <c:choose>
+                   <c:when test="${post.ccount>0}">${post.ccount}条评论</c:when>
+                   <c:otherwise>发表评论</c:otherwise>
+                 </c:choose>
             </li>
            </ul>
         </div>
@@ -110,6 +114,7 @@
       </div>
       <%@include file="common/recent.html" %>
       <%@include file="common/tagcloud.html" %>
+      <%@include file="common/archive.html" %>
       <%@include file="common/link.html" %>
     </div>
     <jsp:include page="common/footer.jsp" flush="false" />

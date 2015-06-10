@@ -47,6 +47,10 @@
         where p.type='post' and t.name=#{query.tagName} order by p.createTime desc
    </select>
    
+   <select id="listArchive" resultType="MapContainer">
+      select createTime ,count(*) as count from post where type='post' group by date_format(createTime,date_format(createTime,'%Y%m')) order by createTime desc
+   </select>
+   
    <insert id="insert" parameterType="Post">
       insert into post(id,title,excerpt,content,type,parent,categoryid,pstatus,cstatus,ccount,rcount,createTime,creator,lastUpdate) 
          values(#{id},#{title},#{excerpt},#{content, jdbcType=CLOB},#{type},#{parent},#{categoryid},#{pstatus},#{cstatus},#{ccount},#{rcount},#{createTime},#{creator},#{lastUpdate})

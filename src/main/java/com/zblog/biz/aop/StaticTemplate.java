@@ -17,6 +17,7 @@ import com.zblog.core.util.constants.PostConstants;
 import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.LinkService;
 import com.zblog.service.OptionsService;
+import com.zblog.service.PostService;
 import com.zblog.service.TagService;
 import com.zblog.service.freemarker.FreeMarkerUtils;
 
@@ -38,6 +39,8 @@ public class StaticTemplate{
   private PostManager postManager;
   @Autowired
   private LinkService linksService;
+  @Autowired
+  private PostService postService;
   @Autowired
   private OptionsService optionsService;
   @Autowired
@@ -81,6 +84,20 @@ public class StaticTemplate{
   }
 
   /**
+   * 静态化文章归档
+   */
+  private void staticArchive(){
+    MapContainer map = new MapContainer();
+    map.put("archives", postService.listArchive());
+    map.put("domain", WebConstants.getDomain());
+
+    FreeMarkerUtils.genHtml("/archive.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
+        + "/common/archive.html"), map);
+
+    logger.info("staticArchive");
+  }
+
+  /**
    * 静态化友情链接
    */
   public void staticLinks(){
@@ -119,6 +136,7 @@ public class StaticTemplate{
       logger.info("staticRecent");
 
       staticCloudTags();
+      staticArchive();
     }else{
       staticHeader();
     }

@@ -31,7 +31,7 @@ public class VisitStatManager{
     if(!copy.isEmpty()){
       logger.debug("flush visit stat to database");
     }
-    
+
     for(Map.Entry<String, Integer> entry : copy.entrySet()){
       postService.addRcount(entry.getKey(), entry.getValue());
     }
@@ -43,9 +43,10 @@ public class VisitStatManager{
     Integer count = visit.get(postid);
     /* 该数据，并发问题忽略 */
     visit.put(postid, count == null ? 1 : count + 1);
-    /*  此处更新文章阅读数 */
-    PostVO p=postService.loadById(postid);
-    p.setRcount(visit.get(postid));
+    /* 此处更新文章阅读数 */
+    PostVO p = postService.loadById(postid);
+    /* 此处实际为更改缓存中数据 */
+    p.setRcount(p.getRcount() + 1);
   }
 
 }

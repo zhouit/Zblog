@@ -45,7 +45,7 @@ CREATE TABLE `comment` (
   `creator` varchar(25) NOT NULL,
   `email` varchar(50) NOT NULL,
   `url` varchar(80) NOT NULL,
-  `agent` varchar(80) NOT NULL,
+  `agent` varchar(120) NOT NULL,
   `ip` varchar(15) NOT NULL,
   `content` varchar(200) NOT NULL,
   `status` enum('wait','approve','reject','trash') NOT NULL,

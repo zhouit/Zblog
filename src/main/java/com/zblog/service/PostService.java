@@ -9,6 +9,7 @@ import com.zblog.core.dal.entity.Category;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.mapper.BaseMapper;
 import com.zblog.core.dal.mapper.PostMapper;
+import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.constants.PostConstants;
 import com.zblog.service.vo.PageVO;
@@ -32,8 +33,8 @@ public class PostService extends BaseService{
    * @param postid
    * @param count
    */
-  public void addRcount(String postid, int count){
-    postMapper.addRcount(postid, count);
+  public int addRcount(String postid, int count){
+    return postMapper.addRcount(postid, count);
   }
 
   /**
@@ -42,14 +43,14 @@ public class PostService extends BaseService{
    * @param commentid
    * @param count
    */
-  public void addCcount(String commentid, int count){
-    postMapper.addCcount(commentid, count);
+  public int addCcount(String commentid, int count){
+    return postMapper.addCcount(commentid, count);
   }
 
   public List<String> listRecent(int nums){
     return postMapper.listRecent(nums);
   }
-  
+
   public PageModel<String> listPost(int pageIndex, int pageSize){
     PageModel<String> page = new PageModel<>(pageIndex, pageSize);
     page.insertQuery("type", PostConstants.TYPE_POST);
@@ -68,14 +69,14 @@ public class PostService extends BaseService{
 
     return page;
   }
-  
+
   public PageModel<String> listByTag(String tagName, int pageIndex, int pageSize){
     PageModel<String> page = new PageModel<>(pageIndex, pageSize);
     page.insertQuery("tagName", tagName);
     List<String> content = postMapper.listByTag(page);
     page.setContent(content);
     page.removeQuery("tagName");
-    
+
     return page;
   }
 
@@ -96,6 +97,15 @@ public class PostService extends BaseService{
    */
   public List<PageVO> listPage(boolean onlyParent){
     return postMapper.listPage(onlyParent);
+  }
+
+  /**
+   * 列出文章归档
+   * 
+   * @return
+   */
+  public List<MapContainer> listArchive(){
+    return postMapper.listArchive();
   }
 
   public void updateCategory(List<String> oldCategoryIds, String newCategoryId){

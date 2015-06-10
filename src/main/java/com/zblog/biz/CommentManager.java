@@ -38,7 +38,7 @@ public class CommentManager{
       Post post = postService.loadById(cvo.getPostid());
       cvo.setPost(post);
     }
-    
+
     return list;
   }
 
@@ -51,7 +51,8 @@ public class CommentManager{
   @Transactional
   public void setStatus(String commentid, String newStatus){
     commentService.setStatus(commentid, newStatus);
-    postService.addCcount(commentid, CommentConstants.TYPE_APPROVE.equals(newStatus) ? 1 : -1);
+    int count = CommentConstants.TYPE_APPROVE.equals(newStatus) ? 1 : -1;
+    postService.addCcount(commentid, count);
   }
 
   /**

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.zblog.core.dal.entity.Post;
+import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.service.vo.PageVO;
 import com.zblog.service.vo.PostVO;
@@ -39,9 +40,16 @@ public interface PostMapper extends BaseMapper{
    */
   List<PageVO> listPage(boolean onlyParent);
 
-  public void addRcount(@Param("postid") String postid, @Param("count") int count);
+  /**
+   * 列出文章归档
+   * 
+   * @return
+   */
+  List<MapContainer> listArchive();
 
-  public void addCcount(@Param("commentid") String commentid, @Param("count") int count);
+  int addRcount(@Param("postid") String postid, @Param("count") int count);
+
+  int addCcount(@Param("commentid") String commentid, @Param("count") int count);
 
   /**
    * 获取最近发表文章
@@ -51,7 +59,7 @@ public interface PostMapper extends BaseMapper{
   List<String> listRecent(int nums);
 
   List<String> listByCategory(PageModel<String> model);
-  
+
   List<String> listByTag(PageModel<String> model);
 
   void updateCategory(@Param("oldCategoryIds") List<String> oldCategoryIds, @Param("newCategoryId") String newCategoryId);
