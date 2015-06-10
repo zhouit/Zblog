@@ -2,8 +2,7 @@
  <h3 class="headline">文章归档</h3>
    <ul>
     <#list archives as archive>
-      <li><a href="${domain}/archives/${archive.createTime?string('yyyyMM')}">
-          ${archive.createTime?string('yyyy')}年${archive.createTime?string('MMM')}</a>(${archive.count})</li>
+      <li><a href="${domain}/archives/${archive.createTime?string('yyyyMM')}">${archive.createTime?string('yyyy年MMM')}</a>(${archive.count})</li>
      </#list>
    </ul>
 </div>

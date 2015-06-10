@@ -274,7 +274,9 @@ ul.comment-name-date li{padding: 0 0 5px;}
 #tagcloud a{color:#00a19e;}
 
 /*****************  friendlink  *************/
-#friendlink ul li{float: left;line-height: 160%;margin: 10px 25px;}
+#friendlink ul li, #archive ul li{float: left;line-height: 160%;}
+#archive ul li{margin: 10px 40px 10px 20px;}
+#friendlink ul li{margin: 10px 25px;}
 
 
 /***********  footer  ************/
