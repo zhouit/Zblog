@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
-import java.util.Locale;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -30,7 +29,7 @@ public class FreeMarkerUtils{
       config.setWhitespaceStripping(true);
       config.setOutputEncoding(Constants.ENCODING_UTF_8.name());
       /* 注:设置中文环境,有日期格式化操作 */
-      config.setLocale(Locale.CHINA);
+      config.setLocale(Constants.LOCALE_CHINA);
       URL uri = FreeMarkerUtils.class.getResource("ftl");
       config.setDirectoryForTemplateLoading(new File(uri.toURI()));
     }catch(Exception e){

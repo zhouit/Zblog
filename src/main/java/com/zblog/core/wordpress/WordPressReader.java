@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -28,6 +26,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.util.DateUtils;
 
 /**
  * WordPress导入工具
@@ -64,14 +63,13 @@ public final class WordPressReader{
 
       xpath.reset();
       NodeList items = (NodeList) xpath.evaluate("/rss/channel/item", doc, XPathConstants.NODESET);
-      DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
       for(int i = 0; i < items.getLength(); i++){
         Element item = (Element) items.item(i);
         MapContainer map = new MapContainer();
         String title = item.getElementsByTagName("title").item(0).getTextContent();
         map.put("title", title);
         String pubDate = item.getElementsByTagName("pubDate").item(0).getTextContent();
-        map.put("pubDate", format.parse(pubDate));
+        map.put("pubDate", DateUtils.parse(pubDate, "EEE, dd MMM yyyy HH:mm:ss Z", Locale.US));
 
         String itemType = item.getElementsByTagName("wp:post_type").item(0).getTextContent();
         map.put("itemType", itemType);

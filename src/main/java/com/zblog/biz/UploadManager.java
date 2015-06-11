@@ -94,7 +94,14 @@ public class UploadManager{
   public void removeUpload(String uploadid){
     Upload upload = uploadService.loadById(uploadid);
     uploadService.deleteById(uploadid);
-    new File(WebConstants.APPLICATION_PATH, upload.getPath()).delete();
+    File file = new File(WebConstants.APPLICATION_PATH, upload.getPath());
+    file.delete();
+    /* 注:当前目录为空同时删除父目录,如果父目录包含子文件/夹，会删除失败(File.delete中决定) */
+    File parent = file.getParentFile();
+    for(int i = 0; i < 2 && parent.list().length == 0; i++){
+      parent.delete();
+      parent = parent.getParentFile();
+    }
   }
-
+  
 }

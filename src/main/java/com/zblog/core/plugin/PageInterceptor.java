@@ -3,6 +3,7 @@ package com.zblog.core.plugin;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 
 import org.apache.ibatis.executor.statement.BaseStatementHandler;
@@ -29,51 +30,49 @@ import com.zblog.core.util.JdbcUtils;
  *
  */
 @Intercepts({ @Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class }) })
-public class PagePlugin implements Interceptor{
-  static final Logger logger = Logger.getLogger(PagePlugin.class);
+public class PageInterceptor implements Interceptor{
+  static final Logger logger = Logger.getLogger(PageInterceptor.class);
 
   public Object intercept(Invocation invocation) throws Throwable{
-    if(invocation.getTarget() instanceof RoutingStatementHandler){
-      RoutingStatementHandler handler = (RoutingStatementHandler) invocation.getTarget();
-      BaseStatementHandler delegate = (BaseStatementHandler) BeanPropertyUtils.getFieldValue(handler, "delegate");
+    RoutingStatementHandler handler = (RoutingStatementHandler) invocation.getTarget();
+    BaseStatementHandler delegate = (BaseStatementHandler) BeanPropertyUtils.getFieldValue(handler, "delegate");
+
+    BoundSql boundSql = delegate.getBoundSql();
+    // 获取分页参数
+    Object param = boundSql.getParameterObject();
+    if(param == null || !(param instanceof PageModel))
+      return invocation.proceed();
+
+    PageModel<?> model = (PageModel<?>) param;
+
+    String sql = boundSql.getSql();
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    try{
+      Connection connection = (Connection) invocation.getArgs()[0];
+      // 查询总记录数
+      String countSql = model.countSql(sql);
+      ps = connection.prepareStatement(countSql);
+      BeanPropertyUtils.setFieldValue(boundSql, "sql", countSql);
       MappedStatement ms = (MappedStatement) BeanPropertyUtils.getFieldValue(delegate, "mappedStatement");
+      DefaultParameterHandler dph = new DefaultParameterHandler(ms, param, boundSql);
+      dph.setParameters(ps);
 
-      BoundSql boundSql = delegate.getBoundSql();
-      // 获取分页参数
-      Object param = boundSql.getParameterObject();
-      if(param == null || !(param instanceof PageModel))
-        return invocation.proceed();
-
-      PageModel<?> model = (PageModel<?>) param;
-
-      String sql = boundSql.getSql();
-      PreparedStatement ps = null;
-      ResultSet rs = null;
-      try{
-        Connection connection = (Connection) invocation.getArgs()[0];
-        // 查询总记录数
-        String countSql = model.countSql(sql);
-        ps = connection.prepareStatement(countSql);
-        BeanPropertyUtils.setFieldValue(boundSql, "sql", countSql);
-        DefaultParameterHandler dph = new DefaultParameterHandler(ms, param, boundSql);
-        dph.setParameters(ps);
-
-        rs = ps.executeQuery();
-        long count = 0;
-        if(rs.next()){
-          count = ((Number) rs.getObject(1)).longValue();
-        }
-
-        model.setTotalCount(count);
-      }catch(Exception ex){
-        logger.error("can't get count " + ex.getMessage());
-      }finally{
-        JdbcUtils.close(rs);
-        JdbcUtils.close(ps);
+      rs = ps.executeQuery();
+      long count = 0;
+      if(rs.next()){
+        count = ((Number) rs.getObject(1)).longValue();
       }
 
-      BeanPropertyUtils.setFieldValue(boundSql, "sql", model.pageSql(sql));
+      model.setTotalCount(count);
+    }catch(SQLException ex){
+      logger.error("can't get count " + ex.getMessage());
+    }finally{
+      JdbcUtils.close(rs);
+      JdbcUtils.close(ps);
     }
+
+    BeanPropertyUtils.setFieldValue(boundSql, "sql", model.pageSql(sql));
 
     return invocation.proceed();
   }

@@ -13,13 +13,10 @@ public class BeanPropertyUtils{
     try{
       Field field = getFieldByFieldName(obj, fieldName);
       if(field != null){
-        if(field.isAccessible()){
-          value = field.get(obj);
-        }else{
-          field.setAccessible(true);
-          value = field.get(obj);
-          field.setAccessible(false);
-        }
+        boolean access = field.isAccessible();
+        field.setAccessible(true);
+        value = field.get(obj);
+        field.setAccessible(access);
       }
     }catch(Exception e){
       logger.debug("can't get field " + fieldName + " value in class " + obj);
@@ -45,19 +42,18 @@ public class BeanPropertyUtils{
   }
 
   public static boolean setFieldValue(Object obj, String fieldName, Object value){
+    boolean result = true;
     try{
       Field field = obj.getClass().getDeclaredField(fieldName);
-      if(field.isAccessible()){
-        field.set(obj, value);
-      }else{
-        field.setAccessible(true);
-        field.set(obj, value);
-        field.setAccessible(false);
-      }
-      return true;
-    }catch(Exception e){
+      boolean access = field.isAccessible();
+      field.setAccessible(true);
+      field.set(obj, value);
+      field.setAccessible(access);
+    }catch(ReflectiveOperationException e){
+      result = false;
     }
-    return false;
+
+    return result;
   }
 
 }
