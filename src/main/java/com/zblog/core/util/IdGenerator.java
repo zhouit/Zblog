@@ -3,9 +3,9 @@ package com.zblog.core.util;
 import java.util.Random;
 import java.util.UUID;
 
-public class IdGenarater{
+public class IdGenerator{
 
-  private IdGenarater(){
+  private IdGenerator(){
   }
 
   private static String digits(long val, int digits){

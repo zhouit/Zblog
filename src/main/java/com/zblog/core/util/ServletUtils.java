@@ -15,14 +15,9 @@ public class ServletUtils{
     if(!"post".equals(request.getMethod().toLowerCase())){
       return false;
     }
+    
     String contentType = request.getContentType();
-    if(contentType == null){
-      return false;
-    }
-    if(contentType.toLowerCase().startsWith("multipart/")){
-      return true;
-    }
-    return false;
+    return contentType != null && contentType.toLowerCase().startsWith("multipart/");
   }
 
   /**

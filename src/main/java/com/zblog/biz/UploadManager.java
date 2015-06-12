@@ -16,7 +16,7 @@ import com.zblog.core.dal.entity.User;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.DateUtils;
 import com.zblog.core.util.FileUtils;
-import com.zblog.core.util.IdGenarater;
+import com.zblog.core.util.IdGenerator;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.PostService;
@@ -69,7 +69,7 @@ public class UploadManager{
       IOUtils.copy(resource.getInputStream(), out = new FileOutputStream(savePath));
 
       upload = new Upload();
-      upload.setId(IdGenarater.uuid19());
+      upload.setId(IdGenerator.uuid19());
       upload.setCreateTime(create);
       upload.setCreator(userid);
       upload.setName(fileName);

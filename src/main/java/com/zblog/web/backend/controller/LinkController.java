@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zblog.core.dal.entity.Link;
 import com.zblog.core.plugin.MapContainer;
-import com.zblog.core.util.IdGenarater;
+import com.zblog.core.util.IdGenerator;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.LinkService;
@@ -44,7 +44,7 @@ public class LinkController{
     link.setCreateTime(new Date());
     link.setLastUpdate(link.getCreateTime());
     link.setCreator(WebContextFactory.get().getUser().getNickName());
-    link.setId(IdGenarater.uuid19());
+    link.setId(IdGenerator.uuid19());
     link.setVisible(true);
     linkService.insert(link);
     return "redirect:/backend/links";

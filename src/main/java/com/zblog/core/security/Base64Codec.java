@@ -1,4 +1,4 @@
-package com.zblog.core.util;
+package com.zblog.core.security;
 
 /**
  * Base64编解码器 from http://www.source-code.biz/base64coder/java/

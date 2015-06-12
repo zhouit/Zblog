@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zblog.core.dal.entity.User;
 import com.zblog.core.plugin.MapContainer;
-import com.zblog.core.util.IdGenarater;
+import com.zblog.core.util.IdGenerator;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.UserService;
@@ -44,7 +44,7 @@ public class UserController{
       return "backend/user/edit";
     }
 
-    user.setId(IdGenarater.uuid19());
+    user.setId(IdGenerator.uuid19());
     user.setCreateTime(new Date());
     user.setLastUpdate(user.getCreateTime());
 

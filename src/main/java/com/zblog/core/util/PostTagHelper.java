@@ -37,7 +37,7 @@ public class PostTagHelper{
     if(!CollectionUtils.isEmpty(tags)){
       for(String tag : tags){
         Tag t = new Tag();
-        t.setId(IdGenarater.uuid19());
+        t.setId(IdGenerator.uuid19());
         t.setName(tag.trim());
         t.setCreateTime(post.getLastUpdate());
         t.setPostid(post.getId());

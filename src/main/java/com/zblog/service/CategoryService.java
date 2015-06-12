@@ -10,7 +10,7 @@ import com.zblog.core.dal.entity.Category;
 import com.zblog.core.dal.mapper.BaseMapper;
 import com.zblog.core.dal.mapper.CategoryMapper;
 import com.zblog.core.dal.mapper.PostMapper;
-import com.zblog.core.util.IdGenarater;
+import com.zblog.core.util.IdGenerator;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.CategoryConstants;
 
@@ -73,7 +73,7 @@ public class CategoryService extends BaseService{
 
   public void init(){
     Category root = new Category();
-    root.setId(IdGenarater.uuid19());
+    root.setId(IdGenerator.uuid19());
     root.setLeftv(1);
     root.setName(CategoryConstants.ROOT);
     root.setRightv(2);

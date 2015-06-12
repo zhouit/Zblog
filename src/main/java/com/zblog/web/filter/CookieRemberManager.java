@@ -5,9 +5,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.zblog.core.dal.entity.User;
 import com.zblog.core.plugin.ApplicationContextUtil;
+import com.zblog.core.security.HashCalculator;
+import com.zblog.core.security.Hex;
 import com.zblog.core.util.CookieUtil;
-import com.zblog.core.util.IdGenarater;
-import com.zblog.core.util.Md5;
+import com.zblog.core.util.IdGenerator;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.Constants;
 import com.zblog.service.UserService;
@@ -19,7 +20,7 @@ import com.zblog.service.UserService;
  * 
  */
 public class CookieRemberManager{
-  private static final String COOKIE_KEY = IdGenarater.uuid19();
+  private static final String COOKIE_KEY = IdGenerator.uuid19();
 
   public static User extractValidRememberMeCookieUser(HttpServletRequest request, HttpServletResponse response){
     CookieUtil cookieUtil = new CookieUtil(request, response);
@@ -72,7 +73,8 @@ public class CookieRemberManager{
   }
 
   private static String makeTokenSignature(String userid, long tokenExpiryTime, String password){
-    return Md5.md5(userid + ":" + Long.toString(tokenExpiryTime) + ":" + password + ":" + COOKIE_KEY);
+    String s = userid + ":" + Long.toString(tokenExpiryTime) + ":" + password + ":" + COOKIE_KEY;
+    return Hex.bytes2Hex(HashCalculator.md5(s.getBytes()));
   }
 
   public static void logout(HttpServletRequest request, HttpServletResponse response){

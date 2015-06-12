@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.util.ReflectionUtils;
 
+import com.zblog.core.security.Base64Codec;
 import com.zblog.core.util.constants.Constants;
 
 public class CookieUtil{

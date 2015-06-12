@@ -16,7 +16,7 @@ import com.zblog.biz.CategoryManager;
 import com.zblog.core.dal.entity.Category;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.CollectionUtils;
-import com.zblog.core.util.IdGenarater;
+import com.zblog.core.util.IdGenerator;
 import com.zblog.service.CategoryService;
 
 @Controller("adminCategoryController")
@@ -55,7 +55,7 @@ public class CategoryController{
   @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
   public Object insert(Category category, String parent){
-    category.setId(IdGenarater.uuid19());
+    category.setId(IdGenerator.uuid19());
     category.setCreateTime(new Date());
     category.setLastUpdate(category.getCreateTime());
     return new MapContainer("success", categoryService.insertChildren(category, parent));

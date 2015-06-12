@@ -15,7 +15,7 @@ import org.springframework.web.util.HtmlUtils;
 import com.zblog.core.dal.entity.Comment;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.CookieUtil;
-import com.zblog.core.util.IdGenarater;
+import com.zblog.core.util.IdGenerator;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.StringUtils;
@@ -58,7 +58,7 @@ public class CommentController{
     cookieUtil.setCookie("comment_author_email", comment.getEmail(), "/", false, 365 * 24 * 3600, false);
     cookieUtil.setCookie("comment_author_url", comment.getUrl(), "/", false, 365 * 24 * 3600, false);
 
-    comment.setId(IdGenarater.uuid19());
+    comment.setId(IdGenerator.uuid19());
     comment.setIp(ServletUtils.getIp(request));
     comment.setAgent(request.getHeader("User-Agent"));
     comment.setCreateTime(new Date());
