@@ -1,37 +1,73 @@
 zblog.register("zblog.post");
 $(function(){
   $('#editor-nav a').click(function (e) {
-    e.preventDefault();//阻止a链接的跳转行为
-    $(this).tab('show');//显示当前选中的链接及关联的content
+    e.preventDefault();
+    $(this).tab('show');
+    zblog.post.editType=$(this).attr("href").substring(8);
   });
   
-  if(!document.getElementById("container")) return ;
+  if(!document.getElementById("ueditor")) return ;
   
-  zblog.post.editor = UE.getEditor('container',{
+  zblog.post.editType='mk';
+  zblog.post.ueditor = UE.getEditor('ueditor',{
     /* 阻止div标签自动转换为p标签 */
     allowDivTransToP: false,
 	  autoHeightEnabled: true,
 	  autoFloatEnabled: true
   });
   
-  zblog.post.editor.ready(function(){
-	  zblog.post.editor.execCommand('serverparam', {'CSRFToken': zblog.getCookie("x-csrf-token")});
+  zblog.post.epiceditor=new EpicEditor({
+    basePath: window.location.protocol+"//"+window.location.port+window.location.host+"/resource/epiceditor-0.2.3",
+    useNativeFullscreen: false,
+    clientSideStorage: false,
+    file:{
+      defaultContent: $("#editor-txt-tt").val(),
+      autoSave: false
+    },
+    autogrow: {
+      minHeight: 400,
+      maxHeight: 600
+    }
+  });
+  zblog.post.epiceditor.load();
+  
+  zblog.post.ueditor.ready(function(){
+	  zblog.post.ueditor.execCommand('serverparam', {'CSRFToken': zblog.getCookie("x-csrf-token")});
   });
 });
 
 zblog.post.insert=function(){
-  var title=$.trim($("#title").val());
+  var title = $.trim($("#title").val());
   if(title==""){
-	 $("#title").focus();
-	 return ;
+	  $("#title").focus();
+	  return ;
+  }
+  
+  var _getText=function(){
+    var result;
+    switch(zblog.post.editType){
+    case "ue":
+      result = zblog.post.ueditor.getContent();
+      break;
+    case "txt":
+      result = $("#editor-txt-tt").val();
+      break;
+    case "mk":
+      result = zblog.post.epiceditor.getElement('previewer').body.innerHTML;
+      break;
+    default: result="";
+    }
+    
+    return result;
   }
 
   var postid=$("#postid").val();
-  var data={title:title,
-            content:zblog.post.editor.getContent(),
-            tags:$("#tags").val(),
-            categoryid:$("#category").val(),
-            pstatus:$("input:radio[name=pstatus]:checked").val()};
+  var data={title : title,
+        content : _getText(),
+        tags : $("#tags").val(),
+        categoryid : $("#category").val(),
+        pstatus : $("input:radio[name=pstatus]:checked").val()
+      };
   if(postid.length>0) data.id=postid;
   
   $.ajax({

@@ -18,11 +18,10 @@ a java blog
 10.	支持metaWeblog Api(支持windows live writer等离线博客编写)
 11.	WordPress站点xml文件导入功能(支持文章、附件及标签)
 12.	文章标签tag功能、私密文章支持、文章归档
+13.	文章markdown/富文本编辑支持
 
 #### TODO
-*	评论邮件提醒
-*	近期评论
-*	文章编辑markdown/纯文本支持
+*	评论邮件提醒、近期评论
 *	文章快速编辑功能
 
 ### 技术选型
@@ -39,10 +38,10 @@ a java blog
 * 其它 Jsoup(xss过滤)、fastjson、IKAnalyzer
 
 #### 前端
-* jquery js框架
-* bootstrap 后台界面
-* ueditor 编辑器
-* webuploader 文件上传
+* jQuery js框架
+* Bootstrap 后台界面
+* UEditor/EpicEditor 编辑器
+* WebUploader 文件上传
 * font-wesome/icomoon.io 字体/图标
 
 ### 支持浏览器

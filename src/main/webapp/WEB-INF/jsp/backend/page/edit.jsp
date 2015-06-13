@@ -7,6 +7,7 @@
   <jsp:include page="../common/bootstrap.jsp" flush="false" />
   <script type="text/javascript" src="${g.domain}/resource/ueditor-1.4.3/ueditor.config.js"></script>
   <script type="text/javascript" src="${g.domain}/resource/ueditor-1.4.3/ueditor.all.js"></script>
+  <script type="text/javascript" src="${g.domain}/resource/epiceditor-0.2.3/js/epiceditor.min.js"></script>
  </head>
  <body style="margin-top: 50px;">
   <jsp:include page="../common/navbar.jsp" flush="false" />
@@ -28,23 +29,25 @@
             <div class="panel-body">
               <input type="hidden" id="postid" value="${post.id}" />
               <input type="text" id="title" class="form-control input-md" placeholder="输入标题" value="${post.title}"><br/>
-                            <ul class="nav nav-tabs nav-justified" id="editor-nav">
-                <li class="active"><a href="#editor-ue">UEditor</a></li>
+               <ul class="nav nav-tabs nav-justified" id="editor-nav">
+                <li class="active"><a href="#editor-mk">Markdown</a></li>
                 <li><a href="#editor-txt">纯文本</a></li>
-                <li><a href="#editor-mk">Markdown</a></li>
+                <li><a href="#editor-ue">UEditor</a></li>
               </ul>
               <div class="tab-content">
-                <div class="tab-pane active" id="editor-ue">
-                  <!-- 必须要添加width:100% -->
-                  <script id="container" style="width: 100%; height: 300px;" name="content" type="text/plain">${post.content}</script>
-                </div>
+                <!-- EpicEditor初始化时必须为显示状态 -->
+                <div class="tab-pane active" id="editor-mk"><div id="epiceditor"></div></div>
                 <div class="tab-pane" id="editor-txt">
-                  <textarea name="content" style="width: 100%; height: 300px">${post.content}</textarea>
+                  <textarea id="editor-txt-tt" style="width: 100%; height: 400px">${post.content}</textarea>
                 </div>
-                <div class="tab-pane" id="editor-mk">正在集成中...</div>
+                <div class="tab-pane" id="editor-ue">
+                  <!-- 必须要添加width:100% -->
+                  <script id="ueditor" style="width: 100%; height: 350px;" type="text/plain">${post.content}</script>
+                </div>
               </div>
             </div>
-           </div>
+            <div class="panel-footer text-success">注:此三种编辑模式相互独立,最终以当前选中标签页内容提交</div>
+          </div>
          </div>
          <div class="col-sm-3 .col-md-3">
            <div class="panel panel-default">
