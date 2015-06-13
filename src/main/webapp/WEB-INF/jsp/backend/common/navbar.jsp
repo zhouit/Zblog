@@ -2,7 +2,7 @@
 <%@ taglib prefix="z" uri="/WEB-INF/tld/function.tld" %>
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fulid" style="padding-right: 15px;">
-    <div class="navbar-header"><a class="navbar-brand" href="#">Zblog</a></div>
+    <div class="navbar-header"><a class="navbar-brand" target="_blank" href="${g.domain}">Zblog</a></div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li><a class="dropdown-toggle" data-toggle="dropdown" href="#">新建<span class="caret"/></a>

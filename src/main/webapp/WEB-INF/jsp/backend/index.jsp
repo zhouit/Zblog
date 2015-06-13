@@ -19,25 +19,25 @@
           <div class="col-sm-3 col-md-3">
             <div class="databox">
               <div class="sybomol sybomol_terques"><i class="glyphicon glyphicon-user"></i></div>
-              <div class="value">2<p>用户</p></div>
+              <div class="value">${userCount}<p>用户</p></div>
             </div>
            </div>
            <div class="col-sm-3 col-md-3">
              <div class="databox">
                <div class="sybomol sybomol_red"><i class="glyphicon glyphicon-pencil"></i></div>
-               <div class="value">23<p>文章</p></div>
+               <div class="value">${postCount}<p>文章</p></div>
               </div>
            </div>
            <div class="col-sm-3 col-md-3">
              <div class="databox">
                <div class="sybomol sybomol_yellow"><i class="glyphicon glyphicon-comment"></i></div>
-               <div class="value">14<p>评论</p></div>
+               <div class="value">${commentCount}<p>评论</p></div>
              </div>
            </div>
            <div class="col-sm-3 col-md-3">
              <div class="databox">
                <div class="sybomol sybomol_blue"><i class="glyphicon glyphicon-download-alt"></i></div>
-               <div class="value">0<p>附件</p></div>
+               <div class="value">${uploadCount}<p>附件</p></div>
              </div>
            </div>
         </div>
@@ -47,9 +47,10 @@
               <div class="panel-heading"><span class="icon glyphicon glyphicon-certificate"></span>系统信息</div>
               <div class="panel-body">
                 <ul class="list-unstyled ul-group">
-                  <li>操作系统: ${osname}</li>
-                  <li>Java环境: Java ${javaVersion}</li>
-                  <li>系统内存: ${memory}M</li>
+                  <li>操作系统: ${osInfo.osName}&nbsp;${osInfo.osVersion}</li>
+                  <li>服务器: ${osInfo.serverInfo}</li>
+                  <li>Java环境: Java ${osInfo.javaVersion}</li>
+                  <li>系统内存: ${osInfo.totalMemory}M</li>
                 </ul>
               </div>
             </div>

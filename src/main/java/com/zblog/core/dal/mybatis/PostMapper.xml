@@ -55,6 +55,10 @@
       select id from post where type='post' and date_format(createTime,'%Y%m')=date_format(#{query.yearMonth},'%Y%m') order by createTime desc
    </select>
    
+   <select id="count" resultType="long">
+     select count(*) from post
+   </select>
+   
    <insert id="insert" parameterType="Post">
       insert into post(id,title,excerpt,content,type,parent,categoryid,pstatus,cstatus,ccount,rcount,createTime,creator,lastUpdate) 
          values(#{id},#{title},#{excerpt},#{content, jdbcType=CLOB},#{type},#{parent},#{categoryid},#{pstatus},#{cstatus},#{ccount},#{rcount},#{createTime},#{creator},#{lastUpdate})

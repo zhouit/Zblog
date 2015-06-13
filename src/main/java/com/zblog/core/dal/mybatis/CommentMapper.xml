@@ -28,6 +28,10 @@
      order by c.createTime desc
    </select>
    
+   <select id="count" resultType="long">
+     select count(*) from comment
+   </select>
+   
    <insert id="insert" parameterType="Comment">
       insert into comment(id,postid, parent, email, url, ip, agent,content, creator, createTime) 
          values(#{id},#{postid},#{parent},#{email},#{url},#{ip},#{agent},#{content},#{creator},#{createTime})

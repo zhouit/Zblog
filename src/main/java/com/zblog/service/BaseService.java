@@ -17,10 +17,10 @@ public abstract class BaseService{
   }
 
   public <T> void list(PageModel<T> model){
-     List<T> result=getMapper().list(model);
-     model.setContent(result);
+    List<T> result = getMapper().list(model);
+    model.setContent(result);
   }
-  
+
   public <T> List<T> list(){
     return getMapper().list();
   }
@@ -31,6 +31,10 @@ public abstract class BaseService{
 
   public void deleteById(String id){
     getMapper().deleteById(id);
+  }
+
+  public long count(){
+    return getMapper().count();
   }
 
   protected abstract BaseMapper getMapper();

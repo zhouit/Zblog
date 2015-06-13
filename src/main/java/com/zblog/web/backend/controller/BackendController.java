@@ -20,8 +20,12 @@ import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.Constants;
 import com.zblog.core.util.web.WebContextFactory;
+import com.zblog.service.CommentService;
+import com.zblog.service.PostService;
+import com.zblog.service.UploadService;
 import com.zblog.service.UserService;
 import com.zblog.service.shiro.StatelessToken;
+import com.zblog.service.vo.OSInfo;
 import com.zblog.web.backend.form.LoginForm;
 import com.zblog.web.backend.form.validator.LoginFormValidator;
 import com.zblog.web.filter.CookieRemberManager;
@@ -35,13 +39,23 @@ public class BackendController{
   private PostManager postManager;
   @Autowired
   private CommentManager commentManager;
+  @Autowired
+  private PostService postService;
+  @Autowired
+  private CommentService commentService;
+  @Autowired
+  private UploadService uploadService;
 
   @RequiresRoles(value = { "admin", "editor" }, logical = Logical.OR)
   @RequestMapping(value = "/index", method = RequestMethod.GET)
   public String index(Model model){
-    model.addAttribute("osname", System.getProperty("os.name"));
-    model.addAttribute("javaVersion", System.getProperty("java.version"));
-    model.addAttribute("memory", Runtime.getRuntime().totalMemory() / 1024 / 1024);
+    model.addAttribute("osInfo", OSInfo.getCurrentOSInfo());
+    
+    /* 基本站点统计信息 */
+    model.addAttribute("userCount", userService.count());
+    model.addAttribute("postCount", postService.count());
+    model.addAttribute("commentCount", commentService.count());
+    model.addAttribute("uploadCount", uploadService.count());
 
     model.addAttribute("posts", postManager.listRecent(10));
     model.addAttribute("comments", commentManager.listRecent());

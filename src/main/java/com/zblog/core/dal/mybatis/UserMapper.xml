@@ -17,6 +17,10 @@
       select id, nickName, realName, role, email, createTime from user
    </select>
    
+   <select id="count" resultType="long">
+     select count(*) from user
+   </select>
+   
    <insert id="insert" parameterType="User">
       insert into user(id,nickName,realName,password,email,role,status,description,createTime,creator,lastUpdate) 
          values(#{id},#{nickName},#{realName},md5(#{password}),#{email},#{role},#{status},#{description},#{createTime},#{creator},#{lastUpdate})

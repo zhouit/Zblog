@@ -16,6 +16,10 @@
       select id, path from upload m where postid=#{postid}
    </select>
    
+   <select id="count" resultType="long">
+     select count(*) from upload
+   </select>
+   
    <insert id="insert" parameterType="Upload">
       insert into upload(id,name,path,creator,createTime) 
          values(#{id},#{name},#{path},#{creator},#{createTime})

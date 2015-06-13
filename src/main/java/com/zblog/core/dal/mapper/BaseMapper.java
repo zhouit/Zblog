@@ -39,4 +39,9 @@ public interface BaseMapper{
    */
   public <T> void update(T t);
 
+  /**
+   * 获取记录总数
+   */
+  public long count();
+
 }
