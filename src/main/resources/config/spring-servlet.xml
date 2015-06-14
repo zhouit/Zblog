@@ -10,7 +10,7 @@
                       http://www.springframework.org/schema/mvc 
                       http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
  
-  <mvc:annotation-driven>
+  <mvc:annotation-driven enableMatrixVariables="false">
 	<mvc:message-converters register-defaults="true">
 	  <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
         <property name="supportedMediaTypes">
@@ -20,6 +20,10 @@
          </property>
 	  </bean>
 	</mvc:message-converters>
+    <mvc:argument-resolvers>
+      <!-- controller中可以直接使用ServletRequestReader类 -->
+      <bean class="com.zblog.web.resovler.ServletRequestReaderArgumentsResolver" />
+    </mvc:argument-resolvers>
     <!--  可不设置，使用默认的超时时间,当前为5分钟 -->
     <mvc:async-support default-timeout="300000" />
   </mvc:annotation-driven>
@@ -27,10 +31,12 @@
   <context:component-scan base-package="com.zblog.web.front.controller" />
   <context:component-scan base-package="com.zblog.web.backend.controller" />
   
-  <mvc:resources mapping="/resource/**" location="/resource/" />
-  <mvc:resources mapping="/post/**" location="/post/" />
+  <bean class="com.zblog.web.resovler.XssHandlerMappingPostProcessor" />
   
   <!-- 定义无需Controller的url<->view直接映射  
+    <mvc:resources mapping="/resource/**" location="/resource/" />
+    <mvc:resources mapping="/post/**" location="/post/" />
+    
     <mvc:view-controller path="/backend" view-name="/backend/login" />
    -->
    

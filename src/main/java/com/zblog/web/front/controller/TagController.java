@@ -21,7 +21,7 @@ public class TagController{
   public String post(@PathVariable("tagName") String tagName,
       @RequestParam(value = "page", defaultValue = "1") int page, Model model){
     model.addAttribute("page", postManager.listByTag(tagName, page, 10));
-    
+
     model.addAttribute("tag", tagName);
     model.addAttribute(WebConstants.PRE_TITLE_KEY, tagName);
     return "index";

@@ -113,6 +113,10 @@
     <servlet-name>default</servlet-name>
     <url-pattern>/resource/*</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/post/*</url-pattern>
+  </servlet-mapping>
 
   <servlet-mapping>
     <servlet-name>Zblog</servlet-name>

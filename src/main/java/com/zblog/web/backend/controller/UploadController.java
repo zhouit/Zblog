@@ -3,8 +3,6 @@ package com.zblog.web.backend.controller;
 import java.io.InputStream;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +20,7 @@ import com.zblog.biz.UploadManager;
 import com.zblog.biz.editor.Ueditor;
 import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.util.web.ServletRequestReader;
 import com.zblog.core.util.web.WebContextFactory;
 
 @Controller
@@ -67,8 +66,8 @@ public class UploadController{
 
   @ResponseBody
   @RequestMapping(value = "/ueditor")
-  public Object ueditor(HttpServletRequest request){
-    return ueditor.server(request);
+  public Object ueditor(ServletRequestReader reader){
+    return ueditor.server(reader);
   }
 
 }

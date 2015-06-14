@@ -4,8 +4,6 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Component;
@@ -29,8 +27,7 @@ public class Ueditor{
   @Autowired
   private UploadManager uploadManager;
 
-  public MapContainer server(HttpServletRequest request){
-    ServletRequestReader reader = new ServletRequestReader(request);
+  public MapContainer server(ServletRequestReader reader){
     String action = reader.getAsString("action");
 
     MapContainer result = null;
@@ -90,7 +87,7 @@ public class Ueditor{
       e.printStackTrace();
       upload = null;
     }
-    
+
     if(upload == null){
       return new MapContainer("state", "文件上传失败");
     }
