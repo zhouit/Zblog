@@ -22,7 +22,7 @@
 	</mvc:message-converters>
     <mvc:argument-resolvers>
       <!-- controller中可以直接使用ServletRequestReader类 -->
-      <bean class="com.zblog.web.resovler.ServletRequestReaderArgumentsResolver" />
+      <bean class="com.zblog.web.support.ServletRequestReaderArgumentsResolver" />
     </mvc:argument-resolvers>
     <!--  可不设置，使用默认的超时时间,当前为5分钟 -->
     <mvc:async-support default-timeout="300000" />
@@ -31,7 +31,7 @@
   <context:component-scan base-package="com.zblog.web.front.controller" />
   <context:component-scan base-package="com.zblog.web.backend.controller" />
   
-  <bean class="com.zblog.web.resovler.XssHandlerMappingPostProcessor" />
+  <bean class="com.zblog.web.support.XssHandlerMappingPostProcessor" />
   
   <!-- 定义无需Controller的url<->view直接映射  
     <mvc:resources mapping="/resource/**" location="/resource/" />
@@ -44,6 +44,7 @@
     <property name="contentNegotiationManager">
       <bean class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
         <property name="defaultContentType" value="text/html" />
+        <property name="favorPathExtension" value="true" />
         <property name="mediaTypes">
           <map>
              <entry key="html" value="text/html"/>

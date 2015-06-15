@@ -18,6 +18,8 @@ import com.zblog.core.util.constants.WebConstants;
 import com.zblog.core.util.web.WebContext;
 import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.shiro.StatelessToken;
+import com.zblog.web.support.CookieRemberManager;
+import com.zblog.web.support.Global;
 
 /**
  * 继承OncePerRequestFilter保证一次请求只过滤一次(以兼容不同的servlet container)

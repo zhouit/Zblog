@@ -3,24 +3,14 @@ package com.zblog.web.listener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.zblog.core.plugin.ApplicationContextUtil;
-import com.zblog.core.util.constants.CategoryConstants;
 import com.zblog.core.util.constants.WebConstants;
-import com.zblog.service.CategoryService;
 
 public class InitApplicationListener implements ServletContextListener{
   @Override
   public void contextInitialized(ServletContextEvent sce){
     WebConstants.APPLICATION_PATH = sce.getServletContext().getRealPath("/");
-    
-    initApp();
-  }
-
-  private void initApp(){
-    CategoryService categoryService = ApplicationContextUtil.getBean(CategoryService.class);
-    if(categoryService.loadByName(CategoryConstants.ROOT) == null){
-      categoryService.init();
-    }
+    /* 给log4j设置环境变量，必须要在jvm加载log4j.properties前设置 */
+    System.setProperty("log4jHome", WebConstants.APPLICATION_PATH);
   }
 
   @Override

@@ -22,7 +22,7 @@ public class Post extends BaseEntity{
   /* 文章状态 */
   private String pstatus = PostConstants.POST_PUBLISH;
   /* 评论状态 */
-  private String cstatus = PostConstants.COMMENT_CLOSE;
+  private String cstatus = PostConstants.COMMENT_OPEN;
   /* 评论数 */
   private int ccount = 0;
   /* 阅读数 */

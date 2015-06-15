@@ -66,7 +66,8 @@ zblog.post.insert=function(){
         content : _getText(),
         tags : $("#tags").val(),
         categoryid : $("#category").val(),
-        pstatus : $("input:radio[name=pstatus]:checked").val()
+        pstatus : $("input:radio[name=pstatus]:checked").val(),
+        cstatus : $("input:radio[name=cstatus]:checked").val()
       };
   if(postid.length>0) data.id=postid;
   

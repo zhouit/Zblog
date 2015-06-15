@@ -68,8 +68,8 @@ public class CommentService extends BaseService{
     return commentMapper.listByPost(postid, creator);
   }
 
-  public void setStatus(String commentid, String newStatus){
-    commentMapper.setStatus(commentid, newStatus);
+  public int setStatus(String commentid, String newStatus){
+    return commentMapper.setStatus(commentid, newStatus);
   }
 
   @Override

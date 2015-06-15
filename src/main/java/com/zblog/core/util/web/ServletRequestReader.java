@@ -7,6 +7,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -21,9 +22,9 @@ import com.zblog.core.util.ServletUtils;
  * 
  */
 public class ServletRequestReader{
-  HttpServletRequest request;
+  ServletRequest request;
 
-  public ServletRequestReader(HttpServletRequest request){
+  public ServletRequestReader(ServletRequest request){
     this.request = request;
   }
 
@@ -96,11 +97,11 @@ public class ServletRequestReader{
   // 获取基于虚拟路径的绝对路径
   public String getRealPath(String path){
     // 注: request.getServletContext().getRealPath(path);在Servlet3.0规范下才定义的
-    return request.getSession(true).getServletContext().getRealPath(path);
+    return request.getServletContext().getRealPath(path);
   }
 
   public String getDomain(){
-    return ServletUtils.getDomain(request);
+    return ServletUtils.getDomain((HttpServletRequest) request);
   }
 
   public Map<String, String> getQuerys(){

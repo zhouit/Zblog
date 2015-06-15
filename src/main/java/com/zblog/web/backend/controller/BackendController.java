@@ -28,7 +28,7 @@ import com.zblog.service.shiro.StatelessToken;
 import com.zblog.service.vo.OSInfo;
 import com.zblog.web.backend.form.LoginForm;
 import com.zblog.web.backend.form.validator.LoginFormValidator;
-import com.zblog.web.filter.CookieRemberManager;
+import com.zblog.web.support.CookieRemberManager;
 
 @Controller
 @RequestMapping("/backend")

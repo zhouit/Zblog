@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee   
                              http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-	
+
   <jsp-config>
     <jsp-property-group>
       <url-pattern>*.html</url-pattern>
@@ -24,7 +24,7 @@
 
   <!-- 注：此listener需在spring的ContextLoaderListener前  -->
   <listener>
-    <listener-class>com.zblog.web.listener.Log4jConfigureListener</listener-class>
+    <listener-class>com.zblog.web.listener.InitApplicationListener</listener-class>
   </listener>
   <!-- 系统启动监听器 -->
   <listener>
@@ -32,9 +32,6 @@
   </listener>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-  <listener>
-    <listener-class>com.zblog.web.listener.InitApplicationListener</listener-class>
   </listener>
   
   <!-- Servlet规范要求表单数据可用于POST，但没要求PUT和PATCH -->

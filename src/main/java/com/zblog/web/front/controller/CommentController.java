@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
 import com.zblog.core.dal.entity.Comment;
+import com.zblog.core.dal.entity.Post;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.IdGenerator;
@@ -20,8 +21,10 @@ import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.StringUtils;
 import com.zblog.core.util.constants.OptionConstants;
+import com.zblog.core.util.constants.PostConstants;
 import com.zblog.service.CommentService;
 import com.zblog.service.OptionsService;
+import com.zblog.service.PostService;
 import com.zblog.web.front.validator.CommentValidator;
 
 @Controller
@@ -30,14 +33,13 @@ public class CommentController{
   @Autowired
   private CommentService commentService;
   @Autowired
+  private PostService postService;
+  @Autowired
   private OptionsService optionsService;
 
   @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
   public Object post(Comment comment, HttpServletRequest request, HttpServletResponse response){
-    if(!"true".equals(optionsService.getOptionValue(OptionConstants.ALLOW_COMMENT)))
-      return new MapContainer("success", false).put("msg", "当前禁止评论");
-
     CookieUtil cookieUtil = new CookieUtil(request, response);
     if(StringUtils.isBlank(comment.getCreator())){
       comment.setCreator(cookieUtil.getCookie("comment_author"));
@@ -47,11 +49,20 @@ public class CommentController{
 
     MapContainer form = CommentValidator.validate(comment);
     if(!form.isEmpty()){
-      return form.put("success", true);
+      return form.put("success", false);
     }
 
-    if(StringUtils.isBlank(comment.getParent()))
+    if(!"true".equals(optionsService.getOptionValue(OptionConstants.ALLOW_COMMENT)))
+      return new MapContainer("success", false).put("msg", "当前禁止评论");
+
+    Post post = postService.loadById(comment.getPostid());
+    if(post == null || PostConstants.COMMENT_CLOSE.equals(post.getCstatus())){
+      return new MapContainer("success", false).put("msg", "当前禁止评论");
+    }
+
+    if(StringUtils.isBlank(comment.getParent())){
       comment.setParent(null);
+    }
 
     /* 根据RFC-2109中的规定，在Cookie中只能包含ASCII的编码 */
     cookieUtil.setCookie("comment_author", comment.getCreator(), "/", false, 365 * 24 * 3600, true);

@@ -53,6 +53,9 @@ public class CommentManager{
     commentService.setStatus(commentid, newStatus);
     int count = CommentConstants.TYPE_APPROVE.equals(newStatus) ? 1 : -1;
     postService.addCcount(commentid, count);
+    if(count > 1){
+      
+    }
   }
 
   /**
