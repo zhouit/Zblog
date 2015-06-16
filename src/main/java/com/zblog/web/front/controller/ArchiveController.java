@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zblog.biz.PostManager;
+import com.zblog.core.WebConstants;
 import com.zblog.core.util.DateUtils;
-import com.zblog.core.util.constants.WebConstants;
 
 @Controller
 @RequestMapping("/archives")

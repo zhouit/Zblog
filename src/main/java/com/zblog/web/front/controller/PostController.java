@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.zblog.biz.CommentManager;
 import com.zblog.biz.PostManager;
 import com.zblog.biz.VisitStatManager;
+import com.zblog.core.WebConstants;
 import com.zblog.core.util.CookieUtil;
-import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.PostService;
 import com.zblog.service.vo.PostVO;
 

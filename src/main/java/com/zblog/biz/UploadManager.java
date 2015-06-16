@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
+import com.zblog.core.WebConstants;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.dal.entity.User;
@@ -18,7 +19,6 @@ import com.zblog.core.util.DateUtils;
 import com.zblog.core.util.FileUtils;
 import com.zblog.core.util.IdGenerator;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.PostService;
 import com.zblog.service.UploadService;
 import com.zblog.service.UserService;
@@ -103,5 +103,5 @@ public class UploadManager{
       parent = parent.getParentFile();
     }
   }
-  
+
 }

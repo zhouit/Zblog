@@ -1,6 +1,6 @@
 package com.zblog.core.dal.entity;
 
-import com.zblog.core.util.constants.UserConstants;
+import com.zblog.core.dal.constants.UserConstants;
 
 public class User extends BaseEntity{
   private String nickName;

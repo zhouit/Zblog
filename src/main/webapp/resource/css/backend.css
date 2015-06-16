@@ -66,18 +66,25 @@ ul.table-nav li a.active{color: #000;font-weight: bold;}
 #upload-table .filename{padding:4px 7px 2px;}
 #upload-table .fileformat{margin: 2px 0 9px 0;}
 
-/****************  编辑器  ************/
-#editor-nav li a{
-  border-bottom-width: 0;
-  font-size: 10px;
-  padding: 7px 15px;
-}
+/**************** fast-edit  ************/
+#edit-row div{float: left;font-size: 12px;padding: 0 6px;}
+#edit-row h5{margin-bottom: 0.5em;}
+#edit-row span{display: block;margin: 0.2em 0;clear: both;}
+#edit-row span label{width: 5em;display: block;float: left;line-height: 1.8em;font-weight: normal;}
+#edit-row input[type="text"], #edit-row textarea{width: 83%;outline: 0 none;border-radius: 3px;background-color: #fff; border:1px solid #dfdfdf;}
+#edit-row textarea{height: 4em;width: 95%}
+#edit-row input[type="text"]:focus, #edit-row textarea:focus{border-color: #aaa;}
+#edit-row input[type="radio"]{margin-right: 0.5em;}
+.edit-col-left{width: 45%;}
+.edit-col-center{width: 24%;}
+#edit-row ul{border:1px solid #ddd;background-color: #fff;padding: 0 5px;}
+#edit-row ul li{margin: 0.2em 0;}
+.edit-col-right{width: 30%;}
+#edit-row p{padding: 1em 0.5em 0 0.5em;clear: both;}
 
-#editor-txt textarea{
-  border: 1px solid #d4d4d4;
-  border-radius: 4px;
-  resize:none;
-}
+/****************  编辑器  ************/
+#editor-nav li a{border-bottom-width: 0;font-size: 10px;padding: 7px 15px;}
+#editor-txt textarea{border: 1px solid #d4d4d4;border-radius: 4px;resize:none;}
 
 /************  form  ****************/
 form.text-left label{font-weight: normal;text-align: left;padding-top: 7px;padding-left: 40px;}

@@ -1,4 +1,4 @@
-package com.zblog.core.util.constants;
+package com.zblog.core;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;

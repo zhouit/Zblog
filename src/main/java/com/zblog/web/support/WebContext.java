@@ -1,4 +1,4 @@
-package com.zblog.core.util.web;
+package com.zblog.web.support;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

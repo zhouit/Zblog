@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zblog.biz.CommentManager;
+import com.zblog.core.dal.constants.CommentConstants;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
-import com.zblog.core.util.constants.CommentConstants;
 import com.zblog.service.CommentService;
 
 @Controller("adminCommentController")

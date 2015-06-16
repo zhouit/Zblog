@@ -18,11 +18,10 @@ a java blog
 10.	支持metaWeblog Api(支持windows live writer等离线博客编写)
 11.	WordPress站点xml文件导入功能(支持文章、附件及标签)
 12.	文章标签tag功能、私密文章支持、文章归档
-13.	文章markdown/富文本编辑支持
+13.	文章markdown/富文本编辑支持、快速编辑
 
 #### TODO
 *	评论邮件提醒、近期评论
-*	文章快速编辑功能
 
 ### 技术选型
 

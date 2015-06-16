@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.zblog.biz.UploadManager;
+import com.zblog.core.WebConstants;
 import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.plugin.MapContainer;
-import com.zblog.core.util.constants.WebConstants;
-import com.zblog.core.util.web.ServletRequestReader;
-import com.zblog.core.util.web.WebContextFactory;
+import com.zblog.web.support.ServletRequestReader;
+import com.zblog.web.support.WebContextFactory;
 
 /**
  * ueditor上传参数见:http://fex-team.github.io/ueditor/#dev-request_specification

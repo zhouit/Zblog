@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.zblog.core.dal.constants.OptionConstants;
 import com.zblog.core.dal.entity.Category;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.CollectionUtils;
-import com.zblog.core.util.constants.OptionConstants;
 import com.zblog.service.CategoryService;
 import com.zblog.service.OptionsService;
 import com.zblog.service.PostService;

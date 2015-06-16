@@ -1,4 +1,4 @@
-package com.zblog.core.util.constants;
+package com.zblog.core;
 
 public class WebConstants{
   private WebConstants(){

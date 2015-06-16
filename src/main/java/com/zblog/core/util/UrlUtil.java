@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
-import com.zblog.core.util.constants.Constants;
+import com.zblog.core.Constants;
 
 public class UrlUtil{
 

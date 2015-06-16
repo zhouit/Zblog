@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import redstone.xmlrpc.XmlRpcServer;
 
 import com.zblog.biz.MetaWeblogManager;
+import com.zblog.core.WebConstants;
+import com.zblog.core.dal.constants.OptionConstants;
 import com.zblog.core.util.ServletUtils;
-import com.zblog.core.util.constants.OptionConstants;
-import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.OptionsService;
 
 /**

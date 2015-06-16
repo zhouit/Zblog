@@ -1,6 +1,6 @@
 package com.zblog.core.dal.entity;
 
-import com.zblog.core.util.constants.CommentConstants;
+import com.zblog.core.dal.constants.CommentConstants;
 
 public class Comment extends BaseEntity{
   private String postid;

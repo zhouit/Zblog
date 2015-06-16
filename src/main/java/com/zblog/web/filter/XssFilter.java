@@ -12,8 +12,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.util.WebUtils;
 
+import com.zblog.core.Constants;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.constants.Constants;
 
 /**
  * Xss过滤器,可处理multipart请求

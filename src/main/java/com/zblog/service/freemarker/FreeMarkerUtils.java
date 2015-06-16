@@ -9,7 +9,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.zblog.core.util.constants.Constants;
+import com.zblog.core.Constants;
 
 import freemarker.cache.NullCacheStorage;
 import freemarker.template.Configuration;
@@ -52,7 +52,6 @@ public class FreeMarkerUtils{
       result = false;
       /* 静态化失败,则删除文件 */
       out.delete();
-      throw new FreeMarkerDataAccessException("genHtml error " + name, e);
     }finally{
       IOUtils.closeQuietly(writer);
     }

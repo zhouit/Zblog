@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
+import com.zblog.core.dal.constants.OptionConstants;
+import com.zblog.core.dal.constants.PostConstants;
 import com.zblog.core.dal.entity.Comment;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.plugin.MapContainer;
@@ -20,8 +22,6 @@ import com.zblog.core.util.IdGenerator;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.constants.OptionConstants;
-import com.zblog.core.util.constants.PostConstants;
 import com.zblog.service.CommentService;
 import com.zblog.service.OptionsService;
 import com.zblog.service.PostService;

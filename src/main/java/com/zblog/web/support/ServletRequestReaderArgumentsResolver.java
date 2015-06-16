@@ -8,8 +8,6 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.zblog.core.util.web.ServletRequestReader;
-
 public class ServletRequestReaderArgumentsResolver implements HandlerMethodArgumentResolver{
 
   @Override

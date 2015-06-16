@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.zblog.core.dal.constants.CategoryConstants;
 import com.zblog.core.dal.entity.Category;
 import com.zblog.core.dal.mapper.BaseMapper;
 import com.zblog.core.dal.mapper.CategoryMapper;
 import com.zblog.core.dal.mapper.PostMapper;
 import com.zblog.core.util.IdGenerator;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.constants.CategoryConstants;
 
 @Service
 public class CategoryService extends BaseService{
@@ -60,7 +60,7 @@ public class CategoryService extends BaseService{
     categoryMapper.updateDeleteLeftv(category.getLeftv(), length);
     categoryMapper.updateDeleteRightv(category.getRightv(), length);
   }
-  
+
   /**
    * 获取指定分类的子分类
    * 

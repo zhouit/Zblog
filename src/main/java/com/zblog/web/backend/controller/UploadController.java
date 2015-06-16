@@ -20,8 +20,8 @@ import com.zblog.biz.UploadManager;
 import com.zblog.biz.editor.Ueditor;
 import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.plugin.MapContainer;
-import com.zblog.core.util.web.ServletRequestReader;
-import com.zblog.core.util.web.WebContextFactory;
+import com.zblog.web.support.ServletRequestReader;
+import com.zblog.web.support.WebContextFactory;
 
 @Controller
 @RequestMapping("/backend/uploads")

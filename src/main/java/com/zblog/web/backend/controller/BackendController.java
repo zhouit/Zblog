@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.zblog.biz.CommentManager;
 import com.zblog.biz.PostManager;
+import com.zblog.core.Constants;
 import com.zblog.core.dal.entity.User;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.constants.Constants;
-import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.CommentService;
 import com.zblog.service.PostService;
 import com.zblog.service.UploadService;
@@ -29,6 +28,7 @@ import com.zblog.service.vo.OSInfo;
 import com.zblog.web.backend.form.LoginForm;
 import com.zblog.web.backend.form.validator.LoginFormValidator;
 import com.zblog.web.support.CookieRemberManager;
+import com.zblog.web.support.WebContextFactory;
 
 @Controller
 @RequestMapping("/backend")

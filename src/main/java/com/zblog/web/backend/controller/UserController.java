@@ -17,9 +17,9 @@ import com.zblog.core.dal.entity.User;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.IdGenerator;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.UserService;
 import com.zblog.web.backend.form.validator.UserFormValidator;
+import com.zblog.web.support.WebContextFactory;
 
 @Controller
 @RequestMapping("/backend/users")

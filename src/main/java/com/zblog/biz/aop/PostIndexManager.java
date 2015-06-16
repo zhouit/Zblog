@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.zblog.core.dal.constants.PostConstants;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.lucene.LuceneUtils;
 import com.zblog.core.lucene.QueryBuilder;
@@ -14,7 +15,6 @@ import com.zblog.core.lucene.SearchEnginer;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.JsoupUtils;
-import com.zblog.core.util.constants.PostConstants;
 
 /**
  * 文章Lucene索引管理器
@@ -44,8 +44,9 @@ public class PostIndexManager{
    * @param post
    */
   public void update(Post post){
-    if(PostConstants.TYPE_POST.equals(post.getType()))
+    if(PostConstants.TYPE_POST.equals(post.getType())){
       SearchEnginer.postEnginer().update(new Term("id", post.getId()), convert(post));
+    }
   }
 
   public void remove(String postid, String postType){
@@ -57,7 +58,7 @@ public class PostIndexManager{
     PageModel<MapContainer> result = new PageModel<>(pageIndex, 15);
     QueryBuilder builder = new QueryBuilder(SearchEnginer.postEnginer().getAnalyzer());
     builder.addShould("title", word).addShould("excerpt", word);
-    builder.addLighter("title","excerpt");
+    builder.addLighter("title", "excerpt");
     SearchEnginer.postEnginer().searchHighlight(builder, result);
 
     return result;

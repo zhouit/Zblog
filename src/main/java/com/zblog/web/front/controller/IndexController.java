@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zblog.biz.PostManager;
 import com.zblog.biz.aop.StaticTemplate;
+import com.zblog.core.WebConstants;
+import com.zblog.core.dal.constants.OptionConstants;
 import com.zblog.core.feed.ArticleAdapter;
 import com.zblog.core.feed.Channel;
 import com.zblog.core.feed.Channel.Article;
 import com.zblog.core.feed.RssFeedWriter;
 import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.constants.OptionConstants;
-import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.OptionsService;
 import com.zblog.service.vo.PostVO;
 

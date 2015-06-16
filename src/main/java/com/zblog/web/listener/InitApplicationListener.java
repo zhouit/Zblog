@@ -3,7 +3,7 @@ package com.zblog.web.listener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.zblog.core.util.constants.WebConstants;
+import com.zblog.core.WebConstants;
 
 public class InitApplicationListener implements ServletContextListener{
   @Override

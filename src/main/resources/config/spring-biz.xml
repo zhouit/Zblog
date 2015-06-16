@@ -24,7 +24,8 @@
       <aop:after-returning method="remove" pointcut-ref="p-post-remove" arg-names="postid,postType" />
     </aop:aspect>
      
-    <aop:aspect ref="staticTemplate">
+     <!-- 由于freemarker静态化aop需要查询数据库,必须数据库事务提交,这里order=1 -->
+    <aop:aspect ref="staticTemplate" order="1">
       <!-- 定义切点· -->
       <aop:pointcut id="p-category" expression="execution(* com.zblog.service.CategoryService.insert*(..)) || 
           execution(* com.zblog.biz.CategoryManager.remove(..)) || 

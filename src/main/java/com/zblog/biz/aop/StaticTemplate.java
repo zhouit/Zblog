@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 
 import com.zblog.biz.CategoryManager;
 import com.zblog.biz.PostManager;
+import com.zblog.core.WebConstants;
+import com.zblog.core.dal.constants.OptionConstants;
+import com.zblog.core.dal.constants.PostConstants;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.NumberUtils;
-import com.zblog.core.util.constants.OptionConstants;
-import com.zblog.core.util.constants.PostConstants;
-import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.LinkService;
 import com.zblog.service.OptionsService;
 import com.zblog.service.PostService;

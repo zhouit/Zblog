@@ -2,7 +2,7 @@ package com.zblog.service.vo;
 
 import javax.servlet.ServletContext;
 
-import com.zblog.core.util.web.WebContextFactory;
+import com.zblog.web.support.WebContextFactory;
 
 /**
  * 系统信息

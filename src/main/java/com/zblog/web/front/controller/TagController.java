@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zblog.biz.PostManager;
-import com.zblog.core.util.constants.WebConstants;
+import com.zblog.core.WebConstants;
 
 @Controller
 @RequestMapping("/tags")

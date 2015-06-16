@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.zblog.core.dal.constants.CommentConstants;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.plugin.TreeUtils;
-import com.zblog.core.util.constants.CommentConstants;
 import com.zblog.service.CommentService;
 import com.zblog.service.PostService;
 import com.zblog.service.vo.CommentVO;
@@ -49,13 +49,10 @@ public class CommentManager{
    * @param newStatus
    */
   @Transactional
-  public void setStatus(String commentid, String newStatus){
+  public int setStatus(String commentid, String newStatus){
     commentService.setStatus(commentid, newStatus);
     int count = CommentConstants.TYPE_APPROVE.equals(newStatus) ? 1 : -1;
-    postService.addCcount(commentid, count);
-    if(count > 1){
-      
-    }
+    return postService.addCcount(commentid, count);
   }
 
   /**

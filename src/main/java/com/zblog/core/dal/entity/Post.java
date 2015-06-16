@@ -1,6 +1,6 @@
 package com.zblog.core.dal.entity;
 
-import com.zblog.core.util.constants.PostConstants;
+import com.zblog.core.dal.constants.PostConstants;
 
 /**
  * 文章/页面,注：post的creator为userid

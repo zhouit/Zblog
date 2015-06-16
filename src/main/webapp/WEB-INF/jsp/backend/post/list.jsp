@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="page" uri="/WEB-INF/tld/pagination.tld" %>
-
+<%@ taglib prefix="z" uri="/WEB-INF/tld/function.tld" %>
 <!DOCTYPE Html>
 <html>
  <head>
@@ -34,20 +34,55 @@
                </tr></thead>
               <tbody>
                <c:forEach items="${page.content}" var="post">
-                 <tr><td><strong><a target="_blank" href="../../posts/${post.id}">${post.title}</a>
-                  <c:if test="${post.pstatus=='secret'}"> - 私密</c:if>
-                 </strong>
+                 <tr id="edit-${post.id}">
+                    <td><strong><a class="post-title" target="_blank" href="../../posts/${post.id}">${post.title}</a>
+                        <c:if test="${post.pstatus=='secret'}"> - 私密</c:if>
+                     </strong>
+                     <span class="hide"><i class="post-ps">${post.pstatus}</i>
+                          <i class="post-cs">${post.cstatus}</i><i class="post-tags">${z:join(post.tags,',')}</i></span>
                      <div class="row-action">
                        <span><a href="#">编辑</a>&nbsp;|&nbsp;</span>
-                       <span><a href="#">快速编辑</a>&nbsp;|&nbsp;</span>
+                       <span><a href="#" onclick="zblog.post.fastedit('${post.id}')">快速编辑</a>&nbsp;|&nbsp;</span>
                        <span><a href="#">移到回收站</a>&nbsp;|&nbsp;</span>
                        <span><a target="_blank" href="${g.domain}/pages/${post.id}">查看</a></span>
-                     </div></td><td>${post.user.nickName}</td>
-                     <td>${post.category.name}</td><td><fmt:formatDate value="${post.createTime}" pattern="yyyy-MM-dd" /></td>
+                     </div></td><td class="post-author">${post.user.nickName}</td>
+                     <td class="post-category">${post.category.name}</td>
+                     <td class="post-ctime"><fmt:formatDate value="${post.createTime}" pattern="yyyy-MM-dd" /></td>
                      <td>${post.rcount} views</td>
                      <td class="center"><span class="icon glyphicon glyphicon-pencil pointer" onclick="zblog.post.edit('${post.id}')"></span>
-                       <span class="glyphicon glyphicon-trash pointer" onclick="zblog.post.remove('${post.id}')"></span></td></tr>
+                       <span class="glyphicon glyphicon-trash pointer" onclick="zblog.post.remove('${post.id}')"></span></td>
+                  </tr>
                </c:forEach>
+               <tr id="edit-row">
+                 <td colspan="6">
+                  <div class="edit-col-left">
+                    <h5>快速编辑</h5>
+                    <span><label>标题</label><input type="text" name="title" autocomplete="off"></span>
+                    <span><label>日期</label><input type="text" name="createTime" readonly="readonly"></span>
+                    <span><label>作者</label><label class="er-author">admin</label></span>
+                    <span><label>公开度</label><input type="radio" name="pstatus" value="publish" >公开&nbsp;
+                          <input type="radio" name="pstatus" value="secret" >隐藏</span>
+                  </div>
+                  <div class="edit-col-center">
+                    <h5>分类目录</h5>
+                    <ul>
+                     <c:forEach items="${categorys}" var="category" begin="1">
+                       <li><input type="radio" name="category" value="${category.id}" />${category.name}</li>
+                     </c:forEach>
+                    </ul>
+                  </div>
+                  <div class="edit-col-right">
+                    <h5>标签</h5>
+                    <textarea autocomplete="off" id="tags"></textarea>
+                    <span><label>允许评论</label><input type="radio" name="cstatus" value="open">是&nbsp;
+                           <input type="radio" name="cstatus" value="close">否</span>
+                  </div>
+                  <p>
+                    <button class="btn btn-default btn-sm" onclick="zblog.post.canclefast();">取消</button>
+                    <button style="float:right;" class="btn btn-primary btn-sm" onclick="zblog.post.submitfast();">更新</button>
+                  </p>
+                 </td>
+               </tr>
               </tbody>
             </table>
             <div class="row-fulid">

@@ -16,17 +16,18 @@ import org.springframework.web.util.HtmlUtils;
 
 import com.zblog.biz.OptionManager;
 import com.zblog.biz.PostManager;
+import com.zblog.core.dal.constants.PostConstants;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.PostTagHelper;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.constants.PostConstants;
-import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.CategoryService;
+import com.zblog.service.PostService;
 import com.zblog.service.vo.PostVO;
 import com.zblog.web.backend.form.validator.PostFormValidator;
+import com.zblog.web.support.WebContextFactory;
 
 @Controller(value = "adminPostController")
 @RequestMapping("/backend/posts")
@@ -38,11 +39,14 @@ public class PostController{
   private OptionManager optionManager;
   @Autowired
   private CategoryService categoryService;
+  @Autowired
+  private PostService postService;
 
   @RequestMapping(method = RequestMethod.GET)
   public String index(@RequestParam(value = "page", defaultValue = "1") int page, Model model){
     PageModel<PostVO> pageModel = postManager.listPost(page, 15);
     model.addAttribute("page", pageModel);
+    model.addAttribute("categorys", categoryService.list());
     return "backend/post/list";
   }
 
@@ -77,6 +81,12 @@ public class PostController{
     if(!form.isEmpty()){
       return form.put("success", false);
     }
+
+    Post old = postService.loadById(post.getId());
+    if(old == null){
+      return form.put("success", false).put("msg", "非法请求");
+    }
+
     /* 由于加入xss的过滤,html内容都被转义了,这里需要unescape */
     String content = HtmlUtils.htmlUnescape(post.getContent());
     post.setContent(JsoupUtils.filter(content));
@@ -84,8 +94,31 @@ public class PostController{
     post.setExcerpt(cleanTxt.length() > PostConstants.EXCERPT_LENGTH ? cleanTxt.substring(0,
         PostConstants.EXCERPT_LENGTH) : cleanTxt);
 
+    post.setType(PostConstants.TYPE_POST);
     post.setLastUpdate(new Date());
     postManager.updatePost(post, PostTagHelper.from(post, tags, WebContextFactory.get().getUser().getId()));
+    return new MapContainer("success", true);
+  }
+
+  @ResponseBody
+  @RequestMapping(value = "/fast", method = RequestMethod.PUT)
+  public Object fast(Post post, String tags){
+    MapContainer form = PostFormValidator.validateFastUpdate(post);
+    if(!form.isEmpty()){
+      return form.put("success", false);
+    }
+
+    Post old = postService.loadById(post.getId());
+    if(old == null){
+      return form.put("success", false).put("msg", "非法请求");
+    }
+
+    post.setContent(old.getContent());
+    post.setExcerpt(old.getExcerpt());
+
+    post.setType(PostConstants.TYPE_POST);
+    post.setLastUpdate(new Date());
+    postManager.updatePost(post, PostTagHelper.from(post, tags, WebContextFactory.get().getUser().getId()), true);
     return new MapContainer("success", true);
   }
 

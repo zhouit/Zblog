@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zblog.biz.PostManager;
+import com.zblog.core.WebConstants;
 import com.zblog.core.dal.entity.Category;
-import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.CategoryService;
 
 @Controller
@@ -28,7 +28,7 @@ public class CategoryController{
     if(category != null){
       model.addAttribute("page", postManager.listByCategory(category, page, 10));
     }
-    
+
     model.addAttribute("category", categoryName);
     model.addAttribute(WebConstants.PRE_TITLE_KEY, categoryName);
     return "index";

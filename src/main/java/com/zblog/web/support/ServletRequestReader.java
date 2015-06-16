@@ -1,4 +1,4 @@
-package com.zblog.core.util.web;
+package com.zblog.web.support;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

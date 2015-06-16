@@ -1,10 +1,10 @@
-package com.zblog.core.util.web;
+package com.zblog.web.support;
 
 public class WebContextFactory{
 
   private static final ThreadLocal<WebContext> WEB_CONTEXT_HOLDER = new ThreadLocal<WebContext>();
 
-  public WebContextFactory(){
+  private WebContextFactory(){
   }
 
   public static WebContext get(){

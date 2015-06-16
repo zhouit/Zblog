@@ -46,8 +46,8 @@
 	<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
   </bean>
   
-  <!-- 此处注意:由于freemarker静态化aop和lucene索引aop需要和数据库协作,
+  <!-- 此处注意:由于lucene索引aop需要和数据库协作,
        这里调高数据库事务优先级(保证数据库事务代码在其他需要协作的aop代码之前执行) -->
-  <tx:annotation-driven transaction-manager="txManager" order="1" />
+  <tx:annotation-driven transaction-manager="txManager" order="2" />
 
 </beans>

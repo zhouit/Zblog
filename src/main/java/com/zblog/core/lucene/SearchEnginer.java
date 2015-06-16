@@ -44,10 +44,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
+import com.zblog.core.WebConstants;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.constants.WebConstants;
 
 /**
  * 搜索引擎服务提供类
@@ -237,7 +237,8 @@ public final class SearchEnginer{
     searchHighlight(builder, model, null);
   }
 
-  private ScoreDoc lastScoreDoc(IndexSearcher searcher, QueryBuilder builder, PageModel<MapContainer> model) throws IOException{
+  private ScoreDoc lastScoreDoc(IndexSearcher searcher, QueryBuilder builder, PageModel<MapContainer> model)
+      throws IOException{
     if(model.getPageIndex() == 1)
       return null;
 

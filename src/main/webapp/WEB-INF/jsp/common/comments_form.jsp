@@ -4,7 +4,7 @@
 <%@ taglib uri="/WEB-INF/tld/shiro-function.tld" prefix="sf" %>
 <fieldset id="respond" class="comment_form_wrapper">
 <c:choose>
- <c:when test="${!g.allowComment || (!sf:isUser()&&post.pstatus=='secret')}">
+ <c:when test="${!g.allowComment || post.cstatus=='close'|| (!sf:isUser()&&post.pstatus=='secret')}">
   当前禁止评论
  </c:when>
  <c:otherwise>

@@ -30,14 +30,14 @@ public interface BaseMapper{
    * 
    * @param id
    */
-  public <T> void deleteById(String id);
+  public <T> int deleteById(String id);
 
   /**
    * 更新记录
    * 
    * @param t
    */
-  public <T> void update(T t);
+  public <T> int update(T t);
 
   /**
    * 获取记录总数

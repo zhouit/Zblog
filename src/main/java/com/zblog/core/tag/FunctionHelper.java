@@ -7,8 +7,8 @@ import com.zblog.core.util.CollectionUtils;
 import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.FileUtils;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.web.WebContext;
-import com.zblog.core.util.web.WebContextFactory;
+import com.zblog.web.support.WebContext;
+import com.zblog.web.support.WebContextFactory;
 
 public class FunctionHelper{
 

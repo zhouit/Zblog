@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zblog.biz.aop.PostIndexManager;
+import com.zblog.core.WebConstants;
+import com.zblog.core.dal.constants.PostConstants;
 import com.zblog.core.dal.entity.Category;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.entity.Tag;
@@ -22,8 +24,6 @@ import com.zblog.core.plugin.PageModel;
 import com.zblog.core.plugin.TreeUtils;
 import com.zblog.core.util.CollectionUtils;
 import com.zblog.core.util.JsoupUtils;
-import com.zblog.core.util.constants.PostConstants;
-import com.zblog.core.util.constants.WebConstants;
 import com.zblog.service.CategoryService;
 import com.zblog.service.OptionsService;
 import com.zblog.service.PostService;
@@ -80,6 +80,7 @@ public class PostManager{
     if(!CollectionUtils.isEmpty(imgs)){
       uploadService.updatePostid(post.getId(), imgs);
     }
+
     if(PostConstants.TYPE_POST.equals(post.getType()) && !CollectionUtils.isEmpty(tags)){
       tagService.insertBatch(tags);
     }
@@ -93,16 +94,23 @@ public class PostManager{
    */
   @Transactional
   public void updatePost(Post post, List<Tag> tags){
-    uploadService.setNullPostid(post.getId());
-    List<String> imgs = extractImagepath(JsoupUtils.getImagesOrLinks(post.getContent()));
-    if(!CollectionUtils.isEmpty(imgs))
-      uploadService.updatePostid(post.getId(), imgs);
+    updatePost(post, tags, false);
+  }
+
+  @Transactional
+  public void updatePost(Post post, List<Tag> tags, boolean fast){
+    if(!fast){
+      uploadService.setNullPostid(post.getId());
+      List<String> imgs = extractImagepath(JsoupUtils.getImagesOrLinks(post.getContent()));
+      if(!CollectionUtils.isEmpty(imgs)){
+        uploadService.updatePostid(post.getId(), imgs);
+      }
+    }
 
     postService.update(post);
 
-    tagService.deleteByPostid(post.getId());
-
     if(PostConstants.TYPE_POST.equals(post.getType()) && !CollectionUtils.isEmpty(tags)){
+      tagService.deleteByPostid(post.getId());
       tagService.insertBatch(tags);
     }
   }
@@ -141,7 +149,7 @@ public class PostManager{
   public PageModel<PostVO> listByCategory(Category category, int pageIndex, int pageSize){
     return pageId2pageVo(postService.listByCategory(category, pageIndex, pageSize));
   }
-  
+
   public PageModel<PostVO> listByMonth(Date yearMonth, int pageIndex, int pageSize){
     return pageId2pageVo(postService.listByMonth(yearMonth, pageIndex, pageSize));
   }

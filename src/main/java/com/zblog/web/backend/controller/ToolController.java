@@ -13,7 +13,7 @@ import com.zblog.biz.EhCacheManager;
 import com.zblog.biz.WordPressManager;
 import com.zblog.core.dal.entity.User;
 import com.zblog.core.lucene.SearchEnginer;
-import com.zblog.core.util.web.WebContextFactory;
+import com.zblog.web.support.WebContextFactory;
 
 @Controller
 @RequestMapping("/backend/tool")

@@ -16,9 +16,9 @@ import com.zblog.core.dal.entity.Link;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.IdGenerator;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.web.WebContextFactory;
 import com.zblog.service.LinkService;
 import com.zblog.web.backend.form.validator.LinkFormValidator;
+import com.zblog.web.support.WebContextFactory;
 
 @Controller
 @RequestMapping("/backend/links")

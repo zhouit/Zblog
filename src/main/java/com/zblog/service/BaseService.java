@@ -25,12 +25,12 @@ public abstract class BaseService{
     return getMapper().list();
   }
 
-  public <T extends BaseEntity> void update(T t){
-    getMapper().update(t);
+  public <T extends BaseEntity> int update(T t){
+    return getMapper().update(t);
   }
 
-  public void deleteById(String id){
-    getMapper().deleteById(id);
+  public int deleteById(String id){
+    return getMapper().deleteById(id);
   }
 
   public long count(){

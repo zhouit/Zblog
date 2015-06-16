@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.zblog.core.dal.constants.OptionConstants;
+import com.zblog.core.dal.constants.PostConstants;
 import com.zblog.core.util.NumberUtils;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.constants.OptionConstants;
-import com.zblog.core.util.constants.PostConstants;
 import com.zblog.service.OptionsService;
 import com.zblog.web.backend.form.GeneralOption;
 import com.zblog.web.backend.form.PostOption;

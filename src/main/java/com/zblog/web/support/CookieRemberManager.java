@@ -3,6 +3,7 @@ package com.zblog.web.support;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.zblog.core.Constants;
 import com.zblog.core.dal.entity.User;
 import com.zblog.core.plugin.ApplicationContextUtil;
 import com.zblog.core.security.HashCalculator;
@@ -10,7 +11,6 @@ import com.zblog.core.security.Hex;
 import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.IdGenerator;
 import com.zblog.core.util.StringUtils;
-import com.zblog.core.util.constants.Constants;
 import com.zblog.service.UserService;
 
 /**

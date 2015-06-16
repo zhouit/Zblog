@@ -1,12 +1,18 @@
-package com.zblog.web.support;
+package com.zblog.service.vo;
 
 import java.util.Calendar;
 import java.util.Date;
 
+import com.zblog.core.dal.constants.OptionConstants;
 import com.zblog.core.plugin.ApplicationContextUtil;
-import com.zblog.core.util.constants.OptionConstants;
 import com.zblog.service.OptionsService;
 
+/**
+ * view中使用的的对象
+ * 
+ * @author zhou
+ *
+ */
 public class Global{
   private String domain;
 

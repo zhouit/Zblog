@@ -6,13 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zblog.core.dal.constants.PostConstants;
 import com.zblog.core.dal.entity.Category;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.mapper.BaseMapper;
 import com.zblog.core.dal.mapper.PostMapper;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.plugin.PageModel;
-import com.zblog.core.util.constants.PostConstants;
 import com.zblog.service.vo.PageVO;
 
 @Service
@@ -80,14 +80,14 @@ public class PostService extends BaseService{
 
     return page;
   }
-  
+
   public PageModel<String> listByMonth(Date yearMonth, int pageIndex, int pageSize){
     PageModel<String> page = new PageModel<>(pageIndex, pageSize);
     page.insertQuery("yearMonth", yearMonth);
     List<String> content = postMapper.listByMonth(page);
     page.setContent(content);
     page.removeQuery("yearMonth");
-    
+
     return page;
   }
 
