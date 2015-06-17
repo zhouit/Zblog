@@ -20,6 +20,8 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -35,6 +37,7 @@ import com.zblog.core.util.DateUtils;
  *
  */
 public final class WordPressReader{
+  private static final Logger logger = LoggerFactory.getLogger(WordPressReader.class);
 
   private WordPressReader(){
   }
@@ -97,7 +100,8 @@ public final class WordPressReader{
         }
       }
     }catch(Exception e){
-      e.printStackTrace();
+      logger.error("load wordpress xml error", e);
+      list = null;
     }finally{
       IOUtils.closeQuietly(xml);
     }

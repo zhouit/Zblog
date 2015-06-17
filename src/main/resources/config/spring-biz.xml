@@ -17,10 +17,10 @@
     <aop:pointcut expression="execution(* com.zblog.biz.PostManager.removePost(String, String)) 
         and args(postid, postType)" id="p-post-remove" />
         
-    <aop:aspect ref="postIndexManager">
+    <aop:aspect ref="indexManager">
       <!-- 注意：这里使用after-return而不使用after -->
       <aop:after-returning method="insert" pointcut-ref="p-post-insert" arg-names="post" />
-      <aop:after-returning method="update" pointcut-ref="p-post-update" arg-names="post" />
+      <aop:after-returning method="update" pointcut-ref="p-post-update" arg-names="post,affect" returning="affect" />
       <aop:after-returning method="remove" pointcut-ref="p-post-remove" arg-names="postid,postType" />
     </aop:aspect>
      

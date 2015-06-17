@@ -15,6 +15,9 @@ $(function(){
 	  autoHeightEnabled: true,
 	  autoFloatEnabled: true
   });
+  zblog.post.ueditor.ready(function(){
+    zblog.post.ueditor.execCommand('serverparam', {'CSRFToken': zblog.getCookie("x-csrf-token")});
+  });
   
   zblog.post.epiceditor=new EpicEditor({
     basePath: window.location.protocol+"//"+window.location.port+window.location.host+"/resource/epiceditor-0.2.3",
@@ -30,10 +33,6 @@ $(function(){
     }
   });
   zblog.post.epiceditor.load();
-  
-  zblog.post.ueditor.ready(function(){
-	  zblog.post.ueditor.execCommand('serverparam', {'CSRFToken': zblog.getCookie("x-csrf-token")});
-  });
 });
 
 zblog.post.insert=function(){

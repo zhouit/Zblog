@@ -27,6 +27,7 @@ public class OptionManager{
     optionsService.updateOptionValue(OptionConstants.TITLE, form.getTitle());
     optionsService.updateOptionValue(OptionConstants.SUBTITLE, form.getSubtitle());
     optionsService.updateOptionValue(OptionConstants.DESCRIPTION, form.getDescription());
+    optionsService.updateOptionValue(OptionConstants.KEYWORDS, form.getKeywords());
   }
 
   @Transactional
@@ -62,6 +63,7 @@ public class OptionManager{
     if(!StringUtils.isBlank(form.getTitle())){
       form.setSubtitle(optionsService.getOptionValue(OptionConstants.SUBTITLE));
       form.setDescription(optionsService.getOptionValue(OptionConstants.DESCRIPTION));
+      form.setKeywords(optionsService.getOptionValue(OptionConstants.KEYWORDS));
       form.setWeburl(optionsService.getOptionValue("weburl"));
     }else{
       form = null;

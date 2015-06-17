@@ -31,6 +31,10 @@ public class Global{
   public String getDescription(){
     return getOptionValue(OptionConstants.DESCRIPTION);
   }
+  
+  public String getKeywords(){
+    return getOptionValue(OptionConstants.KEYWORDS);
+  }
 
   public boolean isAllowComment(){
     return Boolean.parseBoolean(getOptionValue(OptionConstants.ALLOW_COMMENT));

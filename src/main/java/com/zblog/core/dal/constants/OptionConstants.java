@@ -26,6 +26,10 @@ public final class OptionConstants{
    */
   public static final String DESCRIPTION = "description";
   /**
+   * 站点关键字
+   */
+  public static final String KEYWORDS = "keywords";
+  /**
    * 前台每个页面最多显示数
    */
   public static final String MAXSHOW = "maxshow";

@@ -82,11 +82,6 @@ public class PostController{
       return form.put("success", false);
     }
 
-    Post old = postService.loadById(post.getId());
-    if(old == null){
-      return form.put("success", false).put("msg", "非法请求");
-    }
-
     /* 由于加入xss的过滤,html内容都被转义了,这里需要unescape */
     String content = HtmlUtils.htmlUnescape(post.getContent());
     post.setContent(JsoupUtils.filter(content));

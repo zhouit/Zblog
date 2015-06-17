@@ -36,14 +36,20 @@
                  <label class="col-sm-3" for="subtitle">*副标题</label>
                  <div class="col-sm-6">
                    <input placeholder="副标题" name="subtitle" class="form-control" type="text" value="${form.subtitle}" />
-                   <p class="help-block">${subtitle!=null?subtitle:'用简洁的文字描述本站点。'}</p>
                  </div>
                </div>
-               <div class="form-group ${subtitle!=null?'has-error':''}">
+               <div class="form-group ${description!=null?'has-error':''}">
                  <label class="col-sm-3" for="description">站点描述</label>
                  <div class="col-sm-6">
                    <input placeholder="站点描述" name="description" class="form-control" type="text" value="${form.description}" />
                    <p class="help-block">${description!=null?description:'用简洁的文字描述本站点。'}</p>
+                 </div>
+               </div>
+               <div class="form-group ${keywords!=null?'has-error':''}">
+                 <label class="col-sm-3" for="keywords">站点keywords</label>
+                 <div class="col-sm-6">
+                   <input placeholder="keywords" name="keywords" class="form-control" type="text" value="${form.keywords}" />
+                   <p class="help-block">${keywords!=null?keywords:'填写本站的关键字。'}</p>
                  </div>
                </div>
                <div class="form-group ${weburl!=null?'has-error':''}">

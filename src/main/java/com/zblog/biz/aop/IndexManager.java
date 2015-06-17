@@ -23,8 +23,8 @@ import com.zblog.core.util.JsoupUtils;
  * 
  */
 @Component
-public class PostIndexManager{
-  private static final Logger logger = LoggerFactory.getLogger(PostIndexManager.class);
+public class IndexManager{
+  private static final Logger logger = LoggerFactory.getLogger(IndexManager.class);
 
   /**
    * 只有添加文章才插入Lucene索引
@@ -42,9 +42,10 @@ public class PostIndexManager{
    * 只有更新文章才更新Lucene索引
    * 
    * @param post
+   * @param affect
    */
-  public void update(Post post){
-    if(PostConstants.TYPE_POST.equals(post.getType())){
+  public void update(Post post, boolean affect){
+    if(PostConstants.TYPE_POST.equals(post.getType()) && affect){
       SearchEnginer.postEnginer().update(new Term("id", post.getId()), convert(post));
     }
   }

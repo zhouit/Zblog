@@ -16,7 +16,10 @@ public class OptionFormValidator{
       form.put("subtitle", "需填写副标题");
     }
     if(StringUtils.isBlank(option.getDescription())){
-      form.put("subtitle", "需填写站点描述");
+      form.put("description", "需填写站点描述");
+    }
+    if(StringUtils.isBlank(option.getKeywords())){
+      form.put("keywords", "需填写站点关键字");
     }
     if(StringUtils.isBlank(option.getWeburl())){
       form.put("weburl", "需填写网站url");
@@ -30,7 +33,7 @@ public class OptionFormValidator{
     if(option.getMaxshow() < 1){
       form.put("maxshow", "格式错误");
     }
-    
+
     if(StringUtils.isBlank(option.getDefaultCategory())){
       form.put("defaultCategory", "默认分类格式错误");
     }

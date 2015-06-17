@@ -10,6 +10,7 @@ public class GeneralOption{
   private String title;
   private String subtitle;
   private String description;
+  private String keywords;
   private String weburl;
 
   public String getTitle(){
@@ -34,6 +35,14 @@ public class GeneralOption{
 
   public void setDescription(String description){
     this.description = description;
+  }
+
+  public String getKeywords(){
+    return keywords;
+  }
+
+  public void setKeywords(String keywords){
+    this.keywords = keywords;
   }
 
   public String getWeburl(){

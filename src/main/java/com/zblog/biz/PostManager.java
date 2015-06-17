@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.zblog.biz.aop.PostIndexManager;
+import com.zblog.biz.aop.IndexManager;
 import com.zblog.core.WebConstants;
 import com.zblog.core.dal.constants.PostConstants;
 import com.zblog.core.dal.entity.Category;
@@ -42,7 +42,7 @@ public class PostManager{
   @Autowired
   private OptionsService optionsService;
   @Autowired
-  private PostIndexManager postIndexManager;
+  private IndexManager postIndexManager;
   @Autowired
   private TagService tagService;
   @Autowired
@@ -91,14 +91,15 @@ public class PostManager{
    * 
    * @param post
    * @param tags
+   * @return 更新文章影响记录数
    */
   @Transactional
-  public void updatePost(Post post, List<Tag> tags){
-    updatePost(post, tags, false);
+  public boolean updatePost(Post post, List<Tag> tags){
+    return updatePost(post, tags, false);
   }
 
   @Transactional
-  public void updatePost(Post post, List<Tag> tags, boolean fast){
+  public boolean updatePost(Post post, List<Tag> tags, boolean fast){
     if(!fast){
       uploadService.setNullPostid(post.getId());
       List<String> imgs = extractImagepath(JsoupUtils.getImagesOrLinks(post.getContent()));
@@ -107,12 +108,14 @@ public class PostManager{
       }
     }
 
-    postService.update(post);
+    int affect = postService.update(post);
 
     if(PostConstants.TYPE_POST.equals(post.getType()) && !CollectionUtils.isEmpty(tags)){
       tagService.deleteByPostid(post.getId());
       tagService.insertBatch(tags);
     }
+
+    return affect != 0;
   }
 
   /**
