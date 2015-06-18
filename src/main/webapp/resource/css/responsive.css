@@ -1,0 +1,28 @@
+#right_col{ display: none;}
+#left_col{margin-right: 0;}
+.post .title a,
+.post .title span,
+.post_content, 
+#archive_headline h2,
+.post .post_tags, 
+#page_nav .page,
+#bread_crumb ul,
+#comment_header, 
+#comments,
+#previous_next_post div{margin-right: 0;}
+#post_mask{background-color: #fff;background-image: none;}
+
+.meta{width: 22%;}
+#header, #post_mask, #bread_crumb, #comments_wrapper, 
+.post, #page_nav, #previous_next_post, #footer{width: 78%;}
+
+
+@media screen and (max-width:480px) {
+  #header{width: 100%;}
+  .meta{width: 0;display: none;}
+  #header, #post_mask, #bread_crumb,  #comments_wrapper,
+  .post, #page_nav, #previous_next_post, #footer{width: 100%;}
+  
+  .post .title{background-image: none;}
+  #previous_next_post{display: none;}
+}

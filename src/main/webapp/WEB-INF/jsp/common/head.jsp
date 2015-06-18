@@ -7,6 +7,7 @@
 <title>${ptitle}${ptitle!=null?' | ':''}${g.title}</title>
 <link rel="icon" href="${g.domain}/resource/img/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" href="${g.domain}/resource/css/style.css">
+<link rel="stylesheet" media="screen and (max-width:770px)" href="${g.domain}/resource/css/responsive.css">
 <script src="${g.domain}/resource/js/jquery-1.9.1.min.js"></script>
 <link rel="alternate" type="application/rss+xml" href="${g.domain}/feed" title="${g.title}" />
 <link rel="EditURI" type="application/rsd+xml" title="RSD" href="${g.domain}/xmlrpc/rsd" />

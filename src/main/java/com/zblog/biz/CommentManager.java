@@ -56,7 +56,7 @@ public class CommentManager{
   }
 
   /**
-   * 删除评论，同时删除对应文章的评论数
+   * 删除评论，同时更改对应文章的评论数
    * 
    * @param commentid
    */
