@@ -8,7 +8,7 @@
  <body>
    <%@include file="common/header.html" %>
    <div id="content" class="clearfix">
-     <div id="left_col">
+     <div id="left_col" class="clearfix">
        <div class="post_wrap clearfix">
          <div class="post">
            <h3 class="title"><span>404</span></h3>

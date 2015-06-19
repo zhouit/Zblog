@@ -75,14 +75,14 @@ a:hover{color: #009dc4;}
 /***************  menu  ***************/
 #menu{background:#fff;border-bottom: 1px solid #ccc;height: 35px;width: 100%;}
 #menu ul{float:right;list-style:none;margin:0 20px 0 0;}
-#menu ul ul{float:none;display:none;position:absolute; top:35px; right:0px;margin:0;}
+#menu ul ul{float:none;display:none;position:absolute; top:36px; right:0px;margin:0;}
 #menu ul li{float:left; font-size:10px; position:relative; }
 #menu ul ul li{float:none; height:auto;text-align:left; }
 
 #menu ul li a{font-size:10px; padding:0 20px; text-align:center; color:#888; display:inline-block; height:35px; line-height:36px; overflow:hidden; }
-#menu ul ul li a{font-size:11px; background:#fff; border:1px solid #ccc;margin-bottom:-1px; padding:10px 20px 8px; 
-   display:block;position:relative;width:180px;height:auto; line-height:180%; text-align:left; }
-#menu ul li:hover > a ,#menu ul li li a:hover{background:#eee; color:#333;}
+#menu ul ul li a{font-size:11px; background:#fff; border:1px solid #ccc; border-width:0 1px 1px 1px;
+   display:block;position:relative;width:180px; text-align:left; }
+#menu ul li:hover > a{background:#eee; color:#333;}
 #menu ul li:hover ul{display: block;}
 
 #content{min-height: 100%;position: absolute;top: 0;width: 100%;}
@@ -159,9 +159,10 @@ a:hover{color: #009dc4;}
 .meta li span.date{font-size:40px; float:right; display:block; line-height:40px; margin:0 0 0 5px; }
 .meta li span.month{text-transform:uppercase; padding:13px 0 0px 0; display:block; font-size:10px; }
 .meta li span.year{display:block; font-size:10px; }
+.meta li.post_read:after{content: "\e613";}
 .meta li.post_author:after{content: "\e609";}
 .meta li.post_category:after{content: "\e608";}
-.meta li.post_comment:after{content: "\e61a";}
+.meta li.post_comment:after{content: "\e606";}
 
 .post_tags{background: url("../img/meta_bg.gif") repeat scroll 0 0 rgb(0, 0, 0);font-size: 11px;margin: 0 340px 0 0;padding: 9px 3% 8px 4%}
 .post_tags ul{float: right; margin: 0;}
@@ -256,7 +257,7 @@ ul.comment-name-date li{padding: 0 0 5px;}
 #social_link li a{display: block;width: 20px;height: 20px;text-decoration: none;}
 #social_link li a:after{color: #aaa;display: inline-block;font-family: "icomoon-zblog";font-size: 18px;}
 #social_link li.rss_button a:after{content:"\e603"; }
-#social_link li.github_button a:after{content:"\eab1"; }
+#social_link li.github_button a:after{content:"\e604"; }
 #social_link li.rss_button a:hover:after{color:#ffcc00;}
 #social_link li.github_button a:hover:after{color:#16b9dc;}
 
@@ -287,7 +288,7 @@ ul.comment-name-date li{padding: 0 0 5px;}
 
 /* return top */
 #return_top{position:fixed; bottom:15px; right:20px; display:block; text-indent:100%;white-space:nowrap; width:45px; height:45px; margin:0; padding:0; 
-  background:url(../img/return_top2.gif) no-repeat center center #555;
+  background:url(../img/return_top2.gif) no-repeat center center #555;overflow:hidden;
   -moz-border-radius:4px; -khtml-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; opacity:0.5;
 }
 #return_top:hover{opacity:1;background-color: #009dc4; } 

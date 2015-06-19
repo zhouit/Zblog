@@ -9,7 +9,7 @@
 <body>
   <%@include file="common/header.html" %>
   <div id="content" class="clearfix">
-    <div id="left_col">
+    <div id="left_col" class="clearfix">
       <jsp:include page="common/content.jsp" flush="false" />
       <div id="comments_wrapper">
         <div id="comment_header" class="clearfix">

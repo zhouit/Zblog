@@ -11,7 +11,7 @@
 <body>
   <%@include file="common/header.html" %>
   <div id="content" class="clearfix">
-    <div id="left_col">
+    <div id="left_col" class="clearfix">
      <c:if test="${category!=null||tag!=null||archive!=null}">
        <div id="archive_headline"><h2>
         <c:choose>
@@ -49,7 +49,7 @@
              <span class="month"><fmt:formatDate value="${post.createTime}" pattern="MMM" /></span>
              <span class="year"><fmt:formatDate value="${post.createTime}" pattern="yyyy" /></span>
             </li>
-            <li class="post_comment">${post.rcount}人阅读</li>
+            <li class="post_read">${post.rcount}人阅读</li>
             <li class="post_author">
               <a rel="author" title="由${post.user.nickName}发布" href="${g.domain}/authors/${post.creator}">${post.user.nickName}</a>
             </li>

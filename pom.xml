@@ -240,6 +240,7 @@
 
   </dependencies>
   <build>
+   <finalName>zblog</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -257,7 +258,7 @@
         <configuration>
           <version>3.0</version>
           <failOnMissingWebXml>false</failOnMissingWebXml>
-          <warName>zblog</warName>
+          <warName>${project.build.finalName}</warName>
           <!-- 打包时忽略目录 -->
           <packagingExcludes>log/**,post/**</packagingExcludes>
           <includeEmptyDirectories>true</includeEmptyDirectories>
@@ -272,7 +273,7 @@
           <httpConnector>
             <port>9080</port>
           </httpConnector>
-          <scanIntervalSeconds>10</scanIntervalSeconds>
+          <scanIntervalSeconds>20</scanIntervalSeconds>
           <webApp>
             <contextPath>/</contextPath>
           </webApp>

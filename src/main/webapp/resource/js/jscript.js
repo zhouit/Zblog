@@ -1,4 +1,30 @@
 $(function(){
+  var menu_show=false;
+  $("#menu_button").click(function(){
+    if(menu_show){
+      $("#header").animate({"right":0},500);
+      $("#content").animate({"right":0},500,function(){
+        $("#menu").hide();
+      });
+    }else{
+      $("#menu").css("height",$(document).height()).show();
+      $("#header").animate({"right":"70%"},500);
+      $("#content").animate({"right":"70%"},500);
+    }
+    
+    menu_show = !menu_show;
+    
+    return false;
+  });
+  
+  $(window).bind('resize', function() {
+    if($(window).width()>770&&menu_show){
+      $("#header").css("right", 0);
+      $("#content").css("right", 0);
+      $("#menu").css("height","auto").show();
+    }
+  });
+  
   jQuery.easing.easeOutExpo = function (x, t, b, c, d) {
 	  return -c * ((t=t/d-1)*t*t*t - 1) + b;
    };
