@@ -22,7 +22,7 @@ public class FreeMarkerUtils{
 
   static{
     try{
-      config = new Configuration();
+      config = new Configuration(Configuration.VERSION_2_3_22);
       config.setCacheStorage(new NullCacheStorage());
       config.setAutoFlush(false);
       /* 不产生指令造成的空白行 */
@@ -37,18 +37,19 @@ public class FreeMarkerUtils{
     }
   }
 
-  public static boolean genHtml(String name, File out, Object param){
+  public static boolean doProcessTemplate(String templateFileName, File out, Object param){
     boolean result = true;
     OutputStreamWriter writer = null;
     try{
-      Template template = config.getTemplate(name, Constants.ENCODING_UTF_8.name());
+      Template template = config.getTemplate(templateFileName, Constants.ENCODING_UTF_8.name());
       File parent = out.getParentFile();
       if(!parent.exists())
         parent.mkdirs();
       writer = new OutputStreamWriter(new FileOutputStream(out), Constants.ENCODING_UTF_8);
       template.process(param, writer);
     }catch(Exception e){
-      logger.error("genHtml error-->" + name + " -out " + out.getAbsolutePath() + " param-->" + param);
+      logger.error("doProcessTemplate error-->" + templateFileName + " -out " + out.getAbsolutePath() + " param-->"
+          + param);
       result = false;
       /* 静态化失败,则删除文件 */
       out.delete();

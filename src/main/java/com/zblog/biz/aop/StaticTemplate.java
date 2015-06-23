@@ -22,6 +22,8 @@ import com.zblog.service.TagService;
 import com.zblog.service.freemarker.FreeMarkerUtils;
 
 import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.beans.BeansWrapperBuilder;
+import freemarker.template.Configuration;
 import freemarker.template.TemplateHashModel;
 
 /**
@@ -57,7 +59,7 @@ public class StaticTemplate{
     map.put("categorys", categoryManager.listAsTree());
     map.put("pages", postManager.listPageAsTree());
 
-    FreeMarkerUtils.genHtml("/header.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
+    FreeMarkerUtils.doProcessTemplate("/header.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
         + "/common/header.html"), map);
 
     logger.info("staticHeader");
@@ -71,14 +73,14 @@ public class StaticTemplate{
     map.put("tags", tagService.list());
     map.put("domain", WebConstants.getDomain());
     try{
-      BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
+      BeansWrapper wrapper = new BeansWrapperBuilder(Configuration.VERSION_2_3_22).build();
       TemplateHashModel thm = (TemplateHashModel) wrapper.getStaticModels().get(NumberUtils.class.getName());
       map.put("NumberUtils", thm);
     }catch(Exception e){
       logger.error("staticCloudTags init NumberUtils error", e);
     }
 
-    FreeMarkerUtils.genHtml("/tagcloud.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
+    FreeMarkerUtils.doProcessTemplate("/tagcloud.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
         + "/common/tagcloud.html"), map);
     logger.info("staticCloudTags");
   }
@@ -91,7 +93,7 @@ public class StaticTemplate{
     map.put("archives", postService.listArchive());
     map.put("domain", WebConstants.getDomain());
 
-    FreeMarkerUtils.genHtml("/archive.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
+    FreeMarkerUtils.doProcessTemplate("/archive.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
         + "/common/archive.html"), map);
 
     logger.info("staticArchive");
@@ -104,7 +106,7 @@ public class StaticTemplate{
     MapContainer map = new MapContainer();
     map.put("links", linksService.list());
 
-    FreeMarkerUtils.genHtml("/link.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
+    FreeMarkerUtils.doProcessTemplate("/link.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
         + "/common/link.html"), map);
     logger.info("staticLinks");
   }
@@ -131,7 +133,7 @@ public class StaticTemplate{
     if(ispost){
       MapContainer param = new MapContainer("domain", WebConstants.getDomain());
       param.put("posts", postManager.listRecent(10));
-      FreeMarkerUtils.genHtml("/recent.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
+      FreeMarkerUtils.doProcessTemplate("/recent.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
           + "/common/recent.html"), param);
       logger.info("staticRecent");
 

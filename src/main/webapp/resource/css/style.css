@@ -95,11 +95,11 @@ a:hover{color: #009dc4;}
 
 .post_wrap{clear: right;}
 .post{float: right;position: relative;width: 86%;z-index: 3;}
-.post .title{display: block;font-size: 20px;font-weight: normal;line-height: 140%;margin: 0 0 0 -5px;
-    background-image:url("../img/title.gif");background-color: transparent;background-position:left 45px;background-attachment: scroll;background-repeat: no-repeat; }
-.post .title a ,.post .title span{display: block;margin: 0 340px 0 5px;padding: 39px 4% 0;text-decoration: none;}
+.post .title{font-size: 20px;font-weight: normal;line-height: 140%;margin: 0 0 0 -5px;
+    background-image:url("../img/title.gif");background-color: transparent;background-position:left 45px;background-attachment: scroll;background-repeat: no-repeat;}
+.post .title a, .post .title span{display: block;margin: 0 340px 0 5px;padding: 39px 4% 0;text-decoration: none;}
 .post .title a{border-top: 1px solid #ccc;}
-.post_content{background-color:#fff;margin: 0 340px 0 0;min-height: 50px;padding: 25px 4%;}
+.post_content{margin: 0 340px 0 0;min-height: 50px;padding: 25px 4%;}
 .post_content p.excerpt{text-indent: 1.5em;}
 /* read more link */
 .post a.more_link{background-color:#f2f2f2;border-radius: 3px;color: #666;display: inline-block;font-size: 12px;height: 35px;line-height: 35px;padding: 0 36px;text-decoration: none;}
@@ -135,9 +135,9 @@ a:hover{color: #009dc4;}
 .post ul, .post ol{padding: 0 0 0 1em;}
 .post ul ul, .post ol ol{ margin:0 0 0 1em;}
 /* etc */
-.post address { border-left:3px solid #ccc; padding:5px 0 5px 10px; line-height:150%; margin:0 0 1em 0; background:#fafafa; }
-.post pre { border:1px solid #ccc; background:#fafafa; padding:10px 20px; margin:0 0 1em 0; line-height:150%; overflow:auto; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; }
-.post embed, .post iframe, .post object { max-width:100%; margin:0 auto; display:block; }
+.post address{border-left:3px solid #ccc; padding:5px 0 5px 10px; line-height:150%; margin:0 0 1em 0; background:#fafafa; }
+.post pre{border:1px solid #ccc; background:#fafafa; padding:10px 20px; margin:0 0 1em 0; line-height:150%;_word-wrap:break-word; overflow:auto;border-radius:5px; }
+.post embed, .post iframe, .post object{max-width:100%; margin:0 auto; display:block;}
 
 
 /* bread crumb */
@@ -164,7 +164,7 @@ a:hover{color: #009dc4;}
 .meta li.post_category:after{content: "\e608";}
 .meta li.post_comment:after{content: "\e606";}
 
-.post_tags{background: url("../img/meta_bg.gif") repeat scroll 0 0 rgb(0, 0, 0);font-size: 11px;margin: 0 340px 0 0;padding: 9px 3% 8px 4%}
+.post_tags{background: url("../img/meta_bg.gif") repeat scroll 0 0 rgb(0, 0, 0);font-size: 11px;margin: 0 340px 0 0;padding: 9px 3% 8px 4%;_margin-right:342px;}
 .post_tags ul{float: right; margin: 0;}
 .post_tags ul li{float: left;background: none;}
 .post_tags ul li:first-child:before{content: "\e607";font-family: "icomoon-zblog";font-size: 13px;display: inline;}
@@ -287,8 +287,7 @@ ul.comment-name-date li{padding: 0 0 5px;}
 .icp{ margin:0 0 0 12px; padding:0 0 0 10px; border-left:1px solid #ccc;}
 
 /* return top */
-#return_top{position:fixed; bottom:15px; right:20px; display:block; text-indent:100%;white-space:nowrap; width:45px; height:45px; margin:0; padding:0; 
-  background:url(../img/return_top2.gif) no-repeat center center #555;overflow:hidden;
-  -moz-border-radius:4px; -khtml-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; opacity:0.5;
+#return_top{position:fixed; bottom:15px; right:20px; display:block;_display:none;text-indent:100%;white-space:nowrap; width:45px; height:45px; margin:0; padding:0; 
+  background:url(../img/return_top2.gif) no-repeat center center #555;overflow:hidden;border-radius:4px; opacity:0.5;
 }
 #return_top:hover{opacity:1;background-color: #009dc4; } 

@@ -4,11 +4,11 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:cache="http://www.springframework.org/schema/cache"
        xsi:schemaLocation="http://www.springframework.org/schema/beans 
-                           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                           http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
                            http://www.springframework.org/schema/aop 
-                           http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+                           http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
                            http://www.springframework.org/schema/cache 
-                           http://www.springframework.org/schema/cache/spring-cache-3.2.xsd">
+                           http://www.springframework.org/schema/cache/spring-cache-4.1.xsd">
   
   <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
     <property name="cacheManager">
