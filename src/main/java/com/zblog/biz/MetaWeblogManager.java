@@ -157,8 +157,9 @@ public class MetaWeblogManager{
     post.setExcerpt(cleanTxt.length() > PostConstants.EXCERPT_LENGTH ? cleanTxt.substring(0,
         PostConstants.EXCERPT_LENGTH) : cleanTxt);
     XmlRpcArray categories = param.getArray("categories");
-    if(categories != null && !categories.isEmpty())
+    if(categories != null && !categories.isEmpty()){
       post.setCategoryid(categoryService.loadByName(categories.getString(0)).getId());
+    }
 
     String tags = param.getString("mt_keywords");
     postManager.updatePost(post, PostTagHelper.from(post, tags, user.getId()));

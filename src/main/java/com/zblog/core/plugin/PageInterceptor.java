@@ -79,7 +79,8 @@ public class PageInterceptor implements Interceptor{
 
   @Override
   public Object plugin(Object target){
-    return Plugin.wrap(target, this);
+    /* 当目标类是StatementHandler类型时，才包装目标类，不做无谓的代理 */
+    return (target instanceof StatementHandler) ? Plugin.wrap(target, this) : target;
   }
 
   @Override

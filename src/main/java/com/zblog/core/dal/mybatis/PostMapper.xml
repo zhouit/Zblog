@@ -66,7 +66,10 @@
    
    <update id="update" parameterType="Post">
      update post set title=#{title},excerpt=#{excerpt}, content=#{content, jdbcType=CLOB},parent=#{parent}, pstatus=#{pstatus},
-         cstatus=#{cstatus},categoryid=#{categoryid},lastUpdate=#{lastUpdate}
+         <if test="categoryid!=null and categoryid!=''">
+           categoryid=#{categoryid},
+         </if>
+         cstatus=#{cstatus}, lastUpdate=#{lastUpdate}
      where id=#{id}
    </update>
    

@@ -46,7 +46,7 @@ a java blog
 
 ### 支持浏览器
 * 前台 ie6+
-* 后台 chrome/firefox/ie8+
+* 后台 chrome/firefox/ie9+
   
 ### 作者博客
   (http://www.zhouhaocheng.cn)

@@ -46,13 +46,13 @@ input[type="radio"]{ -webkit-appearance: radio; }
 button::-moz-focus-inner, input::-moz-focus-inner { border:0; padding:0; }
 
 /* clearfix */
-.clearfix:after { content: "."; display:block; clear:both; height:0; font-size:0.1em; line-height:0; visibility:hidden; overflow:hidden; }
-.clearfix { display:inline-block; }
-.clear{ clear:both; }
-.hide{ display:none; }
+.clearfix:after{content: "."; display:block; clear:both; height:0; font-size:0.1em; line-height:0; visibility:hidden; overflow:hidden; }
+.clearfix{display:inline-block;*zoom:1;}
+.clear{clear:both; }
+.hide{display:none; }
 /* exlude MacIE5 \*/
-* html .clearfix { height:1% }
-.clearfix { display:block;}
+* html .clearfix{height:1% }
+.clearfix{display:block;}
 /* end MacIE5 */
 
 
@@ -190,12 +190,12 @@ a:hover{color: #009dc4;}
 
 #comment_area{margin:15px 0 20px;}
 .commentlist{list-style-type:none; margin:0; padding:0; }
-.comment{border:1px solid #ccc; color:#666; margin:0 0 15px; padding:15px 20px 3px; background:#f7f7f7;  -moz-border-radius:4px; -khtml-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; }
+.comment{border:1px solid #ccc; color:#666; margin:0 0 15px; padding:15px 20px 3px; border-radius:4px;}
 .even_comment{ background:#f7f7f7; }
 .odd_comment{background:#fefefe;}
 
 /************ comment-meta *************/
-.comment-meta{height:56px; position:relative; }
+.comment-meta{height:56px; position:relative;}
 .comment-meta .comment-reply{position: absolute;right: 0px;top:7px;}
 .avatar{border:1px solid #ccc; background:#fff; width:37px; height:37px; padding:2px; display:inline; float:left; margin:0 10px 0 0; }
 ul.comment-name-date{padding:6px 0 0 0; float:left;}

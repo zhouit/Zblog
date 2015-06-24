@@ -14,6 +14,7 @@
 
 #left_col{margin-right: 0;width: auto;float: none;box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);margin:75px 10px 30px 10px;}
 #post_mask{display: none;}
+.post_content{background-color: #fff;}
 #right_col{width: auto;float:none;padding: 20px;background-color: #fff;border-top: 1px solid #ccc;}
 #right_col .side_widget{display: none;}
 #right_col #introduction_widget{display: block;}

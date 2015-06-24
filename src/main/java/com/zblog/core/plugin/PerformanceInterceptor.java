@@ -60,7 +60,8 @@ public class PerformanceInterceptor implements Interceptor{
 
   @Override
   public Object plugin(Object target){
-    return Plugin.wrap(target, this);
+    /* 当目标类是Executor类型时，才包装目标类，不做无谓的代理 */
+    return (target instanceof Executor) ? Plugin.wrap(target, this) : target;
   }
 
   @Override
