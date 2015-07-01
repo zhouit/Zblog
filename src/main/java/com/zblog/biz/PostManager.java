@@ -157,8 +157,8 @@ public class PostManager{
     return pageId2pageVo(postService.listByMonth(yearMonth, pageIndex, pageSize));
   }
 
-  public List<PostVO> listRecent(int nums){
-    List<String> list = postService.listRecent(nums);
+  public List<PostVO> listRecent(int nums, String creator){
+    List<String> list = postService.listRecent(nums, creator);
     List<PostVO> result = new ArrayList<>(list.size());
     for(String id : list){
       result.add(loadReadById(id));

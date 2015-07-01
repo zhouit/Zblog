@@ -14,6 +14,9 @@ public class PostConstants{
   public static final String POST_PUBLISH = "publish";
   public static final String POST_SECRET = "secret";
   public static final String POST_TRASH = "trash";
+  
+  /* 所有创建者 */
+  public static final String POST_CREATOR_ALL = "all";
 
   /**
    * 默认文章的parent

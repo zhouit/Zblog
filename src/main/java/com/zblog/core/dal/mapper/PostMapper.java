@@ -56,7 +56,7 @@ public interface PostMapper extends BaseMapper{
    * 
    * @return 文章id
    */
-  List<String> listRecent(int nums);
+  List<String> listRecent(@Param("nums") int nums, @Param("creator") String creator);
 
   List<String> listByMonth(PageModel<String> model);
 

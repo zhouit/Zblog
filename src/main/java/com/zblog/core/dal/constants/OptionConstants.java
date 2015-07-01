@@ -5,15 +5,6 @@ public final class OptionConstants{
   }
 
   /**
-   * 文章默认分类ID
-   */
-  public static final String DEFAULT_CATEGORY_ID = "defaultCategory";
-  /**
-   * 是否允许文章评论
-   */
-  public static final String ALLOW_COMMENT = "allowComment";
-
-  /**
    * 站点标题
    */
   public static final String TITLE = "title";
@@ -29,10 +20,20 @@ public final class OptionConstants{
    * 站点关键字
    */
   public static final String KEYWORDS = "keywords";
+  
   /**
    * 前台每个页面最多显示数
    */
-  public static final String MAXSHOW = "maxshow";
+  public static final String MAXSHOW = "post_maxshow";
+  /**
+   * 文章默认分类ID
+   */
+  public static final String DEFAULT_CATEGORY_ID = "post_defaultCategory";
+  /**
+   * 是否允许文章评论
+   */
+  public static final String ALLOW_COMMENT = "post_allowComment";
+  
   /**
    * 文章ID生产机制
    */

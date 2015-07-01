@@ -19,6 +19,7 @@ import com.zblog.biz.PostManager;
 import com.zblog.biz.aop.StaticTemplate;
 import com.zblog.core.WebConstants;
 import com.zblog.core.dal.constants.OptionConstants;
+import com.zblog.core.dal.constants.PostConstants;
 import com.zblog.core.feed.ArticleAdapter;
 import com.zblog.core.feed.Channel;
 import com.zblog.core.feed.Channel.Article;
@@ -58,7 +59,7 @@ public class IndexController{
     channel.setDescription(optionsService.getOptionValue(OptionConstants.DESCRIPTION));
 
     List<Article> items = new ArrayList<>();
-    for(PostVO pvo : postManager.listRecent(10)){
+    for(PostVO pvo : postManager.listRecent(10, PostConstants.POST_CREATOR_ALL)){
       items.add(new ArticleAdapter(pvo));
     }
     channel.setItems(items);

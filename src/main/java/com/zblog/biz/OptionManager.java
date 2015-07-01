@@ -10,6 +10,7 @@ import com.zblog.core.util.NumberUtils;
 import com.zblog.core.util.StringUtils;
 import com.zblog.service.OptionsService;
 import com.zblog.web.backend.form.GeneralOption;
+import com.zblog.web.backend.form.MailOption;
 import com.zblog.web.backend.form.PostOption;
 
 @Component
@@ -35,6 +36,14 @@ public class OptionManager{
     optionsService.updateOptionValue(OptionConstants.MAXSHOW, form.getMaxshow() + "");
     optionsService.updateOptionValue(OptionConstants.ALLOW_COMMENT, form.isAllowComment() + "");
     optionsService.updateOptionValue(OptionConstants.DEFAULT_CATEGORY_ID, form.getDefaultCategory());
+  }
+
+  @Transactional
+  public void updateMailOption(MailOption form){
+    optionsService.updateOptionValue("mail_host", form.getHost());
+    optionsService.updateOptionValue("mail_port", form.getPort() + "");
+    optionsService.updateOptionValue("mail_username", form.getUsername());
+    optionsService.updateOptionValue("mail_password", form.getPassword());
   }
 
   /**
@@ -77,6 +86,20 @@ public class OptionManager{
     option.setMaxshow(NumberUtils.toInteger(optionsService.getOptionValue(OptionConstants.MAXSHOW), 10));
     option.setAllowComment(Boolean.parseBoolean(optionsService.getOptionValue(OptionConstants.ALLOW_COMMENT)));
     option.setDefaultCategory(optionsService.getOptionValue(OptionConstants.DEFAULT_CATEGORY_ID));
+
+    return option;
+  }
+
+  public MailOption getMailOption(){
+    MailOption option = new MailOption();
+    option.setHost(optionsService.getOptionValue("mail_host"));
+    if(!StringUtils.isBlank(option.getHost())){
+      option.setPort(Integer.parseInt(optionsService.getOptionValue("mail_host")));
+      option.setUsername(optionsService.getOptionValue("mail_username"));
+      option.setPassword(optionsService.getOptionValue("mail_password"));
+    }else{
+      option = null;
+    }
 
     return option;
   }

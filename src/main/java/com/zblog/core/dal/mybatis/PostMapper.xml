@@ -33,8 +33,11 @@
       select id, title, parent from post where type='page' <if test="_parameter"> and parent='Root'</if>
    </select>
    
-   <select id="listRecent" parameterType="integer" resultType="string">  
-      select id from post where type='post' order by createTime desc limit #{nums}
+   <select id="listRecent" resultType="string">  
+      select id from post where type='post' 
+        <if test="creator!=null and creator!='all'">
+          and creator=#{creator} 
+        </if> order by createTime desc limit #{nums}
    </select>
    
    <select id="listByCategory" parameterType="PageModel" resultType="java.lang.String">

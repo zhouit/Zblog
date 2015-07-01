@@ -84,10 +84,11 @@ public class MetaWeblogManager{
       loginError();
 
     byte[] bits = file.getBinary("bits");
-    String name = file.getString("name");// Windows-Live-Writer/123123_A453/file_1_8.jpg
+    String name = file.getString("name");
     int slash = name.lastIndexOf("/");
     name = name.substring(slash + 1);
-    String type = file.getString("type");// image/jpeg
+    /* 文件mimetype */
+    String type = file.getString("type");
 
     if(StringUtils.isBlank(type) || !type.startsWith("image/")){
       return new MapContainer().put("faultCode", HttpServletResponse.SC_FORBIDDEN).put("faultString",
@@ -218,7 +219,7 @@ public class MetaWeblogManager{
     if(user == null)
       loginError();
 
-    List<PostVO> list = postManager.listRecent(numberOfPosts);
+    List<PostVO> list = postManager.listRecent(numberOfPosts, user.getId());
     MapContainer[] result = new MapContainer[list.size()];
     for(int i = 0; i < list.size(); i++){
       PostVO temp = list.get(i);

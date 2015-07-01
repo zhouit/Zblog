@@ -8,7 +8,8 @@
     <ul class="sub-menu" style="display: block;">
       <li><a href="${g.domain}/backend/index">首页</a></li>
       <li><a href="${g.domain}/backend/options/general">常规选项</a></li>
-      <li><a class="last" href="${g.domain}/backend/options/post">撰写/阅读</a></li>
+      <li><a href="${g.domain}/backend/options/post">撰写/阅读</a></li>
+      <li><a class="last" href="${g.domain}/backend/options/email">邮件评论</a></li>
     </ul>
    </li>
    <shiro:hasAnyRoles name="admin,editor">

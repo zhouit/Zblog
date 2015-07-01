@@ -67,6 +67,7 @@ ul.table-nav li a.active{color: #000;font-weight: bold;}
 #upload-table .fileformat{margin: 2px 0 9px 0;}
 
 /**************** fast-edit  ************/
+#edit-row{display: none;}
 #edit-row div{float: left;font-size: 12px;padding: 0 6px;}
 #edit-row h5{margin-bottom: 0.5em;}
 #edit-row span{display: block;margin: 0.2em 0;clear: both;}

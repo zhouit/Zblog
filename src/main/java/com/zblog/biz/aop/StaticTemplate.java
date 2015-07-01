@@ -132,7 +132,7 @@ public class StaticTemplate{
   private void staticRecentOrHeader(boolean ispost){
     if(ispost){
       MapContainer param = new MapContainer("domain", WebConstants.getDomain());
-      param.put("posts", postManager.listRecent(10));
+      param.put("posts", postManager.listRecent(10, PostConstants.POST_CREATOR_ALL));
       FreeMarkerUtils.doProcessTemplate("/recent.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
           + "/common/recent.html"), param);
       logger.info("staticRecent");

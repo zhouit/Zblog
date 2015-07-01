@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.zblog.biz.CommentManager;
 import com.zblog.biz.PostManager;
 import com.zblog.core.Constants;
+import com.zblog.core.dal.constants.PostConstants;
 import com.zblog.core.dal.entity.User;
 import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.CookieUtil;
@@ -50,14 +51,14 @@ public class BackendController{
   @RequestMapping(value = "/index", method = RequestMethod.GET)
   public String index(Model model){
     model.addAttribute("osInfo", OSInfo.getCurrentOSInfo());
-    
+
     /* 基本站点统计信息 */
     model.addAttribute("userCount", userService.count());
     model.addAttribute("postCount", postService.count());
     model.addAttribute("commentCount", commentService.count());
     model.addAttribute("uploadCount", uploadService.count());
 
-    model.addAttribute("posts", postManager.listRecent(10));
+    model.addAttribute("posts", postManager.listRecent(10, PostConstants.POST_CREATOR_ALL));
     model.addAttribute("comments", commentManager.listRecent());
     return "backend/index";
   }

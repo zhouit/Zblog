@@ -86,7 +86,7 @@ INSERT INTO `link` VALUES ('6ChkuVe0kfLY8ZiDnqZ', 'JavaTalk', 'http://www.zhouha
 -- ----------------------------
 DROP TABLE IF EXISTS `options`;
 CREATE TABLE `options` (
-  `id` varchar(19) NOT NULL,
+  `id` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
   `value` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)

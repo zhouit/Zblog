@@ -48,8 +48,17 @@ public class PostService extends BaseService{
     return postMapper.addCcount(commentid, count);
   }
 
-  public List<String> listRecent(int nums){
-    return postMapper.listRecent(nums);
+  /**
+   * 获取指定作者的最近文件
+   * 
+   * @param nums
+   * @param creator
+   *          作者id,当为<code>null</code>或者
+   *          <code>PostConstants.POST_CREATOR_ALL</code>时代表所有作者
+   * @return
+   */
+  public List<String> listRecent(int nums, String creator){
+    return postMapper.listRecent(nums, creator);
   }
 
   public PageModel<String> listPost(int pageIndex, int pageSize){

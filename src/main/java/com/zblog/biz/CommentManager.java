@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zblog.core.dal.constants.CommentConstants;
+import com.zblog.core.dal.entity.Comment;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.plugin.TreeUtils;
 import com.zblog.service.CommentService;
@@ -50,9 +51,15 @@ public class CommentManager{
    */
   @Transactional
   public int setStatus(String commentid, String newStatus){
-    commentService.setStatus(commentid, newStatus);
-    int count = CommentConstants.TYPE_APPROVE.equals(newStatus) ? 1 : -1;
-    return postService.addCcount(commentid, count);
+    Comment comment = commentService.loadById(commentid);
+    int result = -1;
+    if(comment != null){
+      commentService.setStatus(commentid, newStatus);
+      int count = CommentConstants.TYPE_APPROVE.equals(newStatus) ? 1 : -1;
+      result = postService.addCcount(commentid, count);
+    }
+
+    return result;
   }
 
   /**
@@ -61,9 +68,15 @@ public class CommentManager{
    * @param commentid
    */
   @Transactional
-  public void deleteComment(String commentid){
-    postService.addCcount(commentid, -1);
-    commentService.deleteById(commentid);
+  public int deleteComment(String commentid){
+    Comment comment = commentService.loadById(commentid);
+    int result = -1;
+    if(comment != null){
+      postService.addCcount(commentid, -1);
+      result = commentService.deleteById(commentid);
+    }
+
+    return result;
   }
 
 }
