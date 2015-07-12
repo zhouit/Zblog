@@ -3,7 +3,6 @@ Zblog
 
 a java blog
 ---------------
-程序运行见http://blog.zhouhaocheng.cn
 
 ### 核心功能
 1.	文章/页面发布、分类、统计阅读次数。

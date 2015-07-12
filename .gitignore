@@ -1,0 +1,12 @@
+# maven ignore
+target/
+/src/test/
+*.DS_Store
+/src/main/webapp/post
+/src/main/webapp/log
+
+# eclipse ignore
+.settings/
+.project
+.classpath
+.tern-project

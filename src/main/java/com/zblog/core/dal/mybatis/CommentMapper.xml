@@ -3,7 +3,7 @@
       "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.zblog.core.dal.mapper.CommentMapper">
-   
+
    <select id="loadById" parameterType="java.lang.String" resultType="Comment">  
       select id, postid, parent, email, url, ip, agent, content, status, creator, createTime from comment where id = #{id}
    </select>
