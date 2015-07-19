@@ -191,10 +191,11 @@ public class MetaWeblogManager{
         continue;
 
       MapContainer mc = new MapContainer("categoryid", category.getAsString("id"))
-          .put("title", category.getAsString("text")).put("description", category.getAsString("text"))
-          .put("htmlUrl", WebConstants.getDomainLink("/categorys/" + category.getAsString("text"))).put("rssUrl", "");
+          .put("title", category.getAsString("name")).put("description", category.getAsString("name"))
+          .put("htmlUrl", WebConstants.getDomainLink("/categorys/" + category.getAsString("name"))).put("rssUrl", "");
       result.add(mc);
     }
+    
     return result;
   }
 
