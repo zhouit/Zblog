@@ -61,7 +61,7 @@ public class UploadManager{
     OutputStream out = null;
     try{
       String yearMonth = DateUtils.formatDate("yyyy/MM", create);
-      File parent = new File(WebConstants.APPLICATION_PATH + "post/uploads", yearMonth);
+      File parent = new File(WebConstants.APPLICATION_PATH + "/post/uploads", yearMonth);
       if(!parent.exists())
         parent.mkdirs();
 
@@ -95,7 +95,9 @@ public class UploadManager{
     Upload upload = uploadService.loadById(uploadid);
     uploadService.deleteById(uploadid);
     File file = new File(WebConstants.APPLICATION_PATH, upload.getPath());
-    file.delete();
+    if(file.exists())
+      file.delete();
+    
     /* 注:当前目录为空同时删除父目录,如果父目录包含子文件/夹，会删除失败(File.delete中决定) */
     File parent = file.getParentFile();
     for(int i = 0; i < 2 && parent.list().length == 0; i++){

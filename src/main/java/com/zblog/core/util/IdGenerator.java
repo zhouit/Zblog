@@ -1,6 +1,5 @@
 package com.zblog.core.util;
 
-import java.util.Random;
 import java.util.UUID;
 
 public class IdGenerator{
@@ -32,10 +31,6 @@ public class IdGenerator{
   public static String uuid32(){
     UUID uuid = UUID.randomUUID();
     return uuid.toString().replaceAll("-", "");
-  }
-
-  public static int randomInt(int limit){
-    return new Random().nextInt(limit);
   }
 
 }

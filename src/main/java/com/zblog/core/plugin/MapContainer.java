@@ -68,27 +68,21 @@ public class MapContainer extends LinkedHashMap<String, Object>{
     return result;
   }
 
-  public static MapContainer from(Map<String, ? extends Object> map){
-    return from(map, false);
-  }
-
   /**
    * 将指定对象中的所有Map实现MapContainer化，使用时注意返回值
    * 
    * @param obj
-   * @param recursion
-   *          是否递归执行
    * @return
    */
-  public static <T> T from(Object obj, boolean recursion){
+  public static <T> T from(Object obj){
     if(obj == null)
       return null;
 
     Object result = obj;
     if(Map.class.isInstance(obj)){
       MapContainer temp = MapContainer.class.isInstance(obj) ? (MapContainer) obj : new MapContainer();
-      for(Map.Entry<String, Object> entry : temp.entrySet()){
-        temp.put(entry.getKey(), from(entry.getValue(), recursion));
+      for(Map.Entry<String, Object> entry : ((Map<String, Object>) obj).entrySet()){
+        temp.put(entry.getKey(), from(entry.getValue()));
       }
 
       result = temp;
@@ -98,7 +92,7 @@ public class MapContainer extends LinkedHashMap<String, Object>{
         List<Object> copy = new ArrayList<Object>(collect.size());
         Iterator<Object> it = collect.iterator();
         while(it.hasNext()){
-          copy.add(from(it.next(), recursion));
+          copy.add(from(it.next()));
           it.remove();
         }
 
@@ -106,7 +100,7 @@ public class MapContainer extends LinkedHashMap<String, Object>{
       }
     }else if(obj.getClass().isArray()){
       for(int i = 0; i < Array.getLength(obj); i++){
-        Array.set(obj, i, from(Array.get(obj, i), recursion));
+        Array.set(obj, i, from(Array.get(obj, i)));
       }
     }
 
@@ -120,14 +114,14 @@ public class MapContainer extends LinkedHashMap<String, Object>{
     return clone;
   }
 
-  public String getAsString(String key, String defaults){
-    return getAsString(key, defaults);
+  public String getAsString(String key){
+    return getAsString(key, null);
   }
 
-  public String getAsString(String key){
+  public String getAsString(String key, String defaults){
     Object value = get(key);
     if(value == null)
-      return null;
+      return defaults;
 
     return value.toString();
   }

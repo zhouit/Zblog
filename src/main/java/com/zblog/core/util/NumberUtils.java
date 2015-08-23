@@ -191,4 +191,8 @@ public class NumberUtils{
   public static int randomInt(int min, int max){
     return min + random.nextInt(max - min);
   }
+
+  public static int randomInt(int limit){
+    return randomInt(0, limit);
+  }
 }

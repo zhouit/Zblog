@@ -28,6 +28,10 @@ public class ServletRequestReader{
     this.request = request;
   }
 
+  public boolean hasParam(String key){
+    return request.getParameter(key) != null;
+  }
+
   public String getAsString(String name){
     return request.getParameter(name);
   }
@@ -78,12 +82,8 @@ public class ServletRequestReader{
     return result;
   }
 
-  public Boolean getAsBoolean(String key){
-    String value = request.getParameter(key);
-    if(value == null)
-      return null;
-
-    return Boolean.parseBoolean(value.toString());
+  public boolean getAsBoolean(String key){
+    return getAsBoolean(key, false);
   }
 
   public boolean getAsBoolean(String key, boolean defaults){
