@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zblog.core.dal.mapper.CategoryMapper">
+
+   <select id="list" resultType="MapContainer">  
+      select id, name, level,visible from view_category
+   </select>
+   
+   <select id="loadByName" parameterType="java.lang.String" resultType="Category">  
+      select id, name,leftv, rightv, visible from category where name = #{name}
+   </select>
+   
+   <select id="loadById" parameterType="java.lang.String" resultType="Category">  
+      select id, name, visible from category where id = #{id}
+   </select>
+   
+   <select id="loadChildren" parameterType="Category" resultType="Category">  
+      select id, name from category where leftv > #{leftv} and rightv  &lt; #{rightv}
+   </select>
+   
+   <insert id="insert" parameterType="Category">
+      insert into category(id,name,leftv,rightv,visible,createTime) 
+         values(#{id},#{name},#{leftv},#{rightv},#{visible},#{createTime})
+   </insert>
+   <update id="updateInsertLeftv" parameterType="int">
+     update category set leftv=leftv+2 where leftv &gt; #{rightv}
+   </update>
+   <update id="updateInsertRightv" parameterType="int">
+     update category set rightv=rightv+2 where rightv>=#{rightv}
+   </update>
+   
+   <delete id="delete">
+      delete from category where leftv between #{leftv} and #{rightv}
+   </delete>
+   <update id="updateDeleteLeftv">
+     update category set leftv=leftv-#{length} where leftv>#{leftv}
+   </update>
+   <update id="updateDeleteRightv">
+     update category set rightv=rightv-#{length}  where rightv>#{rightv}
+   </update>
+
+   <delete id="deleteById">
+	 delete from category where id = #{id}
+  </delete>
+	
+</mapper>
