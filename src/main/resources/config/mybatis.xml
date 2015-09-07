@@ -21,13 +21,13 @@
     <typeAlias alias="UploadVO" type="com.zblog.service.vo.UploadVO" />
   </typeAliases>
   <mappers>
-    <mapper resource="com/zblog/core/dal/mybatis/UserMapper.xml" />
-    <mapper resource="com/zblog/core/dal/mybatis/CategoryMapper.xml" />
-    <mapper resource="com/zblog/core/dal/mybatis/PostMapper.xml" />
-    <mapper resource="com/zblog/core/dal/mybatis/UploadMapper.xml" />
-    <mapper resource="com/zblog/core/dal/mybatis/LinkMapper.xml" />
-    <mapper resource="com/zblog/core/dal/mybatis/CommentMapper.xml" />
-    <mapper resource="com/zblog/core/dal/mybatis/OptionMapper.xml" />
-    <mapper resource="com/zblog/core/dal/mybatis/TagMapper.xml" />
+    <mapper resource="mybatis/UserMapper.xml" />
+    <mapper resource="mybatis/CategoryMapper.xml" />
+    <mapper resource="mybatis/PostMapper.xml" />
+    <mapper resource="mybatis/UploadMapper.xml" />
+    <mapper resource="mybatis/LinkMapper.xml" />
+    <mapper resource="mybatis/CommentMapper.xml" />
+    <mapper resource="mybatis/OptionMapper.xml" />
+    <mapper resource="mybatis/TagMapper.xml" />
   </mappers>
 </configuration>

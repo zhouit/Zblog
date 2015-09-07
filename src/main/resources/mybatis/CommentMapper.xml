@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zblog.core.dal.mapper.CommentMapper">
+
+   <select id="loadById" parameterType="java.lang.String" resultType="Comment">  
+      select id, postid, parent, email, url, ip, agent, content, status, creator, createTime from comment where id = #{id}
+   </select>
+   
+   <select id="list" parameterType="PageModel" resultType="MapContainer">  
+     select c.id, c.postid, c.url, c.email, c.ip, c.content, c.creator, c.status, c.createTime, p.title, t.id as pid, t.creator as pcreator
+       from comment c left join post p on c.postid=p.id left join comment t on c.parent=t.id
+       where c.status in <foreach collection="query.status" open="(" close=")" item="item" separator=",">#{item}</foreach>
+   </select>
+   
+   <select id="listCountByGroupStatus" resultType="MapContainer">
+     select status, count(*) as count from comment group by status
+   </select>
+   
+   <select id="listRecent" resultType="CommentVO">  
+     select * from comment c order by c.createTime desc limit 10
+   </select>
+   
+   <select id="listByPost" resultType="CommentVO">
+     select id, content, creator, url, status, parent, createTime from comment c 
+     where postid=#{postid} and (status='approve' <if test="creator!=null and creator!=''"> or creator=#{creator} </if>) 
+     order by c.createTime desc
+   </select>
+   
+   <select id="count" resultType="long">
+     select count(*) from comment
+   </select>
+   
+   <insert id="insert" parameterType="Comment">
+      insert into comment(id,postid, parent, email, url, ip, agent,content, creator, createTime) 
+         values(#{id},#{postid},#{parent},#{email},#{url},#{ip},#{agent},#{content},#{creator},#{createTime})
+   </insert>
+   
+   <update id="setStatus">
+     update comment set status=#{status} where id=#{commentid}
+   </update>
+
+   <delete id="deleteById">
+	 delete from comment where id = #{id}
+  </delete>
+	
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zblog.core.dal.mapper.UserMapper">
+   
+   <select id="loadById" parameterType="java.lang.String" resultType="User">  
+      select id, nickName, realName, password, email, role, status, createTime, creator, lastUpdate from user where id = #{id}
+   </select>
+   
+   <select id="loadByNameAndPass" resultType="User">  
+      select id, nickName, realName, password, email, role, status, createTime, creator, lastUpdate 
+         from user where nickName = #{username} and password=md5(#{password}) 
+   </select>
+   
+   <select id="list" parameterType="PageModel" resultType="User">  
+      select id, nickName, realName, role, email, createTime from user
+   </select>
+   
+   <select id="count" resultType="long">
+     select count(*) from user
+   </select>
+   
+   <insert id="insert" parameterType="User">
+      insert into user(id,nickName,realName,password,email,role,status,description,createTime,creator,lastUpdate) 
+         values(#{id},#{nickName},#{realName},md5(#{password}),#{email},#{role},#{status},#{description},#{createTime},#{creator},#{lastUpdate})
+   </insert>
+   
+   <update id="update" parameterType="User">
+     update user set realName=#{realName},email=#{email},description=#{description}
+     <if test="role!=null and role!=''">
+        ,role=#{role}
+     </if>
+     <if test="password!=null and password!=''">
+       ,password=md5(#{password})
+     </if>
+     where id=#{id}
+   </update>
+
+   <delete id="deleteById">
+	 delete from user where id = #{id}
+  </delete>
+	
+</mapper>

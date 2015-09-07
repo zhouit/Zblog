@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zblog.core.dal.mapper.UploadMapper">
+   
+   <select id="loadById" parameterType="java.lang.String" resultType="Upload">  
+      select id, postid, name, path, creator, createTime from upload where id = #{id}
+   </select>
+   
+   <select id="list" parameterType="PageModel" resultType="UploadVO">  
+      select * from upload order by createTime desc
+   </select>
+   
+   <select id="listByPostid" parameterType="java.lang.String" resultType="Upload">  
+      select id, path from upload m where postid=#{postid}
+   </select>
+   
+   <select id="count" resultType="long">
+     select count(*) from upload
+   </select>
+   
+   <insert id="insert" parameterType="Upload">
+      insert into upload(id,name,path,creator,createTime) 
+         values(#{id},#{name},#{path},#{creator},#{createTime})
+   </insert>
+   
+   <update id="updatePostid">
+     update upload set postid=#{postid} where path in 
+     <foreach collection="imgpaths" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+   </update>
+   
+   <update id="setNullPostid" parameterType="java.lang.String">
+     update upload set postid=null where postid=#{postid}
+   </update>
+
+   <delete id="deleteById" parameterType="java.lang.String">
+	 delete from upload where id = #{id}
+  </delete>
+  
+   <delete id="deleteByPostid" parameterType="java.lang.String">
+	 delete from upload where postid = #{postid}
+  </delete>
+	
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zblog.core.dal.mapper.OptionMapper">
+   
+   <select id="getOptionValue" resultType="java.lang.String">  
+      select value from options where id = #{id}
+   </select>
+   
+   <select id="getOptionValueForUpdate" resultType="java.lang.String">  
+      select value from options where id = #{id} for update
+   </select>
+   
+   <update id="update" parameterType="Option">
+	 replace into options(id, name, value) values (#{id}, #{name}, #{value})
+  </update>
+	
+</mapper>
