@@ -18,6 +18,7 @@ import com.zblog.core.plugin.MapContainer;
 import com.zblog.core.util.CollectionUtils;
 import com.zblog.core.util.IdGenerator;
 import com.zblog.service.CategoryService;
+import com.zblog.web.backend.form.validator.CategoryFormValidator;
 
 @Controller("adminCategoryController")
 @RequestMapping("/backend/categorys")
@@ -55,6 +56,11 @@ public class CategoryController{
   @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
   public Object insert(Category category, String parent){
+    MapContainer form = CategoryFormValidator.validateInsert(category);
+    if(!form.isEmpty()){
+      return form.put("success", false);
+    }
+
     category.setId(IdGenerator.uuid19());
     category.setCreateTime(new Date());
     category.setLastUpdate(category.getCreateTime());

@@ -12,26 +12,30 @@ $(function(){
 });
 
 zblog.category.insert=function(){
+ var newCategory=$("#newCategory").val();
+ if(!newCategory) return ;
+  
  var select = $("#tree .node-selected");
  $.ajax({
    type:"POST",
    url:zblog.getDomainLink("categorys"),
    dataType:"json",
-   data:{parent:select.text(),name:$("#newCategory").val()},
+   data:{parent:select.text(),name:newCategory},
    success:function(msg){
-	 if(msg&&msg.success){
-	   window.location.reload();
-	   zdialog.hide('insert-box');
-	 }else{
-	   alert("添加失败"); 
+	   if(msg&&msg.success){
+	     window.location.reload();
+	     zdialog.hide('insert-box');
+	   }else{
+	      alert(msg.msg); 
 		 }
-	  }
+	 }
   });
 }
 
 zblog.category.remove=function(){
   var select = $("#tree .node-selected").text();
   if(!select) return ;
+  
   $.ajax({
    type:"DELETE",
    url:zblog.getDomainLink("categorys/"+select),

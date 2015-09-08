@@ -94,7 +94,7 @@ public class OptionManager{
     MailOption option = new MailOption();
     option.setHost(optionsService.getOptionValue("mail_host"));
     if(!StringUtils.isBlank(option.getHost())){
-      option.setPort(Integer.parseInt(optionsService.getOptionValue("mail_host")));
+      option.setPort(Integer.parseInt(optionsService.getOptionValue("mail_port")));
       option.setUsername(optionsService.getOptionValue("mail_username"));
       option.setPassword(optionsService.getOptionValue("mail_password"));
     }else{
