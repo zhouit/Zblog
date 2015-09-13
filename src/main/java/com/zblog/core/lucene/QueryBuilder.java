@@ -149,6 +149,11 @@ public class QueryBuilder{
       }
 
       stream.end();
+      /* 当没有分词结果时(如停用词，量词等),直接返回null */
+      if(list.isEmpty()){
+        return null;
+      }
+
       list = reSubset(list);
       String[] result = new String[list.size()];
       return list.toArray(result);

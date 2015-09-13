@@ -12,11 +12,12 @@
   <%@include file="common/header.html" %>
   <div id="content" class="clearfix">
     <div id="left_col" class="clearfix">
-     <c:if test="${category!=null||tag!=null||archive!=null}">
+     <c:if test="${category!=null||tag!=null||archive!=null||search!=null}">
        <div id="archive_headline"><h2>
         <c:choose>
           <c:when test="${category!=null}">'<span>${category}</span>' 目录归档</c:when>
           <c:when test="${tag!=null}">标签 '<span>${tag}</span>'</c:when>
+          <c:when test="${search!=null}">搜索结果之于 [ '<span>${search}</span>' ] - ${page.totalCount}条</c:when>
           <c:otherwise>归档之于 '<span><fmt:formatDate value="${archive}" pattern="yyyy 年MMM" /></span>'</c:otherwise>
         </c:choose></h2>
        </div>

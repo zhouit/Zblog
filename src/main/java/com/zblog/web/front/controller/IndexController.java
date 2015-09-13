@@ -41,7 +41,9 @@ public class IndexController{
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String index(@RequestParam(value = "page", defaultValue = "1") int page, String word, Model model){
     if(!StringUtils.isBlank(word)){
+      word = word.trim();
       model.addAttribute("page", postManager.search(word, page));
+      model.addAttribute("search", word);
       model.addAttribute(WebConstants.PRE_TITLE_KEY, word);
     }else{
       model.addAttribute("page", postManager.listPost(page, 10));
