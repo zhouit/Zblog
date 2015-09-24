@@ -23,7 +23,6 @@
           <div class="panel-heading"><span class="icon glyphicon glyphicon-briefcase"></span>新建账户</div>
           <div class="panel-body">
             <form action="my" method="post" class="form-horizontal text-left" role="form">
-              <input type="hidden" name="CSRFToken" value="${CSRFToken}" />
               <input type="hidden" name="_method" value="PUT" />
               <input type="hidden" name="id" value="${my.id}" />
               <div class="form-group">

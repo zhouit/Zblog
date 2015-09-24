@@ -23,7 +23,6 @@
           <div class="panel-heading"><span class="icon glyphicon glyphicon-wrench"></span>内容</div>
           <div class="panel-body">
             <form action="." method="post" class="form-horizontal text-left" role="form">
-              <input type="hidden" name="CSRFToken" value="${CSRFToken}" />
               <c:if test="${link!=null}">
                 <input type="hidden" name="_method" value="PUT" />
                 <input type="hidden" name="id" value="${link.id}" />

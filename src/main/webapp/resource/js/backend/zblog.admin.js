@@ -20,27 +20,27 @@ zblog.getDomainLink=function(path){
   return window.location.protocol+"//"+window.location.host+"/backend/"+path;
 }
 
-zblog.getCookie=function(name){
-  var cookieValue = null;
-  if(document.cookie && document.cookie != ''){
-    var cookies = document.cookie.split('; ');
-    for(var i = 0; i < cookies.length; i++){
-      var cookie=jQuery.trim(cookies[i]);
-      var index = cookie.indexOf("=");
-      if(cookie.substring(0, name.length + 1) == (name + '=')){
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        if(cookieValue.charAt(0)=='"') cookieValue=cookieValue.substring(1,cookieValue.length-1);
-        break;
-       }
-     }
-   }
-    
-  return cookieValue;
-};
+zblog.newCsrf=function(){
+  var csrfValue = (Math.random()+"").substring(2);
+  /* 此处token值可以放在cookie中 */
+  $.cookie("x-csrf-token", csrfValue, {path:"/backend"});
+  return csrfValue;
+}
 
 $(document).ajaxSend(function(event, xhr, settings){
   if(!/^(GET|HEAD|OPTIONS|TRACE)$/.test(settings.type)){
-     /* 此处token值可以放在cookie中 */
-    xhr.setRequestHeader("CSRFToken", zblog.getCookie("x-csrf-token"));
+    xhr.setRequestHeader("CSRFToken", zblog.newCsrf());
   }
+});
+
+$(function(){
+  $("form").each(function(index){
+    var csrfValue= zblog.newCsrf();
+    var csrfInput=$(this).find(":input[name='CSRFToken']");
+    if(csrfInput.length>0){
+      csrfInput.val(csrfValue);
+    }else{
+      $(this).append("<input type='hidden' name='CSRFToken' value='"+csrfValue+"' />");
+    }
+  }); 
 });

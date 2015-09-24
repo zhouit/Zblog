@@ -8,13 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.UnauthenticatedException;
+import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.util.ThreadContext;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.zblog.core.Constants;
 import com.zblog.core.WebConstants;
 import com.zblog.core.util.ServletUtils;
+import com.zblog.core.util.Threads;
 import com.zblog.service.shiro.StatelessToken;
 import com.zblog.service.vo.Global;
 import com.zblog.web.support.CookieRemberManager;
@@ -48,7 +49,7 @@ public class LoginFilter extends OncePerRequestFilter{
       if(!ajax){
         request.setAttribute("g", new Global(ServletUtils.getDomain(request)));
       }
-      
+
       /* 设置domain */
       WebConstants.setDomain(ServletUtils.getDomain(request));
 
@@ -60,7 +61,7 @@ public class LoginFilter extends OncePerRequestFilter{
         response.setCharacterEncoding(Constants.ENCODING_UTF_8.name());
         response.getWriter().write("{'status':'500','success':false,'msg':'操作失败,服务端出错'}");
       }else{
-        handleException(e.getCause(), request, response);
+        handleException(Threads.getRootCause(e), request, response);
       }
     }finally{
       WebContextFactory.remove();
@@ -96,7 +97,7 @@ public class LoginFilter extends OncePerRequestFilter{
    * @param response
    */
   private void handleException(Throwable t, HttpServletRequest request, HttpServletResponse response){
-    if(t instanceof UnauthenticatedException){
+    if(t instanceof AuthorizationException){
       response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
       // String uri = StringUtils.emptyDefault(request.getRequestURI(), "/");
       // String encodeURL = UrlUtil.encode(uri

@@ -54,7 +54,7 @@ zblog.upload.removeFile=function(file){
 
 //添加随传csrf参数
 zblog.upload.uploader.onUploadBeforeSend=function(block, data){
-  data.CSRFToken=zblog.getCookie("x-csrf-token");
+  data.CSRFToken=zblog.newCsrf();
 };
 
 zblog.upload.uploader.onFileQueued=function(file){

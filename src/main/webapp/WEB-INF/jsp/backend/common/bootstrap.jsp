@@ -11,4 +11,5 @@
 
 <script src="${g.domain}/resource/js/jquery-1.9.1.min.js"></script>
 <script src="${g.domain}/resource/bootstrap-3.3.1/js/bootstrap.min.js"></script>
+<script src="${g.domain}/resource/js/jquery.cookie.js"></script>
 <script src="${g.domain}/resource/js/backend/zblog.admin.js"></script>

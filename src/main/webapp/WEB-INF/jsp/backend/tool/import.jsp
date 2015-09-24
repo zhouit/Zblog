@@ -25,7 +25,6 @@
               <div class="alert alert-success" style="padding: 10px 15px;">导入成功</div>
             </c:if>
             <form action="import" method="post" class="form-horizontal text-left" enctype="multipart/form-data" role="form">
-              <input type="hidden" name="CSRFToken" value="${CSRFToken}" />
               <div class="well">支持导入wordpress的文章及附件数据</div>
               <c:if test="${msg!=null}">
                 <div class="alert alert-warning">${msg}</div>

@@ -1,11 +1,9 @@
 package com.zblog.web.filter;
 
 import java.io.IOException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -18,13 +16,12 @@ import org.springframework.util.PathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.zblog.core.Constants;
-import com.zblog.core.security.Base64Codec;
 import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.StringUtils;
 
 /**
- * 处理csrf攻击,Stateless CSRF方案
+ * 处理csrf攻击,Stateless CSRF方案,由客户端产生crsf的cookie和请求参数
  * 
  * @author zhou
  * 
@@ -32,13 +29,12 @@ import com.zblog.core.util.StringUtils;
 public class StatelessCsrfFilter extends OncePerRequestFilter{
   private List<String> excludes = new ArrayList<>();
   static List<String> METHODS = Arrays.asList("POST", "DELETE", "PUT", "PATCH");
-  private Random random = new SecureRandom();
   private PathMatcher matcher = new AntPathMatcher();
 
   @Override
   protected void initFilterBean() throws ServletException{
     FilterConfig config = getFilterConfig();
-    String paths=config.getInitParameter("exclude");
+    String paths = config.getInitParameter("exclude");
     if(!StringUtils.isBlank(paths)){
       excludes.addAll(Arrays.asList(paths.split(",")));
     }
@@ -46,9 +42,6 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
 
   private boolean isAjaxVerificationToken(HttpServletRequest request, String csrfToken){
     String headToken = request.getHeader(Constants.CSRF_TOKEN);
-    /* 此处要base64解码 */
-    if(!StringUtils.isBlank(headToken))
-      headToken = new String(Base64Codec.decode(headToken));
 
     return headToken != null && headToken.equals(csrfToken);
   }
@@ -69,9 +62,7 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
     if(StringUtils.isBlank(paramToken))
       return false;
 
-    /* 当flash文件post上传时，可能crsf的为cookie中值,就需要base64解码 */
-    return paramToken.equals(csrfToken)
-        || (ServletUtils.isMultipartContent(request) && new String(Base64Codec.decode(paramToken)).equals(csrfToken));
+    return paramToken.equals(csrfToken);
   }
 
   @Override
@@ -85,29 +76,20 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
       }
     }
 
-    CookieUtil cookieUtil = new CookieUtil(request, response);
-    /* 页面值均为base64编码后的值 */
-    String csrfToken = cookieUtil.getCookie(Constants.COOKIE_CSRF_TOKEN);
-
-    boolean ajax = ServletUtils.isAjax(request);
     if(METHODS.contains(request.getMethod())){
+      boolean ajax = ServletUtils.isAjax(request);
+      CookieUtil cookieUtil = new CookieUtil(request, response);
+      String csrfToken = cookieUtil.getCookie(Constants.COOKIE_CSRF_TOKEN, false);
       if(ajax && !isAjaxVerificationToken(request, csrfToken)){
         response.setContentType("application/json");
         response.setCharacterEncoding(Constants.ENCODING_UTF_8.name());
         response.getWriter().write("{'status':'403','success':false,'msg':'非法请求,请刷新重试'}");
         return;
       }else if(!ajax && !isVerificationToken(request, csrfToken)){
-//        if(response.isCommitted())
-          response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        // if(response.isCommitted())
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST);
         return;
       }
-    }
-
-    /* 如果不是ajax请求，就不用更新csrftoken */
-    if(!ajax){
-      csrfToken = Long.toString(random.nextLong(), 36);
-      cookieUtil.setCookie(Constants.COOKIE_CSRF_TOKEN, csrfToken, false);
-      request.setAttribute(Constants.CSRF_TOKEN, csrfToken);
     }
 
     filterChain.doFilter(request, response);

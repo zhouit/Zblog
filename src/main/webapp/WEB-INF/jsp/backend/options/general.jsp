@@ -24,7 +24,6 @@
               <div class="alert alert-success" style="padding: 10px 15px;">修改成功</div>
             </c:if>
             <form action="" method="post" class="form-horizontal text-left" role="form">
-              <input type="hidden" name="CSRFToken" value="${CSRFToken}" />
               <div class="form-group ${title!=null?'has-error':''}">
                 <label class="col-sm-3" for="title">*站点标题</label>
                 <div class="col-sm-6">

@@ -16,7 +16,7 @@ $(function(){
 	  autoFloatEnabled: true
   });
   zblog.page.ueditor.ready(function(){
-    zblog.page.ueditor.execCommand('serverparam', {'CSRFToken': zblog.getCookie("x-csrf-token")});
+    zblog.page.ueditor.execCommand('serverparam',{'CSRFToken': zblog.newCsrf()});
   });
   
   zblog.page.epiceditor=new EpicEditor({
