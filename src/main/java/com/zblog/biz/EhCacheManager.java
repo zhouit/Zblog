@@ -28,7 +28,7 @@ public class EhCacheManager{
     Collection<String> cns = manager.getCacheNames();
     List<MapContainer> list = new ArrayList<>(cns.size());
     for(String cacheName : cns){
-      MapContainer temp = new MapContainer("cache", cacheName);
+      MapContainer temp = new MapContainer("name", cacheName);
       Ehcache cache = manager.getCacheManager().getEhcache(cacheName);
       Statistics gateway = cache.getStatistics();
       /* 毫秒 */
@@ -36,7 +36,9 @@ public class EhCacheManager{
       temp.put("hitCount", gateway.getCacheHits());
       temp.put("missCount", gateway.getCacheMisses());
       temp.put("size", gateway.getObjectCount());
-      temp.put("hitRatio", (float) gateway.getCacheHits() / (gateway.getCacheHits() + gateway.getCacheMisses()));
+      if(cache.isStatisticsEnabled()){
+        temp.put("hitRatio", (float) gateway.getCacheHits() / (gateway.getCacheHits() + gateway.getCacheMisses()));
+      }
 
       list.add(temp);
     }
