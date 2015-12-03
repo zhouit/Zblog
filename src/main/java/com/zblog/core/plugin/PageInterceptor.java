@@ -45,6 +45,10 @@ public class PageInterceptor implements Interceptor{
 
     PageModel<?> model = (PageModel<?>) param;
 
+    if(model.isQueryAll()){
+      return invocation.proceed();
+    }
+
     String sql = boundSql.getSql();
     PreparedStatement ps = null;
     ResultSet rs = null;

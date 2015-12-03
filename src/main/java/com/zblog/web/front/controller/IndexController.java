@@ -73,6 +73,14 @@ public class IndexController{
     }
   }
 
+  @RequestMapping(value = "/sitemap", method = RequestMethod.GET)
+  public String sitemap(Model model){
+    List<PostVO> posts = postManager.listBySitemap();
+    model.addAttribute("posts", posts);
+
+    return "sitemap";
+  }
+
   @RequestMapping("/restatic.json")
   public void restatic(HttpServletRequest request){
   }

@@ -100,6 +100,14 @@ public class PostService extends BaseService{
     return page;
   }
 
+  public List<String> listBySitemap(){
+    PageModel<String> page = new PageModel<>(1, -1);
+    page.insertQuery("type", PostConstants.TYPE_POST);
+    super.list(page);
+
+    return page.getContent();
+  }
+
   public PageModel<String> listPage(int pageIndex, int pageSize){
     PageModel<String> page = new PageModel<>(pageIndex, pageSize);
     page.insertQuery("type", PostConstants.TYPE_PAGE);

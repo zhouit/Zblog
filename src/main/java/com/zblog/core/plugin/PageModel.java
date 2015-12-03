@@ -13,6 +13,7 @@ public class PageModel<T> {
   private static final int PAGE_SIZE = 10;
 
   private int pageIndex;
+  /* 当pageSize小于0时,为查询所有 */
   private int pageSize;
   private long totalCount;
 
@@ -85,6 +86,10 @@ public class PageModel<T> {
 
   public Object removeQuery(String key){
     return query.remove(key);
+  }
+
+  public boolean isQueryAll(){
+    return pageSize < 1;
   }
 
   /**

@@ -157,6 +157,16 @@ public class PostManager{
     return pageId2pageVo(postService.listByMonth(yearMonth, pageIndex, pageSize));
   }
 
+  public List<PostVO> listBySitemap(){
+    List<String> postIds = postService.listBySitemap();
+    List<PostVO> content = new ArrayList<>(postIds.size());
+    for(String id : postIds){
+      PostVO pvo = postService.loadById(id);
+      content.add(pvo);
+    }
+    return content;
+  }
+
   public List<PostVO> listRecent(int nums, String creator){
     List<String> list = postService.listRecent(nums, creator);
     List<PostVO> result = new ArrayList<>(list.size());
