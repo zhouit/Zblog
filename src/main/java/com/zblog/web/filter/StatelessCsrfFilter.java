@@ -87,7 +87,8 @@ public class StatelessCsrfFilter extends OncePerRequestFilter{
         return;
       }else if(!ajax && !isVerificationToken(request, csrfToken)){
         // if(response.isCommitted())
-        response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        //这个错误没有给出明确错误信息，导致开发者不便追踪问题，一直以为是spring 参数解析问题，当然tomcat等容器没有设置项目名访问是没有问题的
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST,"非法请求，请刷新重试");
         return;
       }
     }
