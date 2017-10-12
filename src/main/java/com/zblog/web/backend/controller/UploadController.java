@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.zblog.biz.UploadManager;
 import com.zblog.biz.editor.Ueditor;
 import com.zblog.core.dal.entity.Upload;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.web.support.ServletRequestReader;
 import com.zblog.web.support.WebContextFactory;
 
@@ -49,7 +49,7 @@ public class UploadController{
       e.printStackTrace();
     }
 
-    return new MapContainer("success", upload != null);
+    return JMap.create("success", upload != null);
   }
 
   @RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -61,7 +61,7 @@ public class UploadController{
   @RequestMapping(value = "/{uploadid}", method = RequestMethod.DELETE)
   public Object remove(@PathVariable("uploadid") String uploadid){
     uploadManager.removeUpload(uploadid);
-    return new MapContainer("success", true);
+    return JMap.create("success", true);
   }
 
   @ResponseBody

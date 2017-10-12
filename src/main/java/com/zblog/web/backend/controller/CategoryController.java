@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zblog.biz.CategoryManager;
 import com.zblog.core.dal.entity.Category;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.util.CollectionUtils;
 import com.zblog.core.util.IdGenerator;
 import com.zblog.service.CategoryService;
@@ -37,14 +37,14 @@ public class CategoryController{
   @ResponseBody
   @RequestMapping(value = "/index", method = RequestMethod.GET)
   public Object data(){
-    List<MapContainer> list = categoryManager.listAsTree();
-    for(MapContainer temp : list){
+    List<JMap> list = categoryManager.listAsTree();
+    for(JMap temp : list){
       temp.put("text", temp.remove("name"));
-      List<MapContainer> nodes = temp.get("nodes");
+      List<JMap> nodes = temp.getAs("nodes");
       if(CollectionUtils.isEmpty(nodes))
         continue;
 
-      for(MapContainer child : nodes){
+      for(JMap child : nodes){
         child.put("text", child.remove("name"));
         child.put("icon", "glyphicon glyphicon-star");
       }
@@ -56,7 +56,7 @@ public class CategoryController{
   @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
   public Object insert(Category category, String parent){
-    MapContainer form = CategoryFormValidator.validateInsert(category);
+    JMap form = CategoryFormValidator.validateInsert(category);
     if(!form.isEmpty()){
       return form.put("success", false);
     }
@@ -64,14 +64,14 @@ public class CategoryController{
     category.setId(IdGenerator.uuid19());
     category.setCreateTime(new Date());
     category.setLastUpdate(category.getCreateTime());
-    return new MapContainer("success", categoryService.insertChildren(category, parent));
+    return JMap.create("success", categoryService.insertChildren(category, parent));
   }
 
   @ResponseBody
   @RequestMapping(value = "/{categoryName}", method = RequestMethod.DELETE)
   public Object remove(@PathVariable String categoryName){
     categoryManager.remove(categoryName);
-    return new MapContainer("success", true);
+    return JMap.create("success", true);
   }
 
 }

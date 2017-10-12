@@ -18,7 +18,7 @@ import com.zblog.biz.OptionManager;
 import com.zblog.biz.PostManager;
 import com.zblog.core.dal.constants.PostConstants;
 import com.zblog.core.dal.entity.Post;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.PostTagHelper;
@@ -53,7 +53,7 @@ public class PostController{
   @ResponseBody
   @RequestMapping(method = RequestMethod.POST)
   public Object insert(Post post, String tags){
-    MapContainer form = PostFormValidator.validatePublish(post);
+    JMap form = PostFormValidator.validatePublish(post);
     if(!form.isEmpty()){
       return form.put("success", false);
     }
@@ -71,13 +71,13 @@ public class PostController{
         PostConstants.EXCERPT_LENGTH) : cleanTxt);
 
     postManager.insertPost(post, PostTagHelper.from(post, tags, post.getCreator()));
-    return new MapContainer("success", true);
+    return JMap.create("success", true);
   }
 
   @ResponseBody
   @RequestMapping(method = RequestMethod.PUT)
   public Object update(Post post, String tags){
-    MapContainer form = PostFormValidator.validateUpdate(post);
+    JMap form = PostFormValidator.validateUpdate(post);
     if(!form.isEmpty()){
       return form.put("success", false);
     }
@@ -92,20 +92,20 @@ public class PostController{
     post.setType(PostConstants.TYPE_POST);
     post.setLastUpdate(new Date());
     postManager.updatePost(post, PostTagHelper.from(post, tags, WebContextFactory.get().getUser().getId()));
-    return new MapContainer("success", true);
+    return JMap.create("success", true);
   }
 
   @ResponseBody
   @RequestMapping(value = "/fast", method = RequestMethod.PUT)
   public Object fast(Post post, String tags){
-    MapContainer form = PostFormValidator.validateFastUpdate(post);
+    JMap form = PostFormValidator.validateFastUpdate(post);
     if(!form.isEmpty()){
       return form.put("success", false);
     }
 
     Post old = postService.loadById(post.getId());
     if(old == null){
-      return form.put("success", false).put("msg", "非法请求");
+      return form.set("success", false).set("msg", "非法请求");
     }
 
     post.setContent(old.getContent());
@@ -114,14 +114,14 @@ public class PostController{
     post.setType(PostConstants.TYPE_POST);
     post.setLastUpdate(new Date());
     postManager.updatePost(post, PostTagHelper.from(post, tags, WebContextFactory.get().getUser().getId()), true);
-    return new MapContainer("success", true);
+    return JMap.create("success", true);
   }
 
   @ResponseBody
   @RequestMapping(value = "/{postid}", method = RequestMethod.DELETE)
   public Object remove(@PathVariable("postid") String postid){
     postManager.removePost(postid, PostConstants.TYPE_POST);
-    return new MapContainer("success", true);
+    return JMap.create("success", true);
   }
 
   @RequestMapping(value = "/edit", method = RequestMethod.GET)

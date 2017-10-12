@@ -1,14 +1,14 @@
 package com.zblog.web.front.validator;
 
 import com.zblog.core.dal.entity.Comment;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.util.CommRegular;
 import com.zblog.core.util.StringUtils;
 
 public class CommentValidator{
 
-  public static MapContainer validate(Comment comment){
-    MapContainer result = new MapContainer();
+  public static JMap validate(Comment comment){
+    JMap result = JMap.create();
     if(StringUtils.isBlank(comment.getPostid())){
       result.put("msg", "文章id不合法");
     }else if(StringUtils.isBlank(comment.getEmail()) || !comment.getEmail().matches(CommRegular.EMAIL)){
@@ -30,7 +30,7 @@ public class CommentValidator{
 
   /**
    * 判断是否包含中文，但不能判断是否是中文标点
-   * 
+   *
    * @param str
    * @return
    */

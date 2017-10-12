@@ -16,7 +16,7 @@ import com.zblog.core.dal.constants.OptionConstants;
 import com.zblog.core.dal.constants.PostConstants;
 import com.zblog.core.dal.entity.Comment;
 import com.zblog.core.dal.entity.Post;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.IdGenerator;
 import com.zblog.core.util.JsoupUtils;
@@ -47,17 +47,17 @@ public class CommentController{
       comment.setEmail(cookieUtil.getCookie("comment_author_email", false));
     }
 
-    MapContainer form = CommentValidator.validate(comment);
+    JMap form = CommentValidator.validate(comment);
     if(!form.isEmpty()){
       return form.put("success", false);
     }
 
     if(!"true".equals(optionsService.getOptionValue(OptionConstants.ALLOW_COMMENT)))
-      return new MapContainer("success", false).put("msg", "当前禁止评论");
+      return JMap.create("success", false).set("msg", "当前禁止评论");
 
     Post post = postService.loadById(comment.getPostid());
     if(post == null || PostConstants.COMMENT_CLOSE.equals(post.getCstatus())){
-      return new MapContainer("success", false).put("msg", "当前禁止评论");
+      return JMap.create("success", false).set("msg", "当前禁止评论");
     }
 
     if(StringUtils.isBlank(comment.getParent())){
@@ -78,7 +78,7 @@ public class CommentController{
     String content = HtmlUtils.htmlUnescape(comment.getContent());
     comment.setContent(JsoupUtils.simpleText(content));
     commentService.insert(comment);
-    return new MapContainer("success", true);
+    return JMap.create("success", true);
   }
 
 }

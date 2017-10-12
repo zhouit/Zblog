@@ -25,7 +25,7 @@ import com.zblog.core.dal.entity.Category;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.dal.entity.User;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.util.FileUtils;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.PostTagHelper;
@@ -35,7 +35,7 @@ import com.zblog.service.OptionsService;
 
 /**
  * wordpress站点导入，暂只支持导入文章、附件
- * 
+ *
  * @author zhou
  *
  */
@@ -53,18 +53,18 @@ public class WordPressManager{
   private OptionsService optionsService;
 
   public void importData(InputStream wordpressXml, User user){
-    List<MapContainer> list = WordPressReader.load(wordpressXml);
+    List<JMap> list = WordPressReader.load(wordpressXml);
     Map<String, Upload> links = new HashMap<>();
     /* wordpress站点域名 */
     String wpdomain = null;
-    for(MapContainer mc : list){
-      String itemType = mc.get("itemType");
+    for(JMap mc : list){
+      String itemType = mc.getStr("itemType");
       if("domain".equals(itemType)){
-        wpdomain = mc.get("domain");
+        wpdomain = mc.getStr("domain");
       }else if("attachment".equals(itemType)){
         Upload upload = importAttach(mc, user, wpdomain);
         if(upload != null){
-          links.put(mc.getAsString("attachUrl"), upload);
+          links.put(mc.getStr("attachUrl"), upload);
         }
       }else if("post".equals(itemType)){
         importPost(mc, user, wpdomain, links);
@@ -74,16 +74,16 @@ public class WordPressManager{
 
   /**
    * 导入指定附件
-   * 
+   *
    * @param attach
    * @param user
    * @param wpdomain
    *          用于下载图片时防盗链处理
    * @return
    */
-  private Upload importAttach(MapContainer attach, User user, String wpdomain){
-    String attachUrl = attach.get("attachUrl");
-    Date pubDate = attach.get("pubDate");
+  private Upload importAttach(JMap attach, User user, String wpdomain){
+    String attachUrl = attach.getStr("attachUrl");
+    Date pubDate = attach.getAs("pubDate");
     InputStream in = null;
     Upload upload = null;
     HttpURLConnection conn = null;
@@ -109,16 +109,16 @@ public class WordPressManager{
 
   /**
    * 导入指定文章
-   * 
+   *
    * @param post
    */
-  private void importPost(MapContainer post, User user, String wpdoamin, Map<String, Upload> links){
+  private void importPost(JMap post, User user, String wpdoamin, Map<String, Upload> links){
     Post p = new Post();
     p.setType(PostConstants.TYPE_POST);
     p.setId(optionManager.getNextPostid());
     p.setCreator(user.getId());
-    p.setTitle(post.getAsString("title"));
-    Category category = categoryService.loadByName(post.getAsString("category"));
+    p.setTitle(post.getStr("title"));
+    Category category = categoryService.loadByName(post.getStr("category"));
     if(category != null){
       p.setCategoryid(category.getId());
     }else{
@@ -126,20 +126,20 @@ public class WordPressManager{
     }
     p.setCreateTime((Date) post.get("pubDate"));
     p.setLastUpdate(p.getCreateTime());
-    String content = post.get("content");
+    String content = post.getStr("content");
     content = htmlImageOrLinkAdjust(content, wpdoamin, links);
     String cleanTxt = JsoupUtils.plainText(content);
     p.setExcerpt(cleanTxt.length() > PostConstants.EXCERPT_LENGTH ? cleanTxt.substring(0, PostConstants.EXCERPT_LENGTH)
         : cleanTxt);
     p.setContent(content);
 
-    List<String> tags = post.get("tags");
+    List<String> tags = post.getAs("tags");
     postManager.insertPost(p, PostTagHelper.from(p, tags, p.getCreator()));
   }
 
   /**
    * 这里使用jsoup,因为jaxb必须要求well-formed格式的xml文档
-   * 
+   *
    * @param html
    * @param wpdomain
    *          原始wordpress域名

@@ -27,12 +27,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.util.DateUtils;
 
 /**
  * WordPress导入工具
- * 
+ *
  * @author zhou
  *
  */
@@ -44,12 +44,12 @@ public final class WordPressReader{
 
   /**
    * 从wordpress的xml站点文件中加载数据
-   * 
+   *
    * @param xml
    * @return 返回有序链表，依次为domain、attachment、post
    */
-  public static List<MapContainer> load(InputStream xml){
-    List<MapContainer> list = new ArrayList<>();
+  public static List<JMap> load(InputStream xml){
+    List<JMap> list = new ArrayList<>();
 
     try{
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -59,7 +59,7 @@ public final class WordPressReader{
 
       XPath xpath = XPathFactory.newInstance().newXPath();
       String domain = (String) xpath.evaluate("/rss/channel/link/text()", doc, XPathConstants.STRING);
-      MapContainer link = new MapContainer();
+      JMap link = JMap.create();
       link.put("itemType", "domain");
       link.put("domain", domain);
       list.add(link);
@@ -68,7 +68,7 @@ public final class WordPressReader{
       NodeList items = (NodeList) xpath.evaluate("/rss/channel/item", doc, XPathConstants.NODESET);
       for(int i = 0; i < items.getLength(); i++){
         Element item = (Element) items.item(i);
-        MapContainer map = new MapContainer();
+        JMap map = JMap.create();
         String title = item.getElementsByTagName("title").item(0).getTextContent();
         map.put("title", title);
         String pubDate = item.getElementsByTagName("pubDate").item(0).getTextContent();
@@ -90,7 +90,7 @@ public final class WordPressReader{
             Element category = (Element) categorys.item(j);
             String categoryDomain = category.getAttribute("domain");
             if("post_tag".equals(categoryDomain)){
-              map.putIfAbsent("tags", new ArrayList<String>()).add(category.getTextContent());
+              map.putOrGet("tags", new ArrayList<String>()).add(category.getTextContent());
             }else if("category".equals(categoryDomain)){
               map.put("category", category.getTextContent());
             }

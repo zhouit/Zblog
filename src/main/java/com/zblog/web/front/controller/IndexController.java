@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zblog.biz.PostManager;
-import com.zblog.biz.aop.StaticTemplate;
 import com.zblog.core.WebConstants;
 import com.zblog.core.dal.constants.OptionConstants;
 import com.zblog.core.dal.constants.PostConstants;
@@ -33,8 +32,6 @@ import com.zblog.service.vo.PostVO;
 public class IndexController{
   @Autowired
   private PostManager postManager;
-  @Autowired
-  private StaticTemplate staticTemplate;
   @Autowired
   private OptionsService optionsService;
 

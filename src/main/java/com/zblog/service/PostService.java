@@ -11,7 +11,7 @@ import com.zblog.core.dal.entity.Category;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.mapper.BaseMapper;
 import com.zblog.core.dal.mapper.PostMapper;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.service.vo.PageVO;
 
@@ -132,7 +132,7 @@ public class PostService extends BaseService{
    * 
    * @return
    */
-  public List<MapContainer> listArchive(){
+  public List<JMap> listArchive(){
     return postMapper.listArchive();
   }
 

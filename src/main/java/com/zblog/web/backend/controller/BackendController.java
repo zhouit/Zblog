@@ -17,7 +17,7 @@ import com.zblog.biz.PostManager;
 import com.zblog.core.Constants;
 import com.zblog.core.dal.constants.PostConstants;
 import com.zblog.core.dal.entity.User;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.util.CookieUtil;
 import com.zblog.core.util.ServletUtils;
 import com.zblog.core.util.StringUtils;
@@ -92,7 +92,7 @@ public class BackendController{
 
   @RequestMapping(value = "/login", method = RequestMethod.POST)
   public String dashboard(LoginForm form, HttpServletRequest request, HttpServletResponse response){
-    MapContainer result = LoginFormValidator.validateLogin(form);
+    JMap result = LoginFormValidator.validateLogin(form);
     if(!result.isEmpty()){
       request.setAttribute("msg", result.get("msg"));
       return "backend/login";

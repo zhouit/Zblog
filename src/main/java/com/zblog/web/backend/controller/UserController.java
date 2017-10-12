@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zblog.core.dal.entity.User;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.util.IdGenerator;
 import com.zblog.core.util.StringUtils;
 import com.zblog.service.UserService;
@@ -38,7 +38,7 @@ public class UserController{
   @RequestMapping(method = RequestMethod.POST)
   @RequiresRoles("admin")
   public String insert(User user, String repass, Model model){
-    MapContainer form = UserFormValidator.validateInsert(user, repass);
+    JMap form = UserFormValidator.validateInsert(user, repass);
     if(!form.isEmpty()){
       model.addAllAttributes(form);
       return "backend/user/edit";
@@ -54,7 +54,7 @@ public class UserController{
 
   @RequestMapping(method = RequestMethod.PUT)
   public String update(User user, String repass, Model model){
-    MapContainer form = UserFormValidator.validateUpdate(user, repass);
+    JMap form = UserFormValidator.validateUpdate(user, repass);
     if(!form.isEmpty()){
       model.addAllAttributes(form);
       model.addAttribute("user", user);
@@ -71,7 +71,7 @@ public class UserController{
   @RequiresRoles("admin")
   public Object remove(@PathVariable("userid") String userid){
     userService.deleteById(userid);
-    return new MapContainer("success", true);
+    return JMap.create("success", true);
   }
 
   @RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -89,7 +89,7 @@ public class UserController{
 
   @RequestMapping(value = "/my", method = RequestMethod.PUT)
   public String upmy(User user, String repass, Model model){
-    MapContainer form = UserFormValidator.validateMy(user, repass);
+    JMap form = UserFormValidator.validateMy(user, repass);
     if(!form.isEmpty()){
       model.addAllAttributes(form);
       model.addAttribute("my", user);

@@ -1,14 +1,14 @@
 package com.zblog.web.backend.form.validator;
 
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.util.StringUtils;
 import com.zblog.web.backend.form.GeneralOption;
 import com.zblog.web.backend.form.PostOption;
 
 public class OptionFormValidator{
 
-  public static MapContainer validateGeneral(GeneralOption option){
-    MapContainer form = new MapContainer();
+  public static JMap validateGeneral(GeneralOption option){
+	  JMap form = JMap.create();
     if(StringUtils.isBlank(option.getTitle())){
       form.put("title", "需填写站点名称名称");
     }
@@ -28,8 +28,8 @@ public class OptionFormValidator{
     return form;
   }
 
-  public static MapContainer validatePost(PostOption option){
-    MapContainer form = new MapContainer();
+  public static JMap validatePost(PostOption option){
+	  JMap form = JMap.create();
     if(option.getMaxshow() < 1){
       form.put("maxshow", "格式错误");
     }

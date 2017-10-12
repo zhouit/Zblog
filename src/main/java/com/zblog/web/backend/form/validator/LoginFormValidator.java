@@ -1,6 +1,6 @@
 package com.zblog.web.backend.form.validator;
 
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.util.CommRegular;
 import com.zblog.core.util.StringUtils;
 import com.zblog.web.backend.form.LoginForm;
@@ -10,15 +10,15 @@ public class LoginFormValidator{
 
   /**
    * 设置防止恶意登录token,由spring注入
-   * 
+   *
    * @param guard
    */
   public static void setLoginGuard(String guard){
     LoginFormValidator.guard = guard;
   }
 
-  public static MapContainer validateLogin(LoginForm form){
-    MapContainer result = new MapContainer();
+  public static JMap validateLogin(LoginForm form){
+	  JMap result = JMap.create();
     /* 防止用户恶意登录 */
     if(!guard.equals(form.getGuard())){
       result.put("msg", "请不要尝试登录了!");

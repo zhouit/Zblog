@@ -5,9 +5,9 @@ import java.util.List;
 
 /**
  * 数据库分页组件 在service层构造PageModel,添加查询参数insertQuery 在sql中不用写limit语句
- * 
+ *
  * @author zhou
- * 
+ *
  */
 public class PageModel<T> {
   private static final int PAGE_SIZE = 10;
@@ -19,7 +19,7 @@ public class PageModel<T> {
 
   private List<T> content;
   // 查询参数
-  private MapContainer query;
+  private JMap query;
 
   public PageModel(int pageIndex){
     this(pageIndex, PAGE_SIZE);
@@ -28,7 +28,7 @@ public class PageModel<T> {
   public PageModel(int pageIndex, int pageSize){
     this.pageIndex = pageIndex;
     this.pageSize = pageSize;
-    this.query = new MapContainer();
+    this.query = JMap.create();
     this.content = new ArrayList<T>();
   }
 
@@ -73,14 +73,14 @@ public class PageModel<T> {
     return this;
   }
 
-  public PageModel<T> insertQuerys(MapContainer map){
+  public PageModel<T> insertQuerys(JMap map){
     if(map != null)
       query.putAll(map);
 
     return this;
   }
 
-  public MapContainer getQuery(){
+  public JMap getQuery(){
     return query;
   }
 
@@ -94,7 +94,7 @@ public class PageModel<T> {
 
   /**
    * 生成查询数量sql
-   * 
+   *
    * @return
    */
   public String countSql(String sql){
@@ -112,7 +112,7 @@ public class PageModel<T> {
 
   /**
    * 生成分页sql
-   * 
+   *
    * @return
    */
   public String pageSql(String sql){

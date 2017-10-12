@@ -5,12 +5,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.zblog.core.dal.entity.Category;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 
 @SuppressWarnings("unchecked")
 public interface CategoryMapper extends BaseMapper{
 
-  List<MapContainer> list();
+  List<JMap> list();
 
   Category loadByName(String name);
 

@@ -19,13 +19,12 @@ import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.entity.Tag;
 import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.dal.entity.User;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.core.plugin.TreeUtils;
 import com.zblog.core.util.CollectionUtils;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.service.CategoryService;
-import com.zblog.service.OptionsService;
 import com.zblog.service.PostService;
 import com.zblog.service.TagService;
 import com.zblog.service.UploadService;
@@ -39,8 +38,6 @@ public class PostManager{
   private PostService postService;
   @Autowired
   private UploadService uploadService;
-  @Autowired
-  private OptionsService optionsService;
   @Autowired
   private IndexManager postIndexManager;
   @Autowired
@@ -68,7 +65,7 @@ public class PostManager{
 
   /**
    * 插入文章，同时更新上传文件的postid
-   * 
+   *
    * @param post
    * @param tags
    */
@@ -88,7 +85,7 @@ public class PostManager{
 
   /**
    * 更新文章,先重置以前文件对应的附件的postid,再更新文章对应的postid
-   * 
+   *
    * @param post
    * @param tags
    * @return 更新文章影响记录数
@@ -120,7 +117,7 @@ public class PostManager{
 
   /**
    * 删除文章,同时删除文章对应的上传记录,及其文件
-   * 
+   *
    * @param postid
    * @param postType
    *          post类型(文章or页面),注：此参数为给aop使用
@@ -196,19 +193,19 @@ public class PostManager{
   }
 
   public PageModel<PostVO> search(String word, int pageIndex){
-    PageModel<MapContainer> page = postIndexManager.search(word, pageIndex);
+    PageModel<JMap> page = postIndexManager.search(word, pageIndex);
     PageModel<PostVO> result = new PageModel<PostVO>(page.getPageIndex(), page.getPageSize());
     result.setTotalCount(page.getTotalCount());
     result.insertQuery("word", word);
     List<PostVO> content = new ArrayList<>(page.getContent().size());
     /* 填充其他属性，更好的做法是：搜索结果只包含对象id，详细资料到数据库查询(缓存) */
-    for(MapContainer mc : page.getContent()){
-      PostVO all = loadReadById(mc.getAsString("id"));
+    for(JMap mc : page.getContent()){
+      PostVO all = loadReadById(mc.getStr("id"));
       PostVO copy = new PostVO();
       // 此处需要copy，否则会影响缓存内容
       BeanUtils.copyProperties(all, copy, new String[]{ "title", "excerpt" });
-      copy.setTitle(mc.getAsString("title"));
-      copy.setExcerpt(mc.getAsString("excerpt"));
+      copy.setTitle(mc.getStr("title"));
+      copy.setExcerpt(mc.getStr("excerpt"));
 
       content.add(copy);
     }
@@ -219,7 +216,7 @@ public class PostManager{
 
   /**
    * 去掉图片中src地址的http域名前缀
-   * 
+   *
    * @param imgs
    * @return
    */

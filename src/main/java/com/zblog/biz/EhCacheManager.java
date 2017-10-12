@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.stereotype.Component;
 
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 
 @Component
 public class EhCacheManager{
@@ -21,14 +21,14 @@ public class EhCacheManager{
 
   /**
    * 获取缓存数据分析
-   * 
+   *
    * @return
    */
-  public Collection<MapContainer> stats(){
+  public Collection<JMap> stats(){
     Collection<String> cns = manager.getCacheNames();
-    List<MapContainer> list = new ArrayList<>(cns.size());
+    List<JMap> list = new ArrayList<>(cns.size());
     for(String cacheName : cns){
-      MapContainer temp = new MapContainer("name", cacheName);
+      JMap temp = JMap.create("name", cacheName);
       Ehcache cache = manager.getCacheManager().getEhcache(cacheName);
       Statistics gateway = cache.getStatistics();
       /* 毫秒 */

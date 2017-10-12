@@ -13,7 +13,7 @@ import com.zblog.core.WebConstants;
 import com.zblog.core.dal.constants.OptionConstants;
 import com.zblog.core.dal.constants.PostConstants;
 import com.zblog.core.dal.entity.Post;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.util.NumberUtils;
 import com.zblog.service.LinkService;
 import com.zblog.service.OptionsService;
@@ -28,9 +28,9 @@ import freemarker.template.TemplateHashModel;
 
 /**
  * 静态化组件
- * 
+ *
  * @author zhou
- * 
+ *
  */
 @Component
 public class StaticTemplate{
@@ -52,8 +52,7 @@ public class StaticTemplate{
    * 静态化导航栏
    */
   public void staticHeader(){
-    MapContainer map = new MapContainer();
-    map.put("domain", WebConstants.getDomain());
+    JMap map = JMap.create("domain", WebConstants.getDomain());
     map.put("title", optionsService.getOptionValue(OptionConstants.TITLE));
     map.put("subtitle", optionsService.getOptionValue(OptionConstants.SUBTITLE));
     map.put("categorys", categoryManager.listAsTree());
@@ -69,7 +68,7 @@ public class StaticTemplate{
    * 静态化标签云
    */
   private void staticCloudTags(){
-    MapContainer map = new MapContainer();
+    JMap map = JMap.create();
     map.put("tags", tagService.list());
     map.put("domain", WebConstants.getDomain());
     try{
@@ -89,7 +88,7 @@ public class StaticTemplate{
    * 静态化文章归档
    */
   private void staticArchive(){
-    MapContainer map = new MapContainer();
+    JMap map = JMap.create();
     map.put("archives", postService.listArchive());
     map.put("domain", WebConstants.getDomain());
 
@@ -103,8 +102,7 @@ public class StaticTemplate{
    * 静态化友情链接
    */
   public void staticLinks(){
-    MapContainer map = new MapContainer();
-    map.put("links", linksService.list());
+    JMap map = JMap.create("links", linksService.list());
 
     FreeMarkerUtils.doProcessTemplate("/link.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
         + "/common/link.html"), map);
@@ -113,7 +111,7 @@ public class StaticTemplate{
 
   /**
    * 静态化文章,同时静态化最近发表or顶部导航页面栏
-   * 
+   *
    * @param post
    */
   public void postInsertOrUpdate(Post post){
@@ -126,12 +124,12 @@ public class StaticTemplate{
 
   /**
    * 静态化最近发表或者静态还顶部导航
-   * 
+   *
    * @param ispost
    */
   private void staticRecentOrHeader(boolean ispost){
     if(ispost){
-      MapContainer param = new MapContainer("domain", WebConstants.getDomain());
+      JMap param = JMap.create("domain", WebConstants.getDomain());
       param.put("posts", postManager.listRecent(10, PostConstants.POST_CREATOR_ALL));
       FreeMarkerUtils.doProcessTemplate("/recent.html", new File(WebConstants.APPLICATION_PATH, WebConstants.PREFIX
           + "/common/recent.html"), param);

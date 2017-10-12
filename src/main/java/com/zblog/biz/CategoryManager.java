@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zblog.core.dal.constants.OptionConstants;
 import com.zblog.core.dal.entity.Category;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.util.CollectionUtils;
 import com.zblog.service.CategoryService;
 import com.zblog.service.OptionsService;
@@ -27,7 +27,7 @@ public class CategoryManager{
 
   /**
    * 删除分类同时,将该分类下的文章移动到默认分类
-   * 
+   *
    * @param cname
    * @return
    */
@@ -46,28 +46,28 @@ public class CategoryManager{
     categoryService.remove(category);
   }
 
-  public List<MapContainer> listAsTree(){
-    List<MapContainer> preOrder = categoryService.list();
+  public List<JMap> listAsTree(){
+    List<JMap> preOrder = categoryService.list();
     if(CollectionUtils.isEmpty(preOrder))
       return Collections.emptyList();
 
     /* 根据一棵树的先序遍历集合还原成一颗树 */
-    MapContainer root = preOrder.get(0).clone();
+    JMap root = JMap.create(preOrder.get(0));
     for(int i = 1; i < preOrder.size(); i++){
-      MapContainer current = preOrder.get(i).clone();
-      int level = current.getAsInteger("level");
+      JMap current = JMap.create(preOrder.get(i));
+      int level = current.getInt("level");
       current.put("level", level - 1);
-      MapContainer parent = getLastParentByLevel(root, level - 1);
-      parent.putIfAbsent("nodes", new ArrayList<MapContainer>()).add(current);
+      JMap parent = getLastParentByLevel(root, level - 1);
+      parent.putOrGet("nodes", new ArrayList<JMap>()).add(current);
     }
 
-    return root.get("nodes");
+    return root.getAs("nodes");
   }
 
-  private static MapContainer getLastParentByLevel(MapContainer mc, int currentlevel){
-    MapContainer current = mc;
+  private static JMap getLastParentByLevel(JMap mc, int currentlevel){
+    JMap current = mc;
     for(int i = 1; i < currentlevel; i++){
-      List<MapContainer> children = current.putIfAbsent("nodes", new ArrayList<MapContainer>());
+      List<JMap> children = current.putOrGet("nodes", new ArrayList<JMap>());
       current = children.get(children.size() - 1);
     }
 

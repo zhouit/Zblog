@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.zblog.core.dal.entity.Post;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.service.vo.PageVO;
 import com.zblog.service.vo.PostVO;
@@ -45,7 +45,7 @@ public interface PostMapper extends BaseMapper{
    * 
    * @return
    */
-  List<MapContainer> listArchive();
+  List<JMap> listArchive();
 
   int addRcount(@Param("postid") String postid, @Param("count") int count);
 

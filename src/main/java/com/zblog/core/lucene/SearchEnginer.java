@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import com.zblog.core.WebConstants;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.StringUtils;
 
@@ -222,7 +222,7 @@ public final class SearchEnginer{
    * @return
    * @throws IOException
    */
-  public List<MapContainer> like(int docNum, String[] fields) throws IOException{
+  public List<JMap> like(int docNum, String[] fields) throws IOException{
     MoreLikeThis mlt = new MoreLikeThis(DirectoryReader.open(writer, false));
     mlt.setFieldNames(fields); // 设定查找域
     mlt.setMinTermFreq(2); // 一篇文档中一个词语至少出现次数，小于这个值的词将被忽略,默认值是2
@@ -233,11 +233,11 @@ public final class SearchEnginer{
     return search(query, 5, null);
   }
 
-  public void searchHighlight(QueryBuilder builder, PageModel<MapContainer> model){
+  public void searchHighlight(QueryBuilder builder, PageModel<JMap> model){
     searchHighlight(builder, model, null);
   }
 
-  private ScoreDoc lastScoreDoc(IndexSearcher searcher, QueryBuilder builder, PageModel<MapContainer> model)
+  private ScoreDoc lastScoreDoc(IndexSearcher searcher, QueryBuilder builder, PageModel<JMap> model)
       throws IOException{
     if(model.getPageIndex() == 1)
       return null;
@@ -254,7 +254,7 @@ public final class SearchEnginer{
    * @param model
    * @param fields
    */
-  public void searchAfterHighlight(QueryBuilder builder, PageModel<MapContainer> model, Set<String> fields){
+  public void searchAfterHighlight(QueryBuilder builder, PageModel<JMap> model, Set<String> fields){
     IndexSearcher searcher = null;
     try{
       nmrt.waitForGeneration(reopenToken);
@@ -271,7 +271,7 @@ public final class SearchEnginer{
         else
           doc = searcher.doc(sd.doc, fields);
 
-        MapContainer mc = DocConverter.convert(doc, builder.getHighlighter());
+        JMap mc = DocConverter.convert(doc, builder.getHighlighter());
         for(String filter : builder.getHighlighter()){
           String content = doc.get(filter);
           if(content == null || content.trim().length() == 0){
@@ -302,7 +302,7 @@ public final class SearchEnginer{
    * @param fields
    *          需要从Document中获取的字段,为空时为全部获取
    */
-  public void searchHighlight(QueryBuilder builder, PageModel<MapContainer> model, Set<String> fields){
+  public void searchHighlight(QueryBuilder builder, PageModel<JMap> model, Set<String> fields){
     IndexSearcher searcher = null;
     try{
       nmrt.waitForGeneration(reopenToken);
@@ -320,7 +320,7 @@ public final class SearchEnginer{
         else
           doc = searcher.doc(sd[i].doc, fields);
 
-        MapContainer mc = DocConverter.convert(doc, builder.getHighlighter());
+        JMap mc = DocConverter.convert(doc, builder.getHighlighter());
         for(String filter : builder.getHighlighter()){
           String content = doc.get(filter);
           if(content == null || content.trim().length() == 0){
@@ -372,8 +372,8 @@ public final class SearchEnginer{
    * @param fields
    * @return
    */
-  private List<MapContainer> search(Query query, int max, Set<String> fields){
-    List<MapContainer> result = new LinkedList<MapContainer>();
+  private List<JMap> search(Query query, int max, Set<String> fields){
+    List<JMap> result = new LinkedList<JMap>();
     IndexSearcher searcher = null;
     try{
       nmrt.waitForGeneration(reopenToken);
@@ -388,7 +388,7 @@ public final class SearchEnginer{
         else
           doc = searcher.doc(sd[i].doc, fields);
 
-        MapContainer mc = DocConverter.convert(doc);
+        JMap mc = DocConverter.convert(doc);
         result.add(mc);
       }
 

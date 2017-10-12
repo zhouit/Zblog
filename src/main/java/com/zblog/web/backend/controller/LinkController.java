@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zblog.core.dal.entity.Link;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.util.IdGenerator;
 import com.zblog.core.util.StringUtils;
 import com.zblog.service.LinkService;
@@ -35,7 +35,7 @@ public class LinkController{
 
   @RequestMapping(method = RequestMethod.POST)
   public String insert(Link link, Model model){
-    MapContainer form = LinkFormValidator.validateInsert(link);
+    JMap form = LinkFormValidator.validateInsert(link);
     if(!form.isEmpty()){
       model.addAllAttributes(form);
       return "backend/link/edit";
@@ -52,7 +52,7 @@ public class LinkController{
 
   @RequestMapping(method = RequestMethod.PUT)
   public String update(Link link, Model model){
-    MapContainer form = LinkFormValidator.validateUpdate(link);
+    JMap form = LinkFormValidator.validateUpdate(link);
     if(!form.isEmpty()){
       model.addAttribute("link", link);
       model.addAttribute("msg", form.get("msg"));
@@ -68,7 +68,7 @@ public class LinkController{
   @RequestMapping(value = "/{linkid}", method = RequestMethod.DELETE)
   public Object remove(@PathVariable("linkid") String linkid){
     linkService.deleteById(linkid);
-    return new MapContainer("success", true);
+    return JMap.create("success", true);
   }
 
   @RequestMapping(value = "/edit", method = RequestMethod.GET)

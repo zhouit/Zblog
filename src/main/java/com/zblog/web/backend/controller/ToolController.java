@@ -16,7 +16,7 @@ import com.zblog.biz.EhCacheManager;
 import com.zblog.biz.WordPressManager;
 import com.zblog.core.dal.entity.User;
 import com.zblog.core.lucene.SearchEnginer;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.web.support.WebContextFactory;
 
 @Controller
@@ -30,7 +30,7 @@ public class ToolController{
 
   @RequestMapping(value = "/ehcache", method = RequestMethod.GET)
   public String ehcache(Model model){
-    Collection<MapContainer> caches = ehCacheManager.stats();
+    Collection<JMap> caches = ehCacheManager.stats();
     model.addAttribute("caches", caches);
     return "backend/tool/caches";
   }
@@ -39,7 +39,7 @@ public class ToolController{
   @RequestMapping(value = "/ehcache/${cacheName}", method = RequestMethod.DELETE)
   public Object clearEhcache(@PathVariable String cacheName){
     ehCacheManager.clear(cacheName);
-    return new MapContainer("success", true);
+    return JMap.create("success", true);
   }
 
   @ResponseBody

@@ -10,7 +10,6 @@ import com.zblog.core.dal.constants.CategoryConstants;
 import com.zblog.core.dal.entity.Category;
 import com.zblog.core.dal.mapper.BaseMapper;
 import com.zblog.core.dal.mapper.CategoryMapper;
-import com.zblog.core.dal.mapper.PostMapper;
 import com.zblog.core.util.IdGenerator;
 import com.zblog.core.util.StringUtils;
 
@@ -18,8 +17,6 @@ import com.zblog.core.util.StringUtils;
 public class CategoryService extends BaseService{
   @Autowired
   private CategoryMapper categoryMapper;
-  @Autowired
-  private PostMapper postMapper;
 
   @Transactional
   public boolean insertChildren(Category category, String parentName){
@@ -48,7 +45,7 @@ public class CategoryService extends BaseService{
 
   /**
    * 此方法只被CategoryManager调用
-   * 
+   *
    * @param category
    * @return
    */
@@ -63,7 +60,7 @@ public class CategoryService extends BaseService{
 
   /**
    * 获取指定分类的子分类
-   * 
+   *
    * @param category
    * @return
    */

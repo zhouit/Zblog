@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.zblog.biz.OptionManager;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.util.CollectionUtils;
 import com.zblog.service.CategoryService;
 import com.zblog.service.email.MailSenderService;
@@ -38,7 +38,7 @@ public class OptionsController{
   @RequestMapping(value = "/general", method = RequestMethod.POST)
   public String updateGeneral(GeneralOption form, Model model){
     model.addAttribute("form", form);
-    MapContainer result = OptionFormValidator.validateGeneral(form);
+    JMap result = OptionFormValidator.validateGeneral(form);
     if(!result.isEmpty()){
       model.addAllAttributes(result);
       return "backend/options/general";
@@ -62,7 +62,7 @@ public class OptionsController{
     model.addAttribute("categorys", categoryService.list());
     model.addAttribute("form", form);
 
-    MapContainer result = OptionFormValidator.validatePost(form);
+    JMap result = OptionFormValidator.validatePost(form);
     if(!result.isEmpty()){
       model.addAllAttributes(result);
       return "backend/options/post";
@@ -81,7 +81,7 @@ public class OptionsController{
 
   @RequestMapping(value = "/email", method = RequestMethod.POST)
   public String updateMail(MailOption form, Model model){
-    MapContainer result = MailFormValidator.validate(form);
+    JMap result = MailFormValidator.validate(form);
     if(!CollectionUtils.isEmpty(result)){
       model.addAllAttributes(result);
       return "backend/options/email";

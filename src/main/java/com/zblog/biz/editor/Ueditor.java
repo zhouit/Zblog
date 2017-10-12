@@ -12,25 +12,25 @@ import org.springframework.web.multipart.MultipartFile;
 import com.zblog.biz.UploadManager;
 import com.zblog.core.WebConstants;
 import com.zblog.core.dal.entity.Upload;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.web.support.ServletRequestReader;
 import com.zblog.web.support.WebContextFactory;
 
 /**
  * ueditor上传参数见:http://fex-team.github.io/ueditor/#dev-request_specification
- * 
+ *
  * @author zhou
- * 
+ *
  */
 @Component
 public class Ueditor{
   @Autowired
   private UploadManager uploadManager;
 
-  public MapContainer server(ServletRequestReader reader){
+  public JMap server(ServletRequestReader reader){
     String action = reader.getAsString("action");
 
-    MapContainer result = null;
+    JMap result = null;
     if("config".equals(action)){
       result = config();
     }else if("uploadimage".equals(action)){
@@ -40,14 +40,14 @@ public class Ueditor{
     }else if("uploadfile".equals(action)){
 
     }else{
-      result = new MapContainer("state", "SUCCESS");
+      result = JMap.create("state", "SUCCESS");
     }
 
     return result;
   }
 
-  private MapContainer config(){
-    MapContainer config = new MapContainer();
+  private JMap config(){
+    JMap config = JMap.create();
     /* 上传图片配置项 */
     config.put("imageActionName", "uploadimage");
     config.put("imageFieldName", "upfile");
@@ -77,7 +77,7 @@ public class Ueditor{
     return config;
   }
 
-  public MapContainer uploadImage(ServletRequestReader reader){
+  public JMap uploadImage(ServletRequestReader reader){
     MultipartFile file = reader.getFile("upfile");
     Upload upload = null;
     try(InputStream in = file.getInputStream()){
@@ -89,10 +89,10 @@ public class Ueditor{
     }
 
     if(upload == null){
-      return new MapContainer("state", "文件上传失败");
+      return JMap.create("state", "文件上传失败");
     }
 
-    MapContainer mc = new MapContainer("state", "SUCCESS");
+    JMap mc = JMap.create("state", "SUCCESS");
     mc.put("original", upload.getName());
     mc.put("title", upload.getName());
     mc.put("url", WebConstants.getDomain() + upload.getPath());

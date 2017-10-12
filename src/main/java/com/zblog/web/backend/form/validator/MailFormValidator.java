@@ -1,13 +1,13 @@
 package com.zblog.web.backend.form.validator;
 
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.util.StringUtils;
 import com.zblog.web.backend.form.MailOption;
 
 public class MailFormValidator{
 
-  public static MapContainer validate(MailOption form){
-    MapContainer result = new MapContainer();
+  public static JMap validate(MailOption form){
+	  JMap result = JMap.create();
     if(StringUtils.isBlank(form.getHost())){
       result.put("host", "请输入host");
     }

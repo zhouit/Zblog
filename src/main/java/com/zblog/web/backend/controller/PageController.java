@@ -19,7 +19,7 @@ import com.zblog.biz.PostManager;
 import com.zblog.core.dal.constants.PostConstants;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.entity.Tag;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.StringUtils;
@@ -50,7 +50,7 @@ public class PageController{
   @RequestMapping(method = RequestMethod.POST)
   public Object insert(Post post){
     post.setType(PostConstants.TYPE_PAGE);
-    MapContainer form = PostFormValidator.validatePublish(post);
+    JMap form = PostFormValidator.validatePublish(post);
     if(!form.isEmpty()){
       return form.put("success", false);
     }
@@ -65,14 +65,14 @@ public class PageController{
     post.setContent(JsoupUtils.filter(content));
 
     postManager.insertPost(post, Collections.<Tag> emptyList());
-    return new MapContainer("success", true);
+    return JMap.create("success", true);
   }
 
   @ResponseBody
   @RequestMapping(method = RequestMethod.PUT)
   public Object update(Post post){
     post.setType(PostConstants.TYPE_PAGE);
-    MapContainer form = PostFormValidator.validateUpdate(post);
+    JMap form = PostFormValidator.validateUpdate(post);
     if(!form.isEmpty()){
       return form.put("success", false);
     }
@@ -82,14 +82,14 @@ public class PageController{
     post.setLastUpdate(new Date());
 
     postManager.updatePost(post, Collections.<Tag> emptyList());
-    return new MapContainer("success", true);
+    return JMap.create("success", true);
   }
 
   @ResponseBody
   @RequestMapping(value = "/{postid}", method = RequestMethod.DELETE)
   public Object remove(@PathVariable("postid") String postid){
     postManager.removePost(postid, PostConstants.TYPE_PAGE);
-    return new MapContainer("success", true);
+    return JMap.create("success", true);
   }
 
   @RequestMapping(value = "/edit", method = RequestMethod.GET)

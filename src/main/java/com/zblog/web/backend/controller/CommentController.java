@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zblog.biz.CommentManager;
 import com.zblog.core.dal.constants.CommentConstants;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.plugin.PageModel;
 import com.zblog.service.CommentService;
 
@@ -33,7 +33,7 @@ public class CommentController{
       @RequestParam(value = "type", defaultValue = "all") String type, Model model){
     Collection<String> status = "all".equals(type) ? Arrays.asList(CommentConstants.TYPE_APPROVE,
         CommentConstants.TYPE_WAIT) : Arrays.asList(type);
-    PageModel<MapContainer> pageModel = commentService.listByStatus(page, 15, status);
+    PageModel<JMap> pageModel = commentService.listByStatus(page, 15, status);
     model.addAttribute("page", pageModel);
     model.addAttribute("type", type);
     model.addAttribute("stat", commentService.listCountByGroupStatus());
@@ -44,12 +44,12 @@ public class CommentController{
   @RequestMapping(value = "/{commentid}", method = RequestMethod.DELETE)
   public Object remove(@PathVariable("commentid") String commentid){
     commentManager.deleteComment(commentid);
-    return new MapContainer("success", true);
+    return JMap.create("success", true);
   }
 
   /**
    * 修改评论状态
-   * 
+   *
    * @param commentid
    * @param status
    * @return
@@ -58,7 +58,7 @@ public class CommentController{
   @RequestMapping(value = "/{commentid}", method = RequestMethod.PUT)
   public Object approve(@PathVariable("commentid") String commentid, String status){
     commentManager.setStatus(commentid, status);
-    return new MapContainer("success", true);
+    return JMap.create("success", true);
   }
 
 }

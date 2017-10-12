@@ -24,7 +24,7 @@ import com.zblog.core.dal.entity.Category;
 import com.zblog.core.dal.entity.Post;
 import com.zblog.core.dal.entity.Upload;
 import com.zblog.core.dal.entity.User;
-import com.zblog.core.plugin.MapContainer;
+import com.zblog.core.plugin.JMap;
 import com.zblog.core.util.JsoupUtils;
 import com.zblog.core.util.PostTagHelper;
 import com.zblog.core.util.StringUtils;
@@ -36,9 +36,9 @@ import com.zblog.service.UserService;
 import com.zblog.service.vo.PostVO;
 
 /**
- * 
+ *
  * @author zhou
- * 
+ *
  */
 @Component
 public class MetaWeblogManager{
@@ -65,11 +65,10 @@ public class MetaWeblogManager{
       loginError();
 
     Post post = postService.loadById(postid);
-    MapContainer mc = new MapContainer();
-    mc.put("dateCreated", post.getCreateTime()).put("userid", user.getId());
-    mc.put("postid", post.getId()).put("description", post.getContent());
-    mc.put("title", post.getTitle()).put("link", WebConstants.getDomainLink("/posts/" + postid))
-        .put("permaLink", WebConstants.getDomainLink("/posts/" + postid));
+    JMap mc = JMap.create("dateCreated", post.getCreateTime()).set("userid", user.getId());
+    mc.set("postid", post.getId()).set("description", post.getContent());
+    mc.set("title", post.getTitle()).set("link", WebConstants.getDomainLink("/posts/" + postid))
+        .set("permaLink", WebConstants.getDomainLink("/posts/" + postid));
     Category category = categoryService.loadById(post.getCategoryid());
     mc.put("categories", Arrays.asList(category.getName()));
     mc.put("mt_keywords", StringUtils.join(tagService.listTagsByPost(postid), ","));
@@ -91,12 +90,12 @@ public class MetaWeblogManager{
     String type = file.getString("type");
 
     if(StringUtils.isBlank(type) || !type.startsWith("image/")){
-      return new MapContainer().put("faultCode", HttpServletResponse.SC_FORBIDDEN).put("faultString",
+      return JMap.create("faultCode", HttpServletResponse.SC_FORBIDDEN).set("faultString",
           "img_file_not_accept");
     }
 
     Upload upload = uploadManager.insertUpload(new ByteArrayResource(bits), new Date(), name, user.getId());
-    return new MapContainer("url", WebConstants.getDomainLink(upload.getPath()));
+    return JMap.create("url", WebConstants.getDomainLink(upload.getPath()));
   }
 
   public Object newPost(String blogid, String username, String pwd, XmlRpcStruct param, boolean publish){
@@ -172,11 +171,11 @@ public class MetaWeblogManager{
     if(user == null)
       loginError();
 
-    MapContainer mc = new MapContainer("isAdmin", false);
-    mc.put("blogid", user.getId()).put("blogName", optionsService.getOptionValue(OptionConstants.TITLE));
-    mc.put("xmlrpc", WebConstants.getDomainLink("/xmlrpc")).put("url", WebConstants.getDomainLink("/"));
+    JMap mc = JMap.create("isAdmin", false);
+    mc.set("blogid", user.getId()).set("blogName", optionsService.getOptionValue(OptionConstants.TITLE));
+    mc.set("xmlrpc", WebConstants.getDomainLink("/xmlrpc")).set("url", WebConstants.getDomainLink("/"));
 
-    return new MapContainer[]{ mc };
+    return new JMap[]{ mc };
   }
 
   public Object getCategories(String blogid, String username, String pwd){
@@ -184,18 +183,18 @@ public class MetaWeblogManager{
     if(user == null)
       loginError();
 
-    List<MapContainer> categories = categoryService.list();
-    List<MapContainer> result = new ArrayList<>(categories.size() - 1);
-    for(MapContainer category : categories){
-      if(CategoryConstants.ROOT.equals(category.getAsString("text")))
+    List<JMap> categories = categoryService.list();
+    List<JMap> result = new ArrayList<>(categories.size() - 1);
+    for(JMap category : categories){
+      if(CategoryConstants.ROOT.equals(category.getStr("text")))
         continue;
 
-      MapContainer mc = new MapContainer("categoryid", category.getAsString("id"))
-          .put("title", category.getAsString("name")).put("description", category.getAsString("name"))
-          .put("htmlUrl", WebConstants.getDomainLink("/categorys/" + category.getAsString("name"))).put("rssUrl", "");
+      JMap mc = JMap.create("categoryid", category.getStr("id"))
+          .set("title", category.getStr("name")).set("description", category.getStr("name"))
+          .set("htmlUrl", WebConstants.getDomainLink("/categorys/" + category.getStr("name"))).set("rssUrl", "");
       result.add(mc);
     }
-    
+
     return result;
   }
 
@@ -204,11 +203,11 @@ public class MetaWeblogManager{
     if(user == null)
       loginError();
 
-    List<MapContainer> result = new ArrayList<>();
-    List<MapContainer> tags = tagService.list();
-    for(MapContainer mc : tags){
-      MapContainer tag = new MapContainer("tag_id", mc.get("name"));
-      tag.put("name", mc.get("name")).put("count", tag.get("count"));
+    List<JMap> result = new ArrayList<>();
+    List<JMap> tags = tagService.list();
+    for(JMap mc : tags){
+      JMap tag = JMap.create("tag_id", mc.get("name"));
+      tag.set("name", mc.get("name")).set("count", tag.get("count"));
       result.add(tag);
     }
 
@@ -221,14 +220,14 @@ public class MetaWeblogManager{
       loginError();
 
     List<PostVO> list = postManager.listRecent(numberOfPosts, user.getId());
-    MapContainer[] result = new MapContainer[list.size()];
+    JMap[] result = new JMap[list.size()];
     for(int i = 0; i < list.size(); i++){
       PostVO temp = list.get(i);
-      result[i] = new MapContainer("dateCreated", temp.getCreateTime()).put("userid", temp.getCreator())
-          .put("postid", temp.getId()).put("description", temp.getContent()).put("title", temp.getTitle())
-          .put("link", WebConstants.getDomainLink("/posts/" + temp.getId()))
-          .put("permaLink", WebConstants.getDomainLink("/posts/" + temp.getId()))
-          .put("categories", Arrays.asList(temp.getCategory().getName())).put("post_status", "publish");
+      result[i] = JMap.create("dateCreated", temp.getCreateTime()).set("userid", temp.getCreator())
+          .set("postid", temp.getId()).set("description", temp.getContent()).set("title", temp.getTitle())
+          .set("link", WebConstants.getDomainLink("/posts/" + temp.getId()))
+          .set("permaLink", WebConstants.getDomainLink("/posts/" + temp.getId()))
+          .set("categories", Arrays.asList(temp.getCategory().getName())).set("post_status", "publish");
     }
     return result;
   }
