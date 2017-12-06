@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   <typeAliases>
     <!-- 给实体Bean一个别名 -->
-    <typeAlias alias="MapContainer" type="com.zblog.core.plugin.MapContainer" />
+    <typeAlias alias="JMap" type="com.zblog.core.plugin.JMap" />
     <typeAlias alias="PageModel" type="com.zblog.core.plugin.PageModel" />
-    
+
     <typeAlias alias="User" type="com.zblog.core.dal.entity.User" />
     <typeAlias alias="Category" type="com.zblog.core.dal.entity.Category" />
     <typeAlias alias="Post" type="com.zblog.core.dal.entity.Post" />
@@ -14,7 +14,7 @@
     <typeAlias alias="Link" type="com.zblog.core.dal.entity.Link" />
     <typeAlias alias="Comment" type="com.zblog.core.dal.entity.Comment" />
     <typeAlias alias="Option" type="com.zblog.core.dal.entity.Option" />
-    
+
     <typeAlias alias="PostVO" type="com.zblog.service.vo.PostVO" />
     <typeAlias alias="PageVO" type="com.zblog.service.vo.PageVO" />
     <typeAlias alias="CommentVO" type="com.zblog.service.vo.CommentVO" />
